@@ -1,4 +1,4 @@
-package model.user;
+package model.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -8,12 +8,14 @@ import java.sql.SQLException;
 
 import config.OracleInfo;
 
-public class MemberDao {
-	private static MemberDao userDao = new MemberDao();
-	private MemberDao() {}
-	public static MemberDao getInstance() {
-		return userDao;
+public class TourDao {
+	private static TourDao reviewDao = new TourDao();
+	private TourDao() {}
+	public static TourDao getInstance() {
+		return reviewDao;
 	}
+	
+	
 	
 	
 	

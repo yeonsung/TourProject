@@ -1,4 +1,4 @@
-package model.review;
+package model.vo;
 
 import java.util.ArrayList;
 

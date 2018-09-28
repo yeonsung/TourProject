@@ -3,7 +3,7 @@ package service;
 import java.util.ArrayList;
 
 import model.PagingBean;
-import model.review.ReviewVO;
+import model.vo.ReviewVO;
 
 /*
  * 특정한 페이지의 게시물들을 저장하는 VO
