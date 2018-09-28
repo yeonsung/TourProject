@@ -1,0 +1,2 @@
+CREATE TABLE review_image(review_num NUMBER FOREIGN KEY REFERENCES review(review_num),
+			  review_image VARCHAR2(50) NOT NULL);

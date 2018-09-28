@@ -1,0 +1,19 @@
+CREATE TABLE review (review_num NUMBER PRIMARY KEY,
+		     location VARCHAR2(10) NOT NULL,
+		     city VARCHAR2(10) NOT NULL,
+		     id VARCHAR2(30) FOREIGN KEY REFERENCES user(id),
+		     title VARCHAR2(100) NOT NULL,
+		     content VARCHAR2(2000) NOT NULL,
+		     date DATE NOT NULL,
+		     like NUMBER DEFAULT 0);
+
+
+
+
+
+
+
+CREATE SEQUENCE review_seq
+		start with 1
+	        increment by 1
+		nocache;

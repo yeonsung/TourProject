@@ -1,0 +1,2 @@
+CREATE TABLE tag((review_num NUMBER FOREIGN KEY REFERENCES review(review_num),
+		 word VARCHAR2(100) NOT NULL);

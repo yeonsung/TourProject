@@ -1,0 +1,2 @@
+CREATE TABLE spot_image(spot_name VARCHAR2(40) FOREIGN KEY REFERENCES tourspot(spot_name),
+			spot_image VARCHAR2(50) NOT NULL);
