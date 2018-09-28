@@ -5,8 +5,11 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import config.OracleInfo;
+import jdk.management.resource.ResourceAccuracy;
+import query.review.ReviewStringQuery;
 
 public class TourDao {
 	private static TourDao reviewDao = new TourDao();
@@ -30,7 +33,26 @@ public class TourDao {
 		
 	}
 	
-	public Connection getConnect() throws SQLException {
+	public ArrayList<String> getCities(String location) throws SQLException{
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		ArrayList<String> cities = new ArrayList<String>();
+		try {
+			conn = getConnection();
+			ps = conn.prepareStatement(ReviewStringQuery.GETCITIES);
+			ps.setString(1, location);
+			
+			while(rs.next()) {
+				cities.add(rs.getString("city"));
+			}
+		}finally {
+			closeAll(rs, ps, conn);
+		}
+		return cities;
+	}
+	
+	public Connection getConnection() throws SQLException {
 		Connection conn = DriverManager.getConnection(OracleInfo.URL, OracleInfo.USER, OracleInfo.PASS);
 		System.out.println("디비 연결 성공!");
 		return conn;
