@@ -8,10 +8,10 @@ import java.sql.SQLException;
 
 import config.OracleInfo;
 
-public class UserDao {
-	private static UserDao userDao = new UserDao();
-	private UserDao() {}
-	public static UserDao getInstance() {
+public class MemberDao {
+	private static MemberDao userDao = new MemberDao();
+	private MemberDao() {}
+	public static MemberDao getInstance() {
 		return userDao;
 	}
 	

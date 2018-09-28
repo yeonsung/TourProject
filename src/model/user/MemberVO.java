@@ -2,7 +2,7 @@ package model.user;
 
 import java.util.ArrayList;
 
-public class UserVO {
+public class MemberVO {
 	String userName;
 	int ssn;
 	String id;
@@ -12,7 +12,7 @@ public class UserVO {
 	
 	ArrayList<Integer> scraps;
 	
-	UserVO(){}
+	MemberVO(){}
 	
 	
 	public String getUserName() {
