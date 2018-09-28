@@ -1,7 +1,7 @@
 CREATE TABLE review (review_num NUMBER PRIMARY KEY,
 		     location VARCHAR2(10) NOT NULL,
 		     city VARCHAR2(10) NOT NULL,
-		     id VARCHAR2(30) FOREIGN KEY REFERENCES user(id),
+		     id VARCHAR2(30) FOREIGN KEY REFERENCES member(id),
 		     title VARCHAR2(100) NOT NULL,
 		     content VARCHAR2(2000) NOT NULL,
 		     date DATE NOT NULL,

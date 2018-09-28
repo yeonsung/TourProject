@@ -1,2 +1,2 @@
-CREATE TABLE scrap(id VARCHAR2(30) FOREIGN KEY REFERENCES user(id),
+CREATE TABLE scrap(id VARCHAR2(30) FOREIGN KEY REFERENCES member(id),
 		   review_num NUMBER FOREIGN KEY REFERENCES review(review_num));
