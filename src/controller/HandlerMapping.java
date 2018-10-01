@@ -8,11 +8,17 @@ public class HandlerMapping {
 	}
 	
 	public Controller createController(String command) {
+		Controller controller = null;
+		
 		switch(command) {
-		case "":	//command
-			return /* Controller  */null;
+		case "myreview":	
+			controller = new MyReviewController();
+			break;
+		case "scrap":	
+			controller = new ScrapController();
+			break;
 		}
 		
-		return null;
+		return controller;
 	}
 }

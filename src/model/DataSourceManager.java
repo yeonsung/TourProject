@@ -1,9 +1,9 @@
-package model;
-/*
+/*package model;
+
  * DataSource를 하나 리턴받는 로직은 Dao클래스의 생성자 안에서 했었는데, (naming Service : Context lookup())
  * 
  * 이 부분을 DAO 생성자가 아니라 DataSource MAnager라는 별도의 class를 만들고 해당 로직 진행
- */
+ 
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -35,3 +35,4 @@ public class DataSourceManager {
 		return ds;
 	}
 }
+*/
