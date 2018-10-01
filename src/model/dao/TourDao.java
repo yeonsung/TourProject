@@ -193,6 +193,15 @@ public class TourDao {
 				list.add(new AttractionVO(rs.getString("spot_name"), rs.getString("address"), rs.getString("location"),
 						rs.getString("city"), rs.getString("info")));
 			}
+			for(AttractionVO vo : list) {
+				ps = conn.prepareStatement("SELECT spot_image FROM spot_image WHERE spot_name = ?");
+				ps.setString(1, vo.getSpotName());
+				rs = ps.executeQuery();
+				if(rs.next())
+					vo.setMainImage(rs.getString("spot_image"));
+			}
+			
+			ps = conn.prepareStatement("SELECT spot_image FROM spot_image WHERE ");
 		} finally {
 			closeAll(rs, ps, conn);
 		}

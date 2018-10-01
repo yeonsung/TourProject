@@ -7,6 +7,7 @@ public class AttractionVO {
 	String location; //시 도
 	String city; // 시 군 구
 	String info;
+	String mainImage;
 	ArrayList<String> images;
 	
 	
@@ -22,6 +23,14 @@ public class AttractionVO {
 	}
 	
 	
+	public String getMainImage() {
+		return mainImage;
+	}
+
+	public void setMainImage(String mainImage) {
+		this.mainImage = mainImage;
+	}
+
 	public String getSpotName() {
 		return spotName;
 	}
