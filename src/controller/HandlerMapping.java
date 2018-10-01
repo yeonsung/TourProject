@@ -8,11 +8,22 @@ public class HandlerMapping {
 	}
 	
 	public Controller createController(String command) {
+		Controller controller = null;
+		System.out.println(command);
 		switch(command) {
-		case "":	//command
-			return /* Controller  */null;
+
+		case "locationpage.do":	//command
+			return new GoLocationPageController();
+		case "myreviews.do":	
+			return new MyReviewController();
+		case "scrap.do":	
+			return new ScrapController();
+		case "delete.do":	
+			return new DeleteController();
 		}
 		
-		return null;
+		return controller;
 	}
+	
+	
 }
