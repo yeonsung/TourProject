@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.dao.TourDao;
 import model.vo.ReviewVO;
 
 public class MyReviewController implements Controller{
@@ -15,8 +16,11 @@ public class MyReviewController implements Controller{
  */
 	@Override
 	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String id = request.getParameter("id");
+		ArrayList<ReviewVO> rlist = TourDao.getInstance().getMyReview(id);
+		request.setAttribute("rlist", rlist);
 		
-		return null;
+		return new ModelAndView("myReview.jsp");
 	}
 
 }

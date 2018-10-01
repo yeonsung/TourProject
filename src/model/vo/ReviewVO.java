@@ -11,6 +11,17 @@ public class ReviewVO {
 	String content;
 	String date;
 	int like;
+	String mainImage;
+	public String getMainImage() {
+		return mainImage;
+	}
+
+
+	public void setMainImage(String mainImage) {
+		this.mainImage = mainImage;
+	}
+
+
 	ArrayList<String> tags;
 	ArrayList<String> comments;
 	ArrayList<String> images;

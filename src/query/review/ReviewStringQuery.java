@@ -8,4 +8,5 @@ public interface ReviewStringQuery {
 	String GET_MY_REVIEW = "select * from review where id=?";
 	String DELETE_REVIEW = "delete from review where review_num=?";
 	String UPDATE_REVIEW = "update review set location=?, city=?, title=?, content=? where review_num=?";
+	String TOTAL_SCRAP_COUNT = "select count(-1) from scrap";
 }

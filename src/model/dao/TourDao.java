@@ -47,6 +47,23 @@ public class TourDao {
 		closeAll(ps, conn);
 	}// closeAll
 	
+	public int totalScrapNumber() throws SQLException{
+		int count = 0;
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		try {
+			conn = getConnect();
+			ps = conn.prepareStatement(ReviewStringQuery.TOTAL_SCRAP_COUNT);
+			rs = ps.executeQuery();
+			if(rs.next()) count = rs.getInt(1);
+		} finally {
+			closeAll(rs, ps, conn);
+		}
+		return count;
+	}
+	
 	public ArrayList<ReviewVO> searchByTag(String tag) throws SQLException {
 	    Connection conn = null;
 	    PreparedStatement ps = null;
@@ -87,10 +104,18 @@ public class TourDao {
 			ps = conn.prepareStatement(ReviewStringQuery.GET_SCRAP_LIST);
 			ps.setString(1, id);
 			rs = ps.executeQuery();
+			
 			while(rs.next()) 
 				list.add(new ReviewVO(rs.getInt("review_num"), rs.getString("title"), rs.getString("id"), rs.getString("location")
 						, rs.getString("city"), rs.getString("content"), rs.getString("date_writing"), rs.getInt("likes")));
-			
+			for(ReviewVO vo : list) {
+				ps = conn.prepareStatement("SELECT review_image FROM review_image WHERE review_num=?");
+				ps.setInt(1,vo.getReviewNum());
+				rs = ps.executeQuery();
+				if(rs.next()) {
+					vo.setMainImage(rs.getString("review_image"));
+				}
+			}
 		} finally {
 			closeAll(ps, conn);
 		}
@@ -110,14 +135,14 @@ public class TourDao {
 			ps.setInt(1, reviewNum);
 			rs = ps.executeQuery();
 			while(rs.next()) 
-				new ReviewVO(rs.getInt("review_num"), rs.getString("title"), rs.getString("id"), rs.getString("location"),
+				rvo = new ReviewVO(rs.getInt("review_num"), rs.getString("title"), rs.getString("id"), rs.getString("location"),
 						rs.getString("city"), rs.getString("content"), rs.getString("date_writing"), rs.getInt("likes"));
 			
 		} finally {
 			closeAll(ps, conn);
 		}
 		
-		return null;
+		return rvo;
 	}
 	
 	public ArrayList<ReviewVO> getMyReview(String id) throws SQLException { // 내가 쓴 글 가져오기
@@ -134,7 +159,14 @@ public class TourDao {
 			while(rs.next()) 
 				list.add(new ReviewVO(rs.getInt("review_num"), rs.getString("title"), rs.getString("id"), rs.getString("location")
 						, rs.getString("city"), rs.getString("content"), rs.getString("date_writing"), rs.getInt("likes")));
-			
+			for(ReviewVO vo : list) {
+				ps = conn.prepareStatement("SELECT review_image FROM review_image WHERE review_num=?");
+				ps.setInt(1,vo.getReviewNum());
+				rs = ps.executeQuery();
+				if(rs.next()) {
+					vo.setMainImage(rs.getString("review_image"));
+				}
+			}
 		} finally {
 			closeAll(ps, conn);
 		}

@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -6,7 +9,6 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
 
 <style>
 	.contents{
@@ -105,8 +107,8 @@
 		                  	</a>
 		                  	<ul class="dropdown-menu">
 		                     	<li><a href="#"><span class="glyphicon glyphicon-log-out"></span>&nbsp;&nbsp;로그아웃</a></li>
-		                     	<li><a href="DispatcherServlet?command=myreview"><span class="glyphicon glyphicon-edit"></span>&nbsp;&nbsp;내가 쓴 글</a></li>
-		                     	<li><a href="DispatcherServlet?command=scrap&&id=yun"><span class="glyphicon glyphicon-bookmark"></span>&nbsp;&nbsp;스크랩</a></li>
+		                     	<li><a href="myreviews.do?id=yun"><span class="glyphicon glyphicon-edit"></span>&nbsp;&nbsp;내가 쓴 글</a></li>
+		                     	<li><a href="scrap.do?id=yun"><span class="glyphicon glyphicon-bookmark"></span>&nbsp;&nbsp;스크랩</a></li>
 		                     	<li><a href="#"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;글 작성</a></li>
 		                     	<li><a href="#"><span class="glyphicon glyphicon-cog"></span>&nbsp;&nbsp;정보 수정</a></li>
 		                  	</ul>
@@ -118,6 +120,21 @@
     	<div id="line"></div>
 	</nav>
 
-   <div style="height: 100px"></div>
+   	<div style="height: 100px"></div>
+   
+	<h1 align="center">Scrap</h1>
+	
+	<c:forEach items="${rlist}" var="rList">
+		<a href="#">
+			<div align="center" class="col-sm-4">
+				<hr>
+				${rList.date}<br>
+				<img src="${rList.mainImage}" width="350"><br>
+				${rList.title}
+				<hr>
+			</div>
+		</a>
+	</c:forEach>
+	
 </body>
 </html>
