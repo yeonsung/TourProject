@@ -2,6 +2,8 @@ package model.review;
 
 import java.util.ArrayList;
 
+import model.vo.CommentVO;
+
 public class ReviewVO {
 	int reviewNum; 
 	String title;
@@ -12,7 +14,7 @@ public class ReviewVO {
 	String date;
 	int like;
 	ArrayList<String> tags;
-	ArrayList<String> comments;
+	ArrayList<CommentVO> comments;
 	ArrayList<String> images;
 	
 	public ReviewVO() {}
@@ -73,10 +75,10 @@ public class ReviewVO {
 	public void setTags(ArrayList<String> tags) {
 		this.tags = tags;
 	}
-	public ArrayList<String> getComments() {
+	public ArrayList<CommentVO> getComments() {
 		return comments;
 	}
-	public void setComments(ArrayList<String> comments) {
+	public void setComments(ArrayList<CommentVO> comments) {
 		this.comments = comments;
 	}
 	public ArrayList<String> getImages() {
@@ -86,5 +88,40 @@ public class ReviewVO {
 	public void setImages(ArrayList<String> images) {
 		this.images = images;
 	}
+
+
+
+	public ReviewVO(int reviewNum, String title, String id, String location, String city, String content, String date,
+			int like) {
+		super();
+		this.reviewNum = reviewNum;
+		this.title = title;
+		this.id = id;
+		this.location = location;
+		this.city = city;
+		this.content = content;
+		this.date = date;
+		this.like = like;
+	}
+
+
+
+	public ReviewVO(int reviewNum, String title, String id, String location, String city, String content, String date,
+			int like, ArrayList<String> tags, ArrayList<CommentVO> comments, ArrayList<String> images) {
+		super();
+		this.reviewNum = reviewNum;
+		this.title = title;
+		this.id = id;
+		this.location = location;
+		this.city = city;
+		this.content = content;
+		this.date = date;
+		this.like = like;
+		this.tags = tags;
+		this.comments = comments;
+		this.images = images;
+	}
+	
+	
 	
 }

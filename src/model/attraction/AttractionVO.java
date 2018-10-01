@@ -14,6 +14,16 @@ public class AttractionVO {
 	public AttractionVO() {}
 	
 	
+	public AttractionVO(String spotName, String address, String location, String city, String info) {
+		super();
+		this.spotName = spotName;
+		this.address = address;
+		this.location = location;
+		this.city = city;
+		this.info = info;
+	}
+
+
 	public String getSpotName() {
 		return spotName;
 	}
