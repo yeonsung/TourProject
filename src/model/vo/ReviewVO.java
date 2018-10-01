@@ -12,11 +12,23 @@ public class ReviewVO {
 	String date;
 	int like;
 	ArrayList<String> tags;
-	ArrayList<String> comments;
+	ArrayList<CommentVO> comments;
 	ArrayList<String> images;
 	
 	public ReviewVO() {}
-	
+	public ReviewVO(int reviewNum, String title, String id, String location, String city, String content, String date,
+			int like) {
+		super();
+		this.reviewNum = reviewNum;
+		this.title = title;
+		this.id = id;
+		this.location = location;
+		this.city = city;
+		this.content = content;
+		this.date = date;
+		this.like = like;
+	}
+
 
 
 	public int getReviewNum() {
@@ -73,10 +85,12 @@ public class ReviewVO {
 	public void setTags(ArrayList<String> tags) {
 		this.tags = tags;
 	}
-	public ArrayList<String> getComments() {
+	
+	public ArrayList<CommentVO> getComments() {
 		return comments;
 	}
-	public void setComments(ArrayList<String> comments) {
+
+	public void setComments(ArrayList<CommentVO> comments) {
 		this.comments = comments;
 	}
 	public ArrayList<String> getImages() {

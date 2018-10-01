@@ -8,6 +8,19 @@ public class FestivalVO {
 	String startDate;
 	String endDate;
 	String agency;
+	
+	public FestivalVO(String festivalName, String festivalLocation, String location, 
+			String city, String startDate,
+			String endDate, String agency) {
+		super();
+		this.festivalName = festivalName;
+		this.festivalLocation = festivalLocation;
+		this.location = location;
+		this.city = city;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.agency = agency;
+	}
 	public String getFestivalName() {
 		return festivalName;
 	}

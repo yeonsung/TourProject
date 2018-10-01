@@ -9,10 +9,12 @@ public class HandlerMapping {
 	
 	public Controller createController(String command) {
 		switch(command) {
-		case "":	//command
-			return /* Controller  */null;
+		case "locationpage.do":	//command
+			return new GoLocationPageController();
 		}
 		
 		return null;
 	}
+	
+	
 }
