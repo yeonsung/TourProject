@@ -6,6 +6,14 @@ public class CommentVO {
 	String comment;
 	
 	
+	public CommentVO() {
+		super();
+	}
+	public CommentVO(String id, String comment) {
+		super();
+		this.id = id;
+		this.comment = comment;
+	}
 	public int getReviewNum() {
 		return reviewNum;
 	}

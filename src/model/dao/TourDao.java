@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import config.OracleInfo;
 import model.vo.AttractionVO;
+import model.vo.CommentVO;
 import model.vo.FestivalVO;
 import model.vo.ReviewVO;
 import query.review.ReviewStringQuery;
@@ -54,7 +55,34 @@ public class TourDao {
 		return cities;
 	}
 	
-	void addLike(int reviewNum) {
+	public ArrayList<ReviewVO> getBestReviews(String tag) throws SQLException {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		ArrayList<ReviewVO> rlist = new ArrayList<ReviewVO>();
+		try {
+			conn = getConnect();
+			ps = conn.prepareStatement(ReviewStringQuery.GET_BEST_REVIEWS);
+			ps.setString(1, tag);
+			rs = ps.executeQuery();
+			
+			ReviewVO rvo = null;
+			while(rs.next()) {
+				rvo = new ReviewVO();
+				rvo.setLocation(rs.getString("location"));
+				rvo.setTitle(rs.getString("title"));
+				rvo.setReviewNum(rs.getInt("review_num"));
+				rvo.setLike(rs.getInt("likes"));
+				rvo.setCity(rs.getString("city"));
+				rlist.add(rvo);
+			}
+		}finally {
+			closeAll(rs, ps, conn);
+		}
+		return rlist;
+	}
+	
+	public void addLike(int reviewNum) {
 		/*
 		 * 이 메서드가 호출되면 글번호 post_num인 리뷰의 like 수가 1 증가한다.
 		 */
@@ -66,22 +94,20 @@ public class TourDao {
 		// + review_num
 		try {
 			conn = getConnect();
-			String updateQuery = "update review set like=? where review_num=?";
-			ps = conn.prepareStatement(updateQuery);
+			ps = conn.prepareStatement(ReviewStringQuery.LIKE_ADD);
 			ps.setInt(1, reviewNum);
-			ps.setInt(2, reviewNum);
 			rs = ps.executeQuery();
 			if (rs.next()) {
-				System.out.println("reviewNum의 like가 1 증가! :: " + rs.getInt("like"));
+				System.out.println("reviewNum의 like가 1 증가! :: " + rs.getInt("likes"));
 			}
 		} catch (Exception e) {
 		}
 	}// addLike 희정쓰
 
-	/*public ArrayList<ReviewVO> getBestReview() throws SQLException {
+	public ArrayList<ReviewVO> getBestReviewByTag(String location , String tag) throws SQLException {
 		
-		 * 이 메서드가 호출되면.. DB에 저장된 모든 Review의 좋아요 수를 비교해서 일단은 상위 3개까지만 리스트로 리턴하기! 그리고 이
-		 * 리스트에 review_num이 tag 테이블에 있는 review_num이랑 같은 지 확인해서
+		 //* 이 메서드가 호출되면.. DB에 저장된 모든 Review의 좋아요 수를 비교해서 일단은 상위 3개까지만 리스트로 리턴하기! 그리고 이
+		// * 리스트에 review_num이 tag 테이블에 있는 review_num이랑 같은 지 확인해서
 		 
 		Connection conn = null;
 		PreparedStatement ps = null;
@@ -91,12 +117,14 @@ public class TourDao {
 		ReviewVO vo = null;
 		try {
 			conn = getConnect();
-			ps = conn.prepareStatement(ReviewStringQuery.BEST_REVIEW);				*****************************고치기********************************
+			ps = conn.prepareStatement(ReviewStringQuery.BEST_REVIEW_LOCATION_TAG);//				*****************************고치기********************************
+			ps.setString(1, tag);
+			ps.setString(2, location);
 			rs = ps.executeQuery();
 			while (rs.next()) {
 				vo = new ReviewVO();
 				vo.setReviewNum(rs.getInt("review_num"));
-				vo.setContent(rs.getString("content"));
+				vo.setTitle(rs.getString("title"));
 				vo.setLike(rs.getInt("likes"));
 				list.add(vo);
 			}
@@ -127,7 +155,7 @@ public class TourDao {
 		}
 		return list;
 	}// getBestReview 희정쓰
-*/
+
 	public ArrayList<FestivalVO> getFestivalInfo(String location) throws SQLException {
 		ArrayList<FestivalVO> list = new ArrayList<>();
 		Connection conn = null;
@@ -170,7 +198,7 @@ public class TourDao {
 		}
 
 		return list;
-	}// getAttraction 철진쓰
+	}// getAttraction 철진쓰			이미지!!!!
 
 	public void scrap(String id, int review_num) throws Exception {
 		Connection conn = null;
@@ -204,6 +232,8 @@ public class TourDao {
 						rs.getString("location"), rs.getString("city"), rs.getString("content"),
 						rs.getString("date_writing"), rs.getInt("likes"));
 			}
+			rvo.setImages(getImages(rvo.getReviewNum(), conn));
+			rvo.setComments(getComments(rvo.getReviewNum(), conn));
 			//코멘트. 이미지. 등등 가져와야함..
 		} finally {
 			closeAll(ps, conn);
@@ -211,6 +241,31 @@ public class TourDao {
 		return rvo;
 	} // checkReview 윤주쓰
 	
+	public ArrayList<String> getImages(int reviewNum,Connection conn) throws SQLException{
+		ArrayList<String> ilist = new ArrayList<String>();
+		PreparedStatement ps = conn.prepareStatement(ReviewStringQuery.GET_REVIEW_IMAGES);
+		ps.setInt(1, reviewNum);
+		ResultSet rs = ps.executeQuery();
+		while(rs.next()) {
+			ilist.add(rs.getString("review_image"));
+		}
+		if(rs!=null) rs.close();
+		if(ps!=null) ps.close();
+		return ilist;
+	}
+	
+	public ArrayList<CommentVO> getComments(int review_num,Connection conn) throws SQLException{
+		ArrayList<CommentVO> clist = new ArrayList<CommentVO>();
+		PreparedStatement ps = conn.prepareStatement(ReviewStringQuery.GET_REVIEW_COMMENTS);
+		ps.setInt(1, review_num);
+		ResultSet rs = ps.executeQuery();
+		while(rs.next()) {
+			clist.add(new CommentVO(rs.getString("id"),rs.getString("comment")));
+		}
+		if(rs!=null) rs.close();
+		if(ps!=null) ps.close();
+		return clist;
+	}
 	public Connection getConnect() throws SQLException {
 		Connection conn = DriverManager.getConnection(OracleInfo.URL, OracleInfo.USER, OracleInfo.PASS);
 		System.out.println("디비 연결 성공!");
