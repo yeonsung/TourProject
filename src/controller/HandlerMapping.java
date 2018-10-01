@@ -11,6 +11,13 @@ public class HandlerMapping {
 		switch(command) {
 		case "locationpage.do":	//command
 			return new GoLocationPageController();
+		case "myreviews.do":	
+			return new MyReviewController();
+		case "scrap.do":	
+			return new ScrapController();
+		case "delete.do":	
+			return new DeleteController();
+		
 		}
 		
 		return null;

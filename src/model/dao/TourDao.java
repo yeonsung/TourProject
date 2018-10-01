@@ -241,6 +241,151 @@ public class TourDao {
 		return rvo;
 	} // checkReview 윤주쓰
 	
+	public int totalScrapNumber() throws SQLException{
+		int count = 0;
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		try {
+			conn = getConnect();
+			ps = conn.prepareStatement(ReviewStringQuery.TOTAL_SCRAP_COUNT);
+			rs = ps.executeQuery();
+			if(rs.next()) count = rs.getInt(1);
+		} finally {
+			closeAll(rs, ps, conn);
+		}
+		return count;
+	}
+	
+	public ArrayList<ReviewVO> searchByTag(String tag) throws SQLException {
+	    Connection conn = null;
+	    PreparedStatement ps = null;
+	    ResultSet rs = null;
+	    ArrayList<ReviewVO> list = new ArrayList<ReviewVO>();
+	      
+	    try {
+	    conn=getConnect();
+	    ps= conn.prepareStatement(ReviewStringQuery.SEARCH_BY_TAG);
+	    ps.setString(1, tag);
+	    rs= ps.executeQuery();
+	    while(rs.next()) {
+	       list.add(new ReviewVO(rs.getInt("review_num"),
+	                        rs.getString("title"),
+	                        rs.getString("id"),               
+	                        rs.getString("location"),               
+	                        rs.getString("city"),
+	                        rs.getString("content"),                       
+	                        rs.getString("date_writing"),                       
+	                        rs.getInt("likes")));
+	                
+	    }
+	    }finally {
+	       closeAll(rs, ps, conn);
+	    }
+	    return list;
+	      
+	}
+	
+	public ArrayList<ReviewVO> getScrapList(String id) throws SQLException { // 스크랩 목록 가져오기
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		ArrayList<ReviewVO> list = new ArrayList<ReviewVO>();
+		
+		try {
+			conn = getConnect();
+			ps = conn.prepareStatement(ReviewStringQuery.GET_SCRAP_LIST);
+			ps.setString(1, id);
+			rs = ps.executeQuery();
+			
+			while(rs.next()) 
+				list.add(new ReviewVO(rs.getInt("review_num"), rs.getString("title"), rs.getString("id"), rs.getString("location")
+						, rs.getString("city"), rs.getString("content"), rs.getString("date_writing"), rs.getInt("likes")));
+			for(ReviewVO vo : list) {
+				ps = conn.prepareStatement("SELECT review_image FROM review_image WHERE review_num=?");
+				ps.setInt(1,vo.getReviewNum());
+				rs = ps.executeQuery();
+				if(rs.next()) {
+					vo.setMainImage(rs.getString("review_image"));
+				}
+			}
+		} finally {
+			closeAll(ps, conn);
+		}
+		
+		return list;
+	}
+	
+	public ArrayList<ReviewVO> getMyReview(String id) throws SQLException { // 내가 쓴 글 가져오기
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		ArrayList<ReviewVO> list = new ArrayList<ReviewVO>();
+		
+		try {
+			conn = getConnect();
+			ps = conn.prepareStatement(ReviewStringQuery.GET_MY_REVIEW);
+			ps.setString(1, id);
+			rs = ps.executeQuery();
+			while(rs.next()) 
+				list.add(new ReviewVO(rs.getInt("review_num"), rs.getString("title"), rs.getString("id"), rs.getString("location")
+						, rs.getString("city"), rs.getString("content"), rs.getString("date_writing"), rs.getInt("likes")));
+			for(ReviewVO vo : list) {
+				ps = conn.prepareStatement("SELECT review_image FROM review_image WHERE review_num=?");
+				ps.setInt(1,vo.getReviewNum());
+				rs = ps.executeQuery();
+				if(rs.next()) {
+					vo.setMainImage(rs.getString("review_image"));
+				}
+			}
+		} finally {
+			closeAll(ps, conn);
+		}
+		
+		return list;
+	}
+	
+	public void deleteReview(int reviewNum) throws SQLException { // 글 삭제하기
+		Connection conn = null;
+		PreparedStatement ps = null;
+		
+		try {
+			conn = getConnect();
+			ps = conn.prepareStatement(ReviewStringQuery.DELETE_REVIEW);
+			ps.setInt(1, reviewNum);
+			ps.executeUpdate();
+			
+			int row = ps.executeUpdate();
+			System.out.println(row + " row delete posting ok..");
+			
+		} finally {
+			closeAll(ps, conn);
+		}
+	}
+	
+	// ArrayList<String> tags, ArrayList<String> images
+	public void updateReview(ReviewVO rvo) throws SQLException { // 글 수정하기(보류보류 보류보류보류보류뷰......)
+		Connection conn = null;
+		PreparedStatement ps = null;
+		
+		try {
+			conn = getConnect();
+			ps = conn.prepareStatement(ReviewStringQuery.UPDATE_REVIEW);
+			ps.setString(1, rvo.getLocation());
+			ps.setString(2, rvo.getCity());
+			ps.setString(3, rvo.getTitle());
+			ps.setInt(4, rvo.getReviewNum());
+			ps.executeUpdate();
+			
+			int row = ps.executeUpdate();
+			System.out.println(row + " row update posting ok..");
+			
+		} finally {
+			closeAll(ps, conn);
+		}
+	}
+	
 	public ArrayList<String> getImages(int reviewNum,Connection conn) throws SQLException{
 		ArrayList<String> ilist = new ArrayList<String>();
 		PreparedStatement ps = conn.prepareStatement(ReviewStringQuery.GET_REVIEW_IMAGES);

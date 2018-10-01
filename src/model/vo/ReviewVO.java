@@ -11,6 +11,7 @@ public class ReviewVO {
 	String content;
 	String date;
 	int like;
+	String mainImage;
 	ArrayList<String> tags;
 	ArrayList<CommentVO> comments;
 	ArrayList<String> images;
@@ -29,8 +30,14 @@ public class ReviewVO {
 		this.like = like;
 	}
 
+	
 
-
+	public String getMainImage() {
+		return mainImage;
+	}
+	public void setMainImage(String mainImage) {
+		this.mainImage = mainImage;
+	}
 	public int getReviewNum() {
 		return reviewNum;
 	}
