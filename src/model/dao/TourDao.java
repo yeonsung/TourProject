@@ -77,8 +77,8 @@ public class TourDao {
 			pstmt.setString(2,vo.getMail());
 			pstmt.setString(3,vo.getTel());
 			pstmt.setString(4,vo.getId());
-			int result=pstmt.executeUpdate();
-			System.out.println("회원 정보 수정.."+result);
+			pstmt.executeUpdate();
+			System.out.println("회원 정보 수정..");
 		}finally{
 			closeAll(pstmt,conn);
 		}
