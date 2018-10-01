@@ -12,24 +12,14 @@ public class ReviewVO {
 	String date;
 	int like;
 	String mainImage;
-	public String getMainImage() {
-		return mainImage;
-	}
-
-
-	public void setMainImage(String mainImage) {
-		this.mainImage = mainImage;
-	}
-
-
 	ArrayList<String> tags;
-	ArrayList<String> comments;
+	ArrayList<CommentVO> comments;
 	ArrayList<String> images;
 	
 	public ReviewVO() {}
 	
 	
-	// ¼öÁ¤¶§¹®¿¡ Ãß°¡..
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½..
 	public ReviewVO(String title, String location, String city, String content, ArrayList<String> tags,
 			ArrayList<String> images) { 
 		super();
@@ -42,7 +32,7 @@ public class ReviewVO {
 	}
 	
 	
-	// Ãß°¡....
+	// ï¿½ß°ï¿½....
 	public ReviewVO(int reviewNum, String title, String id, String location, String city, String content, String date,
 			int like) {
 		super();
@@ -56,7 +46,14 @@ public class ReviewVO {
 		this.like = like;
 	}
 
+	
 
+	public String getMainImage() {
+		return mainImage;
+	}
+	public void setMainImage(String mainImage) {
+		this.mainImage = mainImage;
+	}
 	public int getReviewNum() {
 		return reviewNum;
 	}
@@ -111,10 +108,12 @@ public class ReviewVO {
 	public void setTags(ArrayList<String> tags) {
 		this.tags = tags;
 	}
-	public ArrayList<String> getComments() {
+	
+	public ArrayList<CommentVO> getComments() {
 		return comments;
 	}
-	public void setComments(ArrayList<String> comments) {
+
+	public void setComments(ArrayList<CommentVO> comments) {
 		this.comments = comments;
 	}
 	public ArrayList<String> getImages() {

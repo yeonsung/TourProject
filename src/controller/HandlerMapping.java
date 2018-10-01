@@ -11,18 +11,19 @@ public class HandlerMapping {
 		Controller controller = null;
 		System.out.println(command);
 		switch(command) {
+
+		case "locationpage.do":	//command
+			return new GoLocationPageController();
 		case "myreviews.do":	
-			controller = new MyReviewController();
-			break;
+			return new MyReviewController();
 		case "scrap.do":	
-			controller = new ScrapController();
-			break;
-			
+			return new ScrapController();
 		case "delete.do":	
-			controller = new DeleteController();
-			break;
+			return new DeleteController();
 		}
 		
 		return controller;
 	}
+	
+	
 }

@@ -51,7 +51,7 @@
       	}); //css
       
       	$('#myNavbar li a').hover(function() { 
-         	//»ó´Ü ¸Þ´º¹Ù ¸¶¿ì½º ¿Ã·Á³ùÀ» ¶§
+         	//ï¿½ï¿½ï¿½ ï¿½Þ´ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ì½º ï¿½Ã·ï¿½ï¿½ï¿½ ï¿½ï¿½
            	$(this).css({
               	'color' : 'green',
               	'background' : 'rgba(242, 242, 242, 0.5)'
@@ -106,11 +106,11 @@
 		                     	</span>
 		                  	</a>
 		                  	<ul class="dropdown-menu">
-		                     	<li><a href="#"><span class="glyphicon glyphicon-log-out"></span>&nbsp;&nbsp;·Î±×¾Æ¿ô</a></li>
-		                     	<li><a href="myreviews.do?id=yun"><span class="glyphicon glyphicon-edit"></span>&nbsp;&nbsp;³»°¡ ¾´ ±Û</a></li>
-		                     	<li><a href="scrap.do?id=yun"><span class="glyphicon glyphicon-bookmark"></span>&nbsp;&nbsp;½ºÅ©·¦</a></li>
-		                     	<li><a href="#"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;±Û ÀÛ¼º</a></li>
-		                     	<li><a href="#"><span class="glyphicon glyphicon-cog"></span>&nbsp;&nbsp;Á¤º¸ ¼öÁ¤</a></li>
+		                     	<li><a href="#"><span class="glyphicon glyphicon-log-out"></span>&nbsp;&nbsp;ï¿½Î±×¾Æ¿ï¿½</a></li>
+		                     	<li><a href="myreviews.do?id=yun"><span class="glyphicon glyphicon-edit"></span>&nbsp;&nbsp;ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½</a></li>
+		                     	<li><a href="scrap.do?id=yun"><span class="glyphicon glyphicon-bookmark"></span>&nbsp;&nbsp;ï¿½ï¿½Å©ï¿½ï¿½</a></li>
+		                     	<li><a href="#"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;ï¿½ï¿½ ï¿½Û¼ï¿½</a></li>
+		                     	<li><a href="#"><span class="glyphicon glyphicon-cog"></span>&nbsp;&nbsp;ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½</a></li>
 		                  	</ul>
 	               		</li>
 					</ul>
@@ -131,11 +131,10 @@
 				${rList.date}<br>
 				<img src="${rList.mainImage}" width="350"><br>
 				${rList.title}&nbsp;&nbsp;
-				<input type="button" value="¼öÁ¤">&nbsp;
-				<a href="delete.do?reviewNum=${rList.reviewNum}&&id=${rList.id}"><input type="button" value="»èÁ¦"></a>
+				<input type="button" value="ï¿½ï¿½ï¿½">&nbsp;
+				<a href="delete.do?reviewNum=${rList.reviewNum}&&id=${rList.id}"><input type="button" value="ï¿½ï¿½ï¿½"></a>
 				<hr>
 			</div>
 		</a>
 	</c:forEach>
 </body>
-</html>

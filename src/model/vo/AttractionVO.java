@@ -7,13 +7,30 @@ public class AttractionVO {
 	String location; //시 도
 	String city; // 시 군 구
 	String info;
+	String mainImage;
 	ArrayList<String> images;
 	
 	
-	
 	public AttractionVO() {}
+
+	public AttractionVO(String spotName, String address, String location, String city, String info) {
+		super();
+		this.spotName = spotName;
+		this.address = address;
+		this.location = location;
+		this.city = city;
+		this.info = info;
+	}
 	
 	
+	public String getMainImage() {
+		return mainImage;
+	}
+
+	public void setMainImage(String mainImage) {
+		this.mainImage = mainImage;
+	}
+
 	public String getSpotName() {
 		return spotName;
 	}
