@@ -14,6 +14,7 @@
 	.contents{
 		padding-top: 80px;
 	}
+
    	#header {
       	border-bottom: 7px solid transparent;
       	-moz-border-imag: -moz-linear-gradient(left, DarkGreen, #64AB4C);
@@ -41,6 +42,7 @@
     			scrollTop: scrollPosition
     		}, 500); //animate
 		}); //click
+
       	$('#menuSpan .icon-bar').css('background', 'green');
       
       	$('#myNavbar li a').css({

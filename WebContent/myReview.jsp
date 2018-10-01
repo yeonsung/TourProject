@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-    pageEncoding="utf-8"%>
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
@@ -14,6 +14,7 @@
 	.contents{
 		padding-top: 80px;
 	}
+
    	#header {
       	border-bottom: 7px solid transparent;
       	-moz-border-imag: -moz-linear-gradient(left, DarkGreen, #64AB4C);
@@ -41,6 +42,7 @@
     			scrollTop: scrollPosition
     		}, 500); //animate
 		}); //click
+
       	$('#menuSpan .icon-bar').css('background', 'green');
       
       	$('#myNavbar li a').css({
@@ -49,7 +51,7 @@
       	}); //css
       
       	$('#myNavbar li a').hover(function() { 
-         	//상단 메뉴바 마우스 올려놨을 때
+         	//��� �޴��� ���콺 �÷��� ��
            	$(this).css({
               	'color' : 'green',
               	'background' : 'rgba(242, 242, 242, 0.5)'
@@ -104,11 +106,11 @@
 		                     	</span>
 		                  	</a>
 		                  	<ul class="dropdown-menu">
-		                     	<li><a href="#"><span class="glyphicon glyphicon-log-out"></span>&nbsp;&nbsp;로그아웃</a></li>
-		                     	<li><a href="myreviews.do?id=yun"><span class="glyphicon glyphicon-edit"></span>&nbsp;&nbsp;내가 쓴 글</a></li>
-		                     	<li><a href="scrap.do?id=yun"><span class="glyphicon glyphicon-bookmark"></span>&nbsp;&nbsp;스크랩</a></li>
-		                     	<li><a href="#"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;글 작성</a></li>
-		                     	<li><a href="#"><span class="glyphicon glyphicon-cog"></span>&nbsp;&nbsp;정보 수정</a></li>
+		                     	<li><a href="#"><span class="glyphicon glyphicon-log-out"></span>&nbsp;&nbsp;�α׾ƿ�</a></li>
+		                     	<li><a href="myreviews.do?id=yun"><span class="glyphicon glyphicon-edit"></span>&nbsp;&nbsp;���� �� ��</a></li>
+		                     	<li><a href="scrap.do?id=yun"><span class="glyphicon glyphicon-bookmark"></span>&nbsp;&nbsp;��ũ��</a></li>
+		                     	<li><a href="#"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;�� �ۼ�</a></li>
+		                     	<li><a href="#"><span class="glyphicon glyphicon-cog"></span>&nbsp;&nbsp;��� ���</a></li>
 		                  	</ul>
 	               		</li>
 					</ul>
@@ -129,11 +131,10 @@
 				${rList.date}<br>
 				<img src="${rList.mainImage}" width="350"><br>
 				${rList.title}&nbsp;&nbsp;
-				<input type="button" value="수정">&nbsp;
-				<a href="delete.do?reviewNum=${rList.reviewNum}&&id=${rList.id}"><input type="button" value="삭제"></a>
+				<input type="button" value="���">&nbsp;
+				<a href="delete.do?reviewNum=${rList.reviewNum}&&id=${rList.id}"><input type="button" value="���"></a>
 				<hr>
 			</div>
 		</a>
 	</c:forEach>
 </body>
-</html>
