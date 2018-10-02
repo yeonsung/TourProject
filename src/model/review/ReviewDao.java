@@ -99,22 +99,29 @@ public class ReviewDao {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs= null;
-	
+		ArrayList<String> imgList = new ArrayList<String>();
 		try {
 			conn=getConnect();
 			ps=conn.prepareStatement(ReviewStringQuery.GET_ATTRACTION);
 			ps.setString(1, city);
 			rs=ps.executeQuery();
+			ReviewVO vo = null;
 			while(rs.next()) {
 				list.add(new AttractionVO(rs.getString("spot_name"),
 										  rs.getString("address"),
 										  rs.getString("location"),
 										  rs.getString("city"),
-										  rs.getString("info")/*,
-										  (ArrayList<String>)rs.getObject("images")*/
+										  rs.getString("info")
 										));
-				
 			}
+			ps= conn.prepareStatement(ReviewStringQuery.GET_ATTRACTION_IMG);
+			ps.setString(1,city);
+			rs= ps.executeQuery();
+			while(rs.next()){
+				imgList.add(rs.getString("spot_image")
+						);
+			}
+			vo.setImages(imgList);
 		} finally {
 			closeAll(rs, ps, conn);
 		}
@@ -155,7 +162,57 @@ public class ReviewDao {
 		
 	}
 	
-	
+	public ArrayList<ReviewVO> getBestReviewByTag(String location , String tag) throws SQLException {		//location : 시/군     tag: review 카테고리
+		
+		 //* 이 메서드가 호출되면.. DB에 저장된 모든 Review의 좋아요 수를 비교해서 일단은 상위 3개까지만 리스트로 리턴하기! 그리고 이
+		// * 리스트에 review_num이 tag 테이블에 있는 review_num이랑 같은 지 확인해서
+		 
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		ArrayList<ReviewVO> list = new ArrayList<ReviewVO>();
+
+		ReviewVO vo = null;
+		try {
+			conn = getConnect();
+			ps = conn.prepareStatement(ReviewStringQuery.BEST_REVIEW_LOCATION_TAG);//				
+			ps.setString(1, tag);
+			ps.setString(2, location);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				vo = new ReviewVO();
+				vo.setReviewNum(rs.getInt("review_num"));
+				vo.setTitle(rs.getString("title"));
+				vo.setLike(rs.getInt("likes"));
+				list.add(vo);
+			}
+			ps = conn.prepareStatement(ReviewStringQuery.GET_TAG_LIST);
+
+			for (int i = 0; i < list.size(); i++) {
+				ps.setInt(1, list.get(i).getReviewNum());
+				rs = ps.executeQuery();
+				ArrayList<String> tags = new ArrayList<String>();
+				if (rs.next()) {
+					tags.add(rs.getString(1));
+					list.get(i).setTags(tags);
+				} // if
+			} // for
+
+			ps = conn.prepareStatement(ReviewStringQuery.GET_IMAGE_LIST);
+			for (int i = 0; i < list.size(); i++) {
+				ps.setInt(1, list.get(i).getReviewNum());
+				rs = ps.executeQuery();
+				ArrayList<String> img = new ArrayList<String>();
+				if (rs.next()) {
+					img.add(rs.getString(1));
+					list.get(i).setImages(img);
+				} // if
+			} // for
+		} finally {
+			closeAll(rs, ps, conn);
+		}
+		return list;
+	}// getBestReview 희정쓰
 	
 	static {
 		try {

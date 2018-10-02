@@ -9,24 +9,38 @@
 #img :hover{
   opacity: 0.3;
 }
+#img{
+width: 250px;
+height: 182px;
 
 
+}
+.hashtag:before {
+
+content:"#";
+
+
+  
+}
 
 </style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <body>
-
-<div class="w3-sidebar w3-bar-block w3-large" style="width:25%">
-  <a href="#" class="w3-bar-item w3-button">여행&nbsp;&nbsp;풍경&nbsp;&nbsp;사진&nbsp;&nbsp;자연</a>
-  <a href="#" class="w3-bar-item w3-button w3-hover-none" id="img"><img src ="https://static1.squarespace.com/static/554b5e7ce4b0149371f10a93/59770012b8a79bc2cb19286c/5b616e6b1ae6cf9b7ccb8212/1533894013773/EXPECTATIONS_FINAL.jpg?format=500w"><b>#가평 #빠지</b></a>
-  <a href="#" class="w3-bar-item w3-button w3-hover-none w3-hover-text-red">Red</a>
-  <a href="#" class="w3-bar-item w3-button w3-hover-none w3-hover-text-grey">Grey</a>
-  <a href="#" class="w3-bar-item w3-button w3-hover-none w3-hover-text-green">Green</a>
-  <a href="#" class="w3-bar-item w3-button w3-hover-none w3-hover-text-blue">Blue</a>
+<div class="w3-bar w3-black">
+  <a href="#" class="w3-bar-item w3-button w3-mobile">여행</a>
+  <a href="#" class="w3-bar-item w3-button w3-mobile">풍경</a>
+  <a href="#" class="w3-bar-item w3-button w3-mobile">사진</a>
+  <a href="#" class="w3-bar-item w3-button w3-mobile">자연</a>
+</div>
+<div class="w3-sidebar w3-bar-block w3-large" style="width:20%">
+  <a href="#" class="w3-bar-item w3-button w3-hover-none w3-hover-text-grey" ><img src ="https://static1.squarespace.com/static/554b5e7ce4b0149371f10a93/59770012b8a79bc2cb19286c/5977002d5016e17b22b38779/1502727891080/demand-and-supply-Erik-Johansson.jpg?format=750w" id="img"><br><b class="hashtag">가평</b> <b class="hashtag">빠지</b></a>
+  <a href="#" class="w3-bar-item w3-button w3-hover-none w3-hover-text-grey" ><img src="https://static1.squarespace.com/static/554b5e7ce4b0149371f10a93/59770012b8a79bc2cb19286c/597703b95016e17b22b39f3d/1502724880750/full-moon-service-Erik-Johansson.jpg?format=500w" id="img"><br><b class="hashtag">기장</b> <b class="hashtag">카페</b></a>
+  <a href="#" class="w3-bar-item w3-button w3-hover-none w3-hover-text-grey" ><img src="https://static1.squarespace.com/static/554b5e7ce4b0149371f10a93/59770012b8a79bc2cb19286c/59770066d7bdcef00d1f9db3/1502870327418/landfall-Erik-Johansson.jpg?format=750w" id="img"><br><b class="hashtag">기장</b> <b class="hashtag">카페</b></a>
+	
 </div>
 
-<div style="margin-left:25%">
+<div style="margin-left:20%">
 
 <div class="w3-container w3-dark-grey">
   <h1>My Page</h1>
