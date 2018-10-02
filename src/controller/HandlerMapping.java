@@ -10,7 +10,6 @@ public class HandlerMapping {
 	public Controller createController(String command) {
 		Controller controller = null;
 
-		System.out.println(command);
 		switch(command) {
 
 		case "locationpage.do":	//command

@@ -45,7 +45,7 @@ body {
 	position: relative;
 	margin: 50px auto 30px;
 	width: 700px;
-	min-height: 700px;
+	/* min-height: 700px; */
 }
 
 .footer {

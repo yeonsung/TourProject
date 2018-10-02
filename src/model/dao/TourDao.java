@@ -523,6 +523,17 @@ public class TourDao {
 		return vo;
 	}
 	
+	public ArrayList<String> getTagsByContent(String content){
+		ArrayList<String> tlist = new ArrayList<String>();
+		String[] arr = content.split(" ");
+		for(int i=0;i<arr.length;i++) {
+			if(arr[i].startsWith("#")) {
+				tlist.add(arr[i].substring(1));
+			}
+		}
+		return tlist;
+	}
+	
 	public static void main(String[] args) throws SQLException {		//단위테스트
 		/*ArrayList<ReviewVO> vo = new ArrayList<ReviewVO>();
 		vo = TourDao.getInstance().getScrapList("yun");

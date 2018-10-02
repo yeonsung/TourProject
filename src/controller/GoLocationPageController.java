@@ -12,13 +12,14 @@ public class GoLocationPageController implements Controller{
 
 	@Override
 	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		String pathConstant = request.getParameter("location").replace("path-", "");
+		String pathConstant = request.getParameter("location").substring(request.getParameter("location").indexOf("-")+1);
+		System.out.println(pathConstant);
 		String location = getLocation(pathConstant);
 		ArrayList<FestivalVO> flist = TourDao.getInstance().getFestivalInfo(location);
 		ArrayList<String> clist = TourDao.getInstance().getCities(location);
 		request.setAttribute("clist", clist);
 		request.setAttribute("flist", flist);
-		return new ModelAndView("v1.jsp");
+		return new ModelAndView("v1.jsp?location="+location);
 	}
 	
 	public String getLocation(String pathConstant) {
