@@ -10,11 +10,34 @@ public class MemberVO {
 	String tel;
 	String mail;
 	
-	ArrayList<Integer> scraps;
+	ArrayList<Integer> scraps = new ArrayList<Integer>();
 	
-	MemberVO(){}
+	public MemberVO(){}
+	
+	public MemberVO(String id) {
+		this.id = id;
+	}
+	public MemberVO(String userName, int ssn, String id, String password, String tel, String mail) {
+		this.userName = userName;
+		this.ssn = ssn;
+		this.id = id;
+		this.password = password;
+		this.tel = tel;
+		this.mail = mail;
+	}
+
 	
 	
+	public ArrayList<Integer> getScraps() {
+		return scraps;
+	}
+
+
+	public void setScraps(int reviewNum) {
+		scraps.add(reviewNum);
+	}
+
+
 	public String getUserName() {
 		return userName;
 	}

@@ -19,7 +19,10 @@ public class DispatcherServlet extends HttpServlet {
 	}
 	
 	protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println(request.getRequestURI());
+		System.out.println(request.getContextPath());
 		String command = request.getRequestURI().substring(request.getContextPath().length()+1);
+		System.out.println(command+"11");
 		
 		Controller controller = HandlerMapping.getInstance().createController(command);
 		String path = "error.jsp";
