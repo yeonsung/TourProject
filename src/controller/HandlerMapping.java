@@ -21,10 +21,16 @@ public class HandlerMapping {
 			return new ScrapController();
 		case "delete.do":	
 			return new DeleteController();
-		case "login":	//command
+		case "login.do":	//command
 			return new LoginController();
-		case "register":
+		case "register.do":
 			return new RegisterController();
+		case "idcheck.do":
+			return new IdcheckController();
+		case "registerupdate.do":
+			return new RegisterUpdateController();
+		case "logout.do":
+			return new LogoutController();
 		}
 		return null;
 	}
