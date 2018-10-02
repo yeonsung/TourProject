@@ -7,17 +7,24 @@ import javax.servlet.http.HttpServletResponse;
 
 import model.dao.TourDao;
 import model.vo.FestivalVO;
+import model.vo.ReviewVO;
 
 public class GoLocationPageController implements Controller{
 
 	@Override
 	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		String pathConstant = request.getParameter("location").replace("path-", "");
+		String pathConstant = request.getParameter("location").substring(request.getParameter("location").length()-1);
 		String location = getLocation(pathConstant);
+		System.out.println(location);
 		ArrayList<FestivalVO> flist = TourDao.getInstance().getFestivalInfo(location);
 		ArrayList<String> clist = TourDao.getInstance().getCities(location);
+		ArrayList<ReviewVO> relist = TourDao.getInstance().getBestReviewByTag(location, "¸ÀÁý");
+		
 		request.setAttribute("clist", clist);
 		request.setAttribute("flist", flist);
+		request.setAttribute("location", location);
+		request.setAttribute("relist", relist);
+		
 		return new ModelAndView("v1.jsp");
 	}
 	
