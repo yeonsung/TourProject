@@ -9,7 +9,7 @@ public class HandlerMapping {
 	
 	public Controller createController(String command) {
 		Controller controller = null;
-		System.out.println(command);
+
 		switch(command) {
 
 		case "locationpage.do":	//command
@@ -22,10 +22,11 @@ public class HandlerMapping {
 			return new DeleteController();
 		case "getBestReviewBytag.do":
 			return new GetBestReviewBytagController();
+		case "login":	//command
+			return new LoginController();
+		case "register":
+			return new RegisterController();
 		}
-		
-		return controller;
+		return null;
 	}
-	
-	
 }
