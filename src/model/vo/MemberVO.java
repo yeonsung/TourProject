@@ -14,6 +14,19 @@ public class MemberVO {
 	
 	public MemberVO(){}
 	
+	public MemberVO(String id) {
+		this.id = id;
+	}
+	public MemberVO(String userName, int ssn, String id, String password, String tel, String mail) {
+		this.userName = userName;
+		this.ssn = ssn;
+		this.id = id;
+		this.password = password;
+		this.tel = tel;
+		this.mail = mail;
+	}
+
+	
 	
 	public ArrayList<Integer> getScraps() {
 		return scraps;
