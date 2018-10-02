@@ -20,7 +20,7 @@ public class RegisterController implements Controller {
 		MemberVO rvo = new MemberVO(username, ssn, id, password, tel, mail);
 		TourDao.getInstance().register(rvo);
 		
-		return ModelAndView();
+		return new ModelAndView();
 	}
 
 }
