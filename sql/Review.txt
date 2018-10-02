@@ -6,7 +6,7 @@ CREATE TABLE review (review_num NUMBER PRIMARY KEY,
 		     date_writing DATE NOT NULL,
 		     likes NUMBER DEFAULT 0,
 		     id varchar2(30),
-		     CONSTRAINT FK_MEMBERS FOREIGN KEY (ID) REFERENCES member(id));
+		     CONSTRAINT FK_MEMBERS FOREIGN KEY (ID) REFERENCES member(id) on delete cascade);
 
 
 

@@ -10,7 +10,7 @@ public class MemberVO {
 	String tel;
 	String mail;
 	
-	ArrayList<Integer> scraps;
+	ArrayList<Integer> scraps = new ArrayList<Integer>();
 	
 	public MemberVO(){}
 	
@@ -25,6 +25,18 @@ public class MemberVO {
 		this.tel = tel;
 		this.mail = mail;
 	}
+
+	
+	
+	public ArrayList<Integer> getScraps() {
+		return scraps;
+	}
+
+
+	public void setScraps(int reviewNum) {
+		scraps.add(reviewNum);
+	}
+
 
 	public String getUserName() {
 		return userName;

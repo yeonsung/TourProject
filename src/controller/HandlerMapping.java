@@ -9,14 +9,21 @@ public class HandlerMapping {
 	
 	public Controller createController(String command) {
 		Controller controller = null;
+
+		System.out.println(command);
 		switch(command) {
-		case "login":	//command
-			controller = new LoginController();
-			return controller;
+
+		case "locationpage.do":	//command
+			return new GoLocationPageController();
+		case "myreviews.do":	
+			return new MyReviewController();
+		case "scrap.do":	
+			return new ScrapController();
+		case "delete.do":	
+			return new DeleteController();
+    case "login":	//command
+			return new LoginController();
 		case "register":
-			controller = new RegisterController();
-			return controller;
+			return new RegisterController();
 		}
-		return null;
-	}
 }

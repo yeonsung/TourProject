@@ -11,14 +11,49 @@ public class ReviewVO {
 	String content;
 	String date;
 	int like;
+	String mainImage;
 	ArrayList<String> tags;
-	ArrayList<String> comments;
+	ArrayList<CommentVO> comments;
 	ArrayList<String> images;
 	
 	public ReviewVO() {}
 	
+	
+	// ��������� �߰�..
+	public ReviewVO(String title, String location, String city, String content, ArrayList<String> tags,
+			ArrayList<String> images) { 
+		super();
+		this.title = title;
+		this.location = location;
+		this.city = city;
+		this.content = content;
+		this.tags = tags;
+		this.images = images;
+	}
+	
+	
+	// �߰�....
+	public ReviewVO(int reviewNum, String title, String id, String location, String city, String content, String date,
+			int like) {
+		super();
+		this.reviewNum = reviewNum;
+		this.title = title;
+		this.id = id;
+		this.location = location;
+		this.city = city;
+		this.content = content;
+		this.date = date;
+		this.like = like;
+	}
 
+	
 
+	public String getMainImage() {
+		return mainImage;
+	}
+	public void setMainImage(String mainImage) {
+		this.mainImage = mainImage;
+	}
 	public int getReviewNum() {
 		return reviewNum;
 	}
@@ -73,10 +108,12 @@ public class ReviewVO {
 	public void setTags(ArrayList<String> tags) {
 		this.tags = tags;
 	}
-	public ArrayList<String> getComments() {
+	
+	public ArrayList<CommentVO> getComments() {
 		return comments;
 	}
-	public void setComments(ArrayList<String> comments) {
+
+	public void setComments(ArrayList<CommentVO> comments) {
 		this.comments = comments;
 	}
 	public ArrayList<String> getImages() {
@@ -86,5 +123,15 @@ public class ReviewVO {
 	public void setImages(ArrayList<String> images) {
 		this.images = images;
 	}
+
+
+	@Override
+	public String toString() {
+		return "ReviewVO [reviewNum=" + reviewNum + ", title=" + title + ", id=" + id + ", location=" + location
+				+ ", city=" + city + ", content=" + content + ", date=" + date + ", like=" + like + ", tags=" + tags
+				+ ", comments=" + comments + ", images=" + images + "]";
+	}
+	
+	
 	
 }
