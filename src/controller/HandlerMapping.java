@@ -20,6 +20,8 @@ public class HandlerMapping {
 			return new ScrapController();
 		case "delete.do":	
 			return new DeleteController();
+		case "deleteScrap.do":	
+			return new DeleteScrapController();
 		case "getBestReviewBytag.do":
 			return new GetBestReviewBytagController();
 		case "login":	//command

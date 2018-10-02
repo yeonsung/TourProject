@@ -12,6 +12,7 @@ import org.omg.PortableInterceptor.USER_EXCEPTION;
 import config.OracleInfo;
 import model.vo.MemberVO;
 import query.user.UserStringQuery;
+import model.CommonConstants;
 import model.vo.AttractionVO;
 import model.vo.CommentVO;
 import model.vo.FestivalVO;
@@ -31,8 +32,8 @@ public class TourDao {
 	static {
 		try {
 			Class.forName(OracleInfo.DRIVER_NAME);
-			System.out.println("����̹� �ε� ����");
-		} catch (ClassNotFoundException e) {
+			System.out.println("�뱶�씪�씠踰� 濡쒕뵫 �꽦怨�");
+		}catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
 
@@ -57,7 +58,7 @@ public class TourDao {
 		return cities;
 	}
 
-	public ArrayList<ReviewVO> getBestReviews(String tag) throws SQLException { // index�� ī�װ�(tag)�� review
+	public ArrayList<ReviewVO> getBestReviews(String tag) throws SQLException {				//index�뿉 移댄뀒怨좊━(tag)蹂� review
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -86,9 +87,10 @@ public class TourDao {
 
 	public void addLike(int reviewNum) {
 		/*
-		 * �� �޼��尡 ȣ��Ǹ� �۹�ȣ post_num�� ������ like �� 1 ���Ѵ�.
+		 * �씠 硫붿꽌�뱶媛� �샇異쒕릺硫� 湲�踰덊샇 post_num�씤 由щ럭�쓽 like �닔媛� 1 利앷��븳�떎.
 		 */
-		// post_num �� �� ã��
+		// post_num �씤 �븷 李얘린
+
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -100,19 +102,17 @@ public class TourDao {
 			ps.setInt(1, reviewNum);
 			rs = ps.executeQuery();
 			if (rs.next()) {
-				System.out.println("reviewNum�� like�� 1 ��! :: " + rs.getInt("likes"));
+				System.out.println("reviewNum�쓽 like媛� 1 利앷�! :: " + rs.getInt("likes"));
 			}
 		} catch (Exception e) {
 		}
-	}// addLike �����
+	}// addLike �씗�젙�벐
 
-	public ArrayList<ReviewVO> getBestReviewByTag(String location, String tag) throws SQLException { // location : ��/��
-																										// tag: review
-																										// ī�װ�
-
-		// * �� �޼��尡 ȣ��Ǹ�.. DB�� ����� ��� Review�� ��ƿ� �� ���ؼ� �ϴ�� ��� 3������ ����Ʈ�� �����ϱ�! �׸��� ��
-		// * ����Ʈ�� review_num�� tag ���̺� �ִ� review_num�̶� ��� �� Ȯ���ؼ�
-
+	public ArrayList<ReviewVO> getBestReviewByTag(String location , String tag) throws SQLException {		//location : �떆/援�     tag: review 移댄뀒怨좊━
+		
+		 //* �씠 硫붿꽌�뱶媛� �샇異쒕릺硫�.. DB�뿉 ���옣�맂 紐⑤뱺 Review�쓽 醫뗭븘�슂 �닔瑜� 鍮꾧탳�빐�꽌 �씪�떒�� �긽�쐞 3媛쒓퉴吏�留� 由ъ뒪�듃濡� 由ы꽩�븯湲�! 洹몃━怨� �씠
+		// * 由ъ뒪�듃�뿉 review_num�씠 tag �뀒�씠釉붿뿉 �엳�뒗 review_num�씠�옉 媛숈� 吏� �솗�씤�빐�꽌
+		 
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -159,9 +159,10 @@ public class TourDao {
 		}
 		System.out.println("���� �׽�Ʈ!!!!!!!!!!! " + list);
 		return list;
-	}// getBestReview �����
+	}// getBestReview �씗�젙�벐
 
-	public ArrayList<FestivalVO> getFestivalInfo(String location) throws SQLException { /// ���غ���
+	public ArrayList<FestivalVO> getFestivalInfo(String location) throws SQLException {			///�깮媛곹빐蹂닿린
+
 		ArrayList<FestivalVO> list = new ArrayList<>();
 		Connection conn = null;
 		PreparedStatement ps = null;
@@ -181,7 +182,8 @@ public class TourDao {
 			closeAll(rs, ps, conn);
 		}
 		return list;
-	}// getFestivalInfo ö��
+	}// getFestivalInfo 泥좎쭊�벐
+
 
 	public ArrayList<AttractionVO> getAttraction(String city) throws SQLException {
 		ArrayList<AttractionVO> list = new ArrayList<>();
@@ -211,7 +213,8 @@ public class TourDao {
 		}
 
 		return list;
-	}// getAttraction ö�� �̹���!!!!
+	}// getAttraction 泥좎쭊�벐			�씠誘몄�!!!!
+
 
 	public void scrap(String id, int review_num) throws Exception {
 		Connection conn = null;
@@ -227,9 +230,10 @@ public class TourDao {
 		} finally {
 			closeAll(ps, conn);
 		}
-	} // scrap ö��
+	} // scrap 泥좎쭊�벐
 
-	public ReviewVO checkReview(int reviewNum) throws SQLException { // �� �ȸ�ϱ�
+	public ReviewVO checkReview(int reviewNum) throws SQLException { // 湲� 議고쉶�븯湲�
+
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -245,16 +249,18 @@ public class TourDao {
 						rs.getString("location"), rs.getString("city"), rs.getString("content"),
 						rs.getString("date_writing"), rs.getInt("likes"));
 			}
-			rvo.setImages(getImages(rvo.getReviewNum(), conn)); // image list
-			rvo.setComments(getComments(rvo.getReviewNum(), conn)); // comment list
-			// �ڸ�Ʈ. �̹���. ��� ����;���..
+			rvo.setImages(getImages(rvo.getReviewNum(), conn));			//image list
+			rvo.setComments(getComments(rvo.getReviewNum(), conn));		//comment list
+			//肄붾찘�듃. �씠誘몄�. �벑�벑 媛��졇���빞�븿..
+
 		} finally {
 			closeAll(rs, ps, conn);
 		}
 		return rvo;
-	} // checkReview ��־�
+	} // checkReview �쑄二쇱벐
+	
+	public int totalScrapNumber(String id) throws SQLException{ 
 
-	public int totalScrapNumber() throws SQLException {
 		int count = 0;
 		Connection conn = null;
 		PreparedStatement ps = null;
@@ -263,6 +269,25 @@ public class TourDao {
 		try {
 			conn = getConnect();
 			ps = conn.prepareStatement(ReviewStringQuery.TOTAL_SCRAP_COUNT);
+			ps.setString(1, id);
+			rs = ps.executeQuery();
+			if(rs.next()) count = rs.getInt(1);
+		} finally {
+			closeAll(rs, ps, conn);
+		}
+		return count;
+	}
+	
+	public int totalMyReviewNumber(String id) throws SQLException{ 
+		int count = 0;
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		try {
+			conn = getConnect();
+			ps = conn.prepareStatement(ReviewStringQuery.TOTAL_MY_REVIEW_COUNT);
+			ps.setString(1, id);
 			rs = ps.executeQuery();
 			if (rs.next())
 				count = rs.getInt(1);
@@ -271,32 +296,38 @@ public class TourDao {
 		}
 		return count;
 	}
-
-	public ArrayList<ReviewVO> searchByTag(String tag) throws SQLException { // ȣ���ϴ°�� ��� �ʿ��ұ�
-		Connection conn = null;
-		PreparedStatement ps = null;
-		ResultSet rs = null;
-		ArrayList<ReviewVO> list = new ArrayList<ReviewVO>();
-
-		try {
-			conn = getConnect();
-			ps = conn.prepareStatement(ReviewStringQuery.SEARCH_BY_TAG);
-			ps.setString(1, tag);
-			rs = ps.executeQuery();
-			while (rs.next()) {
-				list.add(new ReviewVO(rs.getInt("review_num"), rs.getString("title"), rs.getString("id"),
-						rs.getString("location"), rs.getString("city"), rs.getString("content"),
-						rs.getString("date_writing"), rs.getInt("likes")));
-
-			}
-		} finally {
-			closeAll(rs, ps, conn);
-		}
-		return list;
-
+	
+	public ArrayList<ReviewVO> searchByTag(String tag) throws SQLException {			//�샇異쒗븯�뒗怨녹뿉�꽌 �뼱�뼡寃� �븘�슂�븷源�
+	    Connection conn = null;
+	    PreparedStatement ps = null;
+	    ResultSet rs = null;
+	    ArrayList<ReviewVO> list = new ArrayList<ReviewVO>();
+	      
+	    try {
+	    conn=getConnect();
+	    ps= conn.prepareStatement(ReviewStringQuery.SEARCH_BY_TAG);
+	    ps.setString(1, tag);
+	    rs= ps.executeQuery();
+	    while(rs.next()) {
+	       list.add(new ReviewVO(rs.getInt("review_num"),
+	                        rs.getString("title"),
+	                        rs.getString("id"),               
+	                        rs.getString("location"),               
+	                        rs.getString("city"),
+	                        rs.getString("content"),                       
+	                        rs.getString("date_writing"),                       
+	                        rs.getInt("likes")));
+	                
+	    }
+	    }finally {
+	       closeAll(rs, ps, conn);
+	    }
+	    return list;
+	      
 	}
+	
+	public ArrayList<ReviewVO> getScrapList(String id, int pageNo) throws SQLException { // �뒪�겕�옪 紐⑸줉 媛��졇�삤湲�
 
-	public ArrayList<ReviewVO> getScrapList(String id) throws SQLException { // ��ũ�� ��� ������
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -306,6 +337,7 @@ public class TourDao {
 			conn = getConnect();
 			ps = conn.prepareStatement(ReviewStringQuery.GET_SCRAP_LIST);
 			ps.setString(1, id);
+			ps.setInt(2, pageNo);
 			rs = ps.executeQuery();
 
 			while (rs.next()) {
@@ -329,8 +361,9 @@ public class TourDao {
 
 		return list;
 	}
+	
+	public ArrayList<ReviewVO> getMyReview(String id, int pageNo) throws SQLException { // �궡媛� �벖 湲� 媛��졇�삤湲�
 
-	public ArrayList<ReviewVO> getMyReview(String id) throws SQLException { // ���� �� �� ������
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -340,14 +373,14 @@ public class TourDao {
 			conn = getConnect();
 			ps = conn.prepareStatement(ReviewStringQuery.GET_MY_REVIEW);
 			ps.setString(1, id);
+			ps.setInt(2, pageNo);
 			rs = ps.executeQuery();
-			while (rs.next()) {
-				list.add(new ReviewVO(rs.getInt("review_num"), rs.getString("title"), rs.getString("id"),
-						rs.getString("location"), rs.getString("city"), rs.getString("content"),
-						rs.getString("date_writing"), rs.getInt("likes")));
-			} // while
-			for (ReviewVO vo : list) {
-				if (vo != null) {
+			while(rs.next()) {
+				list.add(new ReviewVO(rs.getInt("review_num"), rs.getString("title"), rs.getString("id"), rs.getString("date_writing")));
+			}//while
+			for(ReviewVO vo : list) {
+				if(vo!=null) {
+
 					ps = conn.prepareStatement("SELECT review_image FROM review_image WHERE review_num=?");
 					ps.setInt(1, vo.getReviewNum());
 					rs = ps.executeQuery();
@@ -361,8 +394,9 @@ public class TourDao {
 		}
 		return list;
 	}
+	
+	public void deleteReview(int reviewNum) throws SQLException { // 湲� �궘�젣�븯湲�
 
-	public void deleteReview(int reviewNum) throws SQLException { // �� ����ϱ�
 		Connection conn = null;
 		PreparedStatement ps = null;
 
@@ -379,9 +413,28 @@ public class TourDao {
 			closeAll(ps, conn);
 		}
 	}
-
+	
+	public void deleteScrap(int reviewNum) throws SQLException { // 湲� �궘�젣�븯湲�
+		Connection conn = null;
+		PreparedStatement ps = null;
+		
+		try {
+			conn = getConnect();
+			ps = conn.prepareStatement(ReviewStringQuery.DELETE_SCRAP);
+			ps.setInt(1, reviewNum);
+			ps.executeUpdate();
+			
+			int row = ps.executeUpdate();
+			System.out.println(row + " row delete scrap ok..");
+			
+		} finally {
+			closeAll(ps, conn);
+		}
+	}
+	
 	// ArrayList<String> tags, ArrayList<String> images
-	public void updateReview(ReviewVO rvo) throws SQLException { // �� ����ϱ�(����� ��������......)
+	public void updateReview(ReviewVO rvo) throws SQLException { // 湲� �닔�젙�븯湲�(蹂대쪟蹂대쪟 蹂대쪟蹂대쪟蹂대쪟蹂대쪟酉�......)
+
 		Connection conn = null;
 		PreparedStatement ps = null;
 
@@ -401,8 +454,9 @@ public class TourDao {
 			closeAll(ps, conn);
 		}
 	}
+	
+	public ArrayList<String> getImages(int reviewNum,Connection conn) throws SQLException{			//由щ럭# 媛�吏�怨� �씠誘몄��뱾 由ы꽩
 
-	public ArrayList<String> getImages(int reviewNum, Connection conn) throws SQLException { // ����# ����� �̹���� ����
 		ArrayList<String> ilist = new ArrayList<String>();
 		PreparedStatement ps = conn.prepareStatement(ReviewStringQuery.GET_REVIEW_IMAGES);
 		ps.setInt(1, reviewNum);
@@ -434,7 +488,8 @@ public class TourDao {
 
 	public Connection getConnect() throws SQLException {
 		Connection conn = DriverManager.getConnection(OracleInfo.URL, OracleInfo.USER, OracleInfo.PASS);
-		System.out.println("��� ���� ����!");
+		System.out.println("�뵒鍮� �뿰寃� �꽦怨�!");
+
 		return conn;
 	}// getConnect
 
@@ -464,7 +519,7 @@ public class TourDao {
 			pstmt.setString(5,vo.getTel());
 			pstmt.setString(6,vo.getMail());
 			pstmt.executeUpdate();
-			System.out.println(vo.getUserName()+"�� ȸ���� ���...");
+			System.out.println(vo.getUserName()+"占쏙옙 회占쏙옙占쏙옙 占쏙옙占�...");
 		}finally{
 			closeAll(pstmt,conn);
 		}
@@ -482,7 +537,7 @@ public class TourDao {
 			pstmt.setString(3,vo.getTel());
 			pstmt.setString(4,vo.getId());
 			pstmt.executeUpdate();
-			System.out.println("ȸ�� ��� ���..");
+			System.out.println("회占쏙옙 占쏙옙占� 占쏙옙占�..");
 		}finally{
 			closeAll(pstmt,conn);
 		}
@@ -521,7 +576,7 @@ public class TourDao {
 			pstmt.setString(2,password);
 			rs=pstmt.executeQuery();
 			if(rs.next()) {
-				//�޾ƾߵǴ°� id 
+				//占쌨아야되는곤옙 id 
 				vo = new MemberVO(rs.getString("id"));
 			}
 				
@@ -530,7 +585,6 @@ public class TourDao {
 		}
 		return vo;
 	}
-	
 	public ArrayList<String> getTagsByContent(String content){
 		ArrayList<String> tlist = new ArrayList<String>();
 		String[] arr = content.split(" ");
