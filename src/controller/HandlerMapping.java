@@ -10,7 +10,6 @@ public class HandlerMapping {
 	public Controller createController(String command) {
 		Controller controller = null;
 
-		System.out.println(command);
 		switch(command) {
 
 		case "locationpage.do":	//command
@@ -23,6 +22,8 @@ public class HandlerMapping {
 			return new DeleteController();
 		case "deleteScrap.do":	
 			return new DeleteScrapController();
+		case "getBestReviewBytag.do":
+			return new GetBestReviewBytagController();
 		case "login":	//command
 			return new LoginController();
 		case "register":
