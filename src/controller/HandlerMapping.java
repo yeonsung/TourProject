@@ -9,6 +9,7 @@ public class HandlerMapping {
 	
 	public Controller createController(String command) {
 		Controller controller = null;
+
 		System.out.println(command);
 		switch(command) {
 
@@ -20,10 +21,11 @@ public class HandlerMapping {
 			return new ScrapController();
 		case "delete.do":	
 			return new DeleteController();
+		case "login":	//command
+			return new LoginController();
+		case "register":
+			return new RegisterController();
 		}
-		
-		return controller;
+		return null;
 	}
-	
-	
 }
