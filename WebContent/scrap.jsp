@@ -14,7 +14,6 @@
 	.contents{
 		padding-top: 80px;
 	}
-
    	#header {
       	border-bottom: 7px solid transparent;
       	-moz-border-imag: -moz-linear-gradient(left, DarkGreen, #64AB4C);
@@ -42,7 +41,6 @@
     			scrollTop: scrollPosition
     		}, 500); //animate
 		}); //click
-
       	$('#menuSpan .icon-bar').css('background', 'green');
       
       	$('#myNavbar li a').css({
@@ -120,9 +118,9 @@
     	<div id="line"></div>
 	</nav>
 
-   	<div style="height: 100px"></div>
+   	<div style="height: 150px"></div>
    
-	<h1 align="center">Scrap</h1>
+	<h1 align="center">Scrap</h1><br><br>
 	
 	<c:forEach items="${rlist}" var="rList">
 		<a href="#">
@@ -131,7 +129,7 @@
 				${rList.date}<br>
 				<img src="${rList.mainImage}" width="350"><br>
 				${rList.title}
-				<hr>
+				<hr><br><br>
 			</div>
 		</a>
 	</c:forEach>

@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
@@ -14,7 +14,6 @@
 	.contents{
 		padding-top: 80px;
 	}
-
    	#header {
       	border-bottom: 7px solid transparent;
       	-moz-border-imag: -moz-linear-gradient(left, DarkGreen, #64AB4C);
@@ -42,7 +41,6 @@
     			scrollTop: scrollPosition
     		}, 500); //animate
 		}); //click
-
       	$('#menuSpan .icon-bar').css('background', 'green');
       
       	$('#myNavbar li a').css({
@@ -106,11 +104,11 @@
 		                     	</span>
 		                  	</a>
 		                  	<ul class="dropdown-menu">
-		                     	<li><a href="#"><span class="glyphicon glyphicon-log-out"></span>&nbsp;&nbsp;�α׾ƿ�</a></li>
-		                     	<li><a href="myreviews.do?id=yun"><span class="glyphicon glyphicon-edit"></span>&nbsp;&nbsp;���� �� ��</a></li>
-		                     	<li><a href="scrap.do?id=yun"><span class="glyphicon glyphicon-bookmark"></span>&nbsp;&nbsp;��ũ��</a></li>
-		                     	<li><a href="#"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;�� �ۼ�</a></li>
-		                     	<li><a href="#"><span class="glyphicon glyphicon-cog"></span>&nbsp;&nbsp;��� ���</a></li>
+		                     	<li><a href="#"><span class="glyphicon glyphicon-log-out"></span>&nbsp;&nbsp;로그아웃</a></li>
+		                     	<li><a href="myreviews.do?id=yun"><span class="glyphicon glyphicon-edit"></span>&nbsp;&nbsp;내가 쓴 글</a></li>
+		                     	<li><a href="scrap.do?id=yun"><span class="glyphicon glyphicon-bookmark"></span>&nbsp;&nbsp;스크랩</a></li>
+		                     	<li><a href="#"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;글 작성</a></li>
+		                     	<li><a href="#"><span class="glyphicon glyphicon-cog"></span>&nbsp;&nbsp;정보 수정</a></li>
 		                  	</ul>
 	               		</li>
 					</ul>
@@ -120,9 +118,9 @@
     	<div id="line"></div>
 	</nav>
 
-   	<div style="height: 100px"></div>
+   	<div style="height: 150px"></div>
    
-	<h1 align="center">My Review</h1>
+	<h1 align="center">My Review</h1><br><br>
 	
 	<c:forEach items="${rlist}" var="rList">
 		<a href="#">
@@ -131,10 +129,11 @@
 				${rList.date}<br>
 				<img src="${rList.mainImage}" width="350"><br>
 				${rList.title}&nbsp;&nbsp;
-				<input type="button" value="���">&nbsp;
-				<a href="delete.do?reviewNum=${rList.reviewNum}&&id=${rList.id}"><input type="button" value="���"></a>
-				<hr>
+				<input type="button" value="수정">&nbsp;
+				<a href="delete.do?reviewNum=${rList.reviewNum}&&id=${rList.id}"><input type="button" value="삭제"></a>
+				<hr><br><br>
 			</div>
 		</a>
 	</c:forEach>
 </body>
+</html>
