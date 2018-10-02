@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,6 +13,7 @@
 
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script
@@ -20,6 +22,29 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 <style>
+.contents {
+	padding-top: 80px;
+}
+
+header {
+	border-bottom: 7px solid transparent;
+	-moz-border-imag: -moz-linear-gradient(left, DarkGreen, #64AB4C);
+	/* #CEF6EC #A4A4A4 #BDBDBD #AEB404*/
+	-webkit-border-image: -webkit-linear-gradient(left, DarkGreen, #64AB4C);
+	border-image: linear-gradient(to right, DarkGreen, #64AB4C);
+	border-image-slice: 1;
+	margin-top: 8px;
+	padding-bottom: 8px;
+	font: 67.5% "Lucida Sans Unicode", "Bitstream Vera Sans",
+		"Trebuchet Unicode MS", "Lucida Grande", Verdana, Helvetica,
+		sans-serif;
+	font-size: 14px;
+}
+
+.caret {
+	margin-left: 10px
+}
+
 .carousel-inner>.item>img {
 	top: 0;
 	left: 0;
@@ -35,16 +60,11 @@ body {
 	font-family: Arial, Helvetica, sans-serif;
 }
 
-/* Style the header */
-header {
-	text-align: center;
-	font-size: 35px;
-}
-
 /* Create two columns/boxes that floats next to each other */
 nav {
 	float: left;
-	width: 30%;
+	left: 20px;
+	width: 23%;
 	height: 300px; /* only for demonstration, should be removed */
 	padding: 20px;
 }
@@ -73,45 +93,165 @@ section:after {
 footer {
 	padding: 10px;
 	text-align: center;
-	color: white;
+	color: black;
+}
+
+tr td {
+	font-size: 30px;
 }
 </style>
 <script>
 	$(function() {
+		
 		$("#tabs").tabs();
-	});
+		$('nav a').click(function() {
+			var str = $(this).html();
+			$.ajax({
+				type:"get",
+				url:"getBestReviewBytag.do",
+				data :"location=${requestScope.location}&&tag="+str,
+				
+				success:function(data){
+					if(str=="맛집"){
+						$('#tab-1').html(data);	
+						$('#tab-2').html("")
+						$('#tab-3').html("")
+					}
+					else if(str=='관광'){
+						$('#tab-2').html(data);	
+						$('#tab-1').html("")
+						$('#tab-3').html("")
+					}
+					else if(str=='숙소'){
+						$('#tab-3').html(data);	
+						$('#tab-1').html("")
+						$('#tab-2').html("")
+					}
+				}//callback
+			});//ajax
+		});//on
+	});//tab
 </script>
+
+
+<script type="text/javascript">
+	$(function() {
+		//================================ menu ================================
+
+		$('#myNavbar>ul li').click(function() {
+			var scrollPosition = $($(this).attr('data-target')).offset().top;
+			$('body, html').animate({
+				scrollTop : scrollPosition
+			}, 500); //animate
+		}); //click
+
+		$('#menuSpan .icon-bar').css('background', 'green');
+
+		$('#myNavbar li a').css({
+			'color' : 'black',
+			'font-weight' : 'bold'
+		}); //css
+
+		$('#myNavbar li a').hover(function() {
+			//상단 메뉴바 마우스 올려놨을 때
+			$(this).css({
+				'color' : 'green',
+				'background' : 'rgba(242, 242, 242, 0.5)'
+			}); //css
+
+		}, function() {
+			$(this).css({
+				'color' : 'black',
+				'background' : 'white'
+			}); //css
+		}); //hover
+
+		$('.dropdown-menu').css({
+			'margin-top' : '9px',
+			'min-width' : '12px',
+			'border-radius' : '2px'
+		}); //css
+	}); //ready
+</script>
+
 </head>
 <body>
 	<header>
-		<h2>여기 뭐냐 타이틀이랑 로그인 상태 등등의 것들</h2>
+		<div class="container">
+			<div class="navbar-header" style="margin-top: 15px">
+				<button type="button" class="navbar-toggle" id="menuSpan"
+					data-toggle="collapse" data-target="#myNavbar">
+					<span class="icon-bar"></span> <span class="icon-bar"
+						style="margin-top: 2px"></span> <span class="icon-bar"></span>
+				</button>
+				<img src="img/main_logo.png" width="150">
+			</div>
+			<!-- navbar-header -->
+
+			<div class="collapse navbar-collapse navbar-right" id="myNavbar"
+				style="margin-top: 15px">
+				<form class="navbar-form navbar-left" action="/action_page.php">
+					<div class="input-group">
+						<input type="text" class="form-control" placeholder="Search"
+							name="search" id="myInput">
+						<div class="input-group-btn">
+							<button class="btn btn-default" type="submit">
+								<i class="glyphicon glyphicon-search"></i>
+							</button>
+						</div>
+					</div>
+				</form>
+
+				<ul class="nav navbar-nav navbar-right">
+					<li class="dropdown"><a class="dropdown-toggle"
+						data-toggle="dropdown" href="#"> <span
+							class="glyphicon glyphicon-user text-success"> <span
+								class="caret" style="margin-left: 10px"></span>
+						</span>
+					</a>
+						<ul class="dropdown-menu">
+							<li><a href="#"><span
+									class="glyphicon glyphicon-log-out"></span>&nbsp;&nbsp;로그아웃</a></li>
+							<li><a href="myreviews.do?id=yun"><span
+									class="glyphicon glyphicon-edit"></span>&nbsp;&nbsp;내가 쓴 글</a></li>
+							<li><a href="scrap.do?id=yun"><span
+									class="glyphicon glyphicon-bookmark"></span>&nbsp;&nbsp;스크랩</a></li>
+							<li><a href="#"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;글
+									작성</a></li>
+							<li><a href="#"><span class="glyphicon glyphicon-cog"></span>&nbsp;&nbsp;정보
+									수정</a></li>
+						</ul></li>
+				</ul>
+			</div>
+			<!-- myNavbar -->
+		</div>
+		<!-- container -->
 	</header>
-	<hr>
+	<!-- header -->
+	<div id="line"></div>
+	<div style="height: 70px;"></div>
 	<section>
 		<nav id="tabs">
+			<h1 align="center">BEST REVIEWS</h1>
 			<ul>
-				<li><a href="#tabs-1">전체</a></li>
-				<li><a href="#tabs-2">먹거리</a></li>
-				<li><a href="#tabs-3">사진</a></li>
-				<li><a href="#tabs-4">숙소</a></li>
+				<li><a href="javascript:void(0)">맛집</a></li>
+				<li><a href="javascript:void(0)">관광</a></li>
+				<li><a href="javascript:void(0)">숙소</a></li>
 			</ul>
-			<div id="tabs-1">
-				<p>여긴 전체 사진들</p>
+			<div id="tab-1">
+				
 			</div>
-			<div id="tabs-2">
-				<p>여긴 먹거리 사진들</p>
+			<div id="tab-2">
+				
 			</div>
-			<div id="tabs-3">
-				<p>여긴 사진들?</p>
-			</div>
-			<div id="tabs-4">
-				<p>여긴 숙소</p>
+			<div id="tab-3">
+				
 			</div>
 		</nav>
 
 		<article>
 			<p>
-			<h1 align="center" style="margin-bottom: 30px" >경 기 도</h1>
+			<h1 align="center" style="margin-bottom: 30px">${requestScope.location}</h1>
 			<div class="container">
 				<div id="myCarousel" class="carousel slide" data-ride="carousel">
 					<!-- Indicators -->
@@ -148,10 +288,15 @@ footer {
 					</a>
 				</div>
 			</div>
-			</p>
-
-
-			<p>여기 사진이랑 로케이션</p>
+			<br> <br>
+			<table align="center">
+				<c:forEach var="clist" items="${clist}" step="1">
+					<tr>
+						<td>dd</td>
+						<td>${clist}</td>
+					</tr>
+				</c:forEach>
+			</table>
 		</article>
 	</section>
 
