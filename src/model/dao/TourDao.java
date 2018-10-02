@@ -398,6 +398,24 @@ public class TourDao {
 		}
 	}
 	
+	public void deleteScrap(int reviewNum) throws SQLException { // 湲� �궘�젣�븯湲�
+		Connection conn = null;
+		PreparedStatement ps = null;
+		
+		try {
+			conn = getConnect();
+			ps = conn.prepareStatement(ReviewStringQuery.DELETE_SCRAP);
+			ps.setInt(1, reviewNum);
+			ps.executeUpdate();
+			
+			int row = ps.executeUpdate();
+			System.out.println(row + " row delete scrap ok..");
+			
+		} finally {
+			closeAll(ps, conn);
+		}
+	}
+	
 	// ArrayList<String> tags, ArrayList<String> images
 	public void updateReview(ReviewVO rvo) throws SQLException { // 湲� �닔�젙�븯湲�(蹂대쪟蹂대쪟 蹂대쪟蹂대쪟蹂대쪟蹂대쪟酉�......)
 		Connection conn = null;

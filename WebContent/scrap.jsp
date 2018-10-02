@@ -128,7 +128,8 @@
 				<hr>
 				${rList.date}<br>
 				<img src="${rList.mainImage}" width="350"><br>
-				${rList.title}
+				${rList.title}&nbsp;&nbsp;
+				<a href="deleteScrap.do?reviewNum=${rList.reviewNum}&&id=${rList.id}"><input type="button" value="삭제"></a>
 				<hr><br><br>
 			</div>
 		</a>

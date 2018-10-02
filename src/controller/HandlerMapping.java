@@ -21,6 +21,8 @@ public class HandlerMapping {
 			return new ScrapController();
 		case "delete.do":	
 			return new DeleteController();
+		case "deleteScrap.do":	
+			return new DeleteScrapController();
 		case "login":	//command
 			return new LoginController();
 		case "register":
