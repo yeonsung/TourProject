@@ -34,6 +34,8 @@ public class HandlerMapping {
 			return new RegisterUpdateController();
 		case "logout.do":
 			return new LogoutController();
+		case "mainPage.do":
+			return new MainPageController();
 		}
 		return null;
 	}

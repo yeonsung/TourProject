@@ -1,4 +1,4 @@
-@import url('normalize.css');
+/* @import url('normalize.css'); */
 
 @font-face {
   font-family: 'Nanum Gothic';
@@ -41,12 +41,12 @@ body {
 	padding: 0;
 }
 
-.container {
+/* .container {
 	position: relative;
 	margin: 50px auto 30px;
 	width: 700px;
-	/* min-height: 700px; */
-}
+	min-height: 700px;
+} */
 
 .footer {
 	margin: 0 auto 50px;
@@ -97,7 +97,7 @@ h1 {
 	border: 1px solid #ddd;
 }
 
-.background {
+.background {				/*지도 배경색 */
   fill: #f7fcfd;
   pointer-events: all;
 }
@@ -116,7 +116,7 @@ button.ui-button-icon-only {
 	padding: 0;
 }
 
-#states path {
+#states path {			/*지도 색깔 	 */
   fill: #ccece6;
   stroke: #fff;
   stroke-width: 1.5px;
