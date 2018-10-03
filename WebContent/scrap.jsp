@@ -14,7 +14,6 @@
 	.contents{
 		padding-top: 80px;
 	}
-
    	#header {
       	border-bottom: 7px solid transparent;
       	-moz-border-imag: -moz-linear-gradient(left, DarkGreen, #64AB4C);
@@ -31,47 +30,7 @@
       	margin-left: 10px
    	}
 </style>
-
-<script type="text/javascript">
-   	$(function() {
-   		//================================ menu ================================
-   		
-   		 $('#myNavbar>ul li').click(function() {
-    		var scrollPosition = $($(this).attr('data-target')).offset().top;
-    		$('body, html').animate({
-    			scrollTop: scrollPosition
-    		}, 500); //animate
-		}); //click
-
-      	$('#menuSpan .icon-bar').css('background', 'green');
-      
-      	$('#myNavbar li a').css({
-         	'color' : 'black',
-         	'font-weight' : 'bold'
-      	}); //css
-      
-      	$('#myNavbar li a').hover(function() { 
-         	//상단 메뉴바 마우스 올려놨을 때
-           	$(this).css({
-              	'color' : 'green',
-              	'background' : 'rgba(242, 242, 242, 0.5)'
-           	}); //css
-         
-      	}, function() {
-         	$(this).css({
-              	'color' : 'black',
-              	'background' : 'white'
-           	}); //css
-      	}); //hover
-      
-      	$('.dropdown-menu').css({
-         	'margin-top' : '9px',
-         	'min-width' : '12px',
-         	'border-radius': '2px'
-      	}); //css
-   	}); //ready
-</script>
-
+<script type="text/javascript" src="js/nav.js"></script>
 </head>
 <body>
    	<nav class="navbar navbar-defalt navbar-fixed-top" style="background-color: #fff">
@@ -120,21 +79,54 @@
     	<div id="line"></div>
 	</nav>
 
-   	<div style="height: 100px"></div>
+   	<div style="height: 150px"></div>
    
-	<h1 align="center">Scrap</h1>
+	<h1 align="center">Scrap</h1><br><br>
 	
-	<c:forEach items="${rlist}" var="rList">
+	<c:forEach items="${lvo.list}" var="rList">
 		<a href="#">
 			<div align="center" class="col-sm-4">
 				<hr>
 				${rList.date}<br>
 				<img src="${rList.mainImage}" width="350"><br>
-				${rList.title}
-				<hr>
+				${rList.title}&nbsp;&nbsp;
+				<a href="deleteScrap.do?reviewNum=${rList.reviewNum}&&id=${rList.id}"><input type="button" value="삭제"></a>
+				<hr><br><br>
 			</div>
 		</a>
 	</c:forEach>
 	
+	<br><br>
+	
+	<div align="center" class="col-sm-12">  
+		<c:set var="pb" value="${lvo.pb}"></c:set>
+		<c:if test="${pb.previousPageGroup}">
+			<ul class="pagination pagination-sm">
+	    		<li><a href="scrap.do?id=yun&&pageNo=${pb.startPageOfPageGroup-1}">&#60;</a></li>
+	  		</ul>
+		</c:if>
+		
+		<c:forEach var="i" begin="${pb.startPageOfPageGroup}" end="${pb.endPageOfPageGroup}">
+			<c:choose>
+				<c:when test="${pb.nowPage!=i}">
+					<ul class="pagination">
+		    			<li><a href="scrap.do?id=yun&&pageNo=${i}">${i}</a></li>
+		    		</ul>
+				</c:when>
+				<c:otherwise>
+					<ul class="pagination">
+		    			<li><a href="#">${i}</a></li>
+		    		</ul>
+				</c:otherwise>
+			</c:choose>
+			&nbsp;
+		</c:forEach>
+		
+		<c:if test="${pb.nextPageGroup}">
+			<ul class="pagination pagination-sm">
+	    		<li><a href="scrap.do?id=yun&&pageNo=${pb.endPageOfPageGroup+1}">&#62;</a></li>
+	  		</ul>
+		</c:if>	
+	</div>			
 </body>
 </html>
