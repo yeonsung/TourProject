@@ -17,6 +17,30 @@ public class ReviewVO {
 	ArrayList<String> images;
 	
 	public ReviewVO() {}
+	
+	
+	// 占쏙옙占쏙옙占쏙옙占쏙옙占� 占쌩곤옙..
+	public ReviewVO(String title, String location, String city, String content, ArrayList<String> tags,
+			ArrayList<String> images) { 
+		super();
+		this.title = title;
+		this.location = location;
+		this.city = city;
+		this.content = content;
+		this.tags = tags;
+		this.images = images;
+	}
+	
+	
+	public ReviewVO(int reviewNum, String title, String id, String date) {
+		super();
+		this.reviewNum = reviewNum;
+		this.title = title;
+		this.id = id;
+		this.date = date;
+	}
+	
+	// 占쌩곤옙....
 	public ReviewVO(int reviewNum, String title, String id, String location, String city, String content, String date,
 			int like) {
 		super();
@@ -107,5 +131,15 @@ public class ReviewVO {
 	public void setImages(ArrayList<String> images) {
 		this.images = images;
 	}
+
+
+	@Override
+	public String toString() {
+		return "ReviewVO [reviewNum=" + reviewNum + ", title=" + title + ", id=" + id + ", location=" + location
+				+ ", city=" + city + ", content=" + content + ", date=" + date + ", like=" + like + ", tags=" + tags
+				+ ", comments=" + comments + ", images=" + images + "]";
+	}
+	
+	
 	
 }

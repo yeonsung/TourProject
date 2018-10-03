@@ -8,7 +8,10 @@ public class HandlerMapping {
 	}
 	
 	public Controller createController(String command) {
+		Controller controller = null;
+
 		switch(command) {
+
 		case "locationpage.do":	//command
 			return new GoLocationPageController();
 		case "myreviews.do":	
@@ -17,11 +20,21 @@ public class HandlerMapping {
 			return new ScrapController();
 		case "delete.do":	
 			return new DeleteController();
-		
+		case "deleteScrap.do":	
+			return new DeleteScrapController();
+		case "getBestReviewBytag.do":
+			return new GetBestReviewBytagController();
+		case "login.do":	//command
+			return new LoginController();
+		case "register.do":
+			return new RegisterController();
+		case "idcheck.do":
+			return new IdcheckController();
+		case "registerupdate.do":
+			return new RegisterUpdateController();
+		case "logout.do":
+			return new LogoutController();
 		}
-		
 		return null;
 	}
-	
-	
 }
