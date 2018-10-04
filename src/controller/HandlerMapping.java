@@ -9,7 +9,6 @@ public class HandlerMapping {
 	
 	public Controller createController(String command) {
 		Controller controller = null;
-
 		switch(command) {
 
 		case "locationpage.do":	//command
@@ -36,6 +35,8 @@ public class HandlerMapping {
 			return new LogoutController();
 		case "mainPage.do":
 			return new MainPageController();
+    case "getAttraction.do":	//command
+			return new GetAttractionController();
 		}
 		return null;
 	}

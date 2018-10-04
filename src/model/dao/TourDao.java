@@ -11,6 +11,7 @@ import config.OracleInfo;
 import model.vo.AttractionVO;
 import model.vo.CommentVO;
 import model.vo.FestivalVO;
+
 import model.vo.MemberVO;
 import model.vo.ReviewVO;
 import query.review.ReviewStringQuery;
@@ -150,7 +151,6 @@ public class TourDao {
 				vo.setLike(rs.getInt("likes"));
 				list.add(vo);
 			}
-
 			for (int i = 0; i < list.size(); i++) {
 				ArrayList<String> tags = getTags(list.get(i).getReviewNum(), conn);
 				list.get(i).setTags(tags);
