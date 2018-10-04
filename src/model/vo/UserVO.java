@@ -2,7 +2,7 @@ package model.vo;
 
 import java.util.ArrayList;
 
-public class MemberVO {
+public class UserVO {
 	String userName;
 	int ssn;
 	String id;
@@ -10,38 +10,11 @@ public class MemberVO {
 	String tel;
 	String mail;
 	
-	ArrayList<Integer> scraps = new ArrayList<Integer>();
+	ArrayList<Integer> scraps;
 	
-	public MemberVO(){}
+	UserVO(){}
 	
-	public MemberVO(String id) {
-		this.id = id;
-	}
-	public MemberVO(String userName, int ssn, String id, String password, String tel, String mail) {
-		this.userName = userName;
-		this.ssn = ssn;
-		this.id = id;
-		this.password = password;
-		this.tel = tel;
-		this.mail = mail;
-	}
-	public MemberVO(String password, String tel, String mail) {
-		super();
-		this.password = password;
-		this.tel = tel;
-		this.mail = mail;
-	}
-
-	public ArrayList<Integer> getScraps() {
-		return scraps;
-	}
-
-
-	public void setScraps(int reviewNum) {
-		scraps.add(reviewNum);
-	}
-
-
+	
 	public String getUserName() {
 		return userName;
 	}

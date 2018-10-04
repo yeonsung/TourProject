@@ -9,8 +9,6 @@ public class HandlerMapping {
 	
 	public Controller createController(String command) {
 		Controller controller = null;
-		System.out.println(command);
-		
 		switch(command) {
 		case "locationpage.do":	//command
 			return new GoLocationPageController();
@@ -20,13 +18,26 @@ public class HandlerMapping {
 			return new ScrapController();
 		case "delete.do":	
 			return new DeleteController();
-		case "login":	//command
+		case "deleteScrap.do":	
+			return new DeleteScrapController();
+		case "getBestReviewBytag.do":
+			return new GetBestReviewBytagController();
+		case "login.do":	//command
 			return new LoginController();
-		case "register":
+		case "register.do":
 			return new RegisterController();
 		case "write.do":	//command
-			System.out.println("하하호호124124");
 			return new WriteController();
+		case "idcheck.do":
+			return new IdcheckController();
+		case "registerupdate.do":
+			return new RegisterUpdateController();
+		case "logout.do":
+			return new LogoutController();
+		case "mainPage.do":
+			return new MainPageController();
+    case "getAttraction.do":	//command
+			return new GetAttractionController();
 		}
 		
 		return null;
