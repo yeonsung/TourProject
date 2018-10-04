@@ -7,25 +7,19 @@
 <head>
 <meta charset="utf-8">
 <title>Insert title here</title>
-	
-	<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/themes/base/jquery-ui.css" />
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-	<link rel="stylesheet" href="css/style.css">
-	<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
-	<script src="http://d3js.org/d3.v3.min.js"></script>
-	<script type="text/javascript" src="js/nav.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<!-- Website Font style -->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
 <style>
-
 	.contents{
 		padding-top: 80px;
 	}
 
    	#header {
       	border-bottom: 7px solid transparent;
-      	-moz-border-imag: -moz-linear-gradient(left, DarkGreen, #64AB4C);
+      	-moz-border-imag: -moz-linear-gradient(left, DarkGreen, #64AB4C); /* #CEF6EC #A4A4A4 #BDBDBD #AEB404*/
 		-webkit-border-image: -webkit-linear-gradient(left, DarkGreen, #64AB4C);
       	border-image: linear-gradient(to right, DarkGreen, #64AB4C);
       	border-image-slice: 1;
@@ -39,9 +33,52 @@
       	margin-left: 10px
    	}
 </style>
+
+<script type="text/javascript">
+   	$(function() {
+   		//================================ menu ================================
+   		
+   		 $('#myNavbar>ul li').click(function() {
+    		var scrollPosition = $($(this).attr('data-target')).offset().top;
+    		$('body, html').animate({
+    			scrollTop: scrollPosition
+    		}, 500); //animate
+		}); //click
+
+      	$('#menuSpan .icon-bar').css('background', 'green');
+      
+      	$('#myNavbar li a').css({
+         	'color' : 'black',
+         	'font-weight' : 'bold'
+      	}); //css
+      
+      	$('#myNavbar li a').hover(function() { 
+         	//ìƒë‹¨ ë©”ë‰´ë°” ë§ˆìš°ìŠ¤ ì˜¬ë ¤ë†¨ì„ ë•Œ
+           	$(this).css({
+              	'color' : 'green',
+              	'background' : 'rgba(242, 242, 242, 0.5)'
+           	}); //css
+         
+      	}, function() {
+         	$(this).css({
+              	'color' : 'black',
+              	'background' : 'white'
+           	}); //css
+      	}); //hover
+      
+      	$('.dropdown-menu').css({
+         	'margin-top' : '9px',
+         	'min-width' : '12px',
+         	'border-radius': '2px'
+      	}); //css
+   	}); //ready
+</script>
+
 </head>
 <body>
-	<nav class="navbar navbar-defalt navbar-fixed-top" style="background-color: #fff; display:inline-block;">
+
+
+   	<nav class="navbar navbar-defalt navbar-fixed-top" style="background-color: #fff">
       	<div id="header">
       		<div class="container">
          		<div class="navbar-header" style="margin-top: 15px">
@@ -72,13 +109,24 @@
 		                     		<span class="caret" style="margin-left: 10px"></span>
 		                     	</span>
 		                  	</a>
-		                  	<ul class="dropdown-menu">
-		                     	<li><a href="#"><span class="glyphicon glyphicon-log-out"></span>&nbsp;&nbsp;·Î±×¾Æ¿ô</a></li>
-		                     	<li><a href="myreviews.do?id=yun"><span class="glyphicon glyphicon-edit"></span>&nbsp;&nbsp;³»°¡ ¾´ ±Û</a></li>
-		                     	<li><a href="scrap.do?id=yun"><span class="glyphicon glyphicon-bookmark"></span>&nbsp;&nbsp;½ºÅ©·¦</a></li>
-		                     	<li><a href="#"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;±Û ÀÛ¼º</a></li>
-		                     	<li><a href="#"><span class="glyphicon glyphicon-cog"></span>&nbsp;&nbsp;Á¤º¸ ¼öÁ¤</a></li>
-		                  	</ul>
+		                  	<c:choose>
+		                  	 	<c:when test="${vo != null}">
+			                  	 	<ul class="dropdown-menu">
+			                     	<li><a href="logout.do"><span class="glyphicon glyphicon-log-out"></span>&nbsp;&nbsp;ë¡œê·¸ì•„ì›ƒ</a></li>
+			                     	<li><a href="myreviews.do?id=yun"><span class="glyphicon glyphicon-edit"></span>&nbsp;&nbsp;ë‚´ê°€ ì“´ ê¸€</a></li>
+			                     	<li><a href="scrap.do?id=yun"><span class="glyphicon glyphicon-bookmark"></span>&nbsp;&nbsp;ìŠ¤í¬ë©</a></li>
+			                     	<li><a href="#"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;ê¸€ ì‘ì„±</a></li>
+			                     	<li><a href="registerupdate.do?id="><span class="glyphicon glyphicon-cog"></span>&nbsp;&nbsp;ì •ë³´ ìˆ˜ì •</a></li>
+			                  		</ul>
+		                  		</c:when>
+		      
+		                  		<c:otherwise>
+		                  			<ul class="dropdown-menu">
+			                     	<li><a href="login.jsp"><span class="glyphicon glyphicon-log-in"></span>&nbsp;&nbsp;ë¡œê·¸ì¸</a></li>
+			                     	<li><a href="register.jsp"><i class="fas fa-user-plus"></i>&nbsp;&nbsp;íšŒì›ê°€ì…</a></li>
+			                  		</ul>
+		                  		</c:otherwise>
+		                  	</c:choose>
 	               		</li>
 					</ul>
 				</div> <!-- myNavbar -->
@@ -86,17 +134,8 @@
 		</div> <!-- header -->
     	<div id="line"></div>
 	</nav>
-	<div class="col-lg-6">
-		<div id="container" style="display:inline-block; margin-top:161px;"></div>
-		<div>
-		
-		</div>
-	</div>
-	<div class="footer" style="display:none;">
-		<p>ÀÌ Áöµµ´Â <a href="http://d3js.org/" target="_blank">D3.js</a>·Î ¸¸µé¾úÀ¸¸ç <a href="http://bl.ocks.org/mbostock/2206340" target="_blank">mbostock¡¯s block #2206340</a>À» º¸°í ¸¸µç °ÍÀÔ´Ï´Ù.</p>
-	</div>
-	<form action="locationpage.do"><input type="hidden" name="location" value=""></form>
-	<script src="js/script.js"></script>
-	
+
+   <div style="height: 100px"></div>
 </body>
+
 </html>
