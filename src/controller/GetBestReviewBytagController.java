@@ -1,5 +1,6 @@
 package controller;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,16 +12,22 @@ import model.vo.ReviewVO;
 public class GetBestReviewBytagController implements Controller {
 
 	@Override
-	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) {
-		String category = request.getParameter("tag");
+	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws SQLException {
+		String tag = request.getParameter("tag");
 		String location = request.getParameter("location");
+		System.out.println(tag+"        "+location);
 		ArrayList<ReviewVO> relist = null;
+	
 		try {
-			relist = TourDao.getInstance().getBestReviewByTag(location, category);
+			System.out.println("1");
+			relist = TourDao.getInstance().getBestReviewByTag(location, tag);
+			System.out.println("2");
+			request.setAttribute("relist", relist);
+			System.out.println(relist);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		request.setAttribute("relist", relist);
 		return new ModelAndView("tabResult.jsp");
 	}
 }
+

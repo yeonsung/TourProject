@@ -6,18 +6,19 @@
 <head>
 <meta charset="utf-8">
 <title>Insert title here</title>
-<style type="text/css">
-td td{
-font-size: 0.5em;}
-</style>
+
 </head>
 <body>
 	<table align="center">
 		<c:forEach var="relist" items="${relist}" step="1">
 			<tr>
-				<td><img src=${relist.img}></td>
-				<td>${relist.city}</td>
-				<td>${relist.like}</td>
+				<td><img src=${relist.mainImage}><br></td>
+			</tr>
+			<tr>
+				<td style="font-size: 20px;">#${relist.city}</td>
+			</tr>
+			<tr>
+				<td style="font-size: 20px;"><b>${relist.title}</b></td>
 			</tr>
 		</c:forEach>
 	</table>
