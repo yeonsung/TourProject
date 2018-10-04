@@ -17,8 +17,16 @@ public class ReviewVO {
 	ArrayList<String> images;
 	
 	public ReviewVO() {}
-	
-	
+
+	public ReviewVO(String title, String id, String location, String city, String content) {
+		this.title = title;
+		this.id = id;
+		this.location = location;
+		this.city = city;
+		this.content = content;
+	}
+
+
 	// 占쏙옙占쏙옙占쏙옙占쏙옙占� 占쌩곤옙..
 	public ReviewVO(String title, String location, String city, String content, ArrayList<String> tags,
 			ArrayList<String> images) { 
@@ -127,7 +135,6 @@ public class ReviewVO {
 	public void setTags(ArrayList<String> tags) {
 		this.tags = tags;
 	}
-	
 	public ArrayList<CommentVO> getComments() {
 		return comments;
 	}
@@ -144,6 +151,23 @@ public class ReviewVO {
 	}
 
 
+
+
+	public ReviewVO(int reviewNum, String title, String id, String location, String city, String content, String date,
+			int like, ArrayList<String> tags, ArrayList<CommentVO> comments, ArrayList<String> images) {
+		super();
+		this.reviewNum = reviewNum;
+		this.title = title;
+		this.id = id;
+		this.location = location;
+		this.city = city;
+		this.content = content;
+		this.date = date;
+		this.like = like;
+		this.tags = tags;
+		this.comments = comments;
+		this.images = images;
+	}
 	@Override
 	public String toString() {
 		return "ReviewVO [reviewNum=" + reviewNum + ", title=" + title + ", id=" + id + ", location=" + location
