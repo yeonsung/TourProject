@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
@@ -14,18 +14,7 @@
 	.contents{
 		padding-top: 80px;
 	}
-
-   	#header {
-      	border-bottom: 7px solid transparent;
-      	-moz-border-imag: -moz-linear-gradient(left, DarkGreen, #64AB4C);
-		-webkit-border-image: -webkit-linear-gradient(left, DarkGreen, #64AB4C);
-      	border-image: linear-gradient(to right, DarkGreen, #64AB4C);
-      	border-image-slice: 1;
-      	margin-top: 8px;
-      	padding-bottom: 8px;
-      	font: 67.5% "Lucida Sans Unicode", "Bitstream Vera Sans", "Trebuchet Unicode MS", "Lucida Grande", Verdana, Helvetica, sans-serif;
-      	font-size: 14px;
-   	}
+   
    
    	.caret {
       	margin-left: 10px
@@ -42,7 +31,6 @@
     			scrollTop: scrollPosition
     		}, 500); //animate
 		}); //click
-
       	$('#menuSpan .icon-bar').css('background', 'green');
       
       	$('#myNavbar li a').css({
@@ -106,11 +94,11 @@
 		                     	</span>
 		                  	</a>
 		                  	<ul class="dropdown-menu">
-		                     	<li><a href="#"><span class="glyphicon glyphicon-log-out"></span>&nbsp;&nbsp;�α׾ƿ�</a></li>
-		                     	<li><a href="myreviews.do?id=yun"><span class="glyphicon glyphicon-edit"></span>&nbsp;&nbsp;���� �� ��</a></li>
-		                     	<li><a href="scrap.do?id=yun"><span class="glyphicon glyphicon-bookmark"></span>&nbsp;&nbsp;��ũ��</a></li>
-		                     	<li><a href="#"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;�� �ۼ�</a></li>
-		                     	<li><a href="#"><span class="glyphicon glyphicon-cog"></span>&nbsp;&nbsp;��� ���</a></li>
+		                     	<li><a href="#"><span class="glyphicon glyphicon-log-out"></span>&nbsp;&nbsp;로그아웃</a></li>
+		                     	<li><a href="myreviews.do?id=yun"><span class="glyphicon glyphicon-edit"></span>&nbsp;&nbsp;내가 쓴 글</a></li>
+		                     	<li><a href="scrap.do?id=yun"><span class="glyphicon glyphicon-bookmark"></span>&nbsp;&nbsp;스크랩</a></li>
+		                     	<li><a href="#"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;글 작성</a></li>
+		                     	<li><a href="#"><span class="glyphicon glyphicon-cog"></span>&nbsp;&nbsp;정보 수정</a></li>
 		                  	</ul>
 	               		</li>
 					</ul>
@@ -120,21 +108,54 @@
     	<div id="line"></div>
 	</nav>
 
-   	<div style="height: 100px"></div>
-   
-	<h1 align="center">My Review</h1>
+   	<div style="height: 150px"></div>
+	<h1 align="center">My Review</h1><br><br>
 	
-	<c:forEach items="${rlist}" var="rList">
+	<c:forEach items="${lvo.list}" var="rList">
 		<a href="#">
 			<div align="center" class="col-sm-4">
 				<hr>
 				${rList.date}<br>
 				<img src="${rList.mainImage}" width="350"><br>
 				${rList.title}&nbsp;&nbsp;
-				<input type="button" value="���">&nbsp;
-				<a href="delete.do?reviewNum=${rList.reviewNum}&&id=${rList.id}"><input type="button" value="���"></a>
-				<hr>
+				<input type="button" value="수정">&nbsp;
+				<a href="delete.do?reviewNum=${rList.reviewNum}&&id=${rList.id}"><input type="button" value="삭제"></a>
+				<hr><br><br>
 			</div>
 		</a>
 	</c:forEach>
+	
+	<br><br>
+	
+	<div align="center" class="col-sm-12">  
+		<c:set var="pb" value="${lvo.pb}"></c:set>
+		<c:if test="${pb.previousPageGroup}">
+			<ul class="pagination pagination-sm">
+	    		<li><a href="myreviews.do?id=yun&&pageNo=${pb.startPageOfPageGroup-1}">&#60;</a></li>
+	  		</ul>
+		</c:if>
+		
+		<c:forEach var="i" begin="${pb.startPageOfPageGroup}" end="${pb.endPageOfPageGroup}">
+			<c:choose>
+				<c:when test="${pb.nowPage!=i}">
+					<ul class="pagination">
+		    			<li><a href="myreviews.do?id=yun&&pageNo=${i}">${i}</a></li>
+		    		</ul>
+				</c:when>
+				<c:otherwise>
+					<ul class="pagination">
+		    			<li><a href="#">${i}</a></li>
+		    		</ul>
+				</c:otherwise>
+			</c:choose>
+			&nbsp;
+		</c:forEach>
+		
+		<c:if test="${pb.nextPageGroup}">
+			<ul class="pagination pagination-sm">
+	    		<li><a href="myreviews.do?id=yun&&pageNo=${pb.endPageOfPageGroup+1}">&#62;</a></li>
+	  		</ul>
+		</c:if>	
+	</div>
 </body>
+</html>

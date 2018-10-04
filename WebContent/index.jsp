@@ -1,15 +1,55 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
+    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="utf-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-
+	
+	<!-- <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/themes/base/jquery-ui.css" /> -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<!-- 	<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+ --><script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
+	<script src="http://d3js.org/d3.v3.min.js"></script>
+	<script type="text/javascript" src="js/nav.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script>
+	$(function() {
+		
+		$("#tabs").tabs();
+		$('nav a').click(function() {
+			var str = "location="$(this).html();
+			$.ajax({
+				type:"get",
+				url:"getBestReviewBytag.do",
+				data :"&&tag="+str,
+				
+				success:function(data){
+					if(str=="ë§›ì§‘"){
+						$('#tab-1').html(data);	
+						$('#tab-2').html("");
+						$('#tab-3').html("");
+					}
+					else if(str=='ê´€ê´‘'){
+						$('#tab-2').html(data);	
+						$('#tab-1').html("");
+						$('#tab-3').html("");
+					}
+					else if(str=='ìˆ™ì†Œ'){
+						$('#tab-3').html(data);	
+						$('#tab-1').html("");
+						$('#tab-2').html("");
+					}
+				}//callback
+			});//ajax
+		});
+	});
+	</script>
 <style>
 	.contents{
 		padding-top: 80px;
@@ -51,7 +91,7 @@
       	}); //css
       
       	$('#myNavbar li a').hover(function() { 
-         	//»ó´Ü ¸Ş´º¹Ù ¸¶¿ì½º ¿Ã·Á³ùÀ» ¶§
+         	//ï¿½ï¿½ï¿½ï¿½ ï§ï¿½ï¿½ëŒ€ï¿½ ï§ï¿½ï¿½ê³—ï¿½ï¿½ ï¿½Ñ‰ï¿½ã…»ï¿½â‘¥ï¿½ï¿½ ï¿½ï¿½
            	$(this).css({
               	'color' : 'green',
               	'background' : 'rgba(242, 242, 242, 0.5)'
@@ -74,6 +114,8 @@
 
 </head>
 <body>
+
+
    	<nav class="navbar navbar-defalt navbar-fixed-top" style="background-color: #fff">
       	<div id="header">
       		<div class="container">
@@ -105,13 +147,24 @@
 		                     		<span class="caret" style="margin-left: 10px"></span>
 		                     	</span>
 		                  	</a>
-		                  	<ul class="dropdown-menu">
-		                     	<li><a href="#"><span class="glyphicon glyphicon-log-out"></span>&nbsp;&nbsp;·Î±×¾Æ¿ô</a></li>
-		                     	<li><a href="myreviews.do?id=yun"><span class="glyphicon glyphicon-edit"></span>&nbsp;&nbsp;³»°¡ ¾´ ±Û</a></li>
-		                     	<li><a href="scrap.do?id=yun"><span class="glyphicon glyphicon-bookmark"></span>&nbsp;&nbsp;½ºÅ©·¦</a></li>
-		                     	<li><a href="#"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;±Û ÀÛ¼º</a></li>
-		                     	<li><a href="#"><span class="glyphicon glyphicon-cog"></span>&nbsp;&nbsp;Á¤º¸ ¼öÁ¤</a></li>
-		                  	</ul>
+		                  	<c:choose>
+		                  	 	<c:when test="${vo != null}">
+			                  	 	<ul class="dropdown-menu">
+			                     	<li><a href="logout.do"><span class="glyphicon glyphicon-log-out"></span>&nbsp;&nbsp;æ¿¡ï¿½æ´¹ëª„ï¿½ï¿½ï¿½ï¿½</a></li>
+			                     	<li><a href="myreviews.do?id=yun"><span class="glyphicon glyphicon-edit"></span>&nbsp;&nbsp;ï¿½ë‹¿ï¿½ ï¿½ï¿½ æ¹²ï¿½</a></li>
+			                     	<li><a href="scrap.do?id=yun"><span class="glyphicon glyphicon-bookmark"></span>&nbsp;&nbsp;ï¿½ã…½ï¿½Ñ‰ï¿½ï¿½</a></li>
+			                     	<li><a href="#"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;æ¹²ï¿½ ï¿½ï¿½ï¿½ï¿½</a></li>
+			                     	<li><a href="registerupdate.do?id="><span class="glyphicon glyphicon-cog"></span>&nbsp;&nbsp;ï¿½ï¿½è¹‚ï¿½ ï¿½ï¿½ï¿½ï¿½</a></li>
+			                  		</ul>
+		                  		</c:when>
+		      
+		                  		<c:otherwise>
+		                  			<ul class="dropdown-menu">
+			                     	<li><a href="login.jsp"><span class="glyphicon glyphicon-log-in"></span>&nbsp;&nbsp;æ¿¡ï¿½æ´¹ëª„ï¿½ï¿½</a></li>
+			                     	<li><a href="register.jsp"><i class="fas fa-user-plus"></i>&nbsp;&nbsp;ï¿½ï¿½ï¿½ï¿½åª›ï¿½ï¿½ï¿½</a></li>
+			                  		</ul>
+		                  		</c:otherwise>
+		                  	</c:choose>
 	               		</li>
 					</ul>
 				</div> <!-- myNavbar -->
@@ -119,7 +172,44 @@
 		</div> <!-- header -->
     	<div id="line"></div>
 	</nav>
+<<<<<<< HEAD
+	<div class="row">
+		<div class="col-lg-7">
+			<div id="container" style="display:inline-block; margin-top:161px;"></div>
+		</div>
+		<div class="col-lg-3" style="margin-top:161px;">
+			<section>
+				<nav id="tabs">
+					<h1 align="center">BEST REVIEWS</h1>
+					<ul>
+						<li><a href="javascript:void(0)">ë§›ì§‘</a></li>
+						<li><a href="javascript:void(0)">ê´€ê´‘</a></li>
+						<li><a href="javascript:void(0)">ìˆ™ì†Œ</a></li>
+					</ul>
+					<div id="tab-1">
+						
+					</div>
+					<div id="tab-2">
+						
+					</div>
+					<div id="tab-3">
+						
+					</div>
+				</nav>
+		
+			</section>
+		</div>
+	</div>
+	<div class="footer" style="display:none;">
+		<p>ì´ ì§€ë„ëŠ” <a href="http://d3js.org/" target="_blank">D3.js</a>ë¡œ ë§Œë“¤ì—ˆìœ¼ë©° <a href="http://bl.ocks.org/mbostock/2206340" target="_blank">mbostockâ€™s block #2206340</a>ì„ ë³´ê³  ë§Œë“  ê²ƒì…ë‹ˆë‹¤.</p>
+	</div>
+	<form action="locationpage.do"><input type="hidden" name="location" value=""></form>
+	<script src="js/script.js"></script>
+	
+=======
 
    <div style="height: 100px"></div>
+>>>>>>> branch 'master' of https://github.com/kaky0910/TourProject.git
 </body>
+
 </html>

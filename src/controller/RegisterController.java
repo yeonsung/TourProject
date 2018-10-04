@@ -11,7 +11,7 @@ public class RegisterController implements Controller {
 	@Override
 	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String id = request.getParameter("id");
-		String password = request.getParameter("passowrd");
+		String password = request.getParameter("password");
 		String username = request.getParameter("username");
 		int ssn = Integer.parseInt(request.getParameter("ssn"));
 		String mail = request.getParameter("mail");
@@ -20,7 +20,7 @@ public class RegisterController implements Controller {
 		MemberVO rvo = new MemberVO(username, ssn, id, password, tel, mail);
 		TourDao.getInstance().register(rvo);
 		
-		return new ModelAndView();
+		return new ModelAndView("login.jsp");
 	}
 
 }

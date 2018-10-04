@@ -25,9 +25,13 @@ public class MemberVO {
 		this.tel = tel;
 		this.mail = mail;
 	}
+	public MemberVO(String password, String tel, String mail) {
+		super();
+		this.password = password;
+		this.tel = tel;
+		this.mail = mail;
+	}
 
-	
-	
 	public ArrayList<Integer> getScraps() {
 		return scraps;
 	}

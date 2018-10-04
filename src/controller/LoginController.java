@@ -16,19 +16,19 @@ public class LoginController implements Controller {
 	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String id = request.getParameter("id");
 		String password = request.getParameter("password");
-		String path = "index.jsp";
-		try{
-			MemberVO vo=TourDao.getInstance().login(id, password);
-			if(vo !=null){ // ·Î±×ÀÎ ¼º°ø
-				HttpSession session = request.getSession();
-				session.setAttribute("vo", vo);
-				path="login_ok.jsp";
-			}else{
-				path = "login_fail.jsp";
-			}
-		}catch(SQLException e){
-			e.printStackTrace();
+		String path = "loginresult.jsp";
+		
+		MemberVO vo=TourDao.getInstance().login(id, password);
+		if(vo !=null){ // Â·ÃŽÂ±Ã—Ã€ÃŽ Â¼ÂºÂ°Ã¸
+			HttpSession session = request.getSession();
+			session.setAttribute("vo", vo);
+			request.setAttribute("check", true);
+		}else{
+			path ="login.jsp";
+			request.setAttribute("check", false);
 		}
-		return new ModelAndView("index.jsp");
+		
+		return new ModelAndView(path);
 	}
+
 }

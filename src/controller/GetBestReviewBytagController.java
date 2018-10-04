@@ -30,3 +30,4 @@ public class GetBestReviewBytagController implements Controller {
 		return new ModelAndView("tabResult.jsp");
 	}
 }
+
