@@ -12,82 +12,63 @@
 <!-- Website Font style -->
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
 <script type="text/javascript">
-		$(function() {
-			$('form').submit(function(event) {
-				var password = $('#password').val();
-				var passcheck = $('#passcheck').val();
-				var tel = $('#tel').val();
-				var id = $('#id').val();
-				
-				if($('input[name=flag]').val() == "false"){
-					alert("아이디 중복확인을 눌러주세요.");
-					return false;
-				}
-				if(!(password.length>=6 && password.length<=15)){
-					alert("비밀번호는 6글자 이상, 15글자 이하입니다.");
-					return false;
-				}
-				if(password.toUpperCase()==password||password.toLowerCase()==password){
-					alert("비밀번호는 대소문자를 혼합해서 사용하세요.");
-					return false;
-				}
-			});
-			 $(function(){
-				  $('#passcheck').keyup(function(){
-				   if($('#password').val()!=$('#passcheck').val()){
-				    $('#passcheckform').removeClass('has-success').addClass('has-error').addClass('has-feedback');
-				   }else{
-					$('#passcheckform').removeClass('has-error').addClass('has-success').addClass('has-feedback')
-					.addClass('glyphicon-ok');
-				   }
-				  }); 
-				 });
-			$('input[type=button]').click(function () {
-				if($('#id').val() == "")
-					alert("아이디를 입력하고 눌러주세요.");
-				else if($('#id').val().indexOf(" ") != -1){
-					alert("아이디에 공백은 허용하지 않습니다.");
-				}
-				/* 공백이 없을 경우(공백이 아닌 경우) : -1 리턴 (window 창 띄우기)
-				* 공백이 있는 경우(공백인 경우) : 해당 문자가 있는 자릿 수 리턴(-1 이 아니다.) (공백 안됨 이라고 알람뜸) */
-				else {
-					window.open("idcheck.do?id=" + $('#id').val(), "Window Title", "width=300, height=200, top=100, left=400");
-					window.opener();
-				}
-			});
-		});
+$(function() {
+	$('form').submit(function(event) {
+		var password = $('#password').val();
+		var passcheck = $('#passcheck').val();
+
+		if(!(password.length>=6 && password.length<=15)){
+			alert("비밀번호는 6글자 이상, 15글자 이하입니다.");
+			return false;
+		}
+		if(password.toUpperCase()==password||password.toLowerCase()==password){
+			alert("비밀번호는 대소문자를 혼합해서 사용하세요.");
+			return false;
+		}
+	});
+	 $(function(){
+		  $('#passcheck').keyup(function(){
+		   if($('#password').val()!=$('#passcheck').val()){
+		    $('#passcheckform').removeClass('has-success').addClass('has-error').addClass('has-feedback');
+		   }else{
+			$('#passcheckform').removeClass('has-error').addClass('has-success').addClass('has-feedback')
+			.addClass('glyphicon-ok');
+		   }
+		 }); 
+	});
 </script>
  <style>
     body {
         background: #f8f8f8;
         padding: 30px 0;
     }
+    
     #registerFrm {
         padding: 25px;
     }
-    #id {
-        width: 84.7%;
-    }
+    
     .btn-sm {
         padding: 7px 10px;
     }
  </style>
 </head>
 <body>
+<body>
  <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h2 class="text-center">방귀곡성 회원가입</h2>
+                <h2 class="text-center">회원정보 수정</h2>
             </div>
             <div class="modal-body">
-                <form class="form-horizontal" action="register.do" method="post" name="registerForm" id="registerFrm">
+            <c:choose>
+			<c:when test="${vo != null}">
+                <form class="form-horizontal" action="registerupdate.do" method="post" name="registerForm" id="registerFrm">
                     <div class="form-group">
                         <label for="name" class="cols-sm-2 control-label">아이디</label>
                         <div class="cols-sm-5">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fas fa-user"></i></span>
-                                <input type="text" class="form-control" name="id" id="id" placeholder="아이디를 입력하세요." required="required"/>&nbsp;
-                                <input type="button" class="btn btn-primary btn-sm" value="중복확인">
+                                <input type="text" class="form-control" name="id" id="id" value="${vo.id}" readonly/>
                             </div>
                         </div>
                     </div>
@@ -97,7 +78,7 @@
                         <div class="cols-sm-10">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fas fa-lock"></i></span>
-                                <input type="password" class="form-control" name="password" id="password" placeholder="비밀번호를 입력하세요." required/>
+                                <input type="password" class="form-control" name="password" id="password" value="${vo.password}"/>
                             </div>
                         </div>
                     </div>
@@ -107,7 +88,7 @@
                         <div class="cols-sm-10">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fas fa-lock"></i></span>
-                                <input type="password" class="form-control" name="confirm" id="passcheck" placeholder="비밀번호를 한번 더 입력하세요." required/>
+                                <input type="password" class="form-control" name="confirm" id="passcheck" placeholder="비밀번호를 한번 더 입력하세요." />
                                 <span class="glyphicon glyphicon-ok form-control-feedback"></span>
                             </div>
                         </div>
@@ -118,7 +99,7 @@
                         <div class="cols-sm-10">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-users"></i></span>
-                                <input type="text" class="form-control" name="username" id="username" placeholder="이름을 입력하세요." required/>
+                                <input type="text" class="form-control" name="username" id="username" placeholder="이름을 입력하세요." readonly/>
                             </div>
                         </div>
                     </div>
@@ -128,7 +109,7 @@
                         <div class="cols-sm-10">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fas fa-id-card"></i></span>
-                                <input type="text" class="form-control" name="ssn" id="ssn" placeholder="주민등록번호를 입력하세요." required/>
+                                <input type="text" class="form-control" name="ssn" id="ssn" placeholder="주민등록번호를 입력하세요." readonly/>
                             </div>
                         </div>
                     </div>
@@ -138,7 +119,7 @@
                         <div class="cols-sm-10">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-                                <input type="email" class="form-control" name="mail" id="mail" placeholder="이메일 주소를 입력하세요." required/>
+                                <input type="email" class="form-control" name="email" id="mail" value="${vo.mail}"/>
                             </div>
                         </div>
                     </div>
@@ -148,20 +129,25 @@
                         <div class="cols-sm-10">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fas fa-phone"></i></span>
-                                <input type="tel" class="form-control" name="tel" id="tel" placeholder="전화번호를 입력하세요." required/>
+                                <input type="tel" class="form-control" name="usrtel" id="tel" value="${vo.tel}"/>
                             </div>
                         </div>
                     </div>
 
                     <div class="form-group ">
-                        <button type="submit" class="btn btn-primary btn-lg btn-block login-button">가입하기</button>
+                        <button type="submit" class="btn btn-primary btn-lg btn-block login-button">수정하기</button>
                         <input type="hidden" name="flag" value="false">
                     </div>
 
-                    <div class="login-register">
-                        <span class="pull-right"><a href="login.jsp">로그인</a></span>
-                    </div>
-                </form>
+               	</form>
+                	</c:when>
+					<c:otherwise>
+					<script type="text/javascript">
+						alert("로그인 후 이용가능합니다.");
+						location.href = "login.jsp";
+					</script>
+					</c:otherwise>
+				</c:choose>
             </div>
         </div>
     </div>

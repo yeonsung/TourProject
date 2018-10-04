@@ -5,15 +5,14 @@ import javax.servlet.http.HttpServletResponse;
 
 import model.dao.TourDao;
 
-public class DeleteScrapController implements Controller{
+public class IdcheckController implements Controller {
 
 	@Override
 	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String id = request.getParameter("id");
-		int reviewNum = Integer.parseInt(request.getParameter("reviewNum"));
-		TourDao.getInstance().deleteScrap(reviewNum);
+		boolean flag = TourDao.getInstance().idCheck(id);
+		request.setAttribute("flag", flag);
 		
-		return new ModelAndView("scrap.do?id=" + id);
+		return new ModelAndView("idcheck.jsp");
 	}
-
 }

@@ -31,7 +31,13 @@ public class ReviewVO {
 		this.images = images;
 	}
 	
-	
+	public ReviewVO(int reviewNum, String location, String city, String title,String id){
+		this.reviewNum = reviewNum;
+		this.title = title;
+		this.id = id;
+		this.location = location;
+		this.city = city;
+	}
 	public ReviewVO(int reviewNum, String title, String id, String date) {
 		super();
 		this.reviewNum = reviewNum;

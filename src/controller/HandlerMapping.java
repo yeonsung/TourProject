@@ -24,10 +24,18 @@ public class HandlerMapping {
 			return new DeleteScrapController();
 		case "getBestReviewBytag.do":
 			return new GetBestReviewBytagController();
-		case "login":	//command
+		case "login.do":	//command
 			return new LoginController();
-		case "register":
+		case "register.do":
 			return new RegisterController();
+		case "idcheck.do":
+			return new IdcheckController();
+		case "registerupdate.do":
+			return new RegisterUpdateController();
+		case "logout.do":
+			return new LogoutController();
+		case "mainPage.do":
+			return new MainPageController();
 		}
 		return null;
 	}
