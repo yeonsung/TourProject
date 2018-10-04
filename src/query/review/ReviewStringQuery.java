@@ -1,6 +1,7 @@
 package query.review;
 
 import model.CommonConstants;
+import model.vo.ReviewVO;
 
 public interface ReviewStringQuery {
 
@@ -43,14 +44,78 @@ public interface ReviewStringQuery {
 			+ " (select review_num, title, date_writing, id, ceil(rownum/" + CommonConstants.CONTENT_NUMBER_PER_PAGE + ") page from"
 			+ " (select review_num, title, date_writing, id from review where id=? order by review_num desc)) where page=?";	//由щ럭 由ъ뒪�듃 由ы꽩
 	String GET_RECENT_REVIEWS_BY_TAG = "SELECT review_num, title, location, city,id FROM (SELECT * FROM review ORDER BY review_num desc)" + 
-			" WHERE review_num IN((SELECT review_num FROM tag WHERE word = ?)) AND rownum<10";		//index review list
+			" WHERE review_num IN((SELECT review_num FROM tag WHERE word = ?)) AND rownum<10";
+	
+	String RELATED_REVIEWS = "select * from review where review_num in"
+			+ " (select review_num from"
+			+ " (select review_num, ceil(rownum/" + CommonConstants.CONTENT_NUMBER_PER_PAGE + ") page from"
+			+ " (select review_num from tag where word=? order by review_num desc)) where page=?)";
+
+	String GET_DATA = "select * from tourspot where spot_name ="
+			+ "(select distinct word from tag where word=?)";
+	
+	String CHECK_SPOT = "select * from tourspot where spot_name=?;";
+	
+	String GET_REVIEW_BY_SEARCH = "select * from review where review_num in"
+			+ " (select review_num from"
+			+ " (select review_num, ceil(rownum/" + CommonConstants.CONTENT_NUMBER_PER_PAGE + ") page from"
+			+ " (select review_num from tag where word="
+			+ "(select city from tourspot where spot_name=?) order by review_num desc)) where page=?)";
+
+	String REVIEW_IMG = "SELECT review_image FROM review_image WHERE review_num=?";
 }
 
+/*
+ * 1-1) .. GET_DATA (�ش� �±װ� tourspot���� �ƴ��� �˻� ����..)
+ * select * from tourspot where spot_name =
+ * (select distinct word from tag where word='�ι��Ӹ�');
+ */
 
+/*
+ * GET_DATA���� ��� ���� null�� �ƴ� ��
+ * 
+ * ===========================================================
+ * 
+ * 1-2), 3-1) .. RELATED_REVIEWS
+ * select * from review where review_num in
+ *  (select review_num from
+ *  (select review_num, ceil(rownum/6) page from
+ *  (select review_num from tag where word='�ι��Ӹ�' order by review_num desc)) where page=1);
+ *  
+ *  
+ * 4-1) ..
+ * select * from tourspot where spot_name='���ýĹ���';
+ * 
+ * 4-2)
+ * select * from review where review_num in
+ *  (select review_num from
+ *  (select review_num, ceil(rownum/2) page from
+ *  (select review_num from tag where word=
+ * (select city from tourspot where spot_name='���ýĹ���') order by review_num desc)) where page=1);
+ */
 
-
-
-
+/*
+ * 1. �˻��� tag�� �ִ� ���(tag ������ tourspot �� ��)
+ *    1) tag�� ���� ��� ��ܿ� ǥ��
+ *    2) tag�� ��õ� ���� ǥ��
+ *    
+ * 2. �˻��� tag�� �ִ� ���(tag ������ tourspot�� �ƴ� ��-location, city)
+ *    1) v1, v2 ��������� ��ũ �ɾ��ֱ�
+ *    
+ * 3. �˻��� tag�� �ִ� ���(tag ������ tourspot�� �ƴ� ��-�ٸ� �±�)
+ *    1) tag�� ��õ� ���� ǥ��
+ *    
+ * 4. �˻��� tag�� ��� ���(tag ������ tourspot �� ��)
+ *    1) �˻��� ���� ��� ��ܿ� ǥ��
+ *    2) �˻�� ����� tourspot�� ���� �ű⿡ �ִ� city �����ϰ�
+ *       city�� ��õ� ���� ǥ��
+ *    
+ * 5. �˻��� tag�� ��� ���(tag ������ city,location �� ��)
+ *    1) v1, v2 ��������� ��ũ �ɾ��ֱ�
+ *    
+ * 6. �˻��� tag�� ��� ���(tag ������ tourspot,city,location�� �ƴ� ��)
+ *    1) �˻�..x.....
+ */
 
 
 

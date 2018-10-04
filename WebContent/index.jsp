@@ -66,7 +66,6 @@
 	.contents{
 		padding-top: 80px;
 	}
-
    	#header {
       	border-bottom: 7px solid transparent;
       	-moz-border-imag: -moz-linear-gradient(left, DarkGreen, #64AB4C); /* #CEF6EC #A4A4A4 #BDBDBD #AEB404*/
