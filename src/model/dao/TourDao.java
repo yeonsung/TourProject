@@ -1,4 +1,4 @@
-package model.review;
+package model.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -8,15 +8,16 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import config.OracleInfo;
-import model.attraction.AttractionVO;
+import model.vo.AttractionVO;
 import model.vo.CommentVO;
 import model.vo.FestivalVO;
+import model.vo.ReviewVO;
 import query.review.ReviewStringQuery;
 
-public class ReviewDao {
-	private static ReviewDao reviewDao = new ReviewDao();
-	private ReviewDao() {}
-	public static ReviewDao getInstance() {
+public class TourDao {
+	private static TourDao reviewDao = new TourDao();
+	private TourDao() {}
+	public static TourDao getInstance() {
 		return reviewDao;
 	}
 	
@@ -118,7 +119,7 @@ public class ReviewDao {
 			ps.setString(1,city);
 			rs= ps.executeQuery();
 			while(rs.next()){
-				imgList.add(rs.getString("spot_image")
+				imgList.add(rs.getString("spot_name")
 						);
 			}
 			vo.setImages(imgList);
@@ -246,7 +247,7 @@ public class ReviewDao {
 	public static void main(String[] args)  {		//단위테스트
 	
 			try {
-			System.out.println(ReviewDao.getInstance().searchByTag("보성"));
+			System.out.println(TourDao.getInstance().searchByTag("보성"));
 			/*	ReviewDao.getInstance().scrap("lcj", 3);*/
 			} catch (Exception e) {
 				// TODO Auto-generated catch block

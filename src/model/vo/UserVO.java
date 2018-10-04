@@ -1,4 +1,4 @@
-package model.user;
+package model.vo;
 
 import java.util.ArrayList;
 

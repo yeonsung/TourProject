@@ -5,9 +5,9 @@ import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.attraction.AttractionVO;
-import model.review.ReviewDao;
-import model.review.ReviewVO;
+import model.dao.TourDao;
+import model.vo.AttractionVO;
+import model.vo.ReviewVO;
 import query.review.ReviewStringQuery;
 
 public class GetAttractionController implements Controller{
@@ -18,8 +18,8 @@ public class GetAttractionController implements Controller{
 		String location= request.getParameter("location");
 		String tag=request.getParameter("tag");
 		ArrayList<ReviewVO> blist = new ArrayList<ReviewVO>();
-		blist = ReviewDao.getInstance().getBestReviewByTag(location,tag);
-		ArrayList<AttractionVO> avo= ReviewDao.getInstance().getAttraction(city);
+		blist = TourDao.getInstance().getBestReviewByTag(location,tag);
+		ArrayList<AttractionVO> avo= TourDao.getInstance().getAttraction(city);
 		
 		request.setAttribute("blist", blist);
 		request.setAttribute("avo", avo);

@@ -1,4 +1,4 @@
-package model.attraction;
+package model.vo;
 import java.util.ArrayList;
 
 public class AttractionVO {

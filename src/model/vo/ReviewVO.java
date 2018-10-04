@@ -1,8 +1,6 @@
-package model.review;
+package model.vo;
 
 import java.util.ArrayList;
-
-import model.vo.CommentVO;
 
 public class ReviewVO {
 	int reviewNum; 

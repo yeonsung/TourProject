@@ -12,7 +12,7 @@ public interface ReviewStringQuery {
 	String GET_REVIEW_IMAGE="SELECT * FROM review_image WHERE review_num in (SELECT review_num FROM tag WHERE word = ?)";
 	//review_num에 맞는 review_image테이블 가져오기
 	String SCRAP="insert into scrap values(?,?)";
-	String GET_ATTRACTION = "select tourspot,address,location,city,info,img from tourspot where city=?";
+	String GET_ATTRACTION = "select spot_name,address,location,city,info,img from tourspot where city=?";
 	String GET_ATTRACTION_IMG= "select spot_image from spot_image where spot_name=?";
 	String GET_FESTIVAL_INFO = "select festival_Name,festival_Location,location,city,start_Date,end_Date,agency from festival where city='매천리' \n" + 
 			" AND start_Date <=(SELECT SYSDATE + 7 FROM DUAL)";
