@@ -53,7 +53,7 @@
       	}); //css
       
       	$('#myNavbar li a').hover(function() { 
-         	//»ó´Ü ¸Ş´º¹Ù ¸¶¿ì½º ¿Ã·Á³ùÀ» ¶§
+         	//ìƒë‹¨ ë©”ë‰´ë°” ë§ˆìš°ìŠ¤ ì˜¬ë ¤ë†¨ì„ ë•Œ
            	$(this).css({
               	'color' : 'green',
               	'background' : 'rgba(242, 242, 242, 0.5)'
@@ -112,18 +112,18 @@
 		                  	<c:choose>
 		                  	 	<c:when test="${vo != null}">
 			                  	 	<ul class="dropdown-menu">
-			                     	<li><a href="logout.do"><span class="glyphicon glyphicon-log-out"></span>&nbsp;&nbsp;·Î±×¾Æ¿ô</a></li>
-			                     	<li><a href="myreviews.do?id=yun"><span class="glyphicon glyphicon-edit"></span>&nbsp;&nbsp;³»°¡ ¾´ ±Û</a></li>
-			                     	<li><a href="scrap.do?id=yun"><span class="glyphicon glyphicon-bookmark"></span>&nbsp;&nbsp;½ºÅ©·¦</a></li>
-			                     	<li><a href="#"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;±Û ÀÛ¼º</a></li>
-			                     	<li><a href="registerupdate.do?id="><span class="glyphicon glyphicon-cog"></span>&nbsp;&nbsp;Á¤º¸ ¼öÁ¤</a></li>
+			                     	<li><a href="logout.do"><span class="glyphicon glyphicon-log-out"></span>&nbsp;&nbsp;ë¡œê·¸ì•„ì›ƒ</a></li>
+			                     	<li><a href="myreviews.do?id=yun"><span class="glyphicon glyphicon-edit"></span>&nbsp;&nbsp;ë‚´ê°€ ì“´ ê¸€</a></li>
+			                     	<li><a href="scrap.do?id=yun"><span class="glyphicon glyphicon-bookmark"></span>&nbsp;&nbsp;ìŠ¤í¬ë©</a></li>
+			                     	<li><a href="#"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;ê¸€ ì‘ì„±</a></li>
+			                     	<li><a href="registerupdate.do?id="><span class="glyphicon glyphicon-cog"></span>&nbsp;&nbsp;ì •ë³´ ìˆ˜ì •</a></li>
 			                  		</ul>
 		                  		</c:when>
 		      
 		                  		<c:otherwise>
 		                  			<ul class="dropdown-menu">
-			                     	<li><a href="login.jsp"><span class="glyphicon glyphicon-log-in"></span>&nbsp;&nbsp;·Î±×ÀÎ</a></li>
-			                     	<li><a href="register.jsp"><i class="fas fa-user-plus"></i>&nbsp;&nbsp;È¸¿ø°¡ÀÔ</a></li>
+			                     	<li><a href="login.jsp"><span class="glyphicon glyphicon-log-in"></span>&nbsp;&nbsp;ë¡œê·¸ì¸</a></li>
+			                     	<li><a href="register.jsp"><i class="fas fa-user-plus"></i>&nbsp;&nbsp;íšŒì›ê°€ì…</a></li>
 			                  		</ul>
 		                  		</c:otherwise>
 		                  	</c:choose>
@@ -137,4 +137,5 @@
 
    <div style="height: 100px"></div>
 </body>
+
 </html>

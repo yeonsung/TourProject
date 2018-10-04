@@ -19,7 +19,7 @@ public class LoginController implements Controller {
 		String path = "loginresult.jsp";
 		
 		MemberVO vo=TourDao.getInstance().login(id, password);
-		if(vo !=null){ // ·Î±×ÀÎ ¼º°ø
+		if(vo !=null){ // Â·ÃŽÂ±Ã—Ã€ÃŽ Â¼ÂºÂ°Ã¸
 			HttpSession session = request.getSession();
 			session.setAttribute("vo", vo);
 			request.setAttribute("check", true);
@@ -30,4 +30,5 @@ public class LoginController implements Controller {
 		
 		return new ModelAndView(path);
 	}
+
 }

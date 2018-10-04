@@ -10,9 +10,10 @@ public class LogoutController implements Controller {
 	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		HttpSession session = request.getSession();
 		
-		if(session.getAttribute("vo") != null) { // ·Î±×ÀÎ »óÅÂÀÌ´Ù.
+		if(session.getAttribute("vo") != null) { // Â·ÃŽÂ±Ã—Ã€ÃŽ Â»Ã³Ã…Ã‚Ã€ÃŒÂ´Ã™.
 			session.invalidate(); 
 		}
 		return new ModelAndView("loginresult.jsp");
 	}
+
 }
