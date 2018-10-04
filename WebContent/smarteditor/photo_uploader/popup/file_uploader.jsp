@@ -8,18 +8,18 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%
 
-//String path = "C:/kyj/webpro2/eclipse/workspace/TourProject/WebContent/upload"; // 이미지가 저장될 주소
+//String path1 = "C:/kyj/webpro2/eclipse/workspace/TourProject/WebContent/upload"; // 이미지가 저장될 주소1
 
-String path1 = request.getSession().getServletContext().getRealPath("/") + File.separator +"upload"+File.separator+((MemberVO)(session.getAttribute("vo"))).getId();
-System.out.println(path1);
-File file = new File(path1);
-
+String path2 = request.getSession().getServletContext().getRealPath("/") + File.separator +"upload"+File.separator+((MemberVO)(session.getAttribute("vo"))).getId();
+File file = new File(path2);
 if(!file.exists()){
 	file.mkdirs();
 } 
 
 String path = request.getSession().getServletContext().getRealPath("/") + File.separator + "upload"+File.separator+((MemberVO)(session.getAttribute("vo"))).getId(); //즉시 새로고침되도록
+//String path = request.getSession().getServletContext().getRealPath("/") + File.separator + "upload";
 String filename = "";
+System.out.println("안녕하세요"+path);
 
 if(request.getContentLength() > 10*1024*1024 ){
 %>
@@ -84,4 +84,10 @@ if(request.getContentLength() > 10*1024*1024 ){
 	fileAttach();
 	this.window.close();
 </script>
+
+
+
+
+
+
 

@@ -132,12 +132,14 @@ $(function(){
           $("#frm").submit();
       });      
 })
+
 function pasteHTML(filepath){
-	
 	var id = '${sessionScope.vo.id}';
+	var sHTML = '<img src="<%=request.getContextPath()%>/upload/'+id+'/'+filepath+'">';
     <%-- var sHTML = '<img src="<%=request.getContextPath()%>/upload/'+filepath+'">'; --%>
-    var sHTML = '<img src="<%= %>C:/kyj/webpro2/eclipse/workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/TourProject/upload/'+id+'/'+filepath+'">';
-    oEditors.getById["smarteditor"].exec("PASTE_HTML", [sHTML]);
+   <%--  var sHTML = '<img src="<%= %>C:/kyj/webpro2/eclipse/workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/TourProject/upload/'+id+'/'+filepath+'">'; --%>
+   $('#yjyj').html(sHTML); 
+   /* oEditors.getById["smarteditors"].exec("PASTE_HTML", [sHTML]); */
 }
 
 
@@ -202,7 +204,8 @@ function pasteHTML(filepath){
 		</td>
 	</tr>	
 </table>
-
+<div id="yjyj">
+</div>
 </form>
 </body>
 </html>
