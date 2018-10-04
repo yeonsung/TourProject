@@ -16,7 +16,7 @@ public class LoginController implements Controller {
 	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String id = request.getParameter("id");
 		String password = request.getParameter("password");
-		String path = "index.jsp";
+		String path = "loginresult.jsp";
 		
 		MemberVO vo=TourDao.getInstance().login(id, password);
 		if(vo !=null){ // 로그인 성공

@@ -99,7 +99,7 @@ $(function() {
                         <div class="cols-sm-10">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-users"></i></span>
-                                <input type="text" class="form-control" name="username" id="username" placeholder="이름을 입력하세요." readonly/>
+                                <input type="text" class="form-control" name="username" id="username" value="${vo.username}" readonly/>
                             </div>
                         </div>
                     </div>
@@ -109,7 +109,7 @@ $(function() {
                         <div class="cols-sm-10">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fas fa-id-card"></i></span>
-                                <input type="text" class="form-control" name="ssn" id="ssn" placeholder="주민등록번호를 입력하세요." readonly/>
+                                <input type="text" class="form-control" name="ssn" id="ssn" value="${vo.ssn}" placeholder="주민등록번호를 입력하세요." readonly/>
                             </div>
                         </div>
                     </div>
@@ -119,7 +119,7 @@ $(function() {
                         <div class="cols-sm-10">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-                                <input type="email" class="form-control" name="email" id="mail" value="${vo.mail}"/>
+                                <input type="email" class="form-control" name="mail" id="mail" value="${vo.mail}"/>
                             </div>
                         </div>
                     </div>
@@ -129,7 +129,7 @@ $(function() {
                         <div class="cols-sm-10">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fas fa-phone"></i></span>
-                                <input type="tel" class="form-control" name="usrtel" id="tel" value="${vo.tel}"/>
+                                <input type="tel" class="form-control" name="tel" id="tel" value="${vo.tel}"/>
                             </div>
                         </div>
                     </div>

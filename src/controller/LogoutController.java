@@ -13,6 +13,6 @@ public class LogoutController implements Controller {
 		if(session.getAttribute("vo") != null) { // 로그인 상태이다.
 			session.invalidate(); 
 		}
-		return new ModelAndView("index.jsp");
+		return new ModelAndView("loginresult.jsp");
 	}
 }

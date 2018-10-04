@@ -76,18 +76,7 @@
 
 </head>
 <body>
-<c:choose>
-	<c:when test="${check==true}">
-		<script type="text/javascript">
-			alert("로그인 성공");
-		</script>
-	</c:when>
-	<c:otherwise>
-		<script type="text/javascript">
-			alert("로그아웃 하셨습니다.");
-		</script>
-	</c:otherwise>
-</c:choose>
+
 
    	<nav class="navbar navbar-defalt navbar-fixed-top" style="background-color: #fff">
       	<div id="header">
