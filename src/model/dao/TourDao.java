@@ -30,14 +30,55 @@ public class TourDao {
 	static {
 		try {
 			Class.forName(OracleInfo.DRIVER_NAME);
-			System.out.println("드라이버 로딩 성공");
+			System.out.println("�뱶�씪�씠踰� 濡쒕뵫 �꽦怨�");
 		}catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
 
 	}
 
-	public ArrayList<String> getCities(String location) throws SQLException {
+	public void writeReview(ReviewVO rvo) throws SQLException {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			conn = getConnect();
+			ps = conn.prepareStatement(ReviewStringQuery.INSERT_REVIEW);
+			
+			ps.setString(1, rvo.getLocation());
+			ps.setString(2, rvo.getCity());
+			ps.setString(3, rvo.getTitle());
+			ps.setString(4, rvo.getContent());
+			ps.setString(5, rvo.getId());
+			
+			int row = ps.executeUpdate();
+			System.out.println(row+" row insert posting ok....");
+			System.out.println("dao CURRENT_NO...before...."+rvo.getReviewNum());//x
+			//쿼리문이 하나더 들어가야 한다...시퀀스가 PK로 지정된상황에서 INSERT문이 수행될때는...
+			//현재 시퀀스를 하나 받아와서 그걸 VO에 꽂아버려야 한다.
+			ps = conn.prepareStatement(ReviewStringQuery.CURRENT_NO);
+			rs = ps.executeQuery();
+			if(rs.next()) 
+				rvo.setReviewNum(rs.getInt(1));
+			System.out.println("dao CURRENT_NO...after...."+rvo.getReviewNum());//o
+		}finally{
+			closeAll(rs, ps, conn);
+		}
+	}
+	
+	public ArrayList<String> getTagsByContent(String content){
+	      ArrayList<String> tlist = new ArrayList<String>();
+	      String[] arr = content.split(" ");
+	      for(int i=0;i<arr.length;i++) {
+	         if(arr[i].startsWith("#")) {
+	            tlist.add(arr[i].substring(1));
+	         }
+	      }
+	      return tlist;
+	}
+	
+	public ArrayList<String> getCities(String location) throws SQLException{
+
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -109,7 +150,6 @@ public class TourDao {
 		 * �씠 硫붿꽌�뱶媛� �샇異쒕릺硫� 湲�踰덊샇 post_num�씤 由щ럭�쓽 like �닔媛� 1 利앷��븳�떎.
 		 */
 		// post_num �씤 �븷 李얘린
-
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -165,7 +205,6 @@ public class TourDao {
 	}// getBestReview �씗�젙�벐
 
 	public ArrayList<FestivalVO> getFestivalInfo(String location) throws SQLException {			///�깮媛곹빐蹂닿린
-
 		ArrayList<FestivalVO> list = new ArrayList<>();
 		Connection conn = null;
 		PreparedStatement ps = null;
@@ -186,7 +225,6 @@ public class TourDao {
 		}
 		return list;
 	}// getFestivalInfo 泥좎쭊�벐
-
 
 	public ArrayList<AttractionVO> getAttraction(String city) throws SQLException {
 		ArrayList<AttractionVO> list = new ArrayList<>();
@@ -218,7 +256,6 @@ public class TourDao {
 		return list;
 	}// getAttraction 泥좎쭊�벐			�씠誘몄�!!!!
 
-
 	public void scrap(String id, int review_num) throws Exception {
 		Connection conn = null;
 		PreparedStatement ps = null;
@@ -234,7 +271,6 @@ public class TourDao {
 			closeAll(ps, conn);
 		}
 	} // scrap 泥좎쭊�벐
-
 	public ReviewVO checkReview(int reviewNum) throws SQLException { // 湲� 議고쉶�븯湲�
 
 		Connection conn = null;
@@ -255,7 +291,6 @@ public class TourDao {
 			rvo.setImages(getImages(rvo.getReviewNum(), conn));			//image list
 			rvo.setComments(getComments(rvo.getReviewNum(), conn));		//comment list
 			//肄붾찘�듃. �씠誘몄�. �벑�벑 媛��졇���빞�븿..
-
 		} finally {
 			closeAll(rs, ps, conn);
 		}
@@ -399,7 +434,6 @@ public class TourDao {
 	}
 	
 	public void deleteReview(int reviewNum) throws SQLException { // 湲� �궘�젣�븯湲�
-
 		Connection conn = null;
 		PreparedStatement ps = null;
 
@@ -437,7 +471,6 @@ public class TourDao {
 	
 	// ArrayList<String> tags, ArrayList<String> images
 	public void updateReview(ReviewVO rvo) throws SQLException { // 湲� �닔�젙�븯湲�(蹂대쪟蹂대쪟 蹂대쪟蹂대쪟蹂대쪟蹂대쪟酉�......)
-
 		Connection conn = null;
 		PreparedStatement ps = null;
 
@@ -507,7 +540,6 @@ public class TourDao {
 	public Connection getConnect() throws SQLException {
 		Connection conn = DriverManager.getConnection(OracleInfo.URL, OracleInfo.USER, OracleInfo.PASS);
 		System.out.println("�뵒鍮� �뿰寃� �꽦怨�!");
-
 		return conn;
 	}// getConnect
 
@@ -614,7 +646,7 @@ public class TourDao {
 		return tlist;
 	}
 	
-	public static void main(String[] args) throws SQLException {		//단위테스트
+	public static void main(String[] args) throws SQLException {		//�떒�쐞�뀒�뒪�듃
 		/*ArrayList<ReviewVO> vo = new ArrayList<ReviewVO>();
 		vo = TourDao.getInstance().getScrapList("yun");
 		for(ReviewVO r : vo) {
