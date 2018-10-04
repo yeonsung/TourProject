@@ -263,6 +263,7 @@ tr td {
 
 					<!-- Wrapper for slides -->
 					<div class="carousel-inner">
+						
 						<div class="item active">
 							<img src="img/la.jpg" alt="Los Angeles" style="width: 100%;">
 						</div>

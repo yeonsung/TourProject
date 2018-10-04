@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8"%>
     
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
@@ -13,8 +13,8 @@
 	<link rel="stylesheet" href="css/style.css">
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<!-- 	<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
- --><script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
+ 	<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+ 	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
 	<script src="http://d3js.org/d3.v3.min.js"></script>
 	<script type="text/javascript" src="js/nav.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -22,12 +22,24 @@
 	$(function() {
 		
 		$("#tabs").tabs();
-		$('nav a').click(function() {
-			var str = "location="$(this).html();
+		$.ajax({
+			type:"get",
+			url:"getRecentReviews.do",
+			data :"tag=맛집",
+			
+			success:function(data){
+				$('#tab-1').html(data);	
+				$('#tab-2').html("");
+				$('#tab-3').html("");
+			}
+		});
+		
+		$('#tabs a').click(function() {
+			var str = $(this).html();
 			$.ajax({
 				type:"get",
-				url:"getBestReviewBytag.do",
-				data :"&&tag="+str,
+				url:"getRecentReviews.do",
+				data :"tag="+str,
 				
 				success:function(data){
 					if(str=="맛집"){
@@ -150,18 +162,18 @@
 		                  	<c:choose>
 		                  	 	<c:when test="${vo != null}">
 			                  	 	<ul class="dropdown-menu">
-			                     	<li><a href="logout.do"><span class="glyphicon glyphicon-log-out"></span>&nbsp;&nbsp;濡�洹몄����</a></li>
-			                     	<li><a href="myreviews.do?id=yun"><span class="glyphicon glyphicon-edit"></span>&nbsp;&nbsp;�닿� �� 湲�</a></li>
-			                     	<li><a href="scrap.do?id=yun"><span class="glyphicon glyphicon-bookmark"></span>&nbsp;&nbsp;�ㅽ�щ��</a></li>
-			                     	<li><a href="#"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;湲� ����</a></li>
-			                     	<li><a href="registerupdate.do?id="><span class="glyphicon glyphicon-cog"></span>&nbsp;&nbsp;��蹂� ����</a></li>
+			                     	<li><a href="logout.do"><span class="glyphicon glyphicon-log-out"></span>&nbsp;&nbsp;로그아웃</a></li>
+			                     	<li><a href="myreviews.do?id=${sessionScope.vo.id}"><span class="glyphicon glyphicon-edit"></span>&nbsp;&nbsp;내가 쓴 글</a></li>
+			                     	<li><a href="scrap.do?id=${sessionScope.vo.id}"><span class="glyphicon glyphicon-bookmark"></span>&nbsp;&nbsp;스크랩</a></li>
+			                     	<li><a href="write.jsp"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;글쓰기</a></li>
+			                     	<li><a href="registerupdate.do?id=${sessionScope.vo.id}"><span class="glyphicon glyphicon-cog"></span>&nbsp;&nbsp;정보 수정</a></li>
 			                  		</ul>
 		                  		</c:when>
 		      
 		                  		<c:otherwise>
 		                  			<ul class="dropdown-menu">
-			                     	<li><a href="login.jsp"><span class="glyphicon glyphicon-log-in"></span>&nbsp;&nbsp;濡�洹몄��</a></li>
-			                     	<li><a href="register.jsp"><i class="fas fa-user-plus"></i>&nbsp;&nbsp;����媛���</a></li>
+			                     	<li><a href="login.jsp"><span class="glyphicon glyphicon-log-in"></span>&nbsp;&nbsp;로그인</a></li>
+			                     	<li><a href="register.jsp"><i class="fas fa-user-plus"></i>&nbsp;&nbsp;회원가입</a></li>
 			                  		</ul>
 		                  		</c:otherwise>
 		                  	</c:choose>
@@ -172,7 +184,6 @@
 		</div> <!-- header -->
     	<div id="line"></div>
 	</nav>
-<<<<<<< HEAD
 	<div class="row">
 		<div class="col-lg-7">
 			<div id="container" style="display:inline-block; margin-top:161px;"></div>
@@ -206,10 +217,8 @@
 	<form action="locationpage.do"><input type="hidden" name="location" value=""></form>
 	<script src="js/script.js"></script>
 	
-=======
 
    <div style="height: 100px"></div>
->>>>>>> branch 'master' of https://github.com/kaky0910/TourProject.git
 </body>
 
 </html>

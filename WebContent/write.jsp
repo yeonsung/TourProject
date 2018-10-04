@@ -1,3 +1,5 @@
+<%@page import="model.vo.MemberVO"%>
+<%@page import="java.io.File"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="UTF-8"%>
 
@@ -32,7 +34,6 @@
 	alert(msg);
 	$('frm').submit();}
 );  */
-
 function categoryChange(e) {
 	  var location_a = ["강남구", "강동구", "강북구", "강서구", "관악구", "광진구", "구로구", "금천구", "노원구", "도봉구", "동대문구", "동작구", "마포구", "서대문구", "서초구", "서동구", "성북구", "송파구", "양천구", "영등포구", "용산구", "은평구", "종로구", "중구", "중랑구"];
 	  var location_b = ["강화군", "계양구", "남동구", "동구", "미추홀구", "부평구", "서구", "연수구", "옹진군", "중구"];
@@ -130,13 +131,14 @@ $(function(){
           $("#frm").submit();
       });      
 })
-
 function pasteHTML(filepath){
-    var sHTML = '<img src="<%=request.getContextPath()%>/upload/'+filepath+'">';
-    oEditors.getById["smarteditor"].exec("PASTE_HTML", [sHTML]);
+	var id = '${sessionScope.vo.id}';
+	var sHTML = '<img src="<%=request.getContextPath()%>/upload/'+id+'/'+filepath+'">';
+    <%-- var sHTML = '<img src="<%=request.getContextPath()%>/upload/'+filepath+'">'; --%>
+   <%--  var sHTML = '<img src="<%= %>C:/kyj/webpro2/eclipse/workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/TourProject/upload/'+id+'/'+filepath+'">'; --%>
+   $('#yjyj').html(sHTML); 
+   /* oEditors.getById["smarteditors"].exec("PASTE_HTML", [sHTML]); */
 }
-
-
 </script>	
 <h1 align="center"> 글 작성 </h1>
 <form action="write.do" method="post" name="frm"> <!--  enctype="multipart/form-data" -->
@@ -144,7 +146,7 @@ function pasteHTML(filepath){
 <table border="1" align="center" width="80%">
 	<tr>
 		<th align="center">작성자</th>
-		<td><input type="text" name="id" required="required" style="width:99%;"></td>
+		<td><input type="text" name="id" value="${sessionScope.vo.id}" readonly="readonly" style="width:99%;"></td>
 		<th>지역</th>
 		<td>	
 			<select id="selectBox" name="loaction" style="width:49%;" onchange="categoryChange(this)" required="required">
@@ -198,9 +200,8 @@ function pasteHTML(filepath){
 		</td>
 	</tr>	
 </table>
-
-<%=request.getSession().getServletContext().getRealPath("/")%>
-
+<div id="yjyj">
+</div>
 </form>
 </body>
 </html>

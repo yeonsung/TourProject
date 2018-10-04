@@ -15,8 +15,8 @@ public interface ReviewStringQuery {
 	String SCRAP = "insert into scrap values(?,?)";									// 스크랩
 	String GET_ATTRACTION = "select spot_name,address,location,city,info,img from tourspot where city=?"; // city별 관광지 정보 return
 	String GET_ATTRACTION_IMG= "select spot_image from spot_image where spot_name=?";					  // 관광지 이미지 리턴
-	String GET_FESTIVAL_INFO = "select festival_Name,festival_Location,location,city,start_Date,end_Date,agency from festival where location=?" + 
-			" AND (start_Date <=(SELECT SYSDATE + 7 FROM DUAL) OR SYSDATE BETWEEN start_Date AND end_Date)";// location별 축제정보 return 안되면 start,end Date에 ''추가
+	String GET_FESTIVAL_INFO = "select festival_Name,festival_Location,location,city,start_Date,end_Date,agency,img from festival where location=?" + 
+			" AND ((start_Date BETWEEN SYSDATE AND SYSDATE+7) OR (SYSDATE BETWEEN start_Date AND end_Date))";// location별 축제정보 return 안되면 start,end Date에 ''추가
 	String CHECK_REVIEW = "select * from review where review_num = ?";				// 글 정보 return
 //	String SEARCH_BY_TAG = "SELECT review_num,location,city,title,content,date_writing,likes,id "
 //			+ "FROM review WHERE review_num = all(select review_num from tag where word=?)";	// 다시
@@ -42,7 +42,7 @@ public interface ReviewStringQuery {
 			+ " (select review_num, title, date_writing, id, ceil(rownum/" + CommonConstants.CONTENT_NUMBER_PER_PAGE + ") page from"
 			+ " (select review_num, title, date_writing, id from review where id=? order by review_num desc)) where page=?";	//리뷰 리스트 리턴
 	String GET_RECENT_REVIEWS_BY_TAG = "SELECT review_num, title, location, city,id FROM (SELECT * FROM review ORDER BY review_num desc)" + 
-			" WHERE review_num IN((SELECT review_num FROM tag WHERE word = ?)) AND rownum<";		//index review list
+			" WHERE review_num IN((SELECT review_num FROM tag WHERE word = ?)) AND rownum<10";		//index review list
 }
 
 

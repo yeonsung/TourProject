@@ -30,7 +30,7 @@ public class TourDao {
 	static {
 		try {
 			Class.forName(OracleInfo.DRIVER_NAME);
-			System.out.println("�뱶�씪�씠踰� 濡쒕뵫 �꽦怨�");
+			System.out.println("드라이버 로딩");
 		}catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -95,6 +95,7 @@ public class TourDao {
 		try {
 			conn = getConnect();
 			ps = conn.prepareStatement(ReviewStringQuery.GET_RECENT_REVIEWS_BY_TAG);
+			ps.setString(1, tag);
 			rs = ps.executeQuery();
 			while(rs.next()) {
 				rlist.add(new ReviewVO(rs.getInt("review_num"),
@@ -187,7 +188,7 @@ public class TourDao {
 		} finally {
 			closeAll(rs, ps, conn);
 		}
-		System.out.println("���� �׽�Ʈ!!!!!!!!!!! " + list);
+		System.out.println(list);
 		return list;
 	}// getBestReview �씗�젙�벐
 
@@ -206,7 +207,7 @@ public class TourDao {
 			while (rs.next()) {
 				list.add(new FestivalVO(rs.getString("festival_Name"), rs.getString("festival_Location"),
 						rs.getString("location"), rs.getString("city"), rs.getString("start_Date"),
-						rs.getString("END_DATE"), rs.getString("agency")));
+						rs.getString("END_DATE"), rs.getString("agency"),rs.getString("img")));
 			}
 		} finally {
 			closeAll(rs, ps, conn);
@@ -532,7 +533,6 @@ public class TourDao {
 
 	public Connection getConnect() throws SQLException {
 		Connection conn = DriverManager.getConnection(OracleInfo.URL, OracleInfo.USER, OracleInfo.PASS);
-		System.out.println("�뵒鍮� �뿰寃� �꽦怨�!");
 		return conn;
 	}// getConnect
 
@@ -619,7 +619,6 @@ public class TourDao {
 			pstmt.setString(2,password);
 			rs=pstmt.executeQuery();
 			if(rs.next()) {
-				//占쌨아야되는곤옙 id 
 				vo = new MemberVO(rs.getString("id"));
 			}
 				

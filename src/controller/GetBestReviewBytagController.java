@@ -17,6 +17,10 @@ public class GetBestReviewBytagController implements Controller {
 		ArrayList<ReviewVO> relist = null;
 		try {
 			relist = TourDao.getInstance().getBestReviewByTag(location, category);
+			for(ReviewVO vo : relist) {
+				if(vo.getImages().size()!=0)
+					vo.setMainImage(vo.getImages().get(0));
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
