@@ -1,3 +1,4 @@
+<%@page import="model.vo.MemberVO"%>
 <%@page import="java.util.Date"%>
 <%@page import="java.util.Locale"%>
 <%@page import="java.text.SimpleDateFormat"%>
@@ -8,13 +9,16 @@
 <%
 
 //String path = "C:/kyj/webpro2/eclipse/workspace/TourProject/WebContent/upload"; // 이미지가 저장될 주소
-String path1 = request.getSession().getServletContext().getRealPath("/") + File.separator +"upload/jin";
+
+String path1 = request.getSession().getServletContext().getRealPath("/") + File.separator +"upload"+File.separator+((MemberVO)(session.getAttribute("vo"))).getId();
+System.out.println(path1);
 File file = new File(path1);
+
 if(!file.exists()){
 	file.mkdirs();
-}
-String path = request.getSession().getServletContext().getRealPath("/") + File.separator + "upload/jin"; //즉시 새로고침되도록
-//String path = request.getSession().getServletContext().getRealPath("/") + File.separator + "upload"
+} 
+
+String path = request.getSession().getServletContext().getRealPath("/") + File.separator + "upload"+File.separator+((MemberVO)(session.getAttribute("vo"))).getId(); //즉시 새로고침되도록
 String filename = "";
 
 if(request.getContentLength() > 10*1024*1024 ){

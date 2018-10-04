@@ -1,3 +1,5 @@
+<%@page import="model.vo.MemberVO"%>
+<%@page import="java.io.File"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="UTF-8"%>
 
@@ -130,9 +132,11 @@ $(function(){
           $("#frm").submit();
       });      
 })
-
 function pasteHTML(filepath){
-    var sHTML = '<img src="<%=request.getContextPath()%>/upload/'+filepath+'">';
+	
+	var id = '${sessionScope.vo.id}';
+    <%-- var sHTML = '<img src="<%=request.getContextPath()%>/upload/'+filepath+'">'; --%>
+    var sHTML = '<img src="<%= %>C:/kyj/webpro2/eclipse/workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/TourProject/upload/'+id+'/'+filepath+'">';
     oEditors.getById["smarteditor"].exec("PASTE_HTML", [sHTML]);
 }
 
@@ -144,7 +148,7 @@ function pasteHTML(filepath){
 <table border="1" align="center" width="80%">
 	<tr>
 		<th align="center">작성자</th>
-		<td><input type="text" name="id" required="required" style="width:99%;"></td>
+		<td><input type="text" name="id" value="${sessionScope.vo.id}" readonly="readonly" style="width:99%;"></td>
 		<th>지역</th>
 		<td>	
 			<select id="selectBox" name="loaction" style="width:49%;" onchange="categoryChange(this)" required="required">
@@ -198,8 +202,6 @@ function pasteHTML(filepath){
 		</td>
 	</tr>	
 </table>
-
-<%=request.getSession().getServletContext().getRealPath("/")%>
 
 </form>
 </body>

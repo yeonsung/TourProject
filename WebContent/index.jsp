@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+    pageEncoding="UTF-8"%>
     
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
@@ -15,7 +15,7 @@
 <style>
 	.contents{
 		padding-top: 80px;
-	}
+	}	
 
    	#header {
       	border-bottom: 7px solid transparent;
@@ -53,7 +53,7 @@
       	}); //css
       
       	$('#myNavbar li a').hover(function() { 
-         	//상단 메뉴바 마우스 올려놨을 때
+         	//���� 硫��대� 留��곗�� �щ�ㅻ�⑥�� ��
            	$(this).css({
               	'color' : 'green',
               	'background' : 'rgba(242, 242, 242, 0.5)'
@@ -112,18 +112,18 @@
 		                  	<c:choose>
 		                  	 	<c:when test="${vo != null}">
 			                  	 	<ul class="dropdown-menu">
-			                     	<li><a href="logout.do"><span class="glyphicon glyphicon-log-out"></span>&nbsp;&nbsp;로그아웃</a></li>
-			                     	<li><a href="myreviews.do?id=yun"><span class="glyphicon glyphicon-edit"></span>&nbsp;&nbsp;내가 쓴 글</a></li>
-			                     	<li><a href="scrap.do?id=yun"><span class="glyphicon glyphicon-bookmark"></span>&nbsp;&nbsp;스크랩</a></li>
-			                     	<li><a href="#"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;글 작성</a></li>
-			                     	<li><a href="registerupdate.do?id="><span class="glyphicon glyphicon-cog"></span>&nbsp;&nbsp;정보 수정</a></li>
+			                     	<li><a href="logout.do"><span class="glyphicon glyphicon-log-out"></span>&nbsp;&nbsp;濡�洹몄����</a></li>
+			                     	<li><a href="myreviews.do?id=yun"><span class="glyphicon glyphicon-edit"></span>&nbsp;&nbsp;�닿� �� 湲�</a></li>
+			                     	<li><a href="scrap.do?id=yun"><span class="glyphicon glyphicon-bookmark"></span>&nbsp;&nbsp;�ㅽ�щ��</a></li>
+			                     	<li><a href="write.jsp"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;湲� ����</a></li>
+			                     	<li><a href="registerupdate.do?id="><span class="glyphicon glyphicon-cog"></span>&nbsp;&nbsp;��蹂� ����</a></li>
 			                  		</ul>
 		                  		</c:when>
 		      
 		                  		<c:otherwise>
 		                  			<ul class="dropdown-menu">
-			                     	<li><a href="login.jsp"><span class="glyphicon glyphicon-log-in"></span>&nbsp;&nbsp;로그인</a></li>
-			                     	<li><a href="register.jsp"><i class="fas fa-user-plus"></i>&nbsp;&nbsp;회원가입</a></li>
+			                     	<li><a href="login.jsp"><span class="glyphicon glyphicon-log-in"></span>&nbsp;&nbsp;濡�洹몄��</a></li>
+			                     	<li><a href="register.jsp"><i class="fas fa-user-plus"></i>&nbsp;&nbsp;����媛���</a></li>
 			                  		</ul>
 		                  		</c:otherwise>
 		                  	</c:choose>
