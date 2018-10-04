@@ -7,6 +7,9 @@ public interface ReviewStringQuery {
 	String GETCITIES = "SELECT city FROM location WHERE location=?";				// 경기도 -> 양평,고양등등
 	String SEARCH_REVIEW_LIKE = "select likes from review where review_num=?";		// 좋아요수 리턴?
 	String LIKE_ADD = "update review set likes=likes+1 where review_num=?";			// 좋아요+1
+	String INSERT_REVIEW = "INSERT INTO review(review_num, location, city, title, content, date_writing, id)"
+			+ "VALUES(review_seq.nextVal, ?, ?, ?, ?, sysdate, ?)";
+	String CURRENT_NO = "SELECT review_seq.currVal FROM dual";
 	String BEST_REVIEW_LOCATION_TAG = "select review_num, title, likes from (select * from review order by likes desc) where rownum<4"
 			+ " AND review_num IN ((SELECT review_num FROM tag WHERE word=?)) AND location=?"; // v1에서 왼쪽 리뷰 리스트
 	String SCRAP = "insert into scrap values(?,?)";									// 스크랩
