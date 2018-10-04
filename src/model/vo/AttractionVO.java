@@ -23,6 +23,16 @@ public class AttractionVO {
 	}
 	
 	
+	public AttractionVO(String spotName, String address, String location, String city, String info, String mainImage) {
+		super();
+		this.spotName = spotName;
+		this.address = address;
+		this.location = location;
+		this.city = city;
+		this.info = info;
+		this.mainImage = mainImage;
+	}
+
 	public String getMainImage() {
 		return mainImage;
 	}
@@ -71,7 +81,11 @@ public class AttractionVO {
 	public void setImages(ArrayList<String> images) {
 		this.images = images;
 	}
-	
-	
+
+	@Override
+	public String toString() {
+		return "AttractionVO [spotName=" + spotName + ", address=" + address + ", location=" + location + ", city="
+				+ city + ", info=" + info + ", mainImage=" + mainImage + ", images=" + images + "]";
+	}
 	
 }

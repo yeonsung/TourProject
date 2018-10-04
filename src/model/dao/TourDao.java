@@ -350,7 +350,7 @@ public class TourDao {
 			} // while
 			for (ReviewVO vo : list) {
 				if (vo != null) {
-					ps = conn.prepareStatement("SELECT review_image FROM review_image WHERE review_num=?");
+					ps = conn.prepareStatement(ReviewStringQuery.REVIEW_IMG);
 					ps.setInt(1, vo.getReviewNum());
 					rs = ps.executeQuery();
 					if (rs.next()) {
@@ -384,7 +384,7 @@ public class TourDao {
 			for(ReviewVO vo : list) {
 				if(vo!=null) {
 
-					ps = conn.prepareStatement("SELECT review_image FROM review_image WHERE review_num=?");
+					ps = conn.prepareStatement(ReviewStringQuery.REVIEW_IMG);
 					ps.setInt(1, vo.getReviewNum());
 					rs = ps.executeQuery();
 					if (rs.next()) {
@@ -393,7 +393,7 @@ public class TourDao {
 				}
 			} // for
 		} finally {
-			closeAll(ps, conn);
+			closeAll(rs, ps, conn);
 		}
 		return list;
 	}
@@ -456,6 +456,67 @@ public class TourDao {
 		} finally {
 			closeAll(ps, conn);
 		}
+	}
+	
+	public ArrayList<AttractionVO> getData(String tag) throws SQLException{
+		ArrayList<AttractionVO> list = new ArrayList<AttractionVO>();
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		try {
+			conn = getConnect();
+			ps = conn.prepareStatement(ReviewStringQuery.GET_DATA);
+			ps.setString(1, tag);
+			rs = ps.executeQuery();
+			
+			while(rs.next())
+				list.add(new AttractionVO(rs.getString("spot_name"), 
+										  rs.getString("address"), 
+										  rs.getString("location"), 
+										  rs.getString("city"), 
+										  rs.getString("info"), 
+										  rs.getString("img")));
+
+		} finally {
+			closeAll(rs, ps, conn);
+		}
+		return list;
+	}
+	
+	public ArrayList<ReviewVO> relatedReviews(String tag, int pageNo) throws SQLException{
+		ArrayList<ReviewVO> list = new ArrayList<ReviewVO>();
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		try {
+			conn = getConnect();
+			ps = conn.prepareStatement(ReviewStringQuery.RELATED_REVIEWS);
+			ps.setString(1, tag);
+			ps.setInt(2, pageNo);
+			rs = ps.executeQuery();
+			
+			while(rs.next())
+				list.add(new ReviewVO(rs.getInt("review_num"), rs.getString("title"), rs.getString("date_writing")));
+			
+			for(ReviewVO vo : list) {
+				if(vo!=null) {
+
+					ps = conn.prepareStatement(ReviewStringQuery.REVIEW_IMG);
+					ps.setInt(1, vo.getReviewNum());
+					rs = ps.executeQuery();
+					if (rs.next()) {
+						vo.setMainImage(rs.getString("review_image"));
+					}
+				}
+			} // for
+
+		} finally {
+			closeAll(rs, ps, conn);
+		}
+		
+		return list;
 	}
 	
 	public ArrayList<String> getTags(int reviewNum,Connection conn) throws SQLException{

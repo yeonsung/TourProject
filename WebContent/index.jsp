@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
     
@@ -18,11 +19,9 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <style>
-
 	.contents{
 		padding-top: 80px;
 	}
-
    	#header {
       	border-bottom: 7px solid transparent;
       	-moz-border-imag: -moz-linear-gradient(left, DarkGreen, #64AB4C);
