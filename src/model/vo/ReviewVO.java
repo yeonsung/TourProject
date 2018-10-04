@@ -17,9 +17,18 @@ public class ReviewVO {
 	ArrayList<String> images;
 	
 	public ReviewVO() {}
-	
-	
-	// ��������� �߰�..
+
+	public ReviewVO(String title, String id, String location, String city, String content) {
+		this.title = title;
+		this.id = id;
+		this.location = location;
+		this.city = city;
+		this.content = content;
+	}
+
+
+
+	// 占쏙옙占쏙옙占쏙옙占쏙옙占� 占쌩곤옙..
 	public ReviewVO(String title, String location, String city, String content, ArrayList<String> tags,
 			ArrayList<String> images) { 
 		super();
@@ -32,7 +41,7 @@ public class ReviewVO {
 	}
 	
 	
-	// �߰�....
+	// 占쌩곤옙....
 	public ReviewVO(int reviewNum, String title, String id, String location, String city, String content, String date,
 			int like) {
 		super();

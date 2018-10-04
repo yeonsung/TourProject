@@ -2,6 +2,9 @@ package query.review;
 
 public interface ReviewStringQuery {
 
+	String INSERT_REVIEW = "INSERT INTO review(review_num, location, city, title, content, date_writing, id)"
+			+ "VALUES(review_seq.nextVal, ?, ?, ?, ?, sysdate, ?)";
+	String CURRENT_NO = "SELECT review_seq.currVal FROM dual";
 	String GETCITIES = "SELECT city FROM location WHERE location=?";
 	String SEARCH_REVIEW_LIKE = "select likes from review where review_num=?";
 	String LIKE_ADD = "update review set likes=likes+1 where review_num=?";
