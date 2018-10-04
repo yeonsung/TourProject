@@ -1,2 +1,3 @@
-CREATE TABLE review_image(review_num NUMBER FOREIGN KEY REFERENCES review(review_num),
+CREATE TABLE review_image(review_num NUMBER,
+			  CONSTRAINT FK_REVIEWS1 FOREIGN KEY (review_num) REFERENCES review(review_num) on delete cascade,
 			  review_image VARCHAR2(50) NOT NULL);

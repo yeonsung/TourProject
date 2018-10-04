@@ -1,14 +1,24 @@
 package model.vo;
 
 public class CommentVO {
-	int review_num;
+	int reviewNum;
 	String id;
-	String content;
-	public int getReview_num() {
-		return review_num;
+	String comment;
+	
+	
+	public CommentVO() {
+		super();
 	}
-	public void setReview_num(int review_num) {
-		this.review_num = review_num;
+	public CommentVO(String id, String comment) {
+		super();
+		this.id = id;
+		this.comment = comment;
+	}
+	public int getReviewNum() {
+		return reviewNum;
+	}
+	public void setReviewNum(int reviewNum) {
+		this.reviewNum = reviewNum;
 	}
 	public String getId() {
 		return id;
@@ -16,19 +26,15 @@ public class CommentVO {
 	public void setId(String id) {
 		this.id = id;
 	}
-	public String getContent() {
-		return content;
+	public String getComment() {
+		return comment;
 	}
-	public void setContent(String content) {
-		this.content = content;
+	public void setComment(String comment) {
+		this.comment = comment;
 	}
-	public CommentVO(String id, String content) {
-		super();
-		this.id = id;
-		this.content = content;
-	}
-	public CommentVO() {
-		
+	@Override
+	public String toString() {
+		return "CommentVO [reviewNum=" + reviewNum + ", id=" + id + ", comment=" + comment + "]";
 	}
 	
 	

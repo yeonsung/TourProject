@@ -1,3 +1,5 @@
-CREATE TABLE comment(review_num NUMBER FOREIGN KEY REFERENCES review(review_num),
-		     id VARCHAR2(30) FOREIGN KEY REFERENCES user(id),
-		     content VARCHAR2(200)); 
+CREATE TABLE comments (review_num NUMBER,
+		      id VARCHAR2(30),
+		      content VARCHAR2(200),
+		      CONSTRAINT FK_MEMBERS1 FOREIGN KEY (ID) REFERENCES member(id) on delete cascade,
+		      CONSTRAINT FK_REVIEWS FOREIGN KEY (review_num) REFERENCES review(review_num) on delete cascade); 

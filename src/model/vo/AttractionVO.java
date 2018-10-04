@@ -3,17 +3,16 @@ import java.util.ArrayList;
 
 public class AttractionVO {
 	String spotName;
-	String address; // ÃÑ ÁÖ¼Ò
-	String location; //½Ã µµ
-	String city; // ½Ã ±º ±¸
+	String address; // ÃƒÃ‘ ÃÃ–Â¼Ã’
+	String location; //Â½Ãƒ ÂµÂµ
+	String city; // Â½Ãƒ Â±Âº Â±Â¸
 	String info;
+	String mainImage;
 	ArrayList<String> images;
 	
 	
-	
 	public AttractionVO() {}
-	
-	
+
 	public AttractionVO(String spotName, String address, String location, String city, String info) {
 		super();
 		this.spotName = spotName;
@@ -23,6 +22,13 @@ public class AttractionVO {
 		this.info = info;
 	}
 
+	public String getMainImage() {
+		return mainImage;
+	}
+
+	public void setMainImage(String mainImage) {
+		this.mainImage = mainImage;
+	}
 
 	public String getSpotName() {
 		return spotName;

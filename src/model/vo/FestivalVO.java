@@ -9,7 +9,8 @@ public class FestivalVO {
 	String endDate;
 	String agency;
 	
-	public FestivalVO(String festivalName, String festivalLocation, String location, String city, String startDate,
+	public FestivalVO(String festivalName, String festivalLocation, String location, 
+			String city, String startDate,
 			String endDate, String agency) {
 		super();
 		this.festivalName = festivalName;
@@ -20,7 +21,6 @@ public class FestivalVO {
 		this.endDate = endDate;
 		this.agency = agency;
 	}
-	
 	public String getFestivalName() {
 		return festivalName;
 	}

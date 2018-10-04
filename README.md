@@ -1,6 +1,5 @@
 # TourProject
 
-sql에 table설계 다 있음 <br>
-DataBase 계정 tour/password로 생성.<br>
-우선 user, review table 먼저 만들것 안해봤는데 혹시 에러나면 말좀
+<h1>나만..... 하고있다..... 지금은 11시</h1><br>
+<p align="center">졸리다</p>
 
