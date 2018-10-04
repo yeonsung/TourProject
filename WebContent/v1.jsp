@@ -102,30 +102,31 @@ tr td {
 </style>
 <script>
 	$(function() {
-		
+
 		$("#tabs").tabs();
 		$('nav a').click(function() {
 			var str = $(this).html();
+			var loca = { "location": "${location}", "tag": str };
+			
 			$.ajax({
-				type:"get",
-				url:"getBestReviewBytag.do",
-				data :"location=${requestScope.location}&&tag="+str,
-				
-				success:function(data){
-					if(str=="맛집"){
-						$('#tab-1').html(data);	
-						$('#tab-2').html("")
-						$('#tab-3').html("")
-					}
-					else if(str=='관광'){
-						$('#tab-2').html(data);	
-						$('#tab-1').html("")
-						$('#tab-3').html("")
-					}
-					else if(str=='숙소'){
-						$('#tab-3').html(data);	
-						$('#tab-1').html("")
-						$('#tab-2').html("")
+				type : "get",
+				url : "getBestReviewBytag.do",
+				data : loca,
+
+				success : function(data) {
+					 if (str == '관광') {
+						$('#tab-2').html(data);
+						$('#tab-1').html("");
+						$('#tab-3').html("");
+					} else if (str == '숙소') {
+						$('#tab-3').html(data);
+						$('#tab-1').html("");
+						$('#tab-2').html("");
+					}else {
+						//$('#tab-1').html(data);
+						$('#tab-1').html(data);
+						$('#tab-2').html("");
+						$('#tab-3').html("");
 					}
 				}//callback
 			});//ajax
@@ -238,15 +239,9 @@ tr td {
 				<li><a href="javascript:void(0)">관광</a></li>
 				<li><a href="javascript:void(0)">숙소</a></li>
 			</ul>
-			<div id="tab-1">
-				
-			</div>
-			<div id="tab-2">
-				
-			</div>
-			<div id="tab-3">
-				
-			</div>
+			<div id="tab-1"></div>
+			<div id="tab-2"></div>
+			<div id="tab-3"></div>
 		</nav>
 
 		<article>

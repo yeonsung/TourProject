@@ -4,43 +4,44 @@ import model.CommonConstants;
 
 public interface ReviewStringQuery {
 
-	String GETCITIES = "SELECT city FROM location WHERE location=?";				// °æ±âµµ -> ¾çÆò,°í¾çµîµî
-	String SEARCH_REVIEW_LIKE = "select likes from review where review_num=?";		// ÁÁ¾Æ¿ä¼ö ¸®ÅÏ?
-	String LIKE_ADD = "update review set likes=likes+1 where review_num=?";			// ÁÁ¾Æ¿ä+1
+
+	String GETCITIES = "SELECT city FROM location WHERE location=?";				// å¯ƒìŽ„ë¦°ï¿½ë£„ -> ï¿½ë¼‡ï¿½ë£Š,æ€¨ì¢Žë¼‡ï¿½ë²‘ï¿½ë²‘
+	String SEARCH_REVIEW_LIKE = "select likes from review where review_num=?";		// é†«ë—­ë¸˜ï¿½ìŠ‚ï¿½ë‹” ç”±Ñ‹ê½©?
+	String LIKE_ADD = "update review set likes=likes+1 where review_num=?";			// é†«ë—­ë¸˜ï¿½ìŠ‚+1
 	String INSERT_REVIEW = "INSERT INTO review(review_num, location, city, title, content, date_writing, id)"
 			+ "VALUES(review_seq.nextVal, ?, ?, ?, ?, sysdate, ?)";
 	String CURRENT_NO = "SELECT review_seq.currVal FROM dual";
 	String BEST_REVIEW_LOCATION_TAG = "select review_num, title, likes from (select * from review order by likes desc) where rownum<4"
-			+ " AND review_num IN ((SELECT review_num FROM tag WHERE word=?)) AND location=?"; // v1¿¡¼­ ¿ÞÂÊ ¸®ºä ¸®½ºÆ®
-	String SCRAP = "insert into scrap values(?,?)";									// ½ºÅ©·¦
-	String GET_ATTRACTION = "select spot_name,address,location,city,info,img from tourspot where city=?"; // cityº° °ü±¤Áö Á¤º¸ return
-	String GET_ATTRACTION_IMG= "select spot_image from spot_image where spot_name=?";					  // °ü±¤Áö ÀÌ¹ÌÁö ¸®ÅÏ
+			+ " AND review_num IN ((SELECT review_num FROM tag WHERE word=?)) AND location=?"; // v1ì—ì„œ ì™¼ìª½ ë¦¬ë·° ë¦¬ìŠ¤íŠ¸
+	String SCRAP = "insert into scrap values(?,?)";									// ìŠ¤í¬ëž©
+	String GET_ATTRACTION = "select spot_name,address,location,city,info,img from tourspot where city=?"; // cityë³„ ê´€ê´‘ì§€ ì •ë³´ return
+	String GET_ATTRACTION_IMG= "select spot_image from spot_image where spot_name=?";					  // ê´€ê´‘ì§€ ì´ë¯¸ì§€ ë¦¬í„´
 	String GET_FESTIVAL_INFO = "select festival_Name,festival_Location,location,city,start_Date,end_Date,agency,img from festival where location=?" + 
-			" AND ((start_Date BETWEEN SYSDATE AND SYSDATE+7) OR (SYSDATE BETWEEN start_Date AND end_Date))";// locationº° ÃàÁ¦Á¤º¸ return ¾ÈµÇ¸é start,end Date¿¡ ''Ãß°¡
-	String CHECK_REVIEW = "select * from review where review_num = ?";				// ±Û Á¤º¸ return
+			" AND ((start_Date BETWEEN SYSDATE AND SYSDATE+7) OR (SYSDATE BETWEEN start_Date AND end_Date))";// locationë³„ ì¶•ì œì •ë³´ return ì•ˆë˜ë©´ start,end Dateì— ''ì¶”ê°€
+	String CHECK_REVIEW = "select * from review where review_num = ?";				// ê¸€ ì •ë³´ return
 //	String SEARCH_BY_TAG = "SELECT review_num,location,city,title,content,date_writing,likes,id "
-//			+ "FROM review WHERE review_num = all(select review_num from tag where word=?)";	// ´Ù½Ã
+//			+ "FROM review WHERE review_num = all(select review_num from tag where word=?)";	// ï¿½ë–Žï¿½ë–†
 	//String GET_SCRAP_LIST = "select * from review where review_num in (select review_num from scrap where id=?)";
 	//String GET_MY_REVIEW = "select * from review where id=?";
 //	String GET_BEST_REVIEWS_BY_TAG = "SELECT location,city,title,review_num,likes FROM (SELECT location,title.review_num,likes,city ORDER BY likes desc) "
 //			+ "WHERE rownum<10 review_num IN (SELECT review_num FROM tag WHERE word=?)";			// index review list
 
-	String DELETE_REVIEW = "delete from review where review_num=?";			//³»°¡ ¾´ ¸®ºä »èÁ¦
-	String DELETE_SCRAP = "delete from scrap where review_num=?";			//½ºÅ©·¦ »èÁ¦
-	String UPDATE_REVIEW = "update review set location=?, city=?, title=?, content=? where review_num=?";	//¸®ºä ¾÷µ¥ÀÌÆ®
-	String TOTAL_SCRAP_COUNT = "select count(-1) from scrap where id=?";	//½ºÅ©·¦ °¹¼ö
-	String TOTAL_MY_REVIEW_COUNT = "select count(-1) from review where id=?";// ³»°¡ ¾´ ¸®ºä °¹¼ö
+	String DELETE_REVIEW = "delete from review where review_num=?";			//ï¿½ê¶¡åª›ï¿½ ï¿½ë²– ç”±Ñ‰ëŸ­ ï¿½ê¶˜ï¿½ì £
+	String DELETE_SCRAP = "delete from scrap where review_num=?";			//ï¿½ë’ªï¿½ê²•ï¿½ì˜ª ï¿½ê¶˜ï¿½ì £
+	String UPDATE_REVIEW = "update review set location=?, city=?, title=?, content=? where review_num=?";	//ç”±Ñ‰ëŸ­ ï¿½ë¾½ï¿½ëœ²ï¿½ì” ï¿½ë“ƒ
+	String TOTAL_SCRAP_COUNT = "select count(-1) from scrap where id=?";	//ï¿½ë’ªï¿½ê²•ï¿½ì˜ª åª›ï¿½ï¿½ë‹”
+	String TOTAL_MY_REVIEW_COUNT = "select count(-1) from review where id=?";// ï¿½ê¶¡åª›ï¿½ ï¿½ë²– ç”±Ñ‰ëŸ­ åª›ï¿½ï¿½ë‹”
 	
-	String GET_REVIEW_TAGS = "select word from tag where review_num=?";							//¸®ºä tagµé return
-	String GET_REVIEW_IMAGES = "SELECT review_image FROM review_image WHERE review_num = ?";	//¸®ºä imgµé return
-	String GET_REVIEW_COMMENTS = "SELECT id,comment FROM comment WHERE review_num = ?";			//¸®ºä commentµé return
+	String GET_REVIEW_TAGS = "select word from tag where review_num=?";							//ç”±Ñ‰ëŸ­ tagï¿½ë±¾ return
+	String GET_REVIEW_IMAGES = "SELECT review_image FROM review_image WHERE review_num = ?";	//ç”±Ñ‰ëŸ­ imgï¿½ë±¾ return
+	String GET_REVIEW_COMMENTS = "SELECT id,comment FROM comment WHERE review_num = ?";			//ç”±Ñ‰ëŸ­ commentï¿½ë±¾ return
 	String GET_SCRAP_LIST="select * from review where review_num in"
 			+ " (select review_num from"
 			+ " (select review_num, ceil(rownum/" + CommonConstants.CONTENT_NUMBER_PER_PAGE + ") page from"
-			+ " (select review_num from scrap where id=? order by review_num desc)) where page=?)";		//½ºÅ©·¦ ¸®½ºÆ® ¸®ÅÏ
+			+ " (select review_num from scrap where id=? order by review_num desc)) where page=?)";		//ï¿½ë’ªï¿½ê²•ï¿½ì˜ª ç”±ÑŠë’ªï¿½ë“ƒ ç”±Ñ‹ê½©
 	String GET_MY_REVIEW = "select review_num, title, date_writing, id from"
 			+ " (select review_num, title, date_writing, id, ceil(rownum/" + CommonConstants.CONTENT_NUMBER_PER_PAGE + ") page from"
-			+ " (select review_num, title, date_writing, id from review where id=? order by review_num desc)) where page=?";	//¸®ºä ¸®½ºÆ® ¸®ÅÏ
+			+ " (select review_num, title, date_writing, id from review where id=? order by review_num desc)) where page=?";	//ç”±Ñ‰ëŸ­ ç”±ÑŠë’ªï¿½ë“ƒ ç”±Ñ‹ê½©
 	String GET_RECENT_REVIEWS_BY_TAG = "SELECT review_num, title, location, city,id FROM (SELECT * FROM review ORDER BY review_num desc)" + 
 			" WHERE review_num IN((SELECT review_num FROM tag WHERE word = ?)) AND rownum<10";		//index review list
 }

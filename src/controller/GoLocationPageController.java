@@ -9,15 +9,15 @@ import model.dao.TourDao;
 import model.vo.FestivalVO;
 import model.vo.ReviewVO;
 
-public class GoLocationPageController implements Controller{
+public class GoLocationPageController implements Controller {
 
 	@Override
 	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-		String pathConstant = request.getParameter("location").substring(request.getParameter("location").indexOf("-")+1);
-		System.out.println(pathConstant);
+		String pathConstant = request.getParameter("location")
+				.substring(request.getParameter("location").indexOf("-") + 1);
 		String location = getLocation(pathConstant);
-		System.out.println(location);
+
 		ArrayList<FestivalVO> flist = TourDao.getInstance().getFestivalInfo(location);
 		ArrayList<String> clist = TourDao.getInstance().getCities(location);
 		ArrayList<ReviewVO> relist = TourDao.getInstance().getBestReviewByTag(location, "¸ÀÁý");
@@ -29,7 +29,7 @@ public class GoLocationPageController implements Controller{
 		System.out.println(flist.size());
 		return new ModelAndView("v1.jsp");
 	}
-	
+
 	public String getLocation(String pathConstant) {
 		switch(pathConstant) {
 		case "0": return "Á¦ÁÖµµ";
