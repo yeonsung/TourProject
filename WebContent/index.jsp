@@ -8,15 +8,48 @@
 <meta charset="utf-8">
 <title>Insert title here</title>
 	
-	<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/themes/base/jquery-ui.css" />
+	<!-- <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/themes/base/jquery-ui.css" /> -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<link rel="stylesheet" href="css/style.css">
-	<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<!-- 	<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+ --><script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
 	<script src="http://d3js.org/d3.v3.min.js"></script>
 	<script type="text/javascript" src="js/nav.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script>
+	$(function() {
+		
+		$("#tabs").tabs();
+		$('nav a').click(function() {
+			var str = "location="$(this).html();
+			$.ajax({
+				type:"get",
+				url:"getBestReviewBytag.do",
+				data :"&&tag="+str,
+				
+				success:function(data){
+					if(str=="¸ÀÁý"){
+						$('#tab-1').html(data);	
+						$('#tab-2').html("");
+						$('#tab-3').html("");
+					}
+					else if(str=='°ü±¤'){
+						$('#tab-2').html(data);	
+						$('#tab-1').html("");
+						$('#tab-3').html("");
+					}
+					else if(str=='¼÷¼Ò'){
+						$('#tab-3').html(data);	
+						$('#tab-1').html("");
+						$('#tab-2').html("");
+					}
+				}//callback
+			});//ajax
+		});
+	});
+	</script>
 <style>
 
 	.contents{
@@ -86,10 +119,31 @@
 		</div> <!-- header -->
     	<div id="line"></div>
 	</nav>
-	<div class="col-lg-6">
-		<div id="container" style="display:inline-block; margin-top:161px;"></div>
-		<div>
+	<div class="row">
+		<div class="col-lg-7">
+			<div id="container" style="display:inline-block; margin-top:161px;"></div>
+		</div>
+		<div class="col-lg-3" style="margin-top:161px;">
+			<section>
+				<nav id="tabs">
+					<h1 align="center">BEST REVIEWS</h1>
+					<ul>
+						<li><a href="javascript:void(0)">¸ÀÁý</a></li>
+						<li><a href="javascript:void(0)">°ü±¤</a></li>
+						<li><a href="javascript:void(0)">¼÷¼Ò</a></li>
+					</ul>
+					<div id="tab-1">
+						
+					</div>
+					<div id="tab-2">
+						
+					</div>
+					<div id="tab-3">
+						
+					</div>
+				</nav>
 		
+			</section>
 		</div>
 	</div>
 	<div class="footer" style="display:none;">

@@ -37,7 +37,7 @@ public class TourDao {
 
 	}
 
-	public ArrayList<String> getCities(String location) throws SQLException {
+	public ArrayList<String> getCities(String location) throws SQLException {		//index -> v1
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -56,7 +56,7 @@ public class TourDao {
 		return cities;
 	}
 	
-	public ArrayList<ReviewVO> getRecentReviews(String tag) throws SQLException{
+	public ArrayList<ReviewVO> getRecentReviews(String tag) throws SQLException{		//index review list
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -77,14 +77,14 @@ public class TourDao {
 		}
 		return rlist;
 	}
-	public ArrayList<ReviewVO> getBestReviews(String tag) throws SQLException {				//index�뿉 移댄뀒怨좊━(tag)蹂� review
+	/*public ArrayList<ReviewVO> getBestReviews(String tag) throws SQLException {				//index�뿉 移댄뀒怨좊━(tag)蹂� review
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		ArrayList<ReviewVO> rlist = new ArrayList<ReviewVO>();
 		try {
 			conn = getConnect();
-			ps = conn.prepareStatement(ReviewStringQuery.GET_BEST_REVIEWS);
+			ps = conn.prepareStatement(ReviewStringQuery.GET_RECENT_REVIEWS_BY_TAG);
 			ps.setString(1, tag);
 			rs = ps.executeQuery();
 
@@ -102,7 +102,7 @@ public class TourDao {
 			closeAll(rs, ps, conn);
 		}
 		return rlist;
-	}
+	}*/
 
 	public void addLike(int reviewNum) {
 		/*
@@ -127,10 +127,7 @@ public class TourDao {
 		}
 	}// addLike �씗�젙�벐
 
-	public ArrayList<ReviewVO> getBestReviewByTag(String location , String tag) throws SQLException {		//location : �떆/援�     tag: review 移댄뀒怨좊━
-		
-		 //* �씠 硫붿꽌�뱶媛� �샇異쒕릺硫�.. DB�뿉 ���옣�맂 紐⑤뱺 Review�쓽 醫뗭븘�슂 �닔瑜� 鍮꾧탳�빐�꽌 �씪�떒�� �긽�쐞 3媛쒓퉴吏�留� 由ъ뒪�듃濡� 由ы꽩�븯湲�! 洹몃━怨� �씠
-		// * 由ъ뒪�듃�뿉 review_num�씠 tag �뀒�씠釉붿뿉 �엳�뒗 review_num�씠�옉 媛숈� 吏� �솗�씤�빐�꽌
+	public ArrayList<ReviewVO> getBestReviewByTag(String location , String tag) throws SQLException {		//v1 review list
 		 
 		Connection conn = null;
 		PreparedStatement ps = null;
@@ -164,7 +161,7 @@ public class TourDao {
 		return list;
 	}// getBestReview �씗�젙�벐
 
-	public ArrayList<FestivalVO> getFestivalInfo(String location) throws SQLException {			///�깮媛곹빐蹂닿린
+	public ArrayList<FestivalVO> getFestivalInfo(String location) throws SQLException {			///v1 festival list
 
 		ArrayList<FestivalVO> list = new ArrayList<>();
 		Connection conn = null;
@@ -188,7 +185,7 @@ public class TourDao {
 	}// getFestivalInfo 泥좎쭊�벐
 
 
-	public ArrayList<AttractionVO> getAttraction(String city) throws SQLException {
+	public ArrayList<AttractionVO> getAttraction(String city) throws SQLException {				//v2 tourspot list
 		ArrayList<AttractionVO> list = new ArrayList<>();
 		Connection conn = null;
 		PreparedStatement ps = null;
@@ -219,7 +216,7 @@ public class TourDao {
 	}// getAttraction 泥좎쭊�벐			�씠誘몄�!!!!
 
 
-	public void scrap(String id, int review_num) throws Exception {
+	public void scrap(String id, int review_num) throws Exception {					//scrap
 		Connection conn = null;
 		PreparedStatement ps = null;
 
@@ -235,7 +232,7 @@ public class TourDao {
 		}
 	} // scrap 泥좎쭊�벐
 
-	public ReviewVO checkReview(int reviewNum) throws SQLException { // 湲� 議고쉶�븯湲�
+	public ReviewVO checkReview(int reviewNum) throws SQLException { // review detail info
 
 		Connection conn = null;
 		PreparedStatement ps = null;
@@ -300,7 +297,7 @@ public class TourDao {
 		return count;
 	}
 	
-	public ArrayList<ReviewVO> searchByTag(String tag) throws SQLException {			//�샇異쒗븯�뒗怨녹뿉�꽌 �뼱�뼡寃� �븘�슂�븷源�
+/*	public ArrayList<ReviewVO> searchByTag(String tag) throws SQLException {			//�샇異쒗븯�뒗怨녹뿉�꽌 �뼱�뼡寃� �븘�슂�븷源�
 	    Connection conn = null;
 	    PreparedStatement ps = null;
 	    ResultSet rs = null;
@@ -327,9 +324,9 @@ public class TourDao {
 	    }
 	    return list;
 	      
-	}
+	}*/
 	
-	public ArrayList<ReviewVO> getScrapList(String id, int pageNo) throws SQLException { // �뒪�겕�옪 紐⑸줉 媛��졇�삤湲�
+	public ArrayList<ReviewVO> getScrapList(String id, int pageNo) throws SQLException { // scrap list
 
 		Connection conn = null;
 		PreparedStatement ps = null;
@@ -365,7 +362,7 @@ public class TourDao {
 		return list;
 	}
 	
-	public ArrayList<ReviewVO> getMyReview(String id, int pageNo) throws SQLException { // �궡媛� �벖 湲� 媛��졇�삤湲�
+	public ArrayList<ReviewVO> getMyReview(String id, int pageNo) throws SQLException { // my review list
 
 		Connection conn = null;
 		PreparedStatement ps = null;
@@ -398,7 +395,7 @@ public class TourDao {
 		return list;
 	}
 	
-	public void deleteReview(int reviewNum) throws SQLException { // 湲� �궘�젣�븯湲�
+	public void deleteReview(int reviewNum) throws SQLException { // delete review
 
 		Connection conn = null;
 		PreparedStatement ps = null;
@@ -417,7 +414,7 @@ public class TourDao {
 		}
 	}
 	
-	public void deleteScrap(int reviewNum) throws SQLException { // 湲� �궘�젣�븯湲�
+	public void deleteScrap(int reviewNum) throws SQLException { // delete scrap
 		Connection conn = null;
 		PreparedStatement ps = null;
 		
@@ -436,7 +433,7 @@ public class TourDao {
 	}
 	
 	// ArrayList<String> tags, ArrayList<String> images
-	public void updateReview(ReviewVO rvo) throws SQLException { // 湲� �닔�젙�븯湲�(蹂대쪟蹂대쪟 蹂대쪟蹂대쪟蹂대쪟蹂대쪟酉�......)
+	public void updateReview(ReviewVO rvo) throws SQLException { // update
 
 		Connection conn = null;
 		PreparedStatement ps = null;
@@ -458,7 +455,7 @@ public class TourDao {
 		}
 	}
 	
-	public ArrayList<String> getTags(int reviewNum,Connection conn) throws SQLException{
+	public ArrayList<String> getTags(int reviewNum,Connection conn) throws SQLException{			//get reivew tags
 		ArrayList<String> tlist = new ArrayList<String>();
 		PreparedStatement ps = conn.prepareStatement(ReviewStringQuery.GET_REVIEW_TAGS);
 		ps.setInt(1, reviewNum);
@@ -473,7 +470,7 @@ public class TourDao {
 		return tlist;
 	}
 	
-	public ArrayList<String> getImages(int reviewNum,Connection conn) throws SQLException{			//由щ럭# 媛�吏�怨� �씠誘몄��뱾 由ы꽩
+	public ArrayList<String> getImages(int reviewNum,Connection conn) throws SQLException{			//get review images
 
 		ArrayList<String> ilist = new ArrayList<String>();
 		PreparedStatement ps = conn.prepareStatement(ReviewStringQuery.GET_REVIEW_IMAGES);
@@ -489,7 +486,7 @@ public class TourDao {
 		return ilist;
 	}
 
-	public ArrayList<CommentVO> getComments(int review_num, Connection conn) throws SQLException {
+	public ArrayList<CommentVO> getComments(int review_num, Connection conn) throws SQLException {	//get review comments
 		ArrayList<CommentVO> clist = new ArrayList<CommentVO>();
 		PreparedStatement ps = conn.prepareStatement(ReviewStringQuery.GET_REVIEW_COMMENTS);
 		ps.setInt(1, review_num);
@@ -524,7 +521,7 @@ public class TourDao {
 		closeAll(ps, conn);
 	}// closeAll
 
-	public void register(MemberVO vo) throws SQLException{
+	public void register(MemberVO vo) throws SQLException{			//member regist
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		try{
@@ -543,7 +540,7 @@ public class TourDao {
 		}
 	}
 	
-	public void updateInfo(MemberVO vo) throws SQLException{
+	public void updateInfo(MemberVO vo) throws SQLException{		//member update
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		
@@ -561,7 +558,7 @@ public class TourDao {
 		}
 	}
 	
-	public boolean idCheck(String id) throws SQLException{
+	public boolean idCheck(String id) throws SQLException{			//idcheck
 		boolean result=false;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -603,7 +600,7 @@ public class TourDao {
 		}
 		return vo;
 	}
-	public ArrayList<String> getTagsByContent(String content){
+	public ArrayList<String> getTagsByContent(String content){			//writing logic 
 		ArrayList<String> tlist = new ArrayList<String>();
 		String[] arr = content.split(" ");
 		for(int i=0;i<arr.length;i++) {
