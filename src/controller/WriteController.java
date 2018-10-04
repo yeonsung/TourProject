@@ -1,5 +1,7 @@
 package controller;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -19,14 +21,18 @@ public class WriteController implements Controller {
 		String[] categorys = request.getParameterValues("category");
 		String content = request.getParameter("smarteditor");
 		
+		ReviewVO rvo = new ReviewVO(title, id, location, city, content);
+		TourDao.getInstance().writeReview(rvo);
+		
+		ArrayList<String> tags = TourDao.getInstance().getTagsByContent(content);
+		rvo.setTags(tags);
+		
+		
 		System.out.println(content);
 		
-		ReviewVO rvo = new ReviewVO(title, id, location, city, content);
 		
-		TourDao.getInstance().writeReview(rvo);
-		//getTagsByContent(String content)사용하자
+		
 		request.setAttribute("rvo", rvo);
-		
 		ModelAndView mv = new ModelAndView();
 		mv.setPath("result.jsp");
 		return mv;
