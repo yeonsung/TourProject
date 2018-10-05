@@ -11,7 +11,7 @@ public interface ReviewStringQuery {
 	String INSERT_REVIEW = "INSERT INTO review(review_num, location, city, title, content, date_writing, id)"
 			+ "VALUES(review_seq.nextVal, ?, ?, ?, ?, sysdate, ?)";
 	String CURRENT_NO = "SELECT review_seq.currVal FROM dual";
-	String BEST_REVIEW_LOCATION_TAG = "select review_num, title, likes from (select * from review order by likes desc) where rownum<4"
+	String BEST_REVIEW_LOCATION_TAG = "select review_num, title, likes,city from (select * from review order by likes desc) where rownum<4"
 			+ " AND review_num IN ((SELECT review_num FROM tag WHERE word=?)) AND location=?"; // v1에서 왼쪽 리뷰 리스트
 	String SCRAP = "insert into scrap values(?,?)";									// 스크랩
 	String GET_ATTRACTION = "select spot_name,address,location,city,info,img from tourspot where city=?"; // city별 관광지 정보 return

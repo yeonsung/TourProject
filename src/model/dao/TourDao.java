@@ -37,10 +37,11 @@ public class TourDao {
 
 	}
 
-	public void writeReview(ReviewVO rvo) throws SQLException {
+	public int writeReview(ReviewVO rvo) throws SQLException {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
+		int num = 0;
 		try {
 			conn = getConnect();
 			ps = conn.prepareStatement(ReviewStringQuery.INSERT_REVIEW);
@@ -61,9 +62,11 @@ public class TourDao {
 			if(rs.next()) 
 				rvo.setReviewNum(rs.getInt(1));
 			System.out.println("dao CURRENT_NO...after...."+rvo.getReviewNum());//o
+			num = rvo.getReviewNum();
 		}finally{
 			closeAll(rs, ps, conn);
 		}
+		return num;
 	}
 	
 	
@@ -649,7 +652,7 @@ public class TourDao {
 			pstmt.setString(2,password);
 			rs=pstmt.executeQuery();
 			if(rs.next()) {
-				vo = new MemberVO(rs.getString("id"));
+				vo = new MemberVO(rs.getString("id"),rs.getString("member_name"));
 			}
 
 		} finally {

@@ -2,6 +2,8 @@
 <%@page import="java.io.File"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 
 <%-- <%
   	String ctx = request.getContextPath();    //콘텍스트명 얻어오기.
@@ -13,6 +15,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/smarteditor/js/HuskyEZCreator.js" charset="utf-8"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/smarteditor/photo_uploader/plugin/hp_SE2M_AttachQuickPhoto.js" charset="utf-8"></script>
 <%-- <script type="text/javascript" src="<%=ctx %>/smarteditor/js/HuskyEZCreator.js" charset="utf-8"></script> --%>
@@ -55,23 +60,23 @@ function categoryChange(e) {
 	  var location_r = ["광역시/도를 먼저 선택해주세요."];
 	  var target = document.getElementById("location2");
 	 
-	  if(e.value == "1") var d = location_a;
-	  else if(e.value == "2") var d = location_b;
-	  else if(e.value == "3") var d = location_c;
-	  else if(e.value == "4") var d = location_d;
-	  else if(e.value == "5") var d = location_e;
-	  else if(e.value == "6") var d = location_f;
-	  else if(e.value == "7") var d = location_g;
-	  else if(e.value == "8") var d = location_h;
-	  else if(e.value == "9") var d = location_i;
+	  if(e.value == "서울") var d = location_a;
+	  else if(e.value == "인천") var d = location_b;
+	  else if(e.value == "대전") var d = location_c;
+	  else if(e.value == "대구") var d = location_d;
+	  else if(e.value == "광주") var d = location_e;
+	  else if(e.value == "울산") var d = location_f;
+	  else if(e.value == "부산") var d = location_g;
+	  else if(e.value == "경기도") var d = location_h;
+	  else if(e.value == "강원도") var d = location_i;
 	  else if(e.value == "10") var d = location_j;
-	  else if(e.value == "11") var d = location_k;
-	  else if(e.value == "12") var d = location_l;
-	  else if(e.value == "13") var d = location_m;
-	  else if(e.value == "14") var d = location_n;
-	  else if(e.value == "15") var d = location_o;
-	  else if(e.value == "16") var d = location_p;
-	  else if(e.value == "17") var d = location_q;
+	  else if(e.value == "충청북도") var d = location_k;
+	  else if(e.value == "충청남도") var d = location_l;
+	  else if(e.value == "전라북도") var d = location_m;
+	  else if(e.value == "전라남도") var d = location_n;
+	  else if(e.value == "경상북도") var d = location_o;
+	  else if(e.value == "경상남도") var d = location_p;
+	  else if(e.value == "제주도") var d = location_q;
 	  else if(e.value == "0") var d = location_r;
 	  target.options.length = 0;
 	 
@@ -139,8 +144,64 @@ function pasteHTML(filepath){
    $('#yjyj').html(sHTML); 
    /* oEditors.getById["smarteditors"].exec("PASTE_HTML", [sHTML]); */
 }
-</script>	
-<h1 align="center"> 글 작성 </h1>
+</script>
+<nav class="navbar navbar-defalt navbar-fixed-top" style="background-color: #fff">
+      	<div id="header">
+      		<div class="container">
+         		<div class="navbar-header" style="margin-top: 15px">
+            		<button type="button" class="navbar-toggle" id="menuSpan" data-toggle="collapse" data-target="#myNavbar">
+	                    <span class="icon-bar"></span>
+	               		<span class="icon-bar" style="margin-top: 2px"></span>
+	               		<span class="icon-bar"></span>
+            		</button>
+            		<a href="index.jsp"><img src="img/main_logo.png" width="150"></a>
+         		</div> <!-- navbar-header -->
+         		
+	         	<div class="collapse navbar-collapse navbar-right" id="myNavbar" style="margin-top: 15px">
+	            	<form class="navbar-form navbar-left" action="/action_page.php">
+	               		<div class="input-group">
+	                  		<input type="text" class="form-control" placeholder="Search" name="search" id="myInput">
+	                  		<div class="input-group-btn">
+	                     		<button class="btn btn-default" type="submit">
+	                        		<i class="glyphicon glyphicon-search"></i>
+	                     		</button>
+	                  		</div>
+	               		</div>
+	            	</form>
+	            	
+	            	<ul class="nav navbar-nav navbar-right">
+	               		<li class="dropdown">
+		                  	<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+		                     	<span class="glyphicon glyphicon-user text-success">
+		                     		<span class="caret" style="margin-left: 10px"></span>
+		                     	</span>
+		                  	</a>
+		                  	<c:choose>
+		                  	 	<c:when test="${vo != null}">
+			                  	 	<ul class="dropdown-menu">
+			                     	<li><a href="logout.do"><span class="glyphicon glyphicon-log-out"></span>&nbsp;&nbsp;로그아웃</a></li>
+			                     	<li><a href="myreviews.do?id=${sessionScope.vo.id}"><span class="glyphicon glyphicon-edit"></span>&nbsp;&nbsp;내가 쓴 글</a></li>
+			                     	<li><a href="scrap.do?id=${sessionScope.vo.id}"><span class="glyphicon glyphicon-bookmark"></span>&nbsp;&nbsp;스크랩</a></li>
+			                     	<li><a href="write.jsp"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;글쓰기</a></li>
+			                     	<li><a href="registerupdate.do?id=${sessionScope.vo.id}"><span class="glyphicon glyphicon-cog"></span>&nbsp;&nbsp;정보 수정</a></li>
+			                  		</ul>
+		                  		</c:when>
+		      
+		                  		<c:otherwise>
+		                  			<ul class="dropdown-menu">
+			                     	<li><a href="login.jsp"><span class="glyphicon glyphicon-log-in"></span>&nbsp;&nbsp;로그인</a></li>
+			                     	<li><a href="register.jsp"><i class="fas fa-user-plus"></i>&nbsp;&nbsp;회원가입</a></li>
+			                  		</ul>
+		                  		</c:otherwise>
+		                  	</c:choose>
+	               		</li>
+					</ul>
+				</div> <!-- myNavbar -->
+      		</div> <!-- container -->
+		</div> <!-- header -->
+    	<div id="line"></div>
+	</nav>	
+<h1 align="center" style="margin-top:100px"> 글 작성 </h1>
 <form action="write.do" method="post" name="frm"> <!--  enctype="multipart/form-data" -->
 <!-- <input type="hidden" name="command" value="write"> -->
 <table border="1" align="center" width="80%">
@@ -151,23 +212,23 @@ function pasteHTML(filepath){
 		<td>	
 			<select id="selectBox" name="loaction" style="width:49%;" onchange="categoryChange(this)" required="required">
 				<option value="0">광역시/도</option>
-            	<option value="1">서울특별시</option>
-            	<option value="2">인천광역시</option>
-            	<option value="3">대전광역시</option>
-            	<option value="4">대구광역시</option>
-            	<option value="5">광주광역시</option>
-            	<option value="6">울산광역시</option>
-            	<option value="7">부산광역시</option>
-            	<option value="8">경기도</option>
-            	<option value="9">강원도</option>
+            	<option value="서울">서울특별시</option>
+            	<option value="인천">인천광역시</option>
+            	<option value="대전">대전광역시</option>
+            	<option value="대구">대구광역시</option>
+            	<option value="광주">광주광역시</option>
+            	<option value="울산">울산광역시</option>
+            	<option value="부산">부산광역시</option>
+            	<option value="경기도">경기도</option>
+            	<option value="강원도">강원도</option>
             	<option value="10">세종특별자치시</option>
-            	<option value="11">충청북도</option>
-            	<option value="12">충청남도</option>
-            	<option value="13">전라북도</option>
-            	<option value="14">전라남도</option>
-            	<option value="15">경상북도</option>
-            	<option value="16">경상남도</option>
-            	<option value="17">제주특별자치도</option>
+            	<option value="충청북도">충청북도</option>
+            	<option value="충청남도">충청남도</option>
+            	<option value="전라북도">전라북도</option>
+            	<option value="전라남도">전라남도</option>
+            	<option value="경상북도">경상북도</option>
+            	<option value="경상남도">경상남도</option>
+            	<option value="제주도">제주특별자치도</option>
            	</select>
            	
            	<select id="location2" name="city">

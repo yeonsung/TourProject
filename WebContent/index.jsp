@@ -137,7 +137,7 @@
 	               		<span class="icon-bar" style="margin-top: 2px"></span>
 	               		<span class="icon-bar"></span>
             		</button>
-            		<img src="img/main_logo.png" width="150">
+            		<a href="index.jsp"><img src="img/main_logo.png" width="150"></a>
          		</div> <!-- navbar-header -->
          		
 	         	<div class="collapse navbar-collapse navbar-right" id="myNavbar" style="margin-top: 15px">
@@ -188,10 +188,10 @@
 		<div class="col-lg-7">
 			<div id="container" style="display:inline-block; margin-top:161px;"></div>
 		</div>
-		<div class="col-lg-3" style="margin-top:161px;">
+		<div class="col-lg-4" style="margin-top:161px;">
 			<section>
 				<nav id="tabs">
-					<h1 align="center">BEST REVIEWS</h1>
+					<h1 align="center">RECENT REVIEWS</h1>
 					<ul>
 						<li><a href="javascript:void(0)">맛집</a></li>
 						<li><a href="javascript:void(0)">관광</a></li>
