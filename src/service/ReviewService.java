@@ -64,4 +64,26 @@ public class ReviewService {
 		PagingBean pb = new PagingBean(total, pn);
 		return new ListVO(list, pb); 
 	}
+	
+	public ListVO relatedReviews(String tag, String pageNo) throws SQLException { // �뒪�겕�옪 紐⑸줉 媛��졇�삤湲�
+		int pn = 0;
+		if(pageNo == null) pn=1;
+		else pn = Integer.parseInt(pageNo);
+		
+		ArrayList<ReviewVO> list = dao.relatedReviews(tag, pn);
+		int total = dao.totalRelatedReviewNumber(tag);
+		PagingBean pb = new PagingBean(total, pn);
+		return new ListVO(list, pb); 
+	}
+	
+	public ListVO checkSpot(String tag, String pageNo) throws SQLException { // �뒪�겕�옪 紐⑸줉 媛��졇�삤湲�
+		int pn = 0;
+		if(pageNo == null) pn=1;
+		else pn = Integer.parseInt(pageNo);
+		
+		ArrayList<ReviewVO> list = dao.relatedReviews(tag, pn);
+		int total = dao.totalRelatedReviewNumber(tag);
+		PagingBean pb = new PagingBean(total, pn);
+		return new ListVO(list, pb); 
+	}
 }
