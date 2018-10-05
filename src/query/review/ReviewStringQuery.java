@@ -24,8 +24,8 @@ public interface ReviewStringQuery {
 //			+ "FROM review WHERE review_num = all(select review_num from tag where word=?)";	// �떎�떆
 	//String GET_SCRAP_LIST = "select * from review where review_num in (select review_num from scrap where id=?)";
 	//String GET_MY_REVIEW = "select * from review where id=?";
-//	String GET_BEST_REVIEWS_BY_TAG = "SELECT location,city,title,review_num,likes FROM (SELECT location,title.review_num,likes,city ORDER BY likes desc) "
-//			+ "WHERE rownum<10 review_num IN (SELECT review_num FROM tag WHERE word=?)";			// index review list
+	//String GET_BEST_REVIEWS_BY_TAG = "SELECT location,city,title,review_num,likes FROM (SELECT location,title.review_num,likes,city ORDER BY likes desc) "
+	//		+ "WHERE rownum<10 review_num IN (SELECT review_num FROM tag WHERE word=?)";			// index review list
 
 	String DELETE_REVIEW = "delete from review where review_num=?";
 	String DELETE_SCRAP = "delete from scrap where review_num=?";
@@ -56,7 +56,7 @@ public interface ReviewStringQuery {
 	String GET_DATA = "select * from tourspot where spot_name ="
 			+ "(select distinct word from tag where word=?)";
 	
-	String CHECK_SPOT = "select * from tourspot where spot_name=?;";
+	String CHECK_SPOT = "select * from tourspot where spot_name=?";
 	
 	String GET_REVIEW_BY_SEARCH = "select * from review where review_num in"
 			+ " (select review_num from"
@@ -67,16 +67,17 @@ public interface ReviewStringQuery {
 	String REVIEW_IMG = "SELECT review_image FROM review_image WHERE review_num=?";
 	String CHECK_TAG_BY_LOCATION = "select distinct location from location where location=?";
 	String CHECK_TAG_BY_CITY = "select distinct city from location where city=?";
+	String TAG_EXIST = "select * from tag where word=?";
 }
 
 /*
- * 1-1) .. GET_DATA (�ش� �±װ� tourspot���� �ƴ��� �˻� ����..)
+ * 1-1) .. GET_DATA (해당 태그가 tourspot인지 아닌지 검색도 가능..)
  * select * from tourspot where spot_name =
- * (select distinct word from tag where word='�ι��Ӹ�');
+ * (select distinct word from tag where word='두물머리');
  */
 
 /*
- * GET_DATA���� ��� ���� null�� �ƴ� ��
+ * GET_DATA에서 얻은 값이 null이 아닐 때
  * 
  * ===========================================================
  * 
@@ -84,67 +85,47 @@ public interface ReviewStringQuery {
  * select * from review where review_num in
  *  (select review_num from
  *  (select review_num, ceil(rownum/6) page from
- *  (select review_num from tag where word='�ι��Ӹ�' order by review_num desc)) where page=1);
+ *  (select review_num from tag where word='두물머리' order by review_num desc)) where page=1);
  *  
  *  
  * 4-1) ..
- * select * from tourspot where spot_name='���ýĹ���';
+ * select * from tourspot where spot_name='한택식물원';
  * 
  * 4-2)
  * select * from review where review_num in
  *  (select review_num from
  *  (select review_num, ceil(rownum/2) page from
  *  (select review_num from tag where word=
-<<<<<<< HEAD
- * (select city from tourspot where spot_name='���ýĹ���') order by review_num desc)) where page=1);
+ * (select city from tourspot where spot_name='한택식물원') order by review_num desc)) where page=1);
  * 
  * 
  * 
  * 2..
  * CHECK_TAG_BY_LOCATION
  * CHECK_TAG_BY_CITY
-=======
- * (select city from tourspot where spot_name='���ýĹ���') order by review_num desc)) where page=1);
->>>>>>> refs/remotes/origin/master
  */
 
 /*
-<<<<<<< HEAD
- * 1. �˻������ tag�� �ִ� ���(tag ������ tourspot �� ��)
- *    1) tag�� ���� ���� ��ܿ� ǥ��... ok
- *    2) tag�� ���õ� ���� ǥ��... ok
-=======
- * 1. �˻��� tag�� �ִ� ���(tag ������ tourspot �� ��)
- *    1) tag�� ���� ��� ��ܿ� ǥ��
- *    2) tag�� ��õ� ���� ǥ��
->>>>>>> refs/remotes/origin/master
+ * 1. 검색결과가 tag에 있는 경우(tag 내용이 tourspot 일 때)
+ *    1) tag에 대한 정보 상단에 표시... ok
+ *    2) tag와 관련된 리뷰 표시... ok
  *    
-<<<<<<< HEAD
- * 2. �˻������ tag�� �ִ� ���(tag ������ tourspot�� �ƴ� ��-location, city)
- *    1) v1, v2 ���������� ��ũ �ɾ��ֱ�... ok
-=======
- * 2. �˻��� tag�� �ִ� ���(tag ������ tourspot�� �ƴ� ��-location, city)
- *    1) v1, v2 ��������� ��ũ �ɾ��ֱ�
->>>>>>> refs/remotes/origin/master
+ * 2. 검색결과가 tag에 있는 경우(tag 내용이 tourspot이 아닐 때-location, city)
+ *    1) v1, v2 페이지로의 링크 걸어주기... ok
  *    
-<<<<<<< HEAD
- * 3. �˻������ tag�� �ִ� ���(tag ������ tourspot�� �ƴ� ��-�ٸ� �±�)
- *    1) tag�� ���õ� ���� ǥ��... ok
-=======
- * 3. �˻��� tag�� �ִ� ���(tag ������ tourspot�� �ƴ� ��-�ٸ� �±�)
- *    1) tag�� ��õ� ���� ǥ��
->>>>>>> refs/remotes/origin/master
+ * 3. 검색결과가 tag에 있는 경우(tag 내용이 tourspot이 아닐 때-다른 태그)
+ *    1) tag와 관련된 리뷰 표시... ok
  *    
- * 4. �˻��� tag�� ��� ���(tag ������ tourspot �� ��)
- *    1) �˻��� ���� ��� ��ܿ� ǥ��
- *    2) �˻�� ����� tourspot�� ���� �ű⿡ �ִ� city �����ϰ�
- *       city�� ��õ� ���� ǥ��
+ * 4. 검색결과가 tag에 없는 경우(tag 내용이 tourspot 일 때)
+ *    1) 검색결과에 대한 정보 상단에 표시... ok
+ *    2) 검색어 가지고 tourspot에 가서 거기에 있는 city 리턴하고
+ *       city와 관련된 리뷰 표시... ok
  *    
- * 5. �˻��� tag�� ��� ���(tag ������ city,location �� ��)
- *    1) v1, v2 ��������� ��ũ �ɾ��ֱ�
+ * 5. 검색결과가 tag에 없는 경우(tag 내용이 city,location 일 때)
+ *    1) v1, v2 페이지로의 링크 걸어주기
  *    
- * 6. �˻��� tag�� ��� ���(tag ������ tourspot,city,location�� �ƴ� ��)
- *    1) �˻�..x.....
+ * 6. 검색결과가 tag에 없는 경우(tag 내용이 tourspot,city,location가 아닐 때)
+ *    1) 검색..x.....
  */
 
 

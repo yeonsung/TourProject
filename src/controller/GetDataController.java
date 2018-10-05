@@ -19,23 +19,30 @@ public class GetDataController implements Controller{
 		
 		ArrayList<AttractionVO> alist = TourDao.getInstance().getData(tag);
 		boolean emptyFlag = false;
+		boolean flag = false;
 		String path = "relatedreview.do";
-		
-		if(!alist.isEmpty()) {
+		if(!alist.isEmpty()) 
 			emptyFlag = true;
-			request.setAttribute("alist", alist);
-		}
 		
 		else {
-			String check = TourDao.getInstance().checkTag(tag);
-			if(check.equals("location")) 
-				path = "index.jsp"; // 나중에 location(v1) 페이지로 이동
-				
-			else if(check.equals("city")) 
-				path = "index.jsp"; // 나중에 city(v2) 페이지로 이동
+			boolean tagExist = TourDao.getInstance().tagExist(tag);
+			System.out.println(tagExist + " 11111111111");
+			if(tagExist) {
+				String check = TourDao.getInstance().checkTag(tag);
+				if(check.equals("location")) 
+					path = "index.jsp"; // 나중에 location(v1) 페이지로 이동
+				else if(check.equals("city")) 
+					path = "index.jsp"; // 나중에 city(v2) 페이지로 이동
+			}
+			else {
+				alist = TourDao.getInstance().checkSpot(tag);
+				flag = true;
+			}
 		}
+		
+		request.setAttribute("alist", alist);
 		request.setAttribute("emptyFlag", emptyFlag);
 
-		return new ModelAndView(path + "?pageNo="+pageNo+"&&tag="+tag);
+		return new ModelAndView(path + "?pageNo="+pageNo+"&&tag="+tag+"&&flag="+flag);
 	}
 }

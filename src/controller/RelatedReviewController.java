@@ -13,10 +13,22 @@ public class RelatedReviewController implements Controller{
 
 	@Override
 	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String flag = request.getParameter("flag");
 		String pageNo = request.getParameter("pageNo");
 		if(pageNo == null) pageNo="1";
 		String tag = request.getParameter("tag");
-		ListVO lvo = ReviewService.getInstance().relatedReviews(tag, pageNo);
+		ListVO lvo = new ListVO();
+		
+		if(flag.equals("true")) {
+			lvo = ReviewService.getInstance().checkSpot(tag, pageNo);
+			
+		}
+		else if(flag.equals("false")) {
+			lvo = ReviewService.getInstance().relatedReviews(tag, pageNo);
+		}
+		
+		
+		
 		request.setAttribute("lvo", lvo);
 		
 		return new ModelAndView("searchResult.jsp");
