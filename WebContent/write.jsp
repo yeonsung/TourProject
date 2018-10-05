@@ -1,7 +1,9 @@
+<%@page import="java.util.ArrayList"%>
 <%@page import="model.vo.MemberVO"%>
 <%@page import="java.io.File"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%-- <%
   	String ctx = request.getContextPath();    //콘텍스트명 얻어오기.
@@ -13,13 +15,14 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <title>Insert title here</title>
+
 <script type="text/javascript" src="<%=request.getContextPath()%>/smarteditor/js/HuskyEZCreator.js" charset="utf-8"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/smarteditor/photo_uploader/plugin/hp_SE2M_AttachQuickPhoto.js" charset="utf-8"></script>
 <%-- <script type="text/javascript" src="<%=ctx %>/smarteditor/js/HuskyEZCreator.js" charset="utf-8"></script> --%>
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.0.min.js"></script>
 </head>
 
-<body>		
+<body>	
 <script type="text/javascript">
 /* jQuery('#selectBox').change(function() {
 	var state = jQuery('#selectBox option:selected').val();
@@ -127,18 +130,28 @@ $(function(){
       }); */
    
       //저장버튼 클릭시 form 전송
+
       $("#savebutton").click(function(){
           oEditors.getById["smarteditor"].exec("UPDATE_CONTENTS_FIELD", []);
-          $("#frm").submit();
+/*           var b = $("#imageupload").find('img').attr('src');*/
+			for(i=1; i<=count;i++){
+				var b = $('#img'+i+'').attr('src');
+				$('form').append("<input type='hidden' name='img"+i+"' value='"+b+"'>")
+          	}
+		  $('form').append("<input type='hidden' name='count' value='"+count+"'>")
+
+          $('form').submit();
       });      
 })
-
+var count = 0;
 function pasteHTML(filepath){
 	var id = '${sessionScope.vo.id}';
-	var sHTML = '<img src="<%=request.getContextPath()%>/upload/'+id+'/'+filepath+'">';
+	count++;
+	var sHTML = '<img src="<%=request.getContextPath()%>/upload/'+id+'/'+filepath+'" width="265px" id="img'+count+'"><br>';
     <%-- var sHTML = '<img src="<%=request.getContextPath()%>/upload/'+filepath+'">'; --%>
    <%--  var sHTML = '<img src="<%= %>C:/kyj/webpro2/eclipse/workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/TourProject/upload/'+id+'/'+filepath+'">'; --%>
-   $('#yjyj').html(sHTML); 
+   $('#imageupload').append(sHTML);
+ 	
    /* oEditors.getById["smarteditors"].exec("PASTE_HTML", [sHTML]); */
 }
 
@@ -147,13 +160,13 @@ function pasteHTML(filepath){
 <h1 align="center"> 글 작성 </h1>
 <form action="write.do" method="post" name="frm"> <!--  enctype="multipart/form-data" -->
 <!-- <input type="hidden" name="command" value="write"> -->
-<table border="1" align="center" width="80%">
+<table border="1" align="center" width="80%" style="table-layout:fixed;">
 	<tr>
 		<th align="center">작성자</th>
 		<td><input type="text" name="id" value="${sessionScope.vo.id}" readonly="readonly" style="width:99%;"></td>
 		<th>지역</th>
 		<td>	
-			<select id="selectBox" name="loaction" style="width:49%;" onchange="categoryChange(this)" required="required">
+			<select id="selectBox" name="loaction" style="width:180px;" onchange="categoryChange(this)" required="required">
 				<option value="0">광역시/도</option>
             	<option value="1">서울특별시</option>
             	<option value="2">인천광역시</option>
@@ -173,8 +186,9 @@ function pasteHTML(filepath){
             	<option value="16">경상남도</option>
             	<option value="17">제주특별자치도</option>
            	</select>
-           	
-           	<select id="location2" name="city">
+        </td>
+        <td align="center"> 	
+           	<select id="location2" name="city" required="required">
            		<option>광역시/도를 먼저 선택해주세요.</option>	
            	</select>
         </td>
@@ -193,9 +207,10 @@ function pasteHTML(filepath){
 	</tr>
 	<tr>
 		<td colspan="4"><textarea id="smarteditor" rows="30" cols="40" name="smarteditor" style="width:99%;"></textarea></td>
+		<td><div style="overflow-y:auto; overflow-x:hidden; width:270px; height:520px;" id="imageupload"></div></td>
 	</tr>
 </table>
-
+	
 <table width="90%">
 	<tr>
 		<td align="right">
@@ -204,8 +219,6 @@ function pasteHTML(filepath){
 		</td>
 	</tr>	
 </table>
-<div id="yjyj">
-</div>
 </form>
 </body>
 </html>

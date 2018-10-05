@@ -145,22 +145,6 @@ public class ReviewVO {
 		this.images = images;
 	}
 
-
-	public ReviewVO(int reviewNum, String title, String id, String location, String city, String content, String date,
-			int like) {
-		super();
-		this.reviewNum = reviewNum;
-		this.title = title;
-		this.id = id;
-		this.location = location;
-		this.city = city;
-		this.content = content;
-		this.date = date;
-		this.like = like;
-	}
-
-
-
 	public ReviewVO(int reviewNum, String title, String id, String location, String city, String content, String date,
 			int like, ArrayList<String> tags, ArrayList<CommentVO> comments, ArrayList<String> images) {
 		super();
@@ -175,6 +159,8 @@ public class ReviewVO {
 		this.tags = tags;
 		this.comments = comments;
 		this.images = images;
+	}
+	
 	@Override
 	public String toString() {
 		return "ReviewVO [reviewNum=" + reviewNum + ", title=" + title + ", id=" + id + ", location=" + location

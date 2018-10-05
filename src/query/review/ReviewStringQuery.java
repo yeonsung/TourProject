@@ -12,7 +12,6 @@ public interface ReviewStringQuery {
 	String LIKE_ADD = "update review set likes=likes+1 where review_num=?";
 	String BEST_REVIEW_LOCATION_TAG = "select review_num, title, likes from (select * from review order by likes desc) where rownum<4"
 			+ " AND review_num IN ((SELECT review_num FROM tag WHERE word=?)) AND location=?";
-	String GET_REVIEW_TAGS = "select word from tag where review_num=?";
 	String SCRAP = "insert into scrap values(?,?)";
 	String GET_ATTRACTION = "select spot_name,address,location,city,info,img from tourspot where city=?";
 	String GET_ATTRACTION_IMG= "select spot_image from spot_image where spot_name=?";
@@ -33,7 +32,7 @@ public interface ReviewStringQuery {
 	String TOTAL_SCRAP_COUNT = "select count(-1) from scrap where id=?";
 	String TOTAL_MY_REVIEW_COUNT = "select count(-1) from review where id=?";
 	
-  String GET_REVIEW_TAGS = "select word from tag where review_num=?";
+    String GET_REVIEW_TAGS = "select word from tag where review_num=?";
 	String GET_REVIEW_IMAGES = "SELECT review_image FROM review_image WHERE review_num = ?";
 	String GET_REVIEW_COMMENTS = "SELECT id,comment FROM comment WHERE review_num = ?";
 	String GET_SCRAP_LIST="select * from review where review_num in"
