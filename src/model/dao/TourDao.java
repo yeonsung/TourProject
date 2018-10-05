@@ -603,6 +603,22 @@ public class TourDao {
 		return ilist;
 	}
 
+	public ArrayList<String> getTags(int reviewNum,Connection conn) throws SQLException{			//get review images
+
+		ArrayList<String> ilist = new ArrayList<String>();
+		PreparedStatement ps = conn.prepareStatement(ReviewStringQuery.GET_REVIEW_TAGS);
+		ps.setInt(1, reviewNum);
+		ResultSet rs = ps.executeQuery();
+		while (rs.next()) {
+			ilist.add(rs.getString("word"));
+		}
+		if (rs != null)
+			rs.close();
+		if (ps != null)
+			ps.close();
+		return ilist;
+	}
+
 
 	public ArrayList<CommentVO> getComments(int review_num, Connection conn) throws SQLException {	//get review comments
 		ArrayList<CommentVO> clist = new ArrayList<CommentVO>();
