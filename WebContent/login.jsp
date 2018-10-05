@@ -22,7 +22,6 @@
     }
 </style>
 <script type="text/javascript">
-
 </script>
 <body>
 	<c:if test="${check==false}">

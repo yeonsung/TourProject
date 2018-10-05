@@ -75,7 +75,7 @@
          		</div> <!-- navbar-header -->
          		
 	         	<div class="collapse navbar-collapse navbar-right" id="myNavbar" style="margin-top: 15px">
-	            	<form class="navbar-form navbar-left" action="/action_page.php">
+	            	<form class="navbar-form navbar-left" action="getdata.do">
 	               		<div class="input-group">
 	                  		<input type="text" class="form-control" placeholder="Search" name="search" id="myInput">
 	                  		<div class="input-group-btn">

@@ -30,7 +30,6 @@
 body {
 	margin: 10px
 }
-
 </style>
 </head>
 	<c:set var="message" value="해당 ID는 이미 사용중입니다."/>
