@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="utf-8"%>
 
 <%-- <%
   	String ctx = request.getContextPath();    //콘텍스트명 얻어오기.

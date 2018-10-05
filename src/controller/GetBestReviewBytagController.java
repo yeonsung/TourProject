@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import model.dao.TourDao;
 import model.vo.ReviewVO;
+import service.ListVO;
+import service.ReviewService;
 
 public class GetBestReviewBytagController implements Controller {
 
@@ -16,11 +18,13 @@ public class GetBestReviewBytagController implements Controller {
 		String tag = request.getParameter("tag");
 		String location = request.getParameter("location");
 		System.out.println(tag+"        "+location);
-		ArrayList<ReviewVO> relist = null;
+		String pageNo = request.getParameter("pageNo");
+		
+		ListVO relist = null;
 	
 		try {
 			System.out.println("1");
-			relist = TourDao.getInstance().getBestReviewByTag(location, tag);
+			relist = ReviewService.getInstance().getBestReviewByTag(location, tag, pageNo);
 			System.out.println("2");
 			request.setAttribute("relist", relist);
 			System.out.println(relist);
