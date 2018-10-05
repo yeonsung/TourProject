@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletResponse;
 import model.dao.TourDao;
 import model.vo.FestivalVO;
 import model.vo.ReviewVO;
+import service.ListVO;
+import service.ReviewService;
 
 public class GoLocationPageController implements Controller {
 
@@ -16,11 +18,12 @@ public class GoLocationPageController implements Controller {
 
 		String pathConstant = request.getParameter("location")
 				.substring(request.getParameter("location").indexOf("-") + 1);
+		String pageNo = request.getParameter("pageNo");
 		String location = getLocation(pathConstant);
 
 		ArrayList<FestivalVO> flist = TourDao.getInstance().getFestivalInfo(location);
 		ArrayList<String> clist = TourDao.getInstance().getCities(location);
-		ArrayList<ReviewVO> relist = TourDao.getInstance().getBestReviewByTag(location, "¸ÀÁý");
+		ListVO relist = ReviewService.getInstance().getBestReviewByTag(location, "¸ÀÁý",pageNo);
 		
 		request.setAttribute("clist", clist);
 		request.setAttribute("flist", flist);

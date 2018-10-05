@@ -37,10 +37,11 @@ public class TourDao {
 
 	}
 
-	public void writeReview(ReviewVO rvo) throws SQLException {
+	public int writeReview(ReviewVO rvo) throws SQLException {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
+		int num = 0;
 		try {
 			conn = getConnect();
 			ps = conn.prepareStatement(ReviewStringQuery.INSERT_REVIEW);
@@ -61,9 +62,11 @@ public class TourDao {
 			if(rs.next()) 
 				rvo.setReviewNum(rs.getInt(1));
 			System.out.println("dao CURRENT_NO...after...."+rvo.getReviewNum());//o
+			num = rvo.getReviewNum();
 		}finally{
 			closeAll(rs, ps, conn);
 		}
+		return num;
 	}
 	
 	
@@ -87,7 +90,25 @@ public class TourDao {
 		return cities;
 	}
 	
-	public ArrayList<ReviewVO> getRecentReviews(String tag) throws SQLException{		//index review list
+	public int getTotalReview() throws SQLException{
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		int num=0;
+		
+		try {
+			conn = getConnect();
+			ps = conn.prepareStatement(ReviewStringQuery.GET_TOTAL_REVIEW);
+			rs = ps.executeQuery();
+			if(rs.next())
+				num = rs.getInt(1);
+		}finally {
+			closeAll(rs, ps, conn);
+		}
+		return num;
+	}
+	
+	public ArrayList<ReviewVO> getRecentReviews(String tag, int pn) throws SQLException{		//index review list
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -96,6 +117,7 @@ public class TourDao {
 			conn = getConnect();
 			ps = conn.prepareStatement(ReviewStringQuery.GET_RECENT_REVIEWS_BY_TAG);
 			ps.setString(1, tag);
+			ps.setInt(2, pn);
 			rs = ps.executeQuery();
 			while(rs.next()) {
 				rlist.add(new ReviewVO(rs.getInt("review_num"),
@@ -187,7 +209,7 @@ public class TourDao {
 	}*/
 
 							
-	public ArrayList<ReviewVO> getBestReviewByTag(String location , String tag) throws SQLException {		//v1 review list
+	public ArrayList<ReviewVO> getBestReviewByTag(String location , String tag, int pageNO) throws SQLException {		//v1 review list
 		 
 		Connection conn = null;
 		PreparedStatement ps = null;
@@ -220,7 +242,7 @@ public class TourDao {
 		}
 		System.out.println(list);
 		return list;
-	}// getBestReview �씗�젙�벐
+	}// getBestReview
 
 	public ArrayList<FestivalVO> getFestivalInfo(String location) throws SQLException {			///v1 festival list
 
@@ -330,6 +352,24 @@ public class TourDao {
 			conn = getConnect();
 			ps = conn.prepareStatement(ReviewStringQuery.TOTAL_SCRAP_COUNT);
 			ps.setString(1, id);
+			rs = ps.executeQuery();
+			if(rs.next()) count = rs.getInt(1);
+		} finally {
+			closeAll(rs, ps, conn);
+		}
+		return count;
+	}
+	
+	public int totalReviewNumber() throws SQLException{ 
+
+		int count = 0;
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+
+		try {
+			conn = getConnect();
+			ps = conn.prepareStatement(ReviewStringQuery.TOTAL_REVIEW_COUNT);
 			rs = ps.executeQuery();
 			if(rs.next()) count = rs.getInt(1);
 		} finally {
@@ -724,21 +764,23 @@ public class TourDao {
 			ps.close();
 		return ilist;
 	}
-	
-	public ArrayList<String> getTags(int reviewNum, Connection conn) throws SQLException { // ����# ����� �̹���� ����
-		ArrayList<String> tlist = new ArrayList<String>();
+
+	public ArrayList<String> getTags(int reviewNum,Connection conn) throws SQLException{			//get review images
+
+		ArrayList<String> ilist = new ArrayList<String>();
 		PreparedStatement ps = conn.prepareStatement(ReviewStringQuery.GET_REVIEW_TAGS);
 		ps.setInt(1, reviewNum);
 		ResultSet rs = ps.executeQuery();
 		while (rs.next()) {
-			tlist.add(rs.getString("word"));
+			ilist.add(rs.getString("word"));
 		}
 		if (rs != null)
 			rs.close();
 		if (ps != null)
 			ps.close();
-		return tlist;
+		return ilist;
 	}
+
 
 	public ArrayList<CommentVO> getComments(int review_num, Connection conn) throws SQLException {	//get review comments
 		ArrayList<CommentVO> clist = new ArrayList<CommentVO>();
@@ -841,7 +883,7 @@ public class TourDao {
 			pstmt.setString(2,password);
 			rs=pstmt.executeQuery();
 			if(rs.next()) {
-				vo = new MemberVO(rs.getString("id"));
+				vo = new MemberVO(rs.getString("id"),rs.getString("member_name"));
 			}
 
 		} finally {

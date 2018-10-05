@@ -95,7 +95,7 @@ h1 {
 
 #map {
 	margin-left:50px;
-	border: 1px solid #ddd;
+	/* border: 1px solid #ddd; */
 }
 
 .background {				/*지도 배경색 */
