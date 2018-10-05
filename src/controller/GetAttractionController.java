@@ -17,8 +17,9 @@ public class GetAttractionController implements Controller{
 		String city=request.getParameter("city");
 		String location= request.getParameter("location");
 		String tag=request.getParameter("tag");
+		String pageNo = request.getParameter("pageNo");
 		ArrayList<ReviewVO> blist = new ArrayList<ReviewVO>();
-		blist = TourDao.getInstance().getBestReviewByTag(location,tag);
+		blist = TourDao.getInstance().getBestReviewByTag(location, tag, Integer.parseInt(pageNo));
 		ArrayList<AttractionVO> avo= TourDao.getInstance().getAttraction(city);
 		
 		request.setAttribute("blist", blist);
