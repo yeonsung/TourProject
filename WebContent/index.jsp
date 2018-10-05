@@ -7,48 +7,42 @@
 <head>
 <meta charset="utf-8">
 <title>Insert title here</title>
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<link rel="stylesheet" href="css/style.css">
-<link rel="stylesheet"
-	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script
-	src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
-<script src="http://d3js.org/d3.v3.min.js"></script>
-<script type="text/javascript" src="js/nav.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script>
+	<!-- <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/themes/base/jquery-ui.css" /> -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+ 	<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+ 	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
+	<script src="http://d3js.org/d3.v3.min.js"></script>
+	<script type="text/javascript" src="js/nav.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script>
 	$(function() {
 		$("#tabs").tabs();
-
 		$.ajax({
-			type : "get",
-			url : "getBestReviewBytag.do",
-			data : "&&tag=" + str,
-
-			success : function(data) {
-				if (str == "맛집") {
-					$('#tab-1').html(data);
-					$('#tab-2').html("");
-					$('#tab-3').html("");
-				}
-			}//callback
-		});//ajax
-
-		$('nav a').click(function() {
-			var str = "location="
-			$(this).html();
+			type:"get",
+			url:"getRecentReviews.do",
+			data :"tag=맛집",
+			
+			success:function(data){
+				$('#tab-1').html(data);	
+				$('#tab-2').html("");
+				$('#tab-3').html("");
+			}
+		});
+		
+		$('#tabs a').click(function() {
+			var str = $(this).html();
 			$.ajax({
-				type : "get",
-				url : "getBestReviewBytag.do",
-				data : "&&tag=" + str,
-
-				success : function(data) {
-					if (str == "맛집") {
-						$('#tab-1').html(data);
+				type:"get",
+				url:"getRecentReviews.do",
+				data :"tag="+str,
+				
+				success:function(data){
+					if(str=="맛집"){
+						$('#tab-1').html(data);	
+>>>>>> master
 						$('#tab-2').html("");
 						$('#tab-3').html("");
 					} else if (str == '관광') {
@@ -66,28 +60,25 @@
 	});
 </script>
 <style>
-.contents {
-	padding-top: 80px;
-}
 
-#header {
-	border-bottom: 7px solid transparent;
-	-moz-border-imag: -moz-linear-gradient(left, DarkGreen, #64AB4C);
-	/* #CEF6EC #A4A4A4 #BDBDBD #AEB404*/
-	-webkit-border-image: -webkit-linear-gradient(left, DarkGreen, #64AB4C);
-	border-image: linear-gradient(to right, DarkGreen, #64AB4C);
-	border-image-slice: 1;
-	margin-top: 8px;
-	padding-bottom: 8px;
-	font: 67.5% "Lucida Sans Unicode", "Bitstream Vera Sans",
-		"Trebuchet Unicode MS", "Lucida Grande", Verdana, Helvetica,
-		sans-serif;
-	font-size: 14px;
-}
-
-.caret {
-	margin-left: 10px
-}
+	.contents{
+		padding-top: 80px;
+	}
+   	#header {
+      	border-bottom: 7px solid transparent;
+      	-moz-border-imag: -moz-linear-gradient(left, DarkGreen, #64AB4C); /* #CEF6EC #A4A4A4 #BDBDBD #AEB404*/
+		-webkit-border-image: -webkit-linear-gradient(left, DarkGreen, #64AB4C);
+      	border-image: linear-gradient(to right, DarkGreen, #64AB4C);
+      	border-image-slice: 1;
+      	margin-top: 8px;
+      	padding-bottom: 8px;
+      	font: 67.5% "Lucida Sans Unicode", "Bitstream Vera Sans", "Trebuchet Unicode MS", "Lucida Grande", Verdana, Helvetica, sans-serif;
+      	font-size: 14px;
+   	}
+   
+   	.caret {
+      	margin-left: 10px
+   	}
 </style>
 
 <script type="text/javascript">
@@ -133,68 +124,56 @@
 </head>
 <body>
 
-
-	<nav class="navbar navbar-defalt navbar-fixed-top"
-		style="background-color: #fff">
-		<div id="header">
-			<div class="container">
-				<div class="navbar-header" style="margin-top: 15px">
-					<button type="button" class="navbar-toggle" id="menuSpan"
-						data-toggle="collapse" data-target="#myNavbar">
-						<span class="icon-bar"></span> <span class="icon-bar"
-							style="margin-top: 2px"></span> <span class="icon-bar"></span>
-					</button>
-					<img src="img/main_logo.png" width="150">
-				</div>
-				<!-- navbar-header -->
-
-				<div class="collapse navbar-collapse navbar-right" id="myNavbar"
-					style="margin-top: 15px">
-					<form class="navbar-form navbar-left" action="/action_page.php">
-						<div class="input-group">
-							<input type="text" class="form-control" placeholder="Search"
-								name="search" id="myInput">
-							<div class="input-group-btn">
-								<button class="btn btn-default" type="submit">
-									<i class="glyphicon glyphicon-search"></i>
-								</button>
-							</div>
-						</div>
-					</form>
-
-					<ul class="nav navbar-nav navbar-right">
-						<li class="dropdown"><a class="dropdown-toggle"
-							data-toggle="dropdown" href="#"> <span
-								class="glyphicon glyphicon-user text-success"> <span
-									class="caret" style="margin-left: 10px"></span>
-							</span>
-						</a> <c:choose>
-								<c:when test="${vo != null}">
-									<ul class="dropdown-menu">
-										<li><a href="logout.do"><span
-												class="glyphicon glyphicon-log-out"></span>&nbsp;&nbsp;濡�洹몄����</a></li>
-										<li><a href="myreviews.do?id=yun"><span
-												class="glyphicon glyphicon-edit"></span>&nbsp;&nbsp;�닿� ��
-												湲�</a></li>
-										<li><a href="scrap.do?id=yun"><span
-												class="glyphicon glyphicon-bookmark"></span>&nbsp;&nbsp;�ㅽ�щ��</a></li>
-										<li><a href="#"><span
-												class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;湲�
-												����</a></li>
-										<li><a href="registerupdate.do?id="><span
-												class="glyphicon glyphicon-cog"></span>&nbsp;&nbsp;��蹂� ����</a></li>
-									</ul>
-								</c:when>
-
-								<c:otherwise>
-									<ul class="dropdown-menu">
-										<li><a href="login.jsp"><span
-												class="glyphicon glyphicon-log-in"></span>&nbsp;&nbsp;濡�洹몄��</a></li>
-										<li><a href="register.jsp"><i
-												class="fas fa-user-plus"></i>&nbsp;&nbsp;����媛���</a></li>
-									</ul>
-								</c:otherwise>
-							</c:choose></li>
+   	<nav class="navbar navbar-defalt navbar-fixed-top" style="background-color: #fff">
+      	<div id="header">
+      		<div class="container">
+         		<div class="navbar-header" style="margin-top: 15px">
+            		<button type="button" class="navbar-toggle" id="menuSpan" data-toggle="collapse" data-target="#myNavbar">
+	                    <span class="icon-bar"></span>
+	               		<span class="icon-bar" style="margin-top: 2px"></span>
+	               		<span class="icon-bar"></span>
+            		</button>
+            		<img src="img/main_logo.png" width="150">
+         		</div> <!-- navbar-header -->
+         		
+	         	<div class="collapse navbar-collapse navbar-right" id="myNavbar" style="margin-top: 15px">
+	            	<form class="navbar-form navbar-left" action="/action_page.php">
+	               		<div class="input-group">
+	                  		<input type="text" class="form-control" placeholder="Search" name="search" id="myInput">
+	                  		<div class="input-group-btn">
+	                     		<button class="btn btn-default" type="submit">
+	                        		<i class="glyphicon glyphicon-search"></i>
+	                     		</button>
+	                  		</div>
+	               		</div>
+	            	</form>
+	            	
+	            	<ul class="nav navbar-nav navbar-right">
+	               		<li class="dropdown">
+		                  	<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+		                     	<span class="glyphicon glyphicon-user text-success">
+		                     		<span class="caret" style="margin-left: 10px"></span>
+		                     	</span>
+		                  	</a>
+		                  	<c:choose>
+		                  	 	<c:when test="${vo != null}">
+			                  	 	<ul class="dropdown-menu">
+			                     	<li><a href="logout.do"><span class="glyphicon glyphicon-log-out"></span>&nbsp;&nbsp;로그아웃</a></li>
+			                     	<li><a href="myreviews.do?id=${sessionScope.vo.id}"><span class="glyphicon glyphicon-edit"></span>&nbsp;&nbsp;내가 쓴 글</a></li>
+			                     	<li><a href="scrap.do?id=${sessionScope.vo.id}"><span class="glyphicon glyphicon-bookmark"></span>&nbsp;&nbsp;스크랩</a></li>
+			                     	<li><a href="write.jsp"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;글쓰기</a></li>
+			                     	<li><a href="registerupdate.do?id=${sessionScope.vo.id}"><span class="glyphicon glyphicon-cog"></span>&nbsp;&nbsp;정보 수정</a></li>
+			                  		</ul>
+		                  		</c:when>
+		      
+		                  		<c:otherwise>
+		                  			<ul class="dropdown-menu">
+			                     	<li><a href="login.jsp"><span class="glyphicon glyphicon-log-in"></span>&nbsp;&nbsp;로그인</a></li>
+			                     	<li><a href="register.jsp"><i class="fas fa-user-plus"></i>&nbsp;&nbsp;회원가입</a></li>
+			                  		</ul>
+		                  		</c:otherwise>
+		                  	</c:choose>
+	               		</li>
 					</ul>
 				</div>
 				<!-- myNavbar -->
@@ -236,7 +215,7 @@
 		<input type="hidden" name="location" value="">
 	</form>
 	<script src="js/script.js"></script>
-	<div style="height: 100px"></div>
+   <div style="height: 100px"></div>
 </body>
 
 </html>

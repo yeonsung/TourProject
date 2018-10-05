@@ -28,6 +28,7 @@ public class GetBestReviewBytagController implements Controller {
 			System.out.println("2");
 			request.setAttribute("relist", relist);
 			System.out.println(relist);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

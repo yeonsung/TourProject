@@ -30,8 +30,8 @@ public class TourDao {
 	static {
 		try {
 			Class.forName(OracleInfo.DRIVER_NAME);
-			System.out.println("드라이버 로딩 성공ㅎㅎ");
-		} catch (ClassNotFoundException e) {
+			System.out.println("드라이버 로딩");
+		}catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
 
@@ -95,6 +95,7 @@ public class TourDao {
 		try {
 			conn = getConnect();
 			ps = conn.prepareStatement(ReviewStringQuery.GET_RECENT_REVIEWS_BY_TAG);
+			ps.setString(1, tag);
 			rs = ps.executeQuery();
 			while(rs.next()) {
 				rlist.add(new ReviewVO(rs.getInt("review_num"),
@@ -217,6 +218,7 @@ public class TourDao {
 		} finally {
 			closeAll(rs, ps, conn);
 		}
+		System.out.println(list);
 		return list;
 	}// getBestReview
 
@@ -235,7 +237,7 @@ public class TourDao {
 			while (rs.next()) {
 				list.add(new FestivalVO(rs.getString("festival_Name"), rs.getString("festival_Location"),
 						rs.getString("location"), rs.getString("city"), rs.getString("start_Date"),
-						rs.getString("END_DATE"), rs.getString("agency")));
+						rs.getString("END_DATE"), rs.getString("agency"),rs.getString("img")));
 			}
 		} finally {
 			closeAll(rs, ps, conn);
@@ -394,7 +396,7 @@ public class TourDao {
 			} // while
 			for (ReviewVO vo : list) {
 				if (vo != null) {
-					ps = conn.prepareStatement("SELECT review_image FROM review_image WHERE review_num=?");
+					ps = conn.prepareStatement(ReviewStringQuery.REVIEW_IMG);
 					ps.setInt(1, vo.getReviewNum());
 					rs = ps.executeQuery();
 					if (rs.next()) {
@@ -428,7 +430,7 @@ public class TourDao {
 			for(ReviewVO vo : list) {
 				if(vo!=null) {
 
-					ps = conn.prepareStatement("SELECT review_image FROM review_image WHERE review_num=?");
+					ps = conn.prepareStatement(ReviewStringQuery.REVIEW_IMG);
 					ps.setInt(1, vo.getReviewNum());
 					rs = ps.executeQuery();
 					if (rs.next()) {
@@ -437,7 +439,7 @@ public class TourDao {
 				}
 			} // for
 		} finally {
-			closeAll(ps, conn);
+			closeAll(rs, ps, conn);
 		}
 		return list;
 	}
@@ -502,19 +504,65 @@ public class TourDao {
 		}
 	}
 	
-	public ArrayList<String> getTags(int reviewNum,Connection conn) throws SQLException{			//get reivew tags
-		ArrayList<String> tlist = new ArrayList<String>();
-		PreparedStatement ps = conn.prepareStatement(ReviewStringQuery.GET_REVIEW_TAGS);
-		ps.setInt(1, reviewNum);
-		ResultSet rs = ps.executeQuery();
-		while (rs.next()) {
-			tlist.add(rs.getString("word"));
+	public ArrayList<AttractionVO> getData(String tag) throws SQLException{
+		ArrayList<AttractionVO> list = new ArrayList<AttractionVO>();
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		try {
+			conn = getConnect();
+			ps = conn.prepareStatement(ReviewStringQuery.GET_DATA);
+			ps.setString(1, tag);
+			rs = ps.executeQuery();
+			
+			while(rs.next())
+				list.add(new AttractionVO(rs.getString("spot_name"), 
+										  rs.getString("address"), 
+										  rs.getString("location"), 
+										  rs.getString("city"), 
+										  rs.getString("info"), 
+										  rs.getString("img")));
+
+		} finally {
+			closeAll(rs, ps, conn);
 		}
-		if (rs != null)
-			rs.close();
-		if (ps != null)
-			ps.close();
-		return tlist;
+		return list;
+	}
+	
+	public ArrayList<ReviewVO> relatedReviews(String tag, int pageNo) throws SQLException{
+		ArrayList<ReviewVO> list = new ArrayList<ReviewVO>();
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		try {
+			conn = getConnect();
+			ps = conn.prepareStatement(ReviewStringQuery.RELATED_REVIEWS);
+			ps.setString(1, tag);
+			ps.setInt(2, pageNo);
+			rs = ps.executeQuery();
+			
+			while(rs.next())
+				list.add(new ReviewVO(rs.getInt("review_num"), rs.getString("title"), rs.getString("date_writing")));
+			
+			for(ReviewVO vo : list) {
+				if(vo!=null) {
+
+					ps = conn.prepareStatement(ReviewStringQuery.REVIEW_IMG);
+					ps.setInt(1, vo.getReviewNum());
+					rs = ps.executeQuery();
+					if (rs.next()) {
+						vo.setMainImage(rs.getString("review_image"));
+					}
+				}
+			} // for
+
+		} finally {
+			closeAll(rs, ps, conn);
+		}
+		
+		return list;
 	}
 	
 	public ArrayList<String> getImages(int reviewNum,Connection conn) throws SQLException{			//get review images
@@ -551,7 +599,6 @@ public class TourDao {
 
 	public Connection getConnect() throws SQLException {
 		Connection conn = DriverManager.getConnection(OracleInfo.URL, OracleInfo.USER, OracleInfo.PASS);
-
 		return conn;
 	}// getConnect
 
@@ -628,15 +675,14 @@ public class TourDao {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-
-		try {
-			conn = getConnect();
-			pstmt = conn.prepareStatement(UserStringQuery.LOGIN_USER);
-			pstmt.setString(1, id);
-			pstmt.setString(2, password);
-			rs = pstmt.executeQuery();
-			if (rs.next()) {
-				// �޾ƾߵǴ°� id
+		
+		try{
+			conn=getConnect();
+			pstmt=conn.prepareStatement(UserStringQuery.LOGIN_USER);
+			pstmt.setString(1,id);
+			pstmt.setString(2,password);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
 				vo = new MemberVO(rs.getString("id"));
 			}
 
