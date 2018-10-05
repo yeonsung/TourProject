@@ -90,7 +90,25 @@ public class TourDao {
 		return cities;
 	}
 	
-	public ArrayList<ReviewVO> getRecentReviews(String tag) throws SQLException{		//index review list
+	public int getTotalReview() throws SQLException{
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		int num=0;
+		
+		try {
+			conn = getConnect();
+			ps = conn.prepareStatement(ReviewStringQuery.GET_TOTAL_REVIEW);
+			rs = ps.executeQuery();
+			if(rs.next())
+				num = rs.getInt(1);
+		}finally {
+			closeAll(rs, ps, conn);
+		}
+		return num;
+	}
+	
+	public ArrayList<ReviewVO> getRecentReviews(String tag, int pn) throws SQLException{		//index review list
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -99,6 +117,7 @@ public class TourDao {
 			conn = getConnect();
 			ps = conn.prepareStatement(ReviewStringQuery.GET_RECENT_REVIEWS_BY_TAG);
 			ps.setString(1, tag);
+			ps.setInt(2, pn);
 			rs = ps.executeQuery();
 			while(rs.next()) {
 				rlist.add(new ReviewVO(rs.getInt("review_num"),

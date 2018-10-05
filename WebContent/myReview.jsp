@@ -164,7 +164,7 @@
 		
 		<c:if test="${pb.nextPageGroup}">
 			<ul class="pagination pagination-sm">
-	    		<li><a href="myreviews.do?id=yun&&pageNo=${pb.endPageOfPageGroup+1}">&#62;</a></li>
+	    		<li><a href="myreviews.do?id=${sessionScope.vo.id}&&pageNo=${pb.endPageOfPageGroup+1}">&#62;</a></li>
 	  		</ul>
 		</c:if>	
 	</div>

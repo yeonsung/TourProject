@@ -43,8 +43,10 @@ public interface ReviewStringQuery {
 	String GET_MY_REVIEW = "select review_num, title, date_writing, id from"
 			+ " (select review_num, title, date_writing, id, ceil(rownum/" + CommonConstants.CONTENT_NUMBER_PER_PAGE + ") page from"
 			+ " (select review_num, title, date_writing, id from review where id=? order by review_num desc)) where page=?";	//由щ럭 由ъ뒪�듃 由ы꽩
-	String GET_RECENT_REVIEWS_BY_TAG = "SELECT review_num, title, location, city,id FROM (SELECT * FROM review ORDER BY review_num desc)" + 
-			" WHERE review_num IN((SELECT review_num FROM tag WHERE word = ?)) AND rownum<10";
+	String GET_RECENT_REVIEWS_BY_TAG = "SELECT * FROM" 				//index.jsp
+			+ "(SELECT review_num, title, location, city,id, ceil(rownum/"+ CommonConstants.CONTENT_NUMBER_PER_PAGE + ") page"
+			+ " FROM (SELECT * FROM review ORDER BY review_num desc)" + 
+			" WHERE review_num IN((SELECT review_num FROM tag WHERE word = ?))) WHERE page=?";
 	
 	String RELATED_REVIEWS = "select * from review where review_num in"
 			+ " (select review_num from"
@@ -63,6 +65,7 @@ public interface ReviewStringQuery {
 			+ "(select city from tourspot where spot_name=?) order by review_num desc)) where page=?)";
 
 	String REVIEW_IMG = "SELECT review_image FROM review_image WHERE review_num=?";
+	String GET_TOTAL_REVIEW = "SELECT COUNT(-1) FROM review";
 }
 
 /*

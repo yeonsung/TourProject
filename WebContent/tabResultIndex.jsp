@@ -9,13 +9,11 @@
 </head>
 <body>
 	<table align="center">
-		<c:forEach var="vo" items="${rlist}" step="1">
+		<c:forEach var="vo" items="${rlist.list}" step="1">
 			<tr>
-				<td style="font-size: 15px;">${vo.location}</td>
+				<td style="font-size: 15px;">${vo.location} ${vo.city}</td>
 			
-				<td style="font-size: 15px;">${vo.city}</td>
-			
-				<td style="font-size: 15px;"><b>${vo.title}</b></td>
+				<td style="font-size: 15px;"><b><a href="">${vo.title}</a></b></td>
 			</tr>
 		</c:forEach>
 	</table>

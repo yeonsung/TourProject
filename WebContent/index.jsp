@@ -81,6 +81,9 @@
    	.caret {
       	margin-left: 10px
    	}
+   	section,#tabs{
+   		height:600px;
+   	}
 </style>
 
 <script type="text/javascript">
@@ -128,7 +131,7 @@
 
 
    	<nav class="navbar navbar-defalt navbar-fixed-top" style="background-color: #fff">
-      	<div id="header">
+      	<div id="header"> 
       		<div class="container">
          		<div class="navbar-header" style="margin-top: 15px">
             		<button type="button" class="navbar-toggle" id="menuSpan" data-toggle="collapse" data-target="#myNavbar">
