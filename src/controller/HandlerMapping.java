@@ -38,6 +38,8 @@ public class HandlerMapping {
 			return new MainPageController();
 		case "getdata.do":
 			return new GetDataController();
+		case "relatedreview.do":
+			return new RelatedReviewController();
 			
 		}
 		return null;

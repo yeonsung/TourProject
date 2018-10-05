@@ -300,6 +300,25 @@ public class TourDao {
 		return count;
 	}
 	
+	public int totalRelatedReviewNumber(String id) throws SQLException{ 
+
+		int count = 0;
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+
+		try {
+			conn = getConnect();
+			ps = conn.prepareStatement(ReviewStringQuery.TOTAL_RELATED_REVIEW_COUNT);
+			ps.setString(1, id);
+			rs = ps.executeQuery();
+			if(rs.next()) count = rs.getInt(1);
+		} finally {
+			closeAll(rs, ps, conn);
+		}
+		return count;
+	}
+	
 	public ArrayList<ReviewVO> searchByTag(String tag) throws SQLException {			//�샇異쒗븯�뒗怨녹뿉�꽌 �뼱�뼡寃� �븘�슂�븷源�
 	    Connection conn = null;
 	    PreparedStatement ps = null;
@@ -489,7 +508,6 @@ public class TourDao {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		
 		try {
 			conn = getConnect();
 			ps = conn.prepareStatement(ReviewStringQuery.RELATED_REVIEWS);
@@ -497,8 +515,9 @@ public class TourDao {
 			ps.setInt(2, pageNo);
 			rs = ps.executeQuery();
 			
-			while(rs.next())
+			while(rs.next()) {
 				list.add(new ReviewVO(rs.getInt("review_num"), rs.getString("title"), rs.getString("date_writing")));
+			}
 			
 			for(ReviewVO vo : list) {
 				if(vo!=null) {
@@ -515,8 +534,40 @@ public class TourDao {
 		} finally {
 			closeAll(rs, ps, conn);
 		}
-		
+
 		return list;
+	}
+	
+	public String checkTag(String tag) throws SQLException{
+		String flag = null;
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			conn = getConnect();
+			ps = conn.prepareStatement(ReviewStringQuery.CHECK_TAG_BY_LOCATION);
+			ps.setString(1, tag);
+			rs = ps.executeQuery();
+			
+			if(rs.next()) 
+				flag = "location";
+				
+				
+			else {
+				ps = conn.prepareStatement(ReviewStringQuery.CHECK_TAG_BY_CITY);
+				ps.setString(1, tag);
+				rs = ps.executeQuery();
+				
+				if(rs.next())
+					flag = "city";
+					
+			}
+
+		} finally {
+			closeAll(rs, ps, conn);
+		}
+		
+		return flag;
 	}
 	
 	public ArrayList<String> getTags(int reviewNum,Connection conn) throws SQLException{
@@ -564,11 +615,9 @@ public class TourDao {
 			ps.close();
 		return clist;
 	}
-
+	
 	public Connection getConnect() throws SQLException {
 		Connection conn = DriverManager.getConnection(OracleInfo.URL, OracleInfo.USER, OracleInfo.PASS);
-		System.out.println("�뵒鍮� �뿰寃� �꽦怨�!");
-
 		return conn;
 	}// getConnect
 

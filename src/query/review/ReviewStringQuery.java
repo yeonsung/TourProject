@@ -28,6 +28,8 @@ public interface ReviewStringQuery {
 	String UPDATE_REVIEW = "update review set location=?, city=?, title=?, content=? where review_num=?";
 	String TOTAL_SCRAP_COUNT = "select count(-1) from scrap where id=?";
 	String TOTAL_MY_REVIEW_COUNT = "select count(-1) from review where id=?";
+	String TOTAL_RELATED_REVIEW_COUNT = "select count(-1) from review where review_num in"
+			+ " (select review_num from tag where word=?)";
 	
 	String GET_REVIEW_IMAGES = "SELECT review_image FROM review_image WHERE review_num = ?";
 	String GET_REVIEW_COMMENTS = "SELECT id,comment FROM comment WHERE review_num = ?";
@@ -42,9 +44,9 @@ public interface ReviewStringQuery {
 			" WHERE review_num IN((SELECT review_num FROM tag WHERE word = ?)) AND rownum<";
 	
 	String RELATED_REVIEWS = "select * from review where review_num in"
-			+ " (select review_num from"
+			+ " ((select review_num from"
 			+ " (select review_num, ceil(rownum/" + CommonConstants.CONTENT_NUMBER_PER_PAGE + ") page from"
-			+ " (select review_num from tag where word=? order by review_num desc)) where page=?)";
+			+ " (select review_num from tag where word=? order by review_num desc)) where page=?))";
 
 	String GET_DATA = "select * from tourspot where spot_name ="
 			+ "(select distinct word from tag where word=?)";
@@ -58,6 +60,8 @@ public interface ReviewStringQuery {
 			+ "(select city from tourspot where spot_name=?) order by review_num desc)) where page=?)";
 
 	String REVIEW_IMG = "SELECT review_image FROM review_image WHERE review_num=?";
+	String CHECK_TAG_BY_LOCATION = "select distinct location from location where location=?";
+	String CHECK_TAG_BY_CITY = "select distinct city from location where city=?";
 }
 
 /*
@@ -87,18 +91,24 @@ public interface ReviewStringQuery {
  *  (select review_num, ceil(rownum/2) page from
  *  (select review_num from tag where word=
  * (select city from tourspot where spot_name='한택식물원') order by review_num desc)) where page=1);
+ * 
+ * 
+ * 
+ * 2..
+ * CHECK_TAG_BY_LOCATION
+ * CHECK_TAG_BY_CITY
  */
 
 /*
  * 1. 검색결과가 tag에 있는 경우(tag 내용이 tourspot 일 때)
- *    1) tag에 대한 정보 상단에 표시
- *    2) tag와 관련된 리뷰 표시
+ *    1) tag에 대한 정보 상단에 표시... ok
+ *    2) tag와 관련된 리뷰 표시... ok
  *    
  * 2. 검색결과가 tag에 있는 경우(tag 내용이 tourspot이 아닐 때-location, city)
- *    1) v1, v2 페이지로의 링크 걸어주기
+ *    1) v1, v2 페이지로의 링크 걸어주기... ok
  *    
  * 3. 검색결과가 tag에 있는 경우(tag 내용이 tourspot이 아닐 때-다른 태그)
- *    1) tag와 관련된 리뷰 표시
+ *    1) tag와 관련된 리뷰 표시... ok
  *    
  * 4. 검색결과가 tag에 없는 경우(tag 내용이 tourspot 일 때)
  *    1) 검색결과에 대한 정보 상단에 표시
