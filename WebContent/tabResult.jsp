@@ -6,19 +6,20 @@
 <head>
 <meta charset="utf-8">
 <title>Insert title here</title>
-
 </head>
 <body>
 	<table align="center">
-		<c:forEach var="relist" items="${relist}" step="1">
+		<c:forEach var="relist" items="${relist.list}"  varStatus="vlist">
+			<c:if test="$('vList.count').count/3==0"></c:if>
 			<tr>
-				<td><img src=${relist.mainImage}><br></td>
+				<td><img src=${relist.mainImage}>
+				<img width="300px" height="250px" src="./img/la.jpg"><br></td>
 			</tr>
 			<tr>
-				<td style="font-size: 20px;">#${relist.city}</td>
+				<td style="font-size: 20px;"><a href="#">#${relist.city}</a></td>
 			</tr>
 			<tr>
-				<td style="font-size: 20px;"><b>${relist.title}</b></td>
+				<td style="font-size: 20px;"><a href="#"><b>${relist.title}</b></a></td>
 			</tr>
 		</c:forEach>
 	</table>

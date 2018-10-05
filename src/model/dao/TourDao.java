@@ -187,7 +187,7 @@ public class TourDao {
 	}*/
 
 							
-	public ArrayList<ReviewVO> getBestReviewByTag(String location , String tag) throws SQLException {		//v1 review list
+	public ArrayList<ReviewVO> getBestReviewByTag(String location , String tag, int pageNO) throws SQLException {		//v1 review list
 		 
 		Connection conn = null;
 		PreparedStatement ps = null;
@@ -220,7 +220,7 @@ public class TourDao {
 		}
 		System.out.println(list);
 		return list;
-	}// getBestReview �씗�젙�벐
+	}// getBestReview
 
 	public ArrayList<FestivalVO> getFestivalInfo(String location) throws SQLException {			///v1 festival list
 
@@ -338,6 +338,24 @@ public class TourDao {
 		return count;
 	}
 	
+	public int totalReviewNumber() throws SQLException{ 
+
+		int count = 0;
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+
+		try {
+			conn = getConnect();
+			ps = conn.prepareStatement(ReviewStringQuery.TOTAL_REVIEW_COUNT);
+			rs = ps.executeQuery();
+			if(rs.next()) count = rs.getInt(1);
+		} finally {
+			closeAll(rs, ps, conn);
+		}
+		return count;
+	}
+	
 	public int totalMyReviewNumber(String id) throws SQLException{ 
 		int count = 0;
 		Connection conn = null;
@@ -356,35 +374,6 @@ public class TourDao {
 		}
 		return count;
 	}
-	
-/*	public ArrayList<ReviewVO> searchByTag(String tag) throws SQLException {			//�샇異쒗븯�뒗怨녹뿉�꽌 �뼱�뼡寃� �븘�슂�븷源�
-	    Connection conn = null;
-	    PreparedStatement ps = null;
-	    ResultSet rs = null;
-	    ArrayList<ReviewVO> list = new ArrayList<ReviewVO>();
-	      
-	    try {
-	    conn=getConnect();
-	    ps= conn.prepareStatement(ReviewStringQuery.SEARCH_BY_TAG);
-	    ps.setString(1, tag);
-	    rs= ps.executeQuery();
-	    while(rs.next()) {
-	       list.add(new ReviewVO(rs.getInt("review_num"),
-	                        rs.getString("title"),
-	                        rs.getString("id"),               
-	                        rs.getString("location"),               
-	                        rs.getString("city"),
-	                        rs.getString("content"),                       
-	                        rs.getString("date_writing"),                       
-	                        rs.getInt("likes")));
-	                
-	    }
-	    }finally {
-	       closeAll(rs, ps, conn);
-	    }
-	    return list;
-	      
-	}*/
 	
 	public ArrayList<ReviewVO> getScrapList(String id, int pageNo) throws SQLException { // scrap list
 
@@ -591,21 +580,7 @@ public class TourDao {
 			ps.close();
 		return ilist;
 	}
-	
-	public ArrayList<String> getTags(int reviewNum, Connection conn) throws SQLException { // ����# ����� �̹���� ����
-		ArrayList<String> tlist = new ArrayList<String>();
-		PreparedStatement ps = conn.prepareStatement(ReviewStringQuery.GET_REVIEW_TAGS);
-		ps.setInt(1, reviewNum);
-		ResultSet rs = ps.executeQuery();
-		while (rs.next()) {
-			tlist.add(rs.getString("word"));
-		}
-		if (rs != null)
-			rs.close();
-		if (ps != null)
-			ps.close();
-		return tlist;
-	}
+
 
 	public ArrayList<CommentVO> getComments(int review_num, Connection conn) throws SQLException {	//get review comments
 		ArrayList<CommentVO> clist = new ArrayList<CommentVO>();
