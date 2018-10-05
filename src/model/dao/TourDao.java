@@ -488,7 +488,6 @@ public class TourDao {
 
 	public Connection getConnect() throws SQLException {
 		Connection conn = DriverManager.getConnection(OracleInfo.URL, OracleInfo.USER, OracleInfo.PASS);
-		System.out.println("�뵒鍮� �뿰寃� �꽦怨�!");
 
 		return conn;
 	}// getConnect
@@ -585,6 +584,29 @@ public class TourDao {
 		}
 		return vo;
 	}
+	
+	public MemberVO findIdPass(String userName, int ssn, String tel) throws SQLException{
+		MemberVO vo = null;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			conn = getConnect();
+			pstmt = conn.prepareStatement(UserStringQuery.FINDIDPASS_USER);
+			pstmt.setString(1, userName);
+			pstmt.setInt(2, ssn);
+			pstmt.setString(3, tel);
+			rs = pstmt.executeQuery();
+				if(rs.next()) {
+				vo = new MemberVO(rs.getString(1),rs.getString(2));
+				}
+		}finally {
+			closeAll(pstmt,conn);
+		}
+		return vo;
+	}
+	
 	public ArrayList<String> getTagsByContent(String content){
 		ArrayList<String> tlist = new ArrayList<String>();
 		String[] arr = content.split(" ");

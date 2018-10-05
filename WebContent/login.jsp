@@ -33,7 +33,7 @@
 	<div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h2 class="text-center">방귀곡성 로그인</h2>
+                <h2 class="text-center">방방곡곡 로그인</h2>
             </div>
             <div class="modal-body">
                 <form action="login.do" method="post" name="loginForm" id="loginFrm">
@@ -49,6 +49,7 @@
                     <div class="form-group">
                         <input type="submit" class="btn btn-block btn-lg btn-primary" value="로그인" />
                         <br>
+                        <span class="pull-left"><a href="findidpass.jsp">아이디 및 비밀번호 찾기</a></span>
                         <span class="pull-right"><a href="register.jsp">회원가입</a></span>
                     </div>
                 </form>

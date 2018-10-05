@@ -34,6 +34,8 @@ public class HandlerMapping {
 			return new RegisterUpdateController();
 		case "logout.do":
 			return new LogoutController();
+		case "findidpass.do":
+			return new FindIdPassController();
 		}
 		return null;
 	}

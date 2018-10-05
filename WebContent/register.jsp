@@ -144,7 +144,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="ssn" class="cols-sm-2 control-label">주민등록번호(앞자리 6글자)</label>
+                        <label for="ssn" class="cols-sm-2 control-label">주민등록번호(앞자리 6자리)</label>
                         <div class="cols-sm-10">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fas fa-id-card"></i></span>

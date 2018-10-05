@@ -18,20 +18,25 @@
 	}
 
    	#header {
-      	border-bottom: 7px solid transparent;
-      	-moz-border-imag: -moz-linear-gradient(left, DarkGreen, #64AB4C); /* #CEF6EC #A4A4A4 #BDBDBD #AEB404*/
-		-webkit-border-image: -webkit-linear-gradient(left, DarkGreen, #64AB4C);
-      	border-image: linear-gradient(to right, DarkGreen, #64AB4C);
-      	border-image-slice: 1;
+   		background: #f1f1f1;
       	margin-top: 8px;
       	padding-bottom: 8px;
       	font: 67.5% "Lucida Sans Unicode", "Bitstream Vera Sans", "Trebuchet Unicode MS", "Lucida Grande", Verdana, Helvetica, sans-serif;
       	font-size: 14px;
+      	height: 125px;
    	}
-   
    	.caret {
-      	margin-left: 10px
+      	margin-left: 10px;
    	}
+   	body{
+   		background: #2196F3;
+   	}
+   	.footer {
+    padding: 20px;
+    text-align: center;
+    background: #ddd;
+}
+   	
 </style>
 
 <script type="text/javascript">
@@ -76,8 +81,6 @@
 
 </head>
 <body>
-
-
    	<nav class="navbar navbar-defalt navbar-fixed-top" style="background-color: #fff">
       	<div id="header">
       		<div class="container">
@@ -132,9 +135,11 @@
 				</div> <!-- myNavbar -->
       		</div> <!-- container -->
 		</div> <!-- header -->
-    	<div id="line"></div>
 	</nav>
+ 
+<div class="footer">
+  <h2>Footer</h2>
+</div>
 
-   <div style="height: 100px"></div>
 </body>
 </html>

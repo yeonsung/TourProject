@@ -17,6 +17,12 @@ public class MemberVO {
 	public MemberVO(String id) {
 		this.id = id;
 	}
+	
+	public MemberVO(String id, String password) {
+		this.id = id;
+		this.password = password;
+	}
+	
 	public MemberVO(String userName, int ssn, String id, String password, String tel, String mail) {
 		this.userName = userName;
 		this.ssn = ssn;
@@ -83,6 +89,4 @@ public class MemberVO {
 		return "UserVO [userName=" + userName + ", ssn=" + ssn + ", id=" + id + ", password=" + password + ", tel="
 				+ tel + ", mail=" + mail + "]";
 	}
-	
-	
 }
