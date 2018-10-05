@@ -5,23 +5,27 @@ import model.vo.ReviewVO;
 
 public interface ReviewStringQuery {
 
-	String GETCITIES = "SELECT city FROM location WHERE location=?";
-	String SEARCH_REVIEW_LIKE = "select likes from review where review_num=?";
-	String LIKE_ADD = "update review set likes=likes+1 where review_num=?";
+
+	String GETCITIES = "SELECT city FROM location WHERE location=?";				// å¯ƒìŽ„ë¦°ï¿½ë£„ -> ï¿½ë¼‡ï¿½ë£Š,æ€¨ì¢Žë¼‡ï¿½ë²‘ï¿½ë²‘
+	String SEARCH_REVIEW_LIKE = "select likes from review where review_num=?";		// é†«ë—­ë¸˜ï¿½ìŠ‚ï¿½ë‹” ç”±Ñ‹ê½©?
+	String LIKE_ADD = "update review set likes=likes+1 where review_num=?";			// é†«ë—­ë¸˜ï¿½ìŠ‚+1
+	String INSERT_REVIEW = "INSERT INTO review(review_num, location, city, title, content, date_writing, id)"
+			+ "VALUES(review_seq.nextVal, ?, ?, ?, ?, sysdate, ?)";
+	String CURRENT_NO = "SELECT review_seq.currVal FROM dual";
 	String BEST_REVIEW_LOCATION_TAG = "select review_num, title, likes from (select * from review order by likes desc) where rownum<4"
-			+ " AND review_num IN ((SELECT review_num FROM tag WHERE word=?)) AND location=?";
-	String GET_REVIEW_TAGS = "select word from tag where review_num=?";
-	String SCRAP = "insert into scrap values(?,?)";
-	String GET_ATTRACTION = "select spot_name,address,location,city,info,img from tourspot where city=?";
-	String GET_FESTIVAL_INFO = "select festival_Name,festival_Location,location,city,start_Date,end_Date,agency from festival where location=?";
-	String GET_IMAGE_LIST = "select img from tourspot where city=?";
-	String CHECK_REVIEW = "select * from review where review_num = ?";
-	String SEARCH_BY_TAG = "SELECT review_num,location,city,title,content,date_writing,likes,id "
-			+ "FROM review WHERE review_num = all(select review_num from tag where word=?)";
+			+ " AND review_num IN ((SELECT review_num FROM tag WHERE word=?)) AND location=?"; // v1ì—ì„œ ì™¼ìª½ ë¦¬ë·° ë¦¬ìŠ¤íŠ¸
+	String SCRAP = "insert into scrap values(?,?)";									// ìŠ¤í¬ëž©
+	String GET_ATTRACTION = "select spot_name,address,location,city,info,img from tourspot where city=?"; // cityë³„ ê´€ê´‘ì§€ ì •ë³´ return
+	String GET_ATTRACTION_IMG= "select spot_image from spot_image where spot_name=?";					  // ê´€ê´‘ì§€ ì´ë¯¸ì§€ ë¦¬í„´
+	String GET_FESTIVAL_INFO = "select festival_Name,festival_Location,location,city,start_Date,end_Date,agency,img from festival where location=?" + 
+			" AND ((start_Date BETWEEN SYSDATE AND SYSDATE+7) OR (SYSDATE BETWEEN start_Date AND end_Date))";// locationë³„ ì¶•ì œì •ë³´ return ì•ˆë˜ë©´ start,end Dateì— ''ì¶”ê°€
+	String CHECK_REVIEW = "select * from review where review_num = ?";				// ê¸€ ì •ë³´ return
+//	String SEARCH_BY_TAG = "SELECT review_num,location,city,title,content,date_writing,likes,id "
+//			+ "FROM review WHERE review_num = all(select review_num from tag where word=?)";	// ï¿½ë–Žï¿½ë–†
 	//String GET_SCRAP_LIST = "select * from review where review_num in (select review_num from scrap where id=?)";
 	//String GET_MY_REVIEW = "select * from review where id=?";
-	String GET_BEST_REVIEWS = "SELECT location,city,title,review_num,likes FROM (SELECT location,title.review_num,likes,city ORDER BY likes desc) "
-			+ "WHERE rownum<10 review_num IN (SELECT review_num FROM tag WHERE tag=?)";
+//	String GET_BEST_REVIEWS_BY_TAG = "SELECT location,city,title,review_num,likes FROM (SELECT location,title.review_num,likes,city ORDER BY likes desc) "
+//			+ "WHERE rownum<10 review_num IN (SELECT review_num FROM tag WHERE word=?)";			// index review list
 
 	String DELETE_REVIEW = "delete from review where review_num=?";
 	String DELETE_SCRAP = "delete from scrap where review_num=?";
@@ -31,17 +35,18 @@ public interface ReviewStringQuery {
 	String TOTAL_RELATED_REVIEW_COUNT = "select count(-1) from review where review_num in"
 			+ " (select review_num from tag where word=?)";
 	
-	String GET_REVIEW_IMAGES = "SELECT review_image FROM review_image WHERE review_num = ?";
-	String GET_REVIEW_COMMENTS = "SELECT id,comment FROM comment WHERE review_num = ?";
+	String GET_REVIEW_TAGS = "select word from tag where review_num=?";							//ç”±Ñ‰ëŸ­ tagï¿½ë±¾ return
+	String GET_REVIEW_IMAGES = "SELECT review_image FROM review_image WHERE review_num = ?";	//ç”±Ñ‰ëŸ­ imgï¿½ë±¾ return
+	String GET_REVIEW_COMMENTS = "SELECT id,comment FROM comment WHERE review_num = ?";			//ç”±Ñ‰ëŸ­ commentï¿½ë±¾ return
 	String GET_SCRAP_LIST="select * from review where review_num in"
 			+ " (select review_num from"
 			+ " (select review_num, ceil(rownum/" + CommonConstants.CONTENT_NUMBER_PER_PAGE + ") page from"
-			+ " (select review_num from scrap where id=? order by review_num desc)) where page=?)";
+			+ " (select review_num from scrap where id=? order by review_num desc)) where page=?)";		//ï¿½ë’ªï¿½ê²•ï¿½ì˜ª ç”±ÑŠë’ªï¿½ë“ƒ ç”±Ñ‹ê½©
 	String GET_MY_REVIEW = "select review_num, title, date_writing, id from"
 			+ " (select review_num, title, date_writing, id, ceil(rownum/" + CommonConstants.CONTENT_NUMBER_PER_PAGE + ") page from"
-			+ " (select review_num, title, date_writing, id from review where id=? order by review_num desc)) where page=?";
+			+ " (select review_num, title, date_writing, id from review where id=? order by review_num desc)) where page=?";	//ç”±Ñ‰ëŸ­ ç”±ÑŠë’ªï¿½ë“ƒ ç”±Ñ‹ê½©
 	String GET_RECENT_REVIEWS_BY_TAG = "SELECT review_num, title, location, city,id FROM (SELECT * FROM review ORDER BY review_num desc)" + 
-			" WHERE review_num IN((SELECT review_num FROM tag WHERE word = ?)) AND rownum<";
+			" WHERE review_num IN((SELECT review_num FROM tag WHERE word = ?)) AND rownum<10";
 	
 	String RELATED_REVIEWS = "select * from review where review_num in"
 			+ " ((select review_num from"
@@ -65,13 +70,13 @@ public interface ReviewStringQuery {
 }
 
 /*
- * 1-1) .. GET_DATA (ÇØ´ç ÅÂ±×°¡ tourspotÀÎÁö ¾Æ´ÑÁö °Ë»öµµ °¡´É..)
+ * 1-1) .. GET_DATA (ï¿½Ø´ï¿½ ï¿½Â±×°ï¿½ tourspotï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½ ï¿½ï¿½ï¿½ï¿½..)
  * select * from tourspot where spot_name =
- * (select distinct word from tag where word='µÎ¹°¸Ó¸®');
+ * (select distinct word from tag where word='ï¿½Î¹ï¿½ï¿½Ó¸ï¿½');
  */
 
 /*
- * GET_DATA¿¡¼­ ¾òÀº °ªÀÌ nullÀÌ ¾Æ´Ò ¶§
+ * GET_DATAï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ nullï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½
  * 
  * ===========================================================
  * 
@@ -79,47 +84,67 @@ public interface ReviewStringQuery {
  * select * from review where review_num in
  *  (select review_num from
  *  (select review_num, ceil(rownum/6) page from
- *  (select review_num from tag where word='µÎ¹°¸Ó¸®' order by review_num desc)) where page=1);
+ *  (select review_num from tag where word='ï¿½Î¹ï¿½ï¿½Ó¸ï¿½' order by review_num desc)) where page=1);
  *  
  *  
  * 4-1) ..
- * select * from tourspot where spot_name='ÇÑÅÃ½Ä¹°¿ø';
+ * select * from tourspot where spot_name='ï¿½ï¿½ï¿½Ã½Ä¹ï¿½ï¿½ï¿½';
  * 
  * 4-2)
  * select * from review where review_num in
  *  (select review_num from
  *  (select review_num, ceil(rownum/2) page from
  *  (select review_num from tag where word=
- * (select city from tourspot where spot_name='ÇÑÅÃ½Ä¹°¿ø') order by review_num desc)) where page=1);
+<<<<<<< HEAD
+ * (select city from tourspot where spot_name='ï¿½ï¿½ï¿½Ã½Ä¹ï¿½ï¿½ï¿½') order by review_num desc)) where page=1);
  * 
  * 
  * 
  * 2..
  * CHECK_TAG_BY_LOCATION
  * CHECK_TAG_BY_CITY
+=======
+ * (select city from tourspot where spot_name='ï¿½ï¿½ï¿½Ã½Ä¹ï¿½ï¿½ï¿½') order by review_num desc)) where page=1);
+>>>>>>> refs/remotes/origin/master
  */
 
 /*
- * 1. °Ë»ö°á°ú°¡ tag¿¡ ÀÖ´Â °æ¿ì(tag ³»¿ëÀÌ tourspot ÀÏ ¶§)
- *    1) tag¿¡ ´ëÇÑ Á¤º¸ »ó´Ü¿¡ Ç¥½Ã... ok
- *    2) tag¿Í °ü·ÃµÈ ¸®ºä Ç¥½Ã... ok
+<<<<<<< HEAD
+ * 1. ï¿½Ë»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ tagï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½(tag ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ tourspot ï¿½ï¿½ ï¿½ï¿½)
+ *    1) tagï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ü¿ï¿½ Ç¥ï¿½ï¿½... ok
+ *    2) tagï¿½ï¿½ ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½ï¿½ï¿½ Ç¥ï¿½ï¿½... ok
+=======
+ * 1. ï¿½Ë»ï¿½ï¿½ï¿½ tagï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½(tag ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ tourspot ï¿½ï¿½ ï¿½ï¿½)
+ *    1) tagï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½Ü¿ï¿½ Ç¥ï¿½ï¿½
+ *    2) tagï¿½ï¿½ ï¿½ï¿½Ãµï¿½ ï¿½ï¿½ï¿½ï¿½ Ç¥ï¿½ï¿½
+>>>>>>> refs/remotes/origin/master
  *    
- * 2. °Ë»ö°á°ú°¡ tag¿¡ ÀÖ´Â °æ¿ì(tag ³»¿ëÀÌ tourspotÀÌ ¾Æ´Ò ¶§-location, city)
- *    1) v1, v2 ÆäÀÌÁö·ÎÀÇ ¸µÅ© °É¾îÁÖ±â... ok
+<<<<<<< HEAD
+ * 2. ï¿½Ë»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ tagï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½(tag ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ tourspotï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½-location, city)
+ *    1) v1, v2 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å© ï¿½É¾ï¿½ï¿½Ö±ï¿½... ok
+=======
+ * 2. ï¿½Ë»ï¿½ï¿½ï¿½ tagï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½(tag ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ tourspotï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½-location, city)
+ *    1) v1, v2 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å© ï¿½É¾ï¿½ï¿½Ö±ï¿½
+>>>>>>> refs/remotes/origin/master
  *    
- * 3. °Ë»ö°á°ú°¡ tag¿¡ ÀÖ´Â °æ¿ì(tag ³»¿ëÀÌ tourspotÀÌ ¾Æ´Ò ¶§-´Ù¸¥ ÅÂ±×)
- *    1) tag¿Í °ü·ÃµÈ ¸®ºä Ç¥½Ã... ok
+<<<<<<< HEAD
+ * 3. ï¿½Ë»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ tagï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½(tag ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ tourspotï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½-ï¿½Ù¸ï¿½ ï¿½Â±ï¿½)
+ *    1) tagï¿½ï¿½ ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½ï¿½ï¿½ Ç¥ï¿½ï¿½... ok
+=======
+ * 3. ï¿½Ë»ï¿½ï¿½ï¿½ tagï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½(tag ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ tourspotï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½-ï¿½Ù¸ï¿½ ï¿½Â±ï¿½)
+ *    1) tagï¿½ï¿½ ï¿½ï¿½Ãµï¿½ ï¿½ï¿½ï¿½ï¿½ Ç¥ï¿½ï¿½
+>>>>>>> refs/remotes/origin/master
  *    
- * 4. °Ë»ö°á°ú°¡ tag¿¡ ¾ø´Â °æ¿ì(tag ³»¿ëÀÌ tourspot ÀÏ ¶§)
- *    1) °Ë»ö°á°ú¿¡ ´ëÇÑ Á¤º¸ »ó´Ü¿¡ Ç¥½Ã
- *    2) °Ë»ö¾î °¡Áö°í tourspot¿¡ °¡¼­ °Å±â¿¡ ÀÖ´Â city ¸®ÅÏÇÏ°í
- *       city¿Í °ü·ÃµÈ ¸®ºä Ç¥½Ã
+ * 4. ï¿½Ë»ï¿½ï¿½ï¿½ tagï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½(tag ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ tourspot ï¿½ï¿½ ï¿½ï¿½)
+ *    1) ï¿½Ë»ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½Ü¿ï¿½ Ç¥ï¿½ï¿½
+ *    2) ï¿½Ë»ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ tourspotï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Å±â¿¡ ï¿½Ö´ï¿½ city ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½
+ *       cityï¿½ï¿½ ï¿½ï¿½Ãµï¿½ ï¿½ï¿½ï¿½ï¿½ Ç¥ï¿½ï¿½
  *    
- * 5. °Ë»ö°á°ú°¡ tag¿¡ ¾ø´Â °æ¿ì(tag ³»¿ëÀÌ city,location ÀÏ ¶§)
- *    1) v1, v2 ÆäÀÌÁö·ÎÀÇ ¸µÅ© °É¾îÁÖ±â
+ * 5. ï¿½Ë»ï¿½ï¿½ï¿½ tagï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½(tag ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ city,location ï¿½ï¿½ ï¿½ï¿½)
+ *    1) v1, v2 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å© ï¿½É¾ï¿½ï¿½Ö±ï¿½
  *    
- * 6. °Ë»ö°á°ú°¡ tag¿¡ ¾ø´Â °æ¿ì(tag ³»¿ëÀÌ tourspot,city,location°¡ ¾Æ´Ò ¶§)
- *    1) °Ë»ö..x.....
+ * 6. ï¿½Ë»ï¿½ï¿½ï¿½ tagï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½(tag ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ tourspot,city,locationï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½)
+ *    1) ï¿½Ë»ï¿½..x.....
  */
 
 

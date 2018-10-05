@@ -9,45 +9,45 @@ import model.dao.TourDao;
 import model.vo.FestivalVO;
 import model.vo.ReviewVO;
 
-public class GoLocationPageController implements Controller{
+public class GoLocationPageController implements Controller {
 
 	@Override
 	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-		String pathConstant = request.getParameter("location").substring(request.getParameter("location").indexOf("-")+1);
-		System.out.println(pathConstant);
+		String pathConstant = request.getParameter("location")
+				.substring(request.getParameter("location").indexOf("-") + 1);
 		String location = getLocation(pathConstant);
-		System.out.println(location);
+
 		ArrayList<FestivalVO> flist = TourDao.getInstance().getFestivalInfo(location);
 		ArrayList<String> clist = TourDao.getInstance().getCities(location);
-		ArrayList<ReviewVO> relist = TourDao.getInstance().getBestReviewByTag(location, "ë§›ì§‘");
+		ArrayList<ReviewVO> relist = TourDao.getInstance().getBestReviewByTag(location, "¸ÀÁı");
 		
 		request.setAttribute("clist", clist);
 		request.setAttribute("flist", flist);
 		request.setAttribute("location", location);
 		request.setAttribute("relist", relist);
-
-		return new ModelAndView("v1.jsp?location="+location);
+		System.out.println(flist.size());
+		return new ModelAndView("v1.jsp");
 	}
-	
+
 	public String getLocation(String pathConstant) {
 		switch(pathConstant) {
-		case "0": return "ì œì£¼ë„";
-		case "1": return "ê²½ìƒë‚¨ë„";
-		case "2": return "ê²½ìƒë¶ë„";
-		case "3": return "ì „ë¼ë‚¨ë„";
-		case "4": return "ì „ë¼ë¶ë„";
-		case "5": return "ì¶©ì²­ë‚¨ë„";
-		case "6": return "ì¶©ì²­ë¶ë„";
-		case "7": return "ê°•ì›ë„";
-		case "8": return "ê²½ê¸°ë„";
-		case "9": return "ìš¸ì‚°";
-		case "10": return "ëŒ€ì „";
-		case "11": return "ê´‘ì£¼";
-		case "12": return "ì¸ì²œ";
-		case "13": return "ëŒ€êµ¬";
-		case "14": return "ë¶€ì‚°";
-		case "15": return "ì„œìš¸";
+		case "0": return "Á¦ÁÖµµ";
+		case "1": return "°æ»ó³²µµ";
+		case "2": return "°æ»óºÏµµ";
+		case "3": return "Àü¶ó³²µµ";
+		case "4": return "Àü¶óºÏµµ";
+		case "5": return "ÃæÃ»³²µµ";
+		case "6": return "ÃæÃ»ºÏµµ";
+		case "7": return "°­¿øµµ";
+		case "8": return "°æ±âµµ";
+		case "9": return "¿ï»ê";
+		case "10": return "´ëÀü";
+		case "11": return "±¤ÁÖ";
+		case "12": return "ÀÎÃµ";
+		case "13": return "´ë±¸";
+		case "14": return "ºÎ»ê";
+		case "15": return "¼­¿ï";
 		}
 		return null;
 	}

@@ -16,10 +16,11 @@ public class LoginController implements Controller {
 	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String id = request.getParameter("id");
 		String password = request.getParameter("password");
-		String path = "index.jsp";
+		String path = "loginresult.jsp";
 		
 		MemberVO vo=TourDao.getInstance().login(id, password);
-		if(vo !=null){ // ·Î±×ÀÎ ¼º°ø
+		System.out.println(vo);
+		if(vo !=null){ // ì¨Œíš“ì§¹íšžï¿½íš“ ì©Œì¨˜ì§¸ì²©
 			HttpSession session = request.getSession();
 			session.setAttribute("vo", vo);
 			request.setAttribute("check", true);
@@ -30,4 +31,5 @@ public class LoginController implements Controller {
 		
 		return new ModelAndView(path);
 	}
+
 }
