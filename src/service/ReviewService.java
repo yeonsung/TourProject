@@ -27,6 +27,19 @@ public class ReviewService {
 		ArrayList<ReviewVO> list = dao.getScrapList(id, pn);
 		int total = dao.totalScrapNumber(id);
 		PagingBean pb = new PagingBean(total, pn);
+
+		return new ListVO(list, pb); 
+	}
+	
+	public ListVO getBestReviewByTag(String location, String tag, String pageNo) throws SQLException{
+		int pn = 0;
+		if(pageNo==null) pn=1;
+		else pn = Integer.parseInt(pageNo);
+		
+		ArrayList<ReviewVO> list = dao.getBestReviewByTag(location, tag, pn);
+		int total = dao.totalReviewNumber();
+		PagingBean pb = new PagingBean(total, pn);
+
 		return new ListVO(list, pb); 
 	}
 	

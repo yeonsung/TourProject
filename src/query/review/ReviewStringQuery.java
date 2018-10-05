@@ -43,11 +43,22 @@ public interface ReviewStringQuery {
 	String GET_MY_REVIEW = "select review_num, title, date_writing, id from"
 			+ " (select review_num, title, date_writing, id, ceil(rownum/" + CommonConstants.CONTENT_NUMBER_PER_PAGE + ") page from"
 			+ " (select review_num, title, date_writing, id from review where id=? order by review_num desc)) where page=?";	//由щ럭 由ъ뒪�듃 由ы꽩
+<<<<<<< HEAD
 	String GET_RECENT_REVIEWS_BY_TAG = "SELECT * FROM" 				//index.jsp
 			+ "(SELECT review_num, title, location, city,id, ceil(rownum/"+ CommonConstants.CONTENT_NUMBER_PER_PAGE + ") page"
 			+ " FROM (SELECT * FROM review ORDER BY review_num desc)" + 
 			" WHERE review_num IN((SELECT review_num FROM tag WHERE word = ?))) WHERE page=?";
 	
+=======
+	String GET_RECENT_REVIEWS_BY_TAG = "SELECT review_num, title, location, city,id FROM (SELECT * FROM review ORDER BY review_num desc)" + 
+			" WHERE review_num IN((SELECT review_num FROM tag WHERE word = ?)) AND rownum<";		//index review list
+	String TEST = "select * from review where review_num in\n" + 
+			"(select review_num from\n" + 
+			"(select review_num, ceil(rownum/" + CommonConstants.CONTENT_NUMBER_PER_PAGE + ") page from\n" + 
+			"(select review_num from review order by likes desc)) where page=?)";
+	String TOTAL_REVIEW_COUNT = "select count(-1) from review";
+}
+>>>>>>> refs/remotes/origin/master
 	String RELATED_REVIEWS = "select * from review where review_num in"
 			+ " (select review_num from"
 			+ " (select review_num, ceil(rownum/" + CommonConstants.CONTENT_NUMBER_PER_PAGE + ") page from"

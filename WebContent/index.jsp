@@ -1,13 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
-    pageEncoding="utf-8"%>
-    
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+	pageEncoding="utf-8"%>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="utf-8">
 <title>Insert title here</title>
-	
 	<!-- <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/themes/base/jquery-ui.css" /> -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<link rel="stylesheet" href="css/style.css">
@@ -20,7 +19,6 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script>
 	$(function() {
-		
 		$("#tabs").tabs();
 		$.ajax({
 			type:"get",
@@ -46,14 +44,12 @@
 						$('#tab-1').html(data);	
 						$('#tab-2').html("");
 						$('#tab-3').html("");
-					}
-					else if(str=='관광'){
-						$('#tab-2').html(data);	
+					} else if (str == '관광') {
+						$('#tab-2').html(data);
 						$('#tab-1').html("");
 						$('#tab-3').html("");
-					}
-					else if(str=='숙소'){
-						$('#tab-3').html(data);	
+					} else if (str == '숙소') {
+						$('#tab-3').html(data);
 						$('#tab-1').html("");
 						$('#tab-2').html("");
 					}
@@ -61,8 +57,9 @@
 			});//ajax
 		});
 	});
-	</script>
+</script>
 <style>
+
 	.contents{
 		padding-top: 80px;
 	}
@@ -87,48 +84,47 @@
 </style>
 
 <script type="text/javascript">
-   	$(function() {
-   		//================================ menu ================================
-   		
-   		 $('#myNavbar>ul li').click(function() {
-    		var scrollPosition = $($(this).attr('data-target')).offset().top;
-    		$('body, html').animate({
-    			scrollTop: scrollPosition
-    		}, 500); //animate
+	$(function() {
+		//================================ menu ================================
+
+		$('#myNavbar>ul li').click(function() {
+			var scrollPosition = $($(this).attr('data-target')).offset().top;
+			$('body, html').animate({
+				scrollTop : scrollPosition
+			}, 500); //animate
 		}); //click
 
-      	$('#menuSpan .icon-bar').css('background', 'green');
-      
-      	$('#myNavbar li a').css({
-         	'color' : 'black',
-         	'font-weight' : 'bold'
-      	}); //css
-      
-      	$('#myNavbar li a').hover(function() { 
-         	//���� 硫��대� 留��곗�� �щ�ㅻ�⑥�� ��
-           	$(this).css({
-              	'color' : 'green',
-              	'background' : 'rgba(242, 242, 242, 0.5)'
-           	}); //css
-         
-      	}, function() {
-         	$(this).css({
-              	'color' : 'black',
-              	'background' : 'white'
-           	}); //css
-      	}); //hover
-      
-      	$('.dropdown-menu').css({
-         	'margin-top' : '9px',
-         	'min-width' : '12px',
-         	'border-radius': '2px'
-      	}); //css
-   	}); //ready
+		$('#menuSpan .icon-bar').css('background', 'green');
+
+		$('#myNavbar li a').css({
+			'color' : 'black',
+			'font-weight' : 'bold'
+		}); //css
+
+		$('#myNavbar li a').hover(function() {
+			//���� 硫��대� 留��곗�� �щ�ㅻ�⑥�� ��
+			$(this).css({
+				'color' : 'green',
+				'background' : 'rgba(242, 242, 242, 0.5)'
+			}); //css
+
+		}, function() {
+			$(this).css({
+				'color' : 'black',
+				'background' : 'white'
+			}); //css
+		}); //hover
+
+		$('.dropdown-menu').css({
+			'margin-top' : '9px',
+			'min-width' : '12px',
+			'border-radius' : '2px'
+		}); //css
+	}); //ready
 </script>
 
 </head>
 <body>
-
 
    	<nav class="navbar navbar-defalt navbar-fixed-top" style="background-color: #fff">
       	<div id="header"> 
@@ -181,16 +177,20 @@
 		                  	</c:choose>
 	               		</li>
 					</ul>
-				</div> <!-- myNavbar -->
-      		</div> <!-- container -->
-		</div> <!-- header -->
-    	<div id="line"></div>
+				</div>
+				<!-- myNavbar -->
+			</div>
+			<!-- container -->
+		</div>
+		<!-- header -->
+		<div id="line"></div>
 	</nav>
 	<div class="row">
 		<div class="col-lg-7">
-			<div id="container" style="display:inline-block; margin-top:161px;"></div>
+			<div id="container" style="display: inline-block; margin-top: 161px;"></div>
 		</div>
 		<div class="col-lg-4" style="margin-top:161px;">
+
 			<section>
 				<nav id="tabs">
 					<h1 align="center">RECENT REVIEWS</h1>
@@ -199,27 +199,25 @@
 						<li><a href="javascript:void(0)">관광</a></li>
 						<li><a href="javascript:void(0)">숙소</a></li>
 					</ul>
-					<div id="tab-1">
-						
-					</div>
-					<div id="tab-2">
-						
-					</div>
-					<div id="tab-3">
-						
-					</div>
+					<div id="tab-1"></div>
+					<div id="tab-2"></div>
+					<div id="tab-3"></div>
 				</nav>
-		
+
 			</section>
 		</div>
 	</div>
-	<div class="footer" style="display:none;">
-		<p>이 지도는 <a href="http://d3js.org/" target="_blank">D3.js</a>로 만들었으며 <a href="http://bl.ocks.org/mbostock/2206340" target="_blank">mbostock’s block #2206340</a>을 보고 만든 것입니다.</p>
+	<div class="footer" style="display: none;">
+		<p>
+			이 지도는 <a href="http://d3js.org/" target="_blank">D3.js</a>로 만들었으며 <a
+				href="http://bl.ocks.org/mbostock/2206340" target="_blank">mbostock’s
+				block #2206340</a>을 보고 만든 것입니다.
+		</p>
 	</div>
-	<form action="locationpage.do"><input type="hidden" name="location" value=""></form>
+	<form action="locationpage.do">
+		<input type="hidden" name="location" value="">
+	</form>
 	<script src="js/script.js"></script>
-	
-
    <div style="height: 100px"></div>
 </body>
 
