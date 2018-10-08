@@ -1,3 +1,4 @@
+<%@page import="model.vo.MemberVO"%>
 <%@page import="java.util.Date"%>
 <%@page import="java.util.Locale"%>
 <%@page import="java.text.SimpleDateFormat"%>
@@ -6,25 +7,22 @@
 <%@page import="com.oreilly.servlet.MultipartRequest"%>
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%
-
-//String path = "C:/kyj/webpro2/eclipse/workspace/TourProject/WebContent/upload"; // 이미지가 저장될 주소
-String path1 = request.getSession().getServletContext().getRealPath("/") + File.separator +"upload/jin";
-File file = new File(path1);
+//String path1 = "C:/kyj/webpro2/eclipse/workspace/TourProject/WebContent/upload"; // 이미지가 저장될 주소1
+String path2 = request.getSession().getServletContext().getRealPath("/") + File.separator +"upload"+File.separator+((MemberVO)(session.getAttribute("vo"))).getId()+"";
+File file = new File(path2);
 if(!file.exists()){
 	file.mkdirs();
-}
-String path = request.getSession().getServletContext().getRealPath("/") + File.separator + "upload/jin"; //즉시 새로고침되도록
-//String path = request.getSession().getServletContext().getRealPath("/") + File.separator + "upload"
+} 
+String path = request.getSession().getServletContext().getRealPath("/") + File.separator + "upload"+File.separator+((MemberVO)(session.getAttribute("vo"))).getId(); //즉시 새로고침되도록
+//String path = request.getSession().getServletContext().getRealPath("/") + File.separator + "upload";
 String filename = "";
-
+System.out.println("안녕하세요"+path);
 if(request.getContentLength() > 10*1024*1024 ){
 %>
 	<script>alert("업로드 용량(총 10Mytes)을 초과하였습니다.");history.back();</script>
 <%
 	return;
-
 } else {
-
 	try {
 		MultipartRequest multi=new MultipartRequest(request, path, 15*1024*1024, "UTF-8", new DefaultFileRenamePolicy());
 	
@@ -80,4 +78,3 @@ if(request.getContentLength() > 10*1024*1024 ){
 	fileAttach();
 	this.window.close();
 </script>
-

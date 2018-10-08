@@ -1,3 +1,4 @@
+
 package controller;
 
 import java.util.ArrayList;
@@ -8,7 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 import model.dao.TourDao;
 import model.vo.AttractionVO;
 import model.vo.ReviewVO;
-import query.review.ReviewStringQuery;
 
 public class GetAttractionController implements Controller{
 

@@ -7,6 +7,7 @@
 <head>
 <meta charset="utf-8">
 <title>Insert title here</title>
+<!-- <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/themes/base/jquery-ui.css" /> -->
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet" href="css/style.css">
@@ -14,6 +15,7 @@
 	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 <script
 	src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
 <script src="http://d3js.org/d3.v3.min.js"></script>
@@ -23,28 +25,24 @@
 <script>
 	$(function() {
 		$("#tabs").tabs();
-
 		$.ajax({
 			type : "get",
-			url : "getBestReviewBytag.do",
-			data : "&&tag=" + str,
+			url : "getRecentReviews.do",
+			data : "tag=맛집",
 
 			success : function(data) {
-				if (str == "맛집") {
-					$('#tab-1').html(data);
-					$('#tab-2').html("");
-					$('#tab-3').html("");
-				}
-			}//callback
-		});//ajax
+				$('#tab-1').html(data);
+				$('#tab-2').html("");
+				$('#tab-3').html("");
+			}
+		});
 
-		$('nav a').click(function() {
-			var str = "location="
-			$(this).html();
+		$('#tabs a').click(function() {
+			var str = $(this).html();
 			$.ajax({
 				type : "get",
-				url : "getBestReviewBytag.do",
-				data : "&&tag=" + str,
+				url : "getRecentReviews.do",
+				data : "tag=" + str,
 
 				success : function(data) {
 					if (str == "맛집") {
@@ -93,7 +91,6 @@
 <script type="text/javascript">
 	$(function() {
 		//================================ menu ================================
-
 		$('#myNavbar>ul li').click(function() {
 			var scrollPosition = $($(this).attr('data-target')).offset().top;
 			$('body, html').animate({
@@ -109,7 +106,6 @@
 		}); //css
 
 		$('#myNavbar li a').hover(function() {
-			//���� 硫��대� 留��곗�� �щ�ㅻ�⑥�� ��
 			$(this).css({
 				'color' : 'green',
 				'background' : 'rgba(242, 242, 242, 0.5)'
@@ -129,10 +125,8 @@
 		}); //css
 	}); //ready
 </script>
-
 </head>
 <body>
-
 
 	<nav class="navbar navbar-defalt navbar-fixed-top"
 		style="background-color: #fff">
@@ -172,26 +166,24 @@
 								<c:when test="${vo != null}">
 									<ul class="dropdown-menu">
 										<li><a href="logout.do"><span
-												class="glyphicon glyphicon-log-out"></span>&nbsp;&nbsp;濡�洹몄����</a></li>
-										<li><a href="myreviews.do?id=yun"><span
-												class="glyphicon glyphicon-edit"></span>&nbsp;&nbsp;�닿� ��
-												湲�</a></li>
-										<li><a href="scrap.do?id=yun"><span
-												class="glyphicon glyphicon-bookmark"></span>&nbsp;&nbsp;�ㅽ�щ��</a></li>
-										<li><a href="#"><span
-												class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;湲�
-												����</a></li>
-										<li><a href="registerupdate.do?id="><span
-												class="glyphicon glyphicon-cog"></span>&nbsp;&nbsp;��蹂� ����</a></li>
+												class="glyphicon glyphicon-log-out"></span>&nbsp;&nbsp;로그아웃</a></li>
+										<li><a href="myreviews.do?id=${sessionScope.vo.id}"><span
+												class="glyphicon glyphicon-edit"></span>&nbsp;&nbsp;내가 쓴 글</a></li>
+										<li><a href="scrap.do?id=${sessionScope.vo.id}"><span
+												class="glyphicon glyphicon-bookmark"></span>&nbsp;&nbsp;스크랩</a></li>
+										<li><a href="write.jsp"><span
+												class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;글쓰기</a></li>
+										<li><a href="registerupdate.do?id=${sessionScope.vo.id}"><span
+												class="glyphicon glyphicon-cog"></span>&nbsp;&nbsp;정보 수정</a></li>
 									</ul>
 								</c:when>
 
 								<c:otherwise>
 									<ul class="dropdown-menu">
 										<li><a href="login.jsp"><span
-												class="glyphicon glyphicon-log-in"></span>&nbsp;&nbsp;濡�洹몄��</a></li>
+												class="glyphicon glyphicon-log-in"></span>&nbsp;&nbsp;로그인</a></li>
 										<li><a href="register.jsp"><i
-												class="fas fa-user-plus"></i>&nbsp;&nbsp;����媛���</a></li>
+												class="fas fa-user-plus"></i>&nbsp;&nbsp;회원가입</a></li>
 									</ul>
 								</c:otherwise>
 							</c:choose></li>
