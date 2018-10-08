@@ -7,34 +7,40 @@
 <head>
 <meta charset="utf-8">
 <title>Insert title here</title>
-	<!-- <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/themes/base/jquery-ui.css" /> -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-	<link rel="stylesheet" href="css/style.css">
-	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
- 	<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
- 	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
-	<script src="http://d3js.org/d3.v3.min.js"></script>
-	<script type="text/javascript" src="js/nav.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<script>
+<!-- <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/themes/base/jquery-ui.css" /> -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet"
+	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script
+	src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script type="text/javascript" src="js/nav.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script>
 	$(function() {
 		$("#tabs").tabs();
 		$.ajax({
-			type:"get",
-			url:"getRecentReviews.do",
-			data :"tag=맛집",
-			
-			success:function(data){
-				$('#tab-1').html(data);	
+			type : "get",
+			url : "getRecentReviews.do",
+			data : "tag=맛집",
+
+			success : function(data) {
+				$('#tab-1').html(data);
 				$('#tab-2').html("");
 				$('#tab-3').html("");
 			}
 		});
-		
+
 		$('#tabs a').click(function() {
 			var str = $(this).html();
 			$.ajax({
+
 				type:"get",
 				url:"getRecentReviews.do",
 				data :"tag="+str,
@@ -59,6 +65,7 @@
 	});
 </script>
 <style>
+
 	a {text-decoration: none}
 	.contents{
 		padding-top: 80px;
@@ -86,7 +93,6 @@
 <script type="text/javascript">
 	$(function() {
 		//================================ menu ================================
-
 		$('#myNavbar>ul li').click(function() {
 			var scrollPosition = $($(this).attr('data-target')).offset().top;
 			$('body, html').animate({
@@ -102,7 +108,6 @@
 		}); //css
 
 		$('#myNavbar li a').hover(function() {
-			//���� 硫��대� 留��곗�� �щ�ㅻ�⑥�� ��
 			$(this).css({
 				'color' : 'green',
 				'background' : 'rgba(242, 242, 242, 0.5)'
@@ -122,9 +127,9 @@
 		}); //css
 	}); //ready
 </script>
-
 </head>
 <body>
+
 
    	<nav class="navbar navbar-defalt navbar-fixed-top" style="background-color: #fff">
       	<div id="header"> 
@@ -214,7 +219,7 @@
 		<input type="hidden" name="location" value="">
 	</form>
 	<script src="js/script.js"></script>
-   <div style="height: 100px"></div>
+	<div style="height: 100px"></div>
 </body>
 
 </html>

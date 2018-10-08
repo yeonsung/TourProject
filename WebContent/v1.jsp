@@ -22,12 +22,17 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 <style>
+#carousel_con {
+	width: 600px;
+	height: 400px;
+}
+
 .contents {
 	padding-top: 80px;
 }
 
 section {
-	height: 600px;
+	height: auto;
 }
 
 header {
@@ -51,9 +56,9 @@ header {
 
 .carousel-inner>.item>img {
 	top: 0;
-	left: 0;
-	min-width: 100%;
-	min-height: 400px;
+	left: 0%;
+	min-width: 360px;
+	min-height: 200px;
 }
 
 * {
@@ -105,61 +110,39 @@ tr td {
 }
 </style>
 <script>
-/* 	var page = 1;
-	$("#tabs").scroll(
-			function() { alert("zsdzsd");
-				/* if ($("#tabs").scrollTop() == 100) {
-					console.log(++page);
-					$("#tab-1").append(
-							"<h1>Page " + page + "aaaaaaaaaaaaa<br>aaaaa<br>");
-				} 
-			});*/
-	
+	var count = 1;
 	var page = 1;
 
-	$('#tabs').scroll(function() {
-		
-		var current_mode = document.getElementById('current_mode').innerText;
-		var dh = document.getElementById('tabs').scrollHeight;
-		var dch = document.getElementById('tabs').clientHeight;
-		var dct = document.getElementById('tabs').scrollTop;
+	function showmore() {
+		count += 1;
+		$.ajax({
+			type : "get",
+			url : "getBestReviewBytag.do",
+			data : {
+				"location" : "${location}",
+				"tag" : $('#distinguish').html(),
+				"pageNo" : count,
+				"size" : $('#listSize').html()
+			//더보기 누르기 전의 갯수.
+			},
 
-		//스크롤 끝까지 닿으면 새로운 데이터 50개를 불러온다
+			success : function(data) {
+				$('#tab-1').html(data);
+				$('#tab-2').html("");
+				$('#tab-3').html("");
+			}//callback
 
-		if (dh == (dch+dct)) {
-			start += list;
-			if(current_mode == '0'){
-				 $("#tab-1").append('test :: ' + page + '</h1></div>');
-			}else{
-				 $("#tab-1").append('test :: ' + page + '</h1></div>');
-			}
-			
-		}
-		//스크롤 끝까지 닿으면 새로운 데이터 50개를 불러온다 끝
-		
-		//alert($('#tabs').height());
-	    /*  if ($('#tabs').scrollTop() == 100) {
-	      console.log(++page);
-	      $("#tab-1").append('<div class="big-box"><h1>Page ' + page + '</h1></div>');
-	      
-	    }  */
-	});
-	
+		});//ajax 
+	}
 	$(function() {
-
 		$("#tabs").tabs();
-
-		if ($("#tabs").height() < $(window).height()) {
-			//alert($('#tabs').scrollTop());
-		//alert("There isn't a vertical scroll bar");
-		}
 
 		$.ajax({
 			type : "get",
 			url : "getBestReviewBytag.do",
 			data : {
 				"location" : "${location}",
-				"tag" : $('nav a').html()
+				"tag" : "맛집"
 			},
 
 			success : function(data) {
@@ -187,15 +170,18 @@ tr td {
 						$('#tab-2').html(data);
 						$('#tab-1').html("");
 						$('#tab-3').html("");
+						count = 1;
 					} else if (str == '숙소') {
 						$('#tab-3').html(data);
 						$('#tab-1').html("");
 						$('#tab-2').html("");
+						count = 1;
 					} else {
 						//$('#tab-1').html(data);
 						$('#tab-1').html(data);
 						$('#tab-2').html("");
 						$('#tab-3').html("");
+						count = 1;
 					}
 				}//callback
 			});//ajax
@@ -207,7 +193,6 @@ tr td {
 <script type="text/javascript">
 	$(function() {
 		//================================ menu ================================
-
 		$('#myNavbar>ul li').click(function() {
 			var scrollPosition = $($(this).attr('data-target')).offset().top;
 			$('body, html').animate({
@@ -308,7 +293,7 @@ tr td {
 	<div id="line"></div>
 	<div style="height: 70px;"></div>
 	<section>
-		<nav id="tabs" style="overflow: scroll">
+		<nav id="tabs" style="overflow-y: scroll; height: 800px; width: 25%">
 			<h1 align="center">BEST REVIEWS</h1>
 			<ul>
 				<li><a href="javascript:void(0)">맛집</a></li>
@@ -318,12 +303,13 @@ tr td {
 			<div id="tab-1"></div>
 			<div id="tab-2"></div>
 			<div id="tab-3"></div>
+
 		</nav>
 
 		<article>
 			<p>
 			<h1 align="center" style="margin-bottom: 30px">${requestScope.location}</h1>
-			<div class="container">
+			<div class="container" id="carousel_con">
 				<div id="myCarousel" class="carousel slide" data-ride="carousel">
 					<!-- Indicators -->
 					<ol class="carousel-indicators">
@@ -334,17 +320,17 @@ tr td {
 
 					<!-- Wrapper for slides -->
 					<div class="carousel-inner">
-						
+
 						<div class="item active">
-							<img src="img/la.jpg" alt="Los Angeles" style="width: 100%;">
+							<img src="img/la.jpg" alt="Los Angeles">
 						</div>
 
 						<div class="item">
-							<img src="img/chicago.jpg" alt="Chicago" style="width: 100%;">
+							<img src="img/chicago.jpg" alt="Chicago">
 						</div>
 
 						<div class="item">
-							<img src="img/ny.jpg" alt="New york" style="width: 100%;">
+							<img src="img/ny.jpg" alt="New york">
 						</div>
 					</div>
 
@@ -361,19 +347,19 @@ tr td {
 				</div>
 			</div>
 			<br> <br>
-			<table align="center">
-				<c:forEach var="clist" items="${clist}" step="1">
-					<tr>
-						<td>dd</td>
-						<td><a href="getAttraction.do?city=${clist}&location=${requestScope.location}">${clist}</a></td>
-					</tr>
+			<table>
+				<c:forEach var="vo" items="${clist}" step="1" varStatus="status">
+					<font size="5px;"> <a href="#"
+						style="color: gray; margin-bottom: 5px">${vo}</a>&nbsp; 
+						<c:if
+							test="${status.count%4 eq 0}">
+							<br />
+							<br />
+						</c:if></font>
+
 				</c:forEach>
 			</table>
 		</article>
 	</section>
-
-	<footer>
-		<p>여기 푸터</p>
-	</footer>
 </body>
 </html>

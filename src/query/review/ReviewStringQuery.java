@@ -5,13 +5,17 @@ import model.vo.ReviewVO;
 
 public interface ReviewStringQuery {
 
-
-	String GETCITIES = "SELECT city FROM location WHERE location=?";				// 寃쎄린�룄 -> �뼇�룊,怨좎뼇�벑�벑
-	String SEARCH_REVIEW_LIKE = "select likes from review where review_num=?";		// 醫뗭븘�슂�닔 由ы꽩?
-	String LIKE_ADD = "update review set likes=likes+1 where review_num=?";			// 醫뗭븘�슂+1
+	String GETCITIES = "SELECT city FROM location WHERE location=?"; // 寃쎄린�룄 -> �뼇�룊,怨좎뼇�벑�벑
+	String SEARCH_REVIEW_LIKE = "select likes from review where review_num=?"; // 醫뗭븘�슂�닔 由ы꽩?
+	String LIKE_ADD = "update review set likes=likes+1 where review_num=?"; // 醫뗭븘�슂+1
 	String INSERT_REVIEW = "INSERT INTO review(review_num, location, city, title, content, date_writing, id)"
 			+ "VALUES(review_seq.nextVal, ?, ?, ?, ?, sysdate, ?)";
 	String CURRENT_NO = "SELECT review_seq.currVal FROM dual";
+	/*String BEST_REVIEW_LOCATION_TAG = "select review_num, title, likes,city from (select * from review order by likes desc) where rownum<4"
+			+ " AND review_num IN ((SELECT review_num FROM tag WHERE word=?)) AND location=?"; // v1에서 왼쪽 리뷰 리스트
+*/
+	String CHECK_REVIEW = "select * from review where review_num = ?"; // 글 정보 return
+	
 	String BEST_REVIEW_LOCATION_TAG = "select review_num, title, likes,city from (select * from review order by likes desc) where rownum<4"
 			+ " AND review_num IN ((SELECT review_num FROM tag WHERE word=?)) AND location=?"; // v1에서 왼쪽 리뷰 리스트
 	String SCRAP = "insert into scrap values(?,?)";									// 스크랩
@@ -19,7 +23,6 @@ public interface ReviewStringQuery {
 	String GET_ATTRACTION_IMG= "select spot_image from spot_image where spot_name=?";					  // 관광지 이미지 리턴
 	String GET_FESTIVAL_INFO = "select festival_Name,festival_Location,location,city,start_Date,end_Date,agency,img from festival where location=?" + 
 			" AND ((start_Date BETWEEN SYSDATE AND SYSDATE+7) OR (SYSDATE BETWEEN start_Date AND end_Date))";// location별 축제정보 return 안되면 start,end Date에 ''추가
-	String CHECK_REVIEW = "select * from review where review_num = ?";				// 글 정보 return
 //	String SEARCH_BY_TAG = "SELECT review_num,location,city,title,content,date_writing,likes,id "
 //			+ "FROM review WHERE review_num = all(select review_num from tag where word=?)";	// �떎�떆
 	//String GET_SCRAP_LIST = "select * from review where review_num in (select review_num from scrap where id=?)";
@@ -34,41 +37,46 @@ public interface ReviewStringQuery {
 	String TOTAL_MY_REVIEW_COUNT = "select count(-1) from review where id=?";
 	String TOTAL_RELATED_REVIEW_COUNT = "select count(-1) from review where review_num in"
 			+ " (select review_num from tag where word=?)";
-	
-	String GET_REVIEW_TAGS = "select word from tag where review_num=?";							//由щ럭 tag�뱾 return
-	String GET_REVIEW_IMAGES = "SELECT review_image FROM review_image WHERE review_num = ?";	//由щ럭 img�뱾 return
-	String GET_REVIEW_COMMENTS = "SELECT id,content FROM comments WHERE review_num = ?";			//由щ럭 comment�뱾 return
-	String GET_SCRAP_LIST="select * from review where review_num in"
-			+ " (select review_num from"
+
+	String GET_REVIEW_TAGS = "select word from tag where review_num=?"; // 由щ럭 tag�뱾 return
+	String GET_REVIEW_IMAGES = "SELECT review_image FROM review_image WHERE review_num = ?"; // 由щ럭 img�뱾 return
+	String GET_REVIEW_COMMENTS = "SELECT id,comment FROM comment WHERE review_num = ?"; // 由щ럭 comment�뱾 return
+	String GET_SCRAP_LIST = "select * from review where review_num in" + " (select review_num from"
 			+ " (select review_num, ceil(rownum/" + CommonConstants.CONTENT_NUMBER_PER_PAGE + ") page from"
-			+ " (select review_num from scrap where id=? order by review_num desc)) where page=?)";		//�뒪�겕�옪 由ъ뒪�듃 由ы꽩
+			+ " (select review_num from scrap where id=? order by review_num desc)) where page=?)"; // �뒪�겕�옪 由ъ뒪�듃 由ы꽩
 	String GET_MY_REVIEW = "select review_num, title, date_writing, id from"
-			+ " (select review_num, title, date_writing, id, ceil(rownum/" + CommonConstants.CONTENT_NUMBER_PER_PAGE + ") page from"
-			+ " (select review_num, title, date_writing, id from review where id=? order by review_num desc)) where page=?";	//由щ럭 由ъ뒪�듃 由ы꽩
+			+ " (select review_num, title, date_writing, id, ceil(rownum/" + CommonConstants.CONTENT_NUMBER_PER_PAGE
+			+ ") page from"
+			+ " (select review_num, title, date_writing, id from review where id=? order by review_num desc)) where page=?"; // 由щ럭
+	
+	/*
+	 * String TEST = "select * from review where review_num in\n" +
+	 * "(select review_num from\n" + "(select review_num, ceil(rownum/" +
+	 * CommonConstants.CONTENT_NUMBER_PER_PAGE + ") page from\n" +
+	 * "(select review_num from review order by likes desc)) where page=?)";
+	 */
+
+	String TEST = "SELECT * FROM " + "(SELECT review_num,city,title,ceil(rownum/3) page FROM ("
+			+ "SELECT review_num,title,city FROM (SELECT * FROM review WHERE review_num IN ((SELECT review_num from tag WHERE word=?)) AND location=?) ORDER BY likes desc))"
+			+ "WHERE page<=?";
+	
+	String TOTAL_REVIEW_COUNT = "select count(-1) from review";
+	String RELATED_REVIEWS = "select * from review where review_num in" + " ((select review_num from"
+			+ " (select review_num, ceil(rownum/" + CommonConstants.CONTENT_NUMBER_PER_PAGE + ") page from"
+			+ " (select review_num from tag where word=? order by review_num desc)) where page=?))";
+
+	String GET_DATA = "select * from tourspot where spot_name =" + "(select distinct word from tag where word=?)";
+
+	String CHECK_SPOT = "select * from tourspot where spot_name=?";
+
 	String GET_RECENT_REVIEWS_BY_TAG = "SELECT * FROM" 				//index.jsp
 			+ "(SELECT review_num, title, location, city,id, ceil(rownum/10) page"
 			+ " FROM (SELECT * FROM review ORDER BY review_num desc)" + 
 			" WHERE review_num IN((SELECT review_num FROM tag WHERE word = ?))) WHERE page=?";
 	String INSERT_REVIEWIMAGE = "INSERT INTO review_image(review_num, review_image) VALUES(?, ?)";
 	String INSERT_TAG = "INSERT INTO tag(review_num, word) VALUES(?, ?)";
-	String TEST = "select * from review where review_num in\n" + 
-			"(select review_num from\n" + 
-			"(select review_num, ceil(rownum/" + CommonConstants.CONTENT_NUMBER_PER_PAGE + ") page from\n" + 
-			"(select review_num from review order by likes desc)) where page=?)";
-	String TOTAL_REVIEW_COUNT = "select count(-1) from review";
-	String RELATED_REVIEWS = "select * from review where review_num in"
-			+ " ((select review_num from"
-			+ " (select review_num, ceil(rownum/" + CommonConstants.CONTENT_NUMBER_PER_PAGE + ") page from"
-			+ " (select review_num from tag where word=? order by review_num desc)) where page=?))";
-
-	String GET_DATA = "select * from tourspot where spot_name ="
-			+ "(select distinct word from tag where word=?)";
-	
-	String CHECK_SPOT = "select * from tourspot where spot_name=?";
-	
-	String GET_REVIEW_BY_SEARCH = "select * from review where review_num in"
-			+ " (select review_num from"
-			+ " (select review_num, ceil(rownum/" + CommonConstants.CONTENT_NUMBER_PER_PAGE + ") page from"
+	String GET_REVIEW_BY_SEARCH = "select * from review where review_num in" + " (select review_num from"
+      + " (select review_num, ceil(rownum/" + CommonConstants.CONTENT_NUMBER_PER_PAGE + ") page from"
 			+ " (select review_num from tag where word="
 			+ "(select city from tourspot where spot_name=?) order by review_num desc)) where page=?)";
 
@@ -80,6 +88,7 @@ public interface ReviewStringQuery {
 }
 
 /*
+
  * 1-1) .. GET_DATA (해당 태그가 tourspot인지 아닌지 검색도 가능..)
  * select * from tourspot where spot_name =
  * (select distinct word from tag where word='두물머리');
@@ -90,6 +99,7 @@ public interface ReviewStringQuery {
  * 
  * ===========================================================
  * 
+
  * 1-2), 3-1) .. RELATED_REVIEWS
  * select * from review where review_num in
  *  (select review_num from
@@ -136,7 +146,3 @@ public interface ReviewStringQuery {
  * 6. 검색결과가 tag에 없는 경우(tag 내용이 tourspot,city,location가 아닐 때)
  *    1) 검색..x.....
  */
-
-
-
-

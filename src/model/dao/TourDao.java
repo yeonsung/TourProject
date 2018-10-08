@@ -131,6 +131,8 @@ public class TourDao {
 		}
 		return rlist;
 	}
+	
+	
 	/*public ArrayList<ReviewVO> getBestReviews(String tag) throws SQLException {				//index�뿉 移댄뀒怨좊━(tag)蹂� review
 		Connection conn = null;
 		PreparedStatement ps = null;
@@ -210,7 +212,6 @@ public class TourDao {
 
 							
 	public ArrayList<ReviewVO> getBestReviewByTag(String location , String tag, int pageNO) throws SQLException {		//v1 review list
-		 
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -219,15 +220,17 @@ public class TourDao {
 		ReviewVO vo = null;
 		try {
 			conn = getConnect();
-			ps = conn.prepareStatement(ReviewStringQuery.BEST_REVIEW_LOCATION_TAG);//
+			ps = conn.prepareStatement(ReviewStringQuery.TEST);//
+			
 			ps.setString(1, tag);
 			ps.setString(2, location);
+			ps.setInt(3, pageNO);
+			
 			rs = ps.executeQuery();
 			while (rs.next()) {
 				vo = new ReviewVO();
 				vo.setReviewNum(rs.getInt("review_num"));
 				vo.setTitle(rs.getString("title"));
-				vo.setLike(rs.getInt("likes"));
 				vo.setCity(rs.getString("city"));
 				list.add(vo);
 			}
