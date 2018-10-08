@@ -9,6 +9,8 @@ import model.dao.TourDao;
 import model.vo.AttractionVO;
 import model.vo.ReviewVO;
 import query.review.ReviewStringQuery;
+import service.ListVO;
+import service.ReviewService;
 
 public class GetAttractionController implements Controller{
 
@@ -17,8 +19,8 @@ public class GetAttractionController implements Controller{
 		String city=request.getParameter("city");
 		String location= request.getParameter("location");
 		String tag=request.getParameter("tag");
-		ArrayList<ReviewVO> blist = new ArrayList<ReviewVO>();
-		blist = TourDao.getInstance().getBestReviewByTag(location,tag);
+		String pageNo = request.getParameter("pageNo");
+		ListVO blist = ReviewService.getInstance().getBestReviewByTag(location,tag,pageNo);
 		ArrayList<AttractionVO> avo= TourDao.getInstance().getAttraction(city);
 		
 		request.setAttribute("blist", blist);

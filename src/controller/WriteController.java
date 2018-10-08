@@ -22,7 +22,9 @@ public class WriteController implements Controller {
 		String content = request.getParameter("smarteditor");
 		
 		ReviewVO rvo = new ReviewVO(title, id, location, city, content);
-		TourDao.getInstance().writeReview(rvo);
+		System.out.println(rvo);
+		int reviewNum = TourDao.getInstance().writeReview(rvo);
+		
 		
 		ArrayList<String> tags = TourDao.getInstance().getTagsByContent(content);
 		rvo.setTags(tags);
@@ -34,7 +36,7 @@ public class WriteController implements Controller {
 		
 		request.setAttribute("rvo", rvo);
 		ModelAndView mv = new ModelAndView();
-		mv.setPath("result.jsp");
+		mv.setPath("myreviews.do?id="+id);
 		return mv;
 	}
 

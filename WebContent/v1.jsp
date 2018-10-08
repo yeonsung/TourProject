@@ -26,6 +26,10 @@
 	padding-top: 80px;
 }
 
+section {
+	height: 600px;
+}
+
 header {
 	border-bottom: 7px solid transparent;
 	-moz-border-imag: -moz-linear-gradient(left, DarkGreen, #64AB4C);
@@ -65,7 +69,7 @@ nav {
 	float: left;
 	left: 20px;
 	width: 23%;
-	height: 300px; /* only for demonstration, should be removed */
+	height: 120%; /* only for demonstration, should be removed */
 	padding: 20px;
 }
 
@@ -101,20 +105,85 @@ tr td {
 }
 </style>
 <script>
+/* 	var page = 1;
+	$("#tabs").scroll(
+			function() { alert("zsdzsd");
+				/* if ($("#tabs").scrollTop() == 100) {
+					console.log(++page);
+					$("#tab-1").append(
+							"<h1>Page " + page + "aaaaaaaaaaaaa<br>aaaaa<br>");
+				} 
+			});*/
+	
+	var page = 1;
+
+	$('#tabs').scroll(function() {
+		
+		var current_mode = document.getElementById('current_mode').innerText;
+		var dh = document.getElementById('tabs').scrollHeight;
+		var dch = document.getElementById('tabs').clientHeight;
+		var dct = document.getElementById('tabs').scrollTop;
+
+		//스크롤 끝까지 닿으면 새로운 데이터 50개를 불러온다
+
+		if (dh == (dch+dct)) {
+			start += list;
+			if(current_mode == '0'){
+				 $("#tab-1").append('test :: ' + page + '</h1></div>');
+			}else{
+				 $("#tab-1").append('test :: ' + page + '</h1></div>');
+			}
+			
+		}
+		//스크롤 끝까지 닿으면 새로운 데이터 50개를 불러온다 끝
+		
+		//alert($('#tabs').height());
+	    /*  if ($('#tabs').scrollTop() == 100) {
+	      console.log(++page);
+	      $("#tab-1").append('<div class="big-box"><h1>Page ' + page + '</h1></div>');
+	      
+	    }  */
+	});
+	
 	$(function() {
 
 		$("#tabs").tabs();
+
+		if ($("#tabs").height() < $(window).height()) {
+			alert($('#tabs').scrollTop());
+		//alert("There isn't a vertical scroll bar");
+		}
+
+		$.ajax({
+			type : "get",
+			url : "getBestReviewBytag.do",
+			data : {
+				"location" : "${location}",
+				"tag" : $('nav a').html()
+			},
+
+			success : function(data) {
+				//$('#tab-1').html(data);
+				$('#tab-1').html(data);
+				$('#tab-2').html("");
+				$('#tab-3').html("");
+			}//callback
+		});//ajax
+
 		$('nav a').click(function() {
 			var str = $(this).html();
-			var loca = { "location": "${location}", "tag": str };
-			
+			var loca = {
+				"location" : "${location}",
+				"tag" : str
+			};
+
 			$.ajax({
 				type : "get",
 				url : "getBestReviewBytag.do",
 				data : loca,
 
 				success : function(data) {
-					 if (str == '관광') {
+					if (str == '관광') {
 						$('#tab-2').html(data);
 						$('#tab-1').html("");
 						$('#tab-3').html("");
@@ -122,7 +191,7 @@ tr td {
 						$('#tab-3').html(data);
 						$('#tab-1').html("");
 						$('#tab-2').html("");
-					}else {
+					} else {
 						//$('#tab-1').html(data);
 						$('#tab-1').html(data);
 						$('#tab-2').html("");
@@ -130,7 +199,7 @@ tr td {
 					}
 				}//callback
 			});//ajax
-		});//on
+		});//click
 	});//tab
 </script>
 
@@ -185,7 +254,7 @@ tr td {
 					<span class="icon-bar"></span> <span class="icon-bar"
 						style="margin-top: 2px"></span> <span class="icon-bar"></span>
 				</button>
-				<img src="img/main_logo.png" width="150">
+				<a href="index.jsp"><img src="img/main_logo.png" width="150"></a>
 			</div>
 			<!-- navbar-header -->
 
@@ -204,24 +273,31 @@ tr td {
 				</form>
 
 				<ul class="nav navbar-nav navbar-right">
-					<li class="dropdown"><a class="dropdown-toggle"
-						data-toggle="dropdown" href="#"> <span
-							class="glyphicon glyphicon-user text-success"> <span
-								class="caret" style="margin-left: 10px"></span>
-						</span>
-					</a>
-						<ul class="dropdown-menu">
-							<li><a href="#"><span
-									class="glyphicon glyphicon-log-out"></span>&nbsp;&nbsp;로그아웃</a></li>
-							<li><a href="myreviews.do?id=yun"><span
-									class="glyphicon glyphicon-edit"></span>&nbsp;&nbsp;내가 쓴 글</a></li>
-							<li><a href="scrap.do?id=yun"><span
-									class="glyphicon glyphicon-bookmark"></span>&nbsp;&nbsp;스크랩</a></li>
-							<li><a href="#"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;글
-									작성</a></li>
-							<li><a href="#"><span class="glyphicon glyphicon-cog"></span>&nbsp;&nbsp;정보
-									수정</a></li>
-						</ul></li>
+					<li class="dropdown">
+		                  	<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+		                     	<span class="glyphicon glyphicon-user text-success">
+		                     		<span class="caret" style="margin-left: 10px"></span>
+		                     	</span>
+		                  	</a>
+		                  	<c:choose>
+		                  	 	<c:when test="${vo != null}">
+			                  	 	<ul class="dropdown-menu">
+			                     	<li><a href="logout.do"><span class="glyphicon glyphicon-log-out"></span>&nbsp;&nbsp;로그아웃</a></li>
+			                     	<li><a href="myreviews.do?id=${sessionScope.vo.id}"><span class="glyphicon glyphicon-edit"></span>&nbsp;&nbsp;내가 쓴 글</a></li>
+			                     	<li><a href="scrap.do?id=${sessionScope.vo.id}"><span class="glyphicon glyphicon-bookmark"></span>&nbsp;&nbsp;스크랩</a></li>
+			                     	<li><a href="write.jsp"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;글쓰기</a></li>
+			                     	<li><a href="registerupdate.do?id=${sessionScope.vo.id}"><span class="glyphicon glyphicon-cog"></span>&nbsp;&nbsp;정보 수정</a></li>
+			                  		</ul>
+		                  		</c:when>
+		      
+		                  		<c:otherwise>
+		                  			<ul class="dropdown-menu">
+			                     	<li><a href="login.jsp"><span class="glyphicon glyphicon-log-in"></span>&nbsp;&nbsp;로그인</a></li>
+			                     	<li><a href="register.jsp"><i class="fas fa-user-plus"></i>&nbsp;&nbsp;회원가입</a></li>
+			                  		</ul>
+		                  		</c:otherwise>
+		                  	</c:choose>
+	               		</li>
 				</ul>
 			</div>
 			<!-- myNavbar -->
@@ -232,7 +308,7 @@ tr td {
 	<div id="line"></div>
 	<div style="height: 70px;"></div>
 	<section>
-		<nav id="tabs">
+		<nav id="tabs" style="overflow: scroll">
 			<h1 align="center">BEST REVIEWS</h1>
 			<ul>
 				<li><a href="javascript:void(0)">맛집</a></li>
