@@ -19,10 +19,7 @@ public class RegisterUpdateController implements Controller {
 		TourDao.getInstance().updateInfo(vo);
 		// 업데이트에서 제일 중요한 부분
 		// 세션에 수정된 정보를 반드시 바인딩하는 부분을 넣어야한다.(디비만 바뀌고 세션은 안바뀌기 때문)
-		HttpSession session = request.getSession();
-		if(session.getAttribute("vo") != null) { // 로그인 상태 유지
-			session.setAttribute("vo", vo);
-		}
+
 		return new ModelAndView("registerupdate.jsp");
 	}
 }

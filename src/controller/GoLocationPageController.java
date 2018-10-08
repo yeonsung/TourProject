@@ -16,16 +16,17 @@ public class GoLocationPageController implements Controller {
 	@Override
 	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-//		String pageNo = request.getParameter("pageNo");
+		String pageNo = request.getParameter("pageNo");
 		String pathConstant = request.getParameter("location")
 				.substring(request.getParameter("location").indexOf("-") + 1);
 		String location = getLocation(pathConstant);
 
 		ArrayList<FestivalVO> flist = TourDao.getInstance().getFestivalInfo(location);
 		ArrayList<String> clist = TourDao.getInstance().getCities(location);
+		ListVO relist = ReviewService.getInstance().getBestReviewByTag(location, "맛집",pageNo);
 		
-//		ListVO relist = ReviewService.getInstance().getBestReviewByTag(location, "����", pageNo);
-		// �ڡڡڡڡڡڡڡڡڡڡڡڡڡڡڡڡڡڡڡڡڡڡڡڡڡڡڡڡڡڡڡڡڡڡڡڡڡڡڡڡڡڡڡڡڡڡڡڡڡڡڡڡڡڡڡڡڡڡڡڡڡڡڡڡڡ�
+//		ListVO relist = ReviewService.getInstance().getBestReviewByTag(location, "맛집", pageNo);
+		// ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★
 		request.setAttribute("clist", clist);
 		request.setAttribute("flist", flist);
 		request.setAttribute("location", location);
@@ -37,37 +38,37 @@ public class GoLocationPageController implements Controller {
 	public String getLocation(String pathConstant) {
 		switch (pathConstant) {
 		case "0":
-			return "���ֵ�";
+			return "제주도";
 		case "1":
-			return "��󳲵�";
+			return "경상남도";
 		case "2":
-			return "���ϵ�";
+			return "경상북도";
 		case "3":
-			return "���󳲵�";
+			return "전라남도";
 		case "4":
-			return "����ϵ�";
+			return "전라북도";
 		case "5":
-			return "��û����";
+			return "충청남도";
 		case "6":
-			return "��û�ϵ�";
+			return "충청북도";
 		case "7":
-			return "������";
+			return "강원도";
 		case "8":
-			return "��⵵";
+			return "경기도";
 		case "9":
-			return "���";
+			return "울산";
 		case "10":
-			return "����";
+			return "대전";
 		case "11":
-			return "����";
+			return "광주";
 		case "12":
-			return "��õ";
+			return "인천";
 		case "13":
-			return "�뱸";
+			return "대구";
 		case "14":
-			return "�λ�";
+			return "부산";
 		case "15":
-			return "����";
+			return "서울";
 		}
 		return null;
 	}

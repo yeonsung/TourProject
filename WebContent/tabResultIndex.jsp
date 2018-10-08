@@ -6,18 +6,17 @@
 <head>
 <meta charset="utf-8">
 <title>Insert title here</title>
+<style>
+	a {text-decoration: none}
+</style>
 </head>
 <body>
 	<table align="center">
-		<c:forEach var="vo" items="${rlist}" step="1">
+		<c:forEach var="vo" items="${rlist.list}" step="1">
 			<tr>
-				<td style="font-size: 20px;">${vo.location}</td>
-			</tr>
-			<tr>
-				<td style="font-size: 20px;">${vo.city}</td>
-			</tr>
-			<tr>
-				<td style="font-size: 20px;"><b>${vo.title}</b></td>
+				<td style="font-size: 20px;padding:10px">${vo.location} ${vo.city}</td>
+			
+				<td style="font-size: 20px;"><b><a href="checkReview.do?num=${vo.reviewNum}">${vo.title}</a></b></td>
 			</tr>
 		</c:forEach>
 	</table>

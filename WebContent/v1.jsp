@@ -239,7 +239,7 @@ tr td {
 					<span class="icon-bar"></span> <span class="icon-bar"
 						style="margin-top: 2px"></span> <span class="icon-bar"></span>
 				</button>
-				<img src="img/main_logo.png" width="150">
+				<a href="index.jsp"><img src="img/main_logo.png" width="150"></a>
 			</div>
 			<!-- navbar-header -->
 
@@ -258,24 +258,31 @@ tr td {
 				</form>
 
 				<ul class="nav navbar-nav navbar-right">
-					<li class="dropdown"><a class="dropdown-toggle"
-						data-toggle="dropdown" href="#"> <span
-							class="glyphicon glyphicon-user text-success"> <span
-								class="caret" style="margin-left: 10px"></span>
-						</span>
-					</a>
-						<ul class="dropdown-menu">
-							<li><a href="#"><span
-									class="glyphicon glyphicon-log-out"></span>&nbsp;&nbsp;로그아웃</a></li>
-							<li><a href="myreviews.do?id=yun"><span
-									class="glyphicon glyphicon-edit"></span>&nbsp;&nbsp;내가 쓴 글</a></li>
-							<li><a href="scrap.do?id=yun"><span
-									class="glyphicon glyphicon-bookmark"></span>&nbsp;&nbsp;스크랩</a></li>
-							<li><a href="#"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;글
-									작성</a></li>
-							<li><a href="#"><span class="glyphicon glyphicon-cog"></span>&nbsp;&nbsp;정보
-									수정</a></li>
-						</ul></li>
+					<li class="dropdown">
+		                  	<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+		                     	<span class="glyphicon glyphicon-user text-success">
+		                     		<span class="caret" style="margin-left: 10px"></span>
+		                     	</span>
+		                  	</a>
+		                  	<c:choose>
+		                  	 	<c:when test="${vo != null}">
+			                  	 	<ul class="dropdown-menu">
+			                     	<li><a href="logout.do"><span class="glyphicon glyphicon-log-out"></span>&nbsp;&nbsp;로그아웃</a></li>
+			                     	<li><a href="myreviews.do?id=${sessionScope.vo.id}"><span class="glyphicon glyphicon-edit"></span>&nbsp;&nbsp;내가 쓴 글</a></li>
+			                     	<li><a href="scrap.do?id=${sessionScope.vo.id}"><span class="glyphicon glyphicon-bookmark"></span>&nbsp;&nbsp;스크랩</a></li>
+			                     	<li><a href="write.jsp"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;글쓰기</a></li>
+			                     	<li><a href="registerupdate.do?id=${sessionScope.vo.id}"><span class="glyphicon glyphicon-cog"></span>&nbsp;&nbsp;정보 수정</a></li>
+			                  		</ul>
+		                  		</c:when>
+		      
+		                  		<c:otherwise>
+		                  			<ul class="dropdown-menu">
+			                     	<li><a href="login.jsp"><span class="glyphicon glyphicon-log-in"></span>&nbsp;&nbsp;로그인</a></li>
+			                     	<li><a href="register.jsp"><i class="fas fa-user-plus"></i>&nbsp;&nbsp;회원가입</a></li>
+			                  		</ul>
+		                  		</c:otherwise>
+		                  	</c:choose>
+	               		</li>
 				</ul>
 			</div>
 			<!-- myNavbar -->
@@ -349,6 +356,7 @@ tr td {
 							<br />
 							<br />
 						</c:if></font>
+
 				</c:forEach>
 			</table>
 		</article>

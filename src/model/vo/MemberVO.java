@@ -31,6 +31,11 @@ public class MemberVO {
 		this.tel = tel;
 		this.mail = mail;
 	}
+	
+	public MemberVO(String id, String userName) {
+		this.id=id;
+		this.userName = userName;
+	}
 
 	public ArrayList<Integer> getScraps() {
 		return scraps;
