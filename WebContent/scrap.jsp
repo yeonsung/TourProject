@@ -95,16 +95,16 @@
 	<h1 align="center">Scrap</h1><br><br>
 	
 	<c:forEach items="${lvo.list}" var="rList">
-		<a href="#">
+		
 			<div align="center" class="col-sm-4">
 				<hr>
 				${rList.date}<br>
-				<img src="${rList.mainImage}" width="350" height="200"><br>
-				${rList.title}&nbsp;&nbsp;
+				<a href="#"><img src="${rList.mainImage}" width="350" height="200"></a><br><br>
+				<a href="#">${rList.title}</a>&nbsp;&nbsp;
 				<a href="deleteScrap.do?reviewNum=${rList.reviewNum}&&id=${rList.id}"><input type="button" value="삭제"></a>
 				<hr><br><br>
 			</div>
-		</a>
+		
 	</c:forEach>
 	
 	<br><br>

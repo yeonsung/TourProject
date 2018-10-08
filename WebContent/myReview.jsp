@@ -15,51 +15,24 @@
 		padding-top: 80px;
 	}
    
+   #header {
+      	border-bottom: 7px solid transparent;
+      	-moz-border-imag: -moz-linear-gradient(left, DarkGreen, #64AB4C);
+		-webkit-border-image: -webkit-linear-gradient(left, DarkGreen, #64AB4C);
+      	border-image: linear-gradient(to right, DarkGreen, #64AB4C);
+      	border-image-slice: 1;
+      	margin-top: 8px;
+      	padding-bottom: 8px;
+      	font: 67.5% "Lucida Sans Unicode", "Bitstream Vera Sans", "Trebuchet Unicode MS", "Lucida Grande", Verdana, Helvetica, sans-serif;
+      	font-size: 14px;
+   	}
    
    	.caret {
       	margin-left: 10px
    	}
 </style>
 
-<script type="text/javascript">
-   	$(function() {
-   		//================================ menu ================================
-   		
-   		 $('#myNavbar>ul li').click(function() {
-    		var scrollPosition = $($(this).attr('data-target')).offset().top;
-    		$('body, html').animate({
-    			scrollTop: scrollPosition
-    		}, 500); //animate
-		}); //click
-      	$('#menuSpan .icon-bar').css('background', 'green');
-      
-      	$('#myNavbar li a').css({
-         	'color' : 'black',
-         	'font-weight' : 'bold'
-      	}); //css
-      
-      	$('#myNavbar li a').hover(function() { 
-         	//��� �޴��� ���콺 �÷��� ��
-           	$(this).css({
-              	'color' : 'green',
-              	'background' : 'rgba(242, 242, 242, 0.5)'
-           	}); //css
-         
-      	}, function() {
-         	$(this).css({
-              	'color' : 'black',
-              	'background' : 'white'
-           	}); //css
-      	}); //hover
-      
-      	$('.dropdown-menu').css({
-         	'margin-top' : '9px',
-         	'min-width' : '12px',
-         	'border-radius': '2px'
-      	}); //css
-   	}); //ready
-</script>
-
+<script type="text/javascript" src="js/nav.js"></script>
 </head>
 <body>
    	<nav class="navbar navbar-defalt navbar-fixed-top" style="background-color: #fff">
@@ -123,17 +96,17 @@
 	<h1 align="center">My Review</h1><br><br>
 	
 	<c:forEach items="${lvo.list}" var="rList">
-		<a href="#">
+		
 			<div align="center" class="col-sm-4">
 				<hr>
 				${rList.date}<br>
-				<img src="${rList.mainImage}" width="350" height="200"><br>
-				${rList.title}&nbsp;&nbsp;
+				<a href="#"><img src="${rList.mainImage}" width="350" height="200"></a><br><br>
+				<a href="#">${rList.title}</a>&nbsp;&nbsp;
 				<input type="button" value="수정">&nbsp;
 				<a href="delete.do?reviewNum=${rList.reviewNum}&&id=${rList.id}"><input type="button" value="삭제"></a>
 				<hr><br><br>
 			</div>
-		</a>
+		
 	</c:forEach>
 	
 	<br><br>
