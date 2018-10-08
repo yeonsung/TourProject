@@ -19,7 +19,7 @@
 				<td style="font-size: 20px;"><a href="#">#${relist.city}</a></td>
 			</tr>
 			<tr>
-				<td style="font-size: 20px;"><a href="#"><b>${relist.title}</b></a></td>
+				<td style="font-size: 20px;"><a href="checkReview.do?num=${relist.reviewNum}"><b>${relist.title}</b></a></td>
 			</tr>
 		</c:forEach>
 	</table>

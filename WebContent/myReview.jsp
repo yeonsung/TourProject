@@ -123,17 +123,17 @@
 	<h1 align="center">My Review</h1><br><br>
 	
 	<c:forEach items="${lvo.list}" var="rList">
-		<a href="#">
+		
 			<div align="center" class="col-sm-4">
 				<hr>
 				${rList.date}<br>
-				<img src="${rList.mainImage}" width="350"><br>
-				${rList.title}&nbsp;&nbsp;
+				<a href="#"><img src="${rList.mainImage}" width="350"><br>
+				${rList.title}&nbsp;&nbsp;</a>
 				<input type="button" value="수정">&nbsp;
 				<a href="delete.do?reviewNum=${rList.reviewNum}&&id=${rList.id}"><input type="button" value="삭제"></a>
 				<hr><br><br>
 			</div>
-		</a>
+		
 	</c:forEach>
 	
 	<br><br>

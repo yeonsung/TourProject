@@ -46,6 +46,8 @@ public class HandlerMapping {
 			return new GetAttractionController();
 		case "getRecentReviews.do":
 			return new GetRecentReviewsController();
+		case "checkReview.do":
+			return new CheckReviewController();
 		}
 		
 		return null;

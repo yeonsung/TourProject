@@ -787,13 +787,61 @@ public class TourDao {
 		ps.setInt(1, review_num);
 		ResultSet rs = ps.executeQuery();
 		while (rs.next()) {
-			clist.add(new CommentVO(rs.getString("id"), rs.getString("comment")));
+			clist.add(new CommentVO(rs.getString("id"), rs.getString("content")));
 		}
 		if (rs != null)
 			rs.close();
 		if (ps != null)
 			ps.close();
 		return clist;
+	}
+	
+	public void writeReviewImage(int reviewNum,ArrayList<String> imgList) throws SQLException {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		try {
+			conn = getConnect();
+			ps = conn.prepareStatement(ReviewStringQuery.INSERT_REVIEWIMAGE);
+			for(String img : imgList) {
+				ps.setInt(1, reviewNum);
+				ps.setString(2, img);
+				int row = ps.executeUpdate();
+				System.out.println(row+" row insert review_image posting ok....");
+			}
+		}finally {
+			closeAll(ps, conn);
+		}
+	}
+	
+	public void writeTag(int reviewNum, ArrayList<String> tagList) throws SQLException {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		try {
+			conn = getConnect();
+			ps = conn.prepareStatement(ReviewStringQuery.INSERT_TAG);
+			for(String tag : tagList) {
+				ps.setInt(1, reviewNum);
+				ps.setString(2, tag);
+				int row = ps.executeUpdate();
+				System.out.println(row+" row insert tag posting ok....");
+			}
+		}finally {
+			closeAll(ps, conn);
+		}
+	}
+	
+	public ArrayList<String> getTagsByContent(String content){
+	      ArrayList<String> tlist = new ArrayList<String>();
+	      String content1 = content.replace("<p>", " ");
+	      String content2 = content1.replace("</p>", "");
+	      String content3 = content2.replace("&nbsp;", " ");
+	      String[] arr = content3.split(" ");
+	      for(int i=0;i<arr.length;i++) {
+	         if(arr[i].startsWith("#")) {
+	            tlist.add(arr[i].substring(1));
+	         }
+	      }
+	      return tlist;
 	}
 	
 	public Connection getConnect() throws SQLException {
@@ -889,16 +937,6 @@ public class TourDao {
 			closeAll(pstmt, conn);
 		}
 		return vo;
-	}
-	public ArrayList<String> getTagsByContent(String content){			//writing logic 
-		ArrayList<String> tlist = new ArrayList<String>();
-		String[] arr = content.split(" ");
-		for (int i = 0; i < arr.length; i++) {
-			if (arr[i].startsWith("#")) {
-				tlist.add(arr[i].substring(1));
-			}
-		}
-		return tlist;
 	}
 
 	public static void main(String[] args) throws SQLException { // 단위테스트
