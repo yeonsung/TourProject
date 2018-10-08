@@ -146,12 +146,12 @@
    
     <div>
 	    <c:choose>
-	    	<c:when test="${emptyFlag == true}">
+	    	<c:when test="${emptyFlag == true || flag == true}">
 	    		<h3 align="center">${spotName}</h3><br><br>
 			
 				<div align="right" class="col-sm-12" style="margin-bottom: 10pxl"> 
 					<div align="right" class="col-sm-6">  
-						<img alt="czczxcz" src="${mainImage}" id="mainImage"> 
+						<img alt="${spotName}" src="${mainImage}" id="mainImage"> 
 					</div>
 					<div align="left" class="col-sm-6" id="info"> 
 						${address}<br><br>
@@ -171,7 +171,7 @@
 					<div align="center" class="col-sm-4">
 						<hr>
 						${rList.date}<br>
-						<img src="${rList.mainImage}" width="350"><br>
+						<img src="${rList.mainImage}" width="350" height="200"><br>
 						${rList.title}
 						<hr><br><br>
 					</div>
@@ -214,4 +214,5 @@
     </div>
    	
 </body>
+
 </html>

@@ -240,7 +240,6 @@ public class TourDao {
 		} finally {
 			closeAll(rs, ps, conn);
 		}
-		System.out.println(list);
 		return list;
 	}// getBestReview
 
@@ -663,7 +662,6 @@ public class TourDao {
 		} finally {
 			closeAll(rs, ps, conn);
 		}
-		
 		return flag;
 	}
 	

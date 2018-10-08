@@ -23,10 +23,11 @@ public class GetAttractionController implements Controller{
 		String tag=request.getParameter("tag");
 		ListVO blist = ReviewService.getInstance().getBestReviewByTag(location,tag,pageNo);
 		ArrayList<AttractionVO> avo= TourDao.getInstance().getAttraction(city);
-		System.out.println(avo+"\n «œ ¬Õ ...");
+		System.out.println(avo+"\n √á√è √Ç√ç ...");
 		request.setAttribute("blist", blist);
 		request.setAttribute("avo", avo);
 		
+
 		return new ModelAndView("attraction.jsp");
 	}
 
