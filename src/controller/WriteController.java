@@ -20,37 +20,28 @@ public class WriteController implements Controller {
 		String[] categorys = request.getParameterValues("category");
 		String content = request.getParameter("smarteditor");
 		int count = Integer.parseInt(request.getParameter("count"));
-		String[] imagepaths = new String[count];
 		
-		for(int i=0 ; i<count;i++) {
-			System.out.println(request.getParameter("img"+(i+1)));
-			imagepaths[i] = request.getParameter("img"+(i+1));
-		}
-		
-		for(int i=0; i<count; i++) {
-			System.out.println("포문안입니다"+imagepaths[i]);
-		}
-
-		
-
 		ReviewVO rvo = new ReviewVO(title, id, location, city, content);
 		TourDao.getInstance().writeReview(rvo);
 		
+		ArrayList<String> imagepaths = new ArrayList<String>();
+		for(int i=0 ; i<count;i++) {
+			imagepaths.add(request.getParameter("img"+(i+1)));
+		}
+		rvo.setImages(imagepaths);
+		TourDao.getInstance().writeReviewImage(rvo.getReviewNum(), imagepaths);
 
-		
-		/*ArrayList<String> tags = TourDao.getInstance().getTagsByContent(content);
+		ArrayList<String> tags = TourDao.getInstance().getTagsByContent(content);
+		for(int i=0; i<categorys.length;i++) {
+			tags.add(categorys[i]);
+		}
 		rvo.setTags(tags);
-		System.out.println(content);
-		System.out.println("나는 태그입니다"+tags);*/ //태그쪽 다시 한번
-		
-		
-		
-		
+		TourDao.getInstance().writeTag(rvo.getReviewNum(), tags);
 		
 		
 		request.setAttribute("rvo", rvo);
 		ModelAndView mv = new ModelAndView();
-		mv.setPath("result.jsp");
+		mv.setPath("checkReview.do?num="+rvo.getReviewNum());
 		return mv;
 	}
 
