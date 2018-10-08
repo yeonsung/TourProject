@@ -99,7 +99,7 @@
 			<div align="center" class="col-sm-4">
 				<hr>
 				${rList.date}<br>
-				<img src="${rList.mainImage}" width="350"><br>
+				<img src="${rList.mainImage}" width="350" height="200"><br>
 				${rList.title}&nbsp;&nbsp;
 				<a href="deleteScrap.do?reviewNum=${rList.reviewNum}&&id=${rList.id}"><input type="button" value="삭제"></a>
 				<hr><br><br>
