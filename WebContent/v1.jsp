@@ -150,7 +150,7 @@ tr td {
 		$("#tabs").tabs();
 
 		if ($("#tabs").height() < $(window).height()) {
-			alert($('#tabs').scrollTop());
+			//alert($('#tabs').scrollTop());
 		//alert("There isn't a vertical scroll bar");
 		}
 
@@ -365,7 +365,7 @@ tr td {
 				<c:forEach var="clist" items="${clist}" step="1">
 					<tr>
 						<td>dd</td>
-						<td>${clist}</td>
+						<td><a href="getAttraction.do?city=${clist}&location=${requestScope.location}">${clist}</a></td>
 					</tr>
 				</c:forEach>
 			</table>

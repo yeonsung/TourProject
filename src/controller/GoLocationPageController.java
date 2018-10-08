@@ -15,10 +15,9 @@ public class GoLocationPageController implements Controller {
 
 	@Override
 	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
-
+		String pageNo = request.getParameter("pageNo");
 		String pathConstant = request.getParameter("location")
 				.substring(request.getParameter("location").indexOf("-") + 1);
-		String pageNo = request.getParameter("pageNo");
 		String location = getLocation(pathConstant);
 
 		ArrayList<FestivalVO> flist = TourDao.getInstance().getFestivalInfo(location);

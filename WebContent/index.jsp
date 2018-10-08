@@ -59,7 +59,7 @@
 	});
 </script>
 <style>
-
+	a {text-decoration: none}
 	.contents{
 		padding-top: 80px;
 	}
@@ -208,11 +208,7 @@
 		</div>
 	</div>
 	<div class="footer" style="display: none;">
-		<p>
-			이 지도는 <a href="http://d3js.org/" target="_blank">D3.js</a>로 만들었으며 <a
-				href="http://bl.ocks.org/mbostock/2206340" target="_blank">mbostock’s
-				block #2206340</a>을 보고 만든 것입니다.
-		</p>
+		
 	</div>
 	<form action="locationpage.do">
 		<input type="hidden" name="location" value="">
