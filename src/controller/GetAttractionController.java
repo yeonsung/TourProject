@@ -24,7 +24,7 @@ public class GetAttractionController implements Controller{
 		request.setAttribute("blist", blist);
 		request.setAttribute("avo", avo);
 		
-		return new ModelAndView("bootstraptemplete.jsp");
+		return new ModelAndView("attraction2.jsp");
 	}
 
 }

@@ -25,24 +25,42 @@ public class GetDataController implements Controller{
 			emptyFlag = true;
 		
 		else {
-			boolean tagExist = TourDao.getInstance().tagExist(tag);
-			System.out.println(tagExist + " 11111111111");
+			/*boolean tagExist = TourDao.getInstance().tagExist(tag);
 			if(tagExist) {
 				String check = TourDao.getInstance().checkTag(tag);
-				if(check.equals("location")) 
+				if(check.equals("location"))
 					path = "index.jsp"; // 나중에 location(v1) 페이지로 이동
+					
 				else if(check.equals("city")) 
 					path = "index.jsp"; // 나중에 city(v2) 페이지로 이동
 			}
 			else {
 				alist = TourDao.getInstance().checkSpot(tag);
 				flag = true;
+			}*/
+			
+			String check = TourDao.getInstance().checkTag(tag);
+			if(check.equals("location"))
+				path = "locationpage.do?location=path-"+tag; // 나중에 location(v1) 페이지로 이동
+				
+			else if(check.equals("city")) 
+				path = "getAttraction.do?city="+tag; // 나중에 city(v2) 페이지로 이동
+			
+			else {
+				boolean tagExist = TourDao.getInstance().tagExist(tag);
+				if(!tagExist) {
+					alist = TourDao.getInstance().checkSpot(tag);
+					flag = true;
+					if(alist.isEmpty()) {
+						path = "noResult.jsp";
+					}
+				}
 			}
 		}
 		
 		request.setAttribute("alist", alist);
 		request.setAttribute("emptyFlag", emptyFlag);
-
+		
 		return new ModelAndView(path + "?pageNo="+pageNo+"&&tag="+tag+"&&flag="+flag);
 	}
 }

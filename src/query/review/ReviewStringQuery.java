@@ -122,7 +122,7 @@ public interface ReviewStringQuery {
  *       city와 관련된 리뷰 표시... ok
  *    
  * 5. 검색결과가 tag에 없는 경우(tag 내용이 city,location 일 때)
- *    1) v1, v2 페이지로의 링크 걸어주기
+ *    1) v1, v2 페이지로의 링크 걸어주기... ok
  *    
  * 6. 검색결과가 tag에 없는 경우(tag 내용이 tourspot,city,location가 아닐 때)
  *    1) 검색..x.....

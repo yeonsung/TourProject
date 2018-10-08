@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-    pageEncoding="utf-8"%>
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
@@ -133,85 +133,11 @@
     	<div id="line"></div>
 	</nav>
 	
-    <div style="height: 120px"></div>
+    <div style="height: 360px"></div>
     
-    <c:forEach items="${alist}" var="item">
-		<c:set value="${item.spotName}" var="spotName"></c:set>
-		<c:set value="${item.address}" var="address"></c:set>
-		<c:set value="${item.location}" var="location"></c:set>
-		<c:set value="${item.city}" var="city"></c:set>
-		<c:set value="${item.info}" var="info"></c:set>
-		<c:set value="${item.mainImage}" var="mainImage"></c:set>
-	</c:forEach>
-   
-    <div>
-	    <c:choose>
-	    	<c:when test="${emptyFlag == true || flag == true}">
-	    		<h3 align="center">${spotName}</h3><br><br>
-			
-				<div align="right" class="col-sm-12" style="margin-bottom: 10pxl"> 
-					<div align="right" class="col-sm-6">  
-						<img alt="czczxcz" src="${mainImage}" id="mainImage"> 
-					</div>
-					<div align="left" class="col-sm-6" id="info"> 
-						${address}<br><br>
-						${info}
-					</div>
-				</div>
-				<div align="center" class="col-sm-12" style="margin-top: 35px"><hr></div>
-	    	</c:when>
-	    	<c:otherwise></c:otherwise>
-	    </c:choose>
-		
-		<div align="center" class="col-sm-12" style="margin-top: 15px"> 
-			<h3 align="center" style="margin-top: 10">관련 리뷰</h3><br><br>
-			
-			<c:forEach items="${lvo.list}" var="rList">
-				<a href="#">
-					<div align="center" class="col-sm-4">
-						<hr>
-						${rList.date}<br>
-						<img src="${rList.mainImage}" width="350"><br>
-						${rList.title}
-						<hr><br><br>
-					</div>
-				</a>
-			</c:forEach>
-			
-			<br><br>
-			
-			<div align="center" class="col-sm-12">  
-				<c:set var="pb" value="${lvo.pb}"></c:set>
-				<c:if test="${pb.previousPageGroup}">
-					<ul class="pagination pagination-sm">
-			    		<li><a href="getdata.do?search=${spotName}&&pageNo=${pb.startPageOfPageGroup-1}">&#60;</a></li>
-			  		</ul>
-				</c:if>
-				
-				<c:forEach var="i" begin="${pb.startPageOfPageGroup}" end="${pb.endPageOfPageGroup}">
-					<c:choose>
-						<c:when test="${pb.nowPage!=i}">
-							<ul class="pagination">
-				    			<li><a href="getdata.do?search=${spotName}&&pageNo=${i}">${i}</a></li>
-				    		</ul>
-						</c:when>
-						<c:otherwise>
-							<ul class="pagination">
-				    			<li><a href="#">${i}</a></li>
-				    		</ul>
-						</c:otherwise>
-					</c:choose>
-					&nbsp;
-				</c:forEach>
-				
-				<c:if test="${pb.nextPageGroup}">
-					<ul class="pagination pagination-sm">
-			    		<li><a href="getdata.do?pageNo=${pb.endPageOfPageGroup+1}">&#62;</a></li>
-			  		</ul>
-				</c:if>	
-			</div>			
-		</div>
+    <div align="center">
+    	<h1>No search result</h1><br><br><br>
+		<a href="index.jsp">HOME</a>
     </div>
-   	
 </body>
 </html>

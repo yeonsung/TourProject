@@ -1,11 +1,8 @@
 package controller;
 
-import java.util.ArrayList;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.vo.AttractionVO;
 import service.ListVO;
 import service.ReviewService;
 
@@ -20,16 +17,15 @@ public class RelatedReviewController implements Controller{
 		ListVO lvo = new ListVO();
 		
 		if(flag.equals("true")) {
-			lvo = ReviewService.getInstance().checkSpot(tag, pageNo);
-			
+			lvo = ReviewService.getInstance().getReviewBySearch(tag, pageNo);
+			System.out.println(lvo);
 		}
 		else if(flag.equals("false")) {
 			lvo = ReviewService.getInstance().relatedReviews(tag, pageNo);
 		}
 		
-		
-		
 		request.setAttribute("lvo", lvo);
+		request.setAttribute("flag", flag);
 		
 		return new ModelAndView("searchResult.jsp");
 	}
