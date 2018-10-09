@@ -10,13 +10,14 @@ public class CheckReviewController implements Controller{
 
 	@Override
 	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		int reviewNum = Integer.parseInt(request.getParameter("reviewNum"));
+
+		int reviewNum = Integer.parseInt(request.getParameter("num"));
 		ReviewVO rvo=TourDao.getInstance().checkReview(reviewNum);
 		
 		request.setAttribute("rvo", rvo);
 		
 		
-		return new ModelAndView("checkReview2.jsp");
+		return new ModelAndView("checkReview.jsp");
 	}
 
 }

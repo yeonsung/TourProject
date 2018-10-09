@@ -117,7 +117,7 @@ text-align:center;
 </div>
 
 <div class="w3-sidebar w3-bar-block w3-large" style="width:20%">
-  <a href="#" class="w3-bar-item w3-button w3-hover-none w3-hover-text-grey" id="content"><img src ="https://static1.squarespace.com/static/554b5e7ce4b0149371f10a93/59770012b8a79bc2cb19286c/5977002d5016e17b22b38779/1502727891080/demand-and-supply-Erik-Johansson.jpg?format=750w" id="img"><br><b class="hashtag">가평</b> <b class="hashtag">빠지</b></a>
+  <a href="checkReview.do?reviewNum=3" class="w3-bar-item w3-button w3-hover-none w3-hover-text-grey" id="content"><img src ="https://static1.squarespace.com/static/554b5e7ce4b0149371f10a93/59770012b8a79bc2cb19286c/5977002d5016e17b22b38779/1502727891080/demand-and-supply-Erik-Johansson.jpg?format=750w" id="img"><br><b class="hashtag">가평</b> <b class="hashtag">빠지</b></a>
   <a href="#" class="w3-bar-item w3-button w3-hover-none w3-hover-text-grey" id="content"><img src="https://static1.squarespace.com/static/554b5e7ce4b0149371f10a93/59770012b8a79bc2cb19286c/597703b95016e17b22b39f3d/1502724880750/full-moon-service-Erik-Johansson.jpg?format=500w" id="img"><br><b class="hashtag">기장</b> <b class="hashtag">카페</b></a>
   <a href="#" class="w3-bar-item w3-button w3-hover-none w3-hover-text-grey" id="content"><img src="https://static1.squarespace.com/static/554b5e7ce4b0149371f10a93/59770012b8a79bc2cb19286c/59770066d7bdcef00d1f9db3/1502870327418/landfall-Erik-Johansson.jpg?format=750w" id="img"><br><b class="hashtag">대구</b> <b class="hashtag">이월드</b></a>
   <a href="#" class="w3-bar-item w3-button w3-hover-none w3-hover-text-grey" id="content"><img src="https://static1.squarespace.com/static/554b5e7ce4b0149371f10a93/59770012b8a79bc2cb19286c/597700989f74560d7f522702/1502870377328/breaking-up-Erik-Johansson.jpg?format=500w" id="img"><br><b class="hashtag">전주</b> <b class="hashtag">한옥마을</b></a>
@@ -125,71 +125,30 @@ text-align:center;
 
 <div style="margin-left:20%">
 
-<div class="w3-container w3-dark-grey">
-  <h1 class="main">Location</h1>
+<div class="v3-container w3-dark-grey">
+ <h1 class="main">${param.city}</h1>
 </div>
-<div class="grid">
-  <div class="grid-sizer"></div>
-  
-  <div class="grid-item">
-  <a href=#>
-    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/orange-tree.jpg" />
-  </a>
-  </div>
 
-  <div class="grid-item">
-  <a href=#>
-    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/submerged.jpg" />
-    </a>
-  </div>
-  <div class="grid-item">
-  <a href=#>
-    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/look-out.jpg" />
-    </a>
-  </div>
-  <div class="grid-item">
-  <a href=#>
-    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/one-world-trade.jpg" />
-    </a>
-  </div>
-  <div class="grid-item">
-  <a href=#>
-    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/drizzle.jpg" />
-    </a>
-  </div>
-  <div class="grid-item">
-  <a href=#>
-    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/cat-nose.jpg" />
-    </a>
-  </div>
-  <div class="grid-item">
-  <a href=#>
-    <img src="https://static1.squarespace.com/static/554b5e7ce4b0149371f10a93/59775c56f9a61e6bb7e5db1f/59775cacd1758e6e542b9ff5/1502706803981/performance.jpg?format=500w" />
-  </a>
-  </div>
-  <div class="grid-item">
-  <a href=#>
-    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/contrail.jpg" />
-  </a>
-  </div>
-  <div class="grid-item">
-  <a href=#>
-    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/golden-hour.jpg" />
-  </a>
-  </div>
-  <div class="grid-item">
-  <a href=#>
-    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/flight-formation.jpg" />
- </a>
-  </div>
+ 
   
-  <div class="grid-item">
-  <a href=#>
-    <img src="https://static1.squarespace.com/static/554b5e7ce4b0149371f10a93/59775c56f9a61e6bb7e5db1f/59775cfdd482e9a886609de9/1502706746778/clienia+premium.jpg?format=500w" />
-  </a>
-  </div>
-  </div>
-    
+ 
+ <div class="grid">
+ <div class="grid-sizer">
+  <c:forEach items="${avo}" var ="avo">
+<%--  <c:forEach items="${avo.images}" var ="vo">
+ --%>	<div class="grid-item">
+		<a href=#>
+
+		<img src="${avo.mainImage}"/>
+		</a>
+	</div>
+<%-- </c:forEach> --%>
+</c:forEach>
+</div>
+ </div> 
+
+
+  
 </div>
 </body>
 </html>
