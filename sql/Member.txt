@@ -1,6 +1,6 @@
-CREATE TABLE member(member_name VARCHAR2(20) NOT NULL,
+CREATE TABLE member(member_name VARCHAR2(30) NOT NULL,
 		      ssn NUMBER(7) NOT NULL,
 		      id VARCHAR2(30) PRIMARY KEY,
 		      password VARCHAR2(30) NOT NULL,
-		      tel VARCHAR2(30) NOT NULL, 
-		      mail VARCHAR2(50) NOT NULL);
+		      tel VARCHAR2(50) NOT NULL, 
+		      mail VARCHAR2(100) NOT NULL);

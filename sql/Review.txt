@@ -1,6 +1,6 @@
 CREATE TABLE review (review_num NUMBER PRIMARY KEY,
-		     location VARCHAR2(10) NOT NULL,
-		     city VARCHAR2(10) NOT NULL,
+		     location VARCHAR2(30) NOT NULL,
+		     city VARCHAR2(30) NOT NULL,
 		     title VARCHAR2(100) NOT NULL,
 		     content VARCHAR2(2000) NOT NULL,
 		     date_writing DATE NOT NULL,

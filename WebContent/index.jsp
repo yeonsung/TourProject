@@ -81,6 +81,9 @@
    	section,#tabs{
    		height:600px;
    	}
+   	#states path:hover {
+		fill:red;
+	}
 </style>
 
 <script type="text/javascript">
@@ -101,6 +104,7 @@
 			'font-weight' : 'bold'
 		}); //css
 
+		
 		$('#myNavbar li a').hover(function() {
 			//���� 硫��대� 留��곗�� �щ�ㅻ�⑥�� ��
 			$(this).css({
