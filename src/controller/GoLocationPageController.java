@@ -17,16 +17,16 @@ public class GoLocationPageController implements Controller {
 	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		String pageNo = request.getParameter("pageNo");
-		String pathConstant = request.getParameter("location")
+		String location = request.getParameter("location")
 				.substring(request.getParameter("location").indexOf("-") + 1);
-		String location = getLocation(pathConstant);
+//		System.out.println(location);
 
 		ArrayList<FestivalVO> flist = TourDao.getInstance().getFestivalInfo(location);
 		ArrayList<String> clist = TourDao.getInstance().getCities(location);
 		ListVO relist = ReviewService.getInstance().getBestReviewByTag(location, "맛집",pageNo);
 		
-//		ListVO relist = ReviewService.getInstance().getBestReviewByTag(location, "맛집", pageNo);
-		// ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★
+//		ListVO relist = ReviewService.getInstance().getBestReviewByTag(location, "留쏆쭛", pageNo);
+		// �쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾
 		request.setAttribute("clist", clist);
 		request.setAttribute("flist", flist);
 		request.setAttribute("location", location);
@@ -34,42 +34,41 @@ public class GoLocationPageController implements Controller {
 		System.out.println(flist.size());
 		return new ModelAndView("v1.jsp");
 	}
-
-	public String getLocation(String pathConstant) {
+	/*public String getLocation(String pathConstant) {
 		switch (pathConstant) {
 		case "0":
-			return "제주도";
+			return "�젣二쇰룄";
 		case "1":
-			return "경상남도";
+			return "寃쎌긽�궓�룄";
 		case "2":
-			return "경상북도";
+			return "寃쎌긽遺곷룄";
 		case "3":
-			return "전라남도";
+			return "�쟾�씪�궓�룄";
 		case "4":
-			return "전라북도";
+			return "�쟾�씪遺곷룄";
 		case "5":
-			return "충청남도";
+			return "異⑹껌�궓�룄";
 		case "6":
-			return "충청북도";
+			return "異⑹껌遺곷룄";
 		case "7":
-			return "강원도";
+			return "媛뺤썝�룄";
 		case "8":
-			return "경기도";
+			return "寃쎄린�룄";
 		case "9":
-			return "울산";
+			return "�슱�궛";
 		case "10":
-			return "대전";
+			return "���쟾";
 		case "11":
-			return "광주";
+			return "愿묒＜";
 		case "12":
-			return "인천";
+			return "�씤泥�";
 		case "13":
-			return "대구";
+			return "��援�";
 		case "14":
-			return "부산";
+			return "遺��궛";
 		case "15":
-			return "서울";
+			return "�꽌�슱";
 		}
 		return null;
-	}
+	}*/
 }
