@@ -15,14 +15,35 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <title>Insert title here</title>
-
+<style>
+::-webkit-scrollbar {
+	width: 10px;
+}
+::-webkit-scrollbar-track {
+	background: #EAEAEA;
+	border-radius: 5px;
+}
+::-webkit-scrollbar-thumb {
+	background: #D3D3D3;
+	border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:hover {
+	background: #ADADAD;
+}
+.hideme {
+	opacity: 0;
+}
+</style>
+	<link rel="stylesheet" href="css/nav.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script type="text/javascript" src="<%=request.getContextPath()%>/smarteditor/js/HuskyEZCreator.js" charset="utf-8"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/smarteditor/photo_uploader/plugin/hp_SE2M_AttachQuickPhoto.js" charset="utf-8"></script>
 <%-- <script type="text/javascript" src="<%=ctx %>/smarteditor/js/HuskyEZCreator.js" charset="utf-8"></script> --%>
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.0.min.js"></script>
+<script type="text/javascript" src="js/nav.js"></script>
 </head>
 
-<body>	
+<body style="background-color: rgba(249, 248, 244, 0.5)">	
 <script type="text/javascript">
 /* jQuery('#selectBox').change(function() {
 	var state = jQuery('#selectBox option:selected').val();
@@ -95,6 +116,12 @@ function categoryChange(e) {
 	
 var oEditors = [];
 $(function(){
+		$('#myNavbar>ul li').click(function() {
+			var scrollPosition = $($(this).attr('data-target')).offset().top;
+			$('body, html').animate({
+				scrollTop : scrollPosition
+			}, 500); //animate
+		}); //click
       nhn.husky.EZCreator.createInIFrame({
           oAppRef: oEditors,
           elPlaceHolder: "smarteditor", //textarea에서 지정한 id와 일치해야 합니다. 
@@ -153,7 +180,66 @@ function pasteHTML(filepath){
    /* oEditors.getById["smarteditors"].exec("PASTE_HTML", [sHTML]); */
 }
 </script>	
-<h1 align="center"> 글 작성 </h1>
+<nav class="navbar navbar-defalt navbar-fixed-top" style="background-color: #fff">
+      	<div id="header"> 
+      		<div class="container">
+         		<div class="navbar-header" style="margin-top: 15px">
+            		<button type="button" class="navbar-toggle" id="menuSpan" data-toggle="collapse" data-target="#myNavbar">
+	                    <span class="icon-bar"></span>
+	               		<span class="icon-bar" style="margin-top: 2px"></span>
+	               		<span class="icon-bar"></span>
+            		</button>
+            		<a href="index.jsp"><img src="img/main_logo2.png" width="150" height="47" style="background-color: #FFFAE5/* #0F6A8B  #F5EED2*/"></a>
+         		</div> <!-- navbar-header -->
+         		
+	         	<div class="collapse navbar-collapse navbar-right" id="myNavbar" style="margin-top: 15px">
+	            	<form class="navbar-form navbar-left" action="getdata.do">
+	               		<div class="input-group">
+	                  		<input type="text" class="form-control" placeholder="Search" name="search" id="myInput">
+	                  		<div class="input-group-btn">
+	                     		<button class="btn btn-default" type="submit">
+	                        		<i class="glyphicon glyphicon-search"></i>
+	                     		</button>
+	                  		</div>
+	               		</div>
+	            	</form>
+	            	
+	            	<ul class="nav navbar-nav navbar-right">
+	               		<li class="dropdown">
+		                  	<a class="dropdown-toggle" data-toggle="dropdown" href="#" id="userMenu">
+		                     	<span class="glyphicon glyphicon-user white">
+		                     		<span class="caret" style="margin-left: 10px"></span>
+		                     	</span>
+		                  	</a>
+		                  	<c:choose>
+		                  	 	<c:when test="${vo != null}">
+			                  	 	<ul class="dropdown-menu">
+			                     	<li><a href="logout.do"><span class="glyphicon glyphicon-log-out"></span>&nbsp;&nbsp;로그아웃</a></li>
+			                     	<li><a href="myreviews.do?id=${sessionScope.vo.id}"><span class="glyphicon glyphicon-edit"></span>&nbsp;&nbsp;내가 쓴 글</a></li>
+			                     	<li><a href="scrap.do?id=${sessionScope.vo.id}"><span class="glyphicon glyphicon-bookmark"></span>&nbsp;&nbsp;스크랩</a></li>
+			                     	<li><a href="write.jsp"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;글쓰기</a></li>
+			                     	<li><a href="registerupdate.do?id=${sessionScope.vo.id}"><span class="glyphicon glyphicon-cog"></span>&nbsp;&nbsp;정보 수정</a></li>
+			                  		</ul>
+		                  		</c:when>
+		      
+		                  		<c:otherwise>
+		                  			<ul class="dropdown-menu">
+			                     	<li><a href="login.jsp"><span class="glyphicon glyphicon-log-in"></span>&nbsp;&nbsp;로그인</a></li>
+			                     	<li><a href="register.jsp"><i class="fas fa-user-plus"></i>&nbsp;&nbsp;회원가입</a></li>
+			                  		</ul>
+		                  		</c:otherwise>
+		                  	</c:choose>
+	               		</li>
+					</ul>
+				</div>
+				<!-- myNavbar -->
+			</div>
+			<!-- container -->
+		</div>
+		<!-- header -->
+		<div id="line"></div>
+	</nav>
+<h1 align="center" style="margin-top:161px;"> 글 작성 </h1>
 <form action="write.do" method="post" name="frm"> <!--  enctype="multipart/form-data" -->
 <!-- <input type="hidden" name="command" value="write"> -->
 <table border="1" align="center" width="80%" style="table-layout:fixed;">

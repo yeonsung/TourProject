@@ -7,23 +7,19 @@
 <head>
 <meta charset="utf-8">
 <title>Insert title here</title>
-<!-- <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/themes/base/jquery-ui.css" /> -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<link rel="stylesheet" href="css/style.css">
-<link rel="stylesheet"
-	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<script src="http://d3js.org/d3.v3.min.js"></script>
-	
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-<script
-	src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
-<script type="text/javascript" src="js/nav.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script>
+	<!-- <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/themes/base/jquery-ui.css" /> -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	<link rel="stylesheet" href="css/nav.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+ 	<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+ 	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
+	<script src="http://d3js.org/d3.v3.min.js"></script>
+	<script type="text/javascript" src="js/nav.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script>
+
 	$(function() {
 		$("#tabs").tabs();
 		$.ajax({
@@ -68,24 +64,7 @@
 <style>
 
 	a {text-decoration: none}
-	.contents{
-		padding-top: 80px;
-	}
-   	#header {
-      	border-bottom: 7px solid transparent;
-      	-moz-border-imag: -moz-linear-gradient(left, DarkGreen, #64AB4C); /* #CEF6EC #A4A4A4 #BDBDBD #AEB404*/
-		-webkit-border-image: -webkit-linear-gradient(left, DarkGreen, #64AB4C);
-      	border-image: linear-gradient(to right, DarkGreen, #64AB4C);
-      	border-image-slice: 1;
-      	margin-top: 8px;
-      	padding-bottom: 8px;
-      	font: 67.5% "Lucida Sans Unicode", "Bitstream Vera Sans", "Trebuchet Unicode MS", "Lucida Grande", Verdana, Helvetica, sans-serif;
-      	font-size: 14px;
-   	}
-   
-   	.caret {
-      	margin-left: 10px
-   	}
+	
    	section,#tabs{
    		height:600px;
    	}
@@ -97,48 +76,9 @@
 	}
 </style>
 
-<script type="text/javascript">
-	$(function() {
-		//================================ menu ================================
-		$('#myNavbar>ul li').click(function() {
-			var scrollPosition = $($(this).attr('data-target')).offset().top;
-			$('body, html').animate({
-				scrollTop : scrollPosition
-			}, 500); //animate
-		}); //click
-
-		$('#menuSpan .icon-bar').css('background', 'green');
-
-		$('#myNavbar li a').css({
-			'color' : 'black',
-			'font-weight' : 'bold'
-		}); //css
-
-		$('#states text').hover(function(){
-			alert($(this).attr('id'));
-		});
-		$('#myNavbar li a').hover(function() {
-			$(this).css({
-				'color' : 'green',
-				'background' : 'rgba(242, 242, 242, 0.5)'
-			}); //css
-
-		}, function() {
-			$(this).css({
-				'color' : 'black',
-				'background' : 'white'
-			}); //css
-		}); //hover
-
-		$('.dropdown-menu').css({
-			'margin-top' : '9px',
-			'min-width' : '12px',
-			'border-radius' : '2px'
-		}); //css
-	}); //ready
-</script>
+<script type="text/javascript" src="js/nav.js"></script>
 </head>
-<body>
+<body style="background-color: rgba(249, 248, 244, 0.5)/* #EEF4F2 */">
 
 
    	<nav class="navbar navbar-defalt navbar-fixed-top" style="background-color: #fff">
@@ -150,11 +90,11 @@
 	               		<span class="icon-bar" style="margin-top: 2px"></span>
 	               		<span class="icon-bar"></span>
             		</button>
-            		<a href="index.jsp"><img src="img/main_logo.png" width="150"></a>
+            		<a href="index.jsp"><img src="img/main_logo2.png" width="150" height="47" style="background-color: #FFFAE5/* #0F6A8B  #F5EED2*/"></a>
          		</div> <!-- navbar-header -->
          		
 	         	<div class="collapse navbar-collapse navbar-right" id="myNavbar" style="margin-top: 15px">
-	            	<form class="navbar-form navbar-left" action="/action_page.php">
+	            	<form class="navbar-form navbar-left" action="getdata.do">
 	               		<div class="input-group">
 	                  		<input type="text" class="form-control" placeholder="Search" name="search" id="myInput">
 	                  		<div class="input-group-btn">
@@ -167,8 +107,8 @@
 	            	
 	            	<ul class="nav navbar-nav navbar-right">
 	               		<li class="dropdown">
-		                  	<a class="dropdown-toggle" data-toggle="dropdown" href="#">
-		                     	<span class="glyphicon glyphicon-user text-success">
+		                  	<a class="dropdown-toggle" data-toggle="dropdown" href="#" id="userMenu">
+		                     	<span class="glyphicon glyphicon-user white">
 		                     		<span class="caret" style="margin-left: 10px"></span>
 		                     	</span>
 		                  	</a>
@@ -201,7 +141,7 @@
 		<div id="line"></div>
 	</nav>
 	<div class="row">
-		<div class="col-lg-7">
+		<div class="col-lg-6">
 			<div id="container" style="display: inline-block; margin-top: 161px;"></div>
 		</div>
 		<div class="col-lg-4" style="margin-top:161px;">
@@ -229,7 +169,11 @@
 		<input type="hidden" name="location" value="">
 	</form>
 	<script src="js/script.js"></script>
-	<div style="height: 100px"></div>
+   <div style="height: 100px"></div>
+   
+   <div style="background-color: #DDDDDD; margin-top: 20px; padding-top: 50px; padding-bottom: 50px">
+		<h2 align="center" style="color: gray">footer</h2>
+   </div>
 </body>
 
 </html>

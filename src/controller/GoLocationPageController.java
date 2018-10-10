@@ -19,7 +19,6 @@ public class GoLocationPageController implements Controller {
 		String pageNo = request.getParameter("pageNo");
 		String location = request.getParameter("location")
 				.substring(request.getParameter("location").indexOf("-") + 1);
-//		System.out.println(location);
 
 		ArrayList<FestivalVO> flist = TourDao.getInstance().getFestivalInfo(location);
 		ArrayList<String> clist = TourDao.getInstance().getCities(location);
@@ -33,40 +32,6 @@ public class GoLocationPageController implements Controller {
 		System.out.println(flist.size());
 		return new ModelAndView("v1.jsp");
 	}
-	/*public String getLocation(String pathConstant) {
-		switch (pathConstant) {
-		case "0":
-			return "�젣二쇰룄";
-		case "1":
-			return "寃쎌긽�궓�룄";
-		case "2":
-			return "寃쎌긽遺곷룄";
-		case "3":
-			return "�쟾�씪�궓�룄";
-		case "4":
-			return "�쟾�씪遺곷룄";
-		case "5":
-			return "異⑹껌�궓�룄";
-		case "6":
-			return "異⑹껌遺곷룄";
-		case "7":
-			return "媛뺤썝�룄";
-		case "8":
-			return "寃쎄린�룄";
-		case "9":
-			return "�슱�궛";
-		case "10":
-			return "���쟾";
-		case "11":
-			return "愿묒＜";
-		case "12":
-			return "�씤泥�";
-		case "13":
-			return "��援�";
-		case "14":
-			return "遺��궛";
-		case "15":
-			return "�꽌�슱";
 		}
 		return null;
 	}*/

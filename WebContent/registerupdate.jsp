@@ -11,6 +11,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <!-- Website Font style -->
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
+<link rel="stylesheet" href="css/nav.css">
 <script type="text/javascript">
 $(function() {
 	$('form').submit(function(event) {
@@ -51,6 +52,7 @@ $(function() {
         padding: 7px 10px;
     }
  </style>
+ <script type="text/javascript" src="js/nav.js"></script>
 </head>
 <body>
 <nav class="navbar navbar-defalt navbar-fixed-top" style="background-color: #fff">
@@ -62,11 +64,11 @@ $(function() {
 	               		<span class="icon-bar" style="margin-top: 2px"></span>
 	               		<span class="icon-bar"></span>
             		</button>
-            		<a href="index.jsp"><img src="img/main_logo.png" width="150"></a>
+            		<a href="index.jsp"><img src="img/main_logo2.png" width="150"></a>
          		</div> <!-- navbar-header -->
          		
 	         	<div class="collapse navbar-collapse navbar-right" id="myNavbar" style="margin-top: 15px">
-	            	<form class="navbar-form navbar-left" action="/action_page.php">
+	            	<form class="navbar-form navbar-left" action="getdata.do">
 	               		<div class="input-group">
 	                  		<input type="text" class="form-control" placeholder="Search" name="search" id="myInput">
 	                  		<div class="input-group-btn">
@@ -79,8 +81,8 @@ $(function() {
 	            	
 	            	<ul class="nav navbar-nav navbar-right">
 	               		<li class="dropdown">
-		                  	<a class="dropdown-toggle" data-toggle="dropdown" href="#">
-		                     	<span class="glyphicon glyphicon-user text-success">
+		                  	<a class="dropdown-toggle" data-toggle="dropdown" href="#" id="userMenu">
+		                     	<span class="glyphicon glyphicon-user white">
 		                     		<span class="caret" style="margin-left: 10px"></span>
 		                     	</span>
 		                  	</a>
