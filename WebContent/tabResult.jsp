@@ -9,14 +9,16 @@
 <title>Insert title here</title>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript">
+	
+</script>
 </head>
 
 <body>
 	<table align="center">
 		<c:forEach var="vo" items="${relist.list}">
 			<tr>
-				<td><img src=${vo.mainImage}> <img width="300px"
-					height="150px" src="./img/la.jpg"><br></td>
+				<td><img src=${vo.mainImage}><br></td>
 			</tr>
 			<tr>
 				<td style="font-size: 20px;"><a href="#">#${vo.city}</a></td>

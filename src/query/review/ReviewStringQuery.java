@@ -40,7 +40,7 @@ public interface ReviewStringQuery {
 
 	String GET_REVIEW_TAGS = "select word from tag where review_num=?"; // 由щ럭 tag�뱾 return
 	String GET_REVIEW_IMAGES = "SELECT review_image FROM review_image WHERE review_num = ?"; // 由щ럭 img�뱾 return
-	String GET_REVIEW_COMMENTS = "SELECT id,comment FROM comment WHERE review_num = ?"; // 由щ럭 comment�뱾 return
+	String GET_REVIEW_COMMENTS = "SELECT id,content FROM comments WHERE review_num = ?"; // 由щ럭 comment�뱾 return
 	String GET_SCRAP_LIST = "select * from review where review_num in" + " (select review_num from"
 			+ " (select review_num, ceil(rownum/" + CommonConstants.CONTENT_NUMBER_PER_PAGE + ") page from"
 			+ " (select review_num from scrap where id=? order by review_num desc)) where page=?)"; // �뒪�겕�옪 由ъ뒪�듃 由ы꽩

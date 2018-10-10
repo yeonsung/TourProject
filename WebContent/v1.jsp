@@ -108,6 +108,42 @@ footer {
 tr td {
 	font-size: 30px;
 }
+
+.overlay {
+	position: absolute;
+	bottom: 0;
+	left: 100%;
+	right: 0;
+	background-color: gray;
+	opacity: 0.6;
+	overflow: hidden;
+	width: 0;
+	height: 100%;
+	transition: .5s ease;
+}
+
+.container:hover .overlay {
+	width: 100%;
+	left: 0;
+}
+
+.text {
+	color: white;
+	font-size: 20px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	-webkit-transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+	white-space: nowrap;
+}
+
+.image {
+	display: block;
+	width: 100%;
+	height: auto;
+}
 </style>
 <script>
 	var count = 1;
@@ -152,6 +188,8 @@ tr td {
 				$('#tab-3').html("");
 			}//callback
 		});//ajax
+
+		$('#thatdiv div:eq(0)').addClass('active');
 
 		$('nav a').click(function() {
 			var str = $(this).html();
@@ -258,31 +296,35 @@ tr td {
 				</form>
 
 				<ul class="nav navbar-nav navbar-right">
-					<li class="dropdown">
-		                  	<a class="dropdown-toggle" data-toggle="dropdown" href="#">
-		                     	<span class="glyphicon glyphicon-user text-success">
-		                     		<span class="caret" style="margin-left: 10px"></span>
-		                     	</span>
-		                  	</a>
-		                  	<c:choose>
-		                  	 	<c:when test="${vo != null}">
-			                  	 	<ul class="dropdown-menu">
-			                     	<li><a href="logout.do"><span class="glyphicon glyphicon-log-out"></span>&nbsp;&nbsp;로그아웃</a></li>
-			                     	<li><a href="myreviews.do?id=${sessionScope.vo.id}"><span class="glyphicon glyphicon-edit"></span>&nbsp;&nbsp;내가 쓴 글</a></li>
-			                     	<li><a href="scrap.do?id=${sessionScope.vo.id}"><span class="glyphicon glyphicon-bookmark"></span>&nbsp;&nbsp;스크랩</a></li>
-			                     	<li><a href="write.jsp"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;글쓰기</a></li>
-			                     	<li><a href="registerupdate.do?id=${sessionScope.vo.id}"><span class="glyphicon glyphicon-cog"></span>&nbsp;&nbsp;정보 수정</a></li>
-			                  		</ul>
-		                  		</c:when>
-		      
-		                  		<c:otherwise>
-		                  			<ul class="dropdown-menu">
-			                     	<li><a href="login.jsp"><span class="glyphicon glyphicon-log-in"></span>&nbsp;&nbsp;로그인</a></li>
-			                     	<li><a href="register.jsp"><i class="fas fa-user-plus"></i>&nbsp;&nbsp;회원가입</a></li>
-			                  		</ul>
-		                  		</c:otherwise>
-		                  	</c:choose>
-	               		</li>
+					<li class="dropdown"><a class="dropdown-toggle"
+						data-toggle="dropdown" href="#"> <span
+							class="glyphicon glyphicon-user text-success"> <span
+								class="caret" style="margin-left: 10px"></span>
+						</span>
+					</a> <c:choose>
+							<c:when test="${vo != null}">
+								<ul class="dropdown-menu">
+									<li><a href="logout.do"><span
+											class="glyphicon glyphicon-log-out"></span>&nbsp;&nbsp;로그아웃</a></li>
+									<li><a href="myreviews.do?id=${sessionScope.vo.id}"><span
+											class="glyphicon glyphicon-edit"></span>&nbsp;&nbsp;내가 쓴 글</a></li>
+									<li><a href="scrap.do?id=${sessionScope.vo.id}"><span
+											class="glyphicon glyphicon-bookmark"></span>&nbsp;&nbsp;스크랩</a></li>
+									<li><a href="write.jsp"><span
+											class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;글쓰기</a></li>
+									<li><a href="registerupdate.do?id=${sessionScope.vo.id}"><span
+											class="glyphicon glyphicon-cog"></span>&nbsp;&nbsp;정보 수정</a></li>
+								</ul>
+							</c:when>
+
+							<c:otherwise>
+								<ul class="dropdown-menu">
+									<li><a href="login.jsp"><span
+											class="glyphicon glyphicon-log-in"></span>&nbsp;&nbsp;로그인</a></li>
+									<li><a href="register.jsp"><i class="fas fa-user-plus"></i>&nbsp;&nbsp;회원가입</a></li>
+								</ul>
+							</c:otherwise>
+						</c:choose></li>
 				</ul>
 			</div>
 			<!-- myNavbar -->
@@ -319,19 +361,17 @@ tr td {
 					</ol>
 
 					<!-- Wrapper for slides -->
-					<div class="carousel-inner">
-
-						<div class="item active">
-							<img src="img/la.jpg" alt="Los Angeles">
-						</div>
-
-						<div class="item">
-							<img src="img/chicago.jpg" alt="Chicago">
-						</div>
-
-						<div class="item">
-							<img src="img/ny.jpg" alt="New york">
-						</div>
+					<div class="carousel-inner" id="thatdiv">
+						<c:forEach var="festivalVO" items="${flist}">
+							<c:if test="${festivalVO.img ne null}">
+								<div class="item">
+									<img src="${festivalVO.img}" class="image">
+									<div class="overlay">
+										<div class="text">${festivalVO.location}<br>${festivalVO.city}<br>${festivalVO.festivalName}<br>${festivalVO.startDate}부터<br>${festivalVO.endDate}까지</div>
+									</div>
+								</div>
+							</c:if>
+						</c:forEach>
 					</div>
 
 					<!-- Left and right controls -->
@@ -349,9 +389,8 @@ tr td {
 			<br> <br>
 			<table>
 				<c:forEach var="vo" items="${clist}" step="1" varStatus="status">
-					<font size="5px;"> <a href="#"
-						style="color: gray; margin-bottom: 5px">${vo}</a>&nbsp; 
-						<c:if
+					<font size="5px;"> <a href="getAttraction.do?city=${vo}"
+						style="color: gray; margin-bottom: 5px">${vo}</a>&nbsp; <c:if
 							test="${status.count%4 eq 0}">
 							<br />
 							<br />
