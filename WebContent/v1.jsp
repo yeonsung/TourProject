@@ -22,8 +22,17 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 <style>
+#carousel_con {
+	width: 600px;
+	height: 400px;
+}
+
 .contents {
 	padding-top: 80px;
+}
+
+section {
+	height: auto;
 }
 
 header {
@@ -47,9 +56,9 @@ header {
 
 .carousel-inner>.item>img {
 	top: 0;
-	left: 0;
-	min-width: 100%;
-	min-height: 400px;
+	left: 0%;
+	min-width: 360px;
+	min-height: 200px;
 }
 
 * {
@@ -65,7 +74,7 @@ nav {
 	float: left;
 	left: 20px;
 	width: 23%;
-	height: 300px; /* only for demonstration, should be removed */
+	height: 120%; /* only for demonstration, should be removed */
 	padding: 20px;
 }
 
@@ -101,35 +110,82 @@ tr td {
 }
 </style>
 <script>
+	var count = 1;
+	var page = 1;
+
+	function showmore() {
+		count += 1;
+		$.ajax({
+			type : "get",
+			url : "getBestReviewBytag.do",
+			data : {
+				"location" : "${location}",
+				"tag" : $('#distinguish').html(),
+				"pageNo" : count,
+				"size" : $('#listSize').html()
+			//더보기 누르기 전의 갯수.
+			},
+
+			success : function(data) {
+				$('#tab-1').html(data);
+				$('#tab-2').html("");
+				$('#tab-3').html("");
+			}//callback
+
+		});//ajax 
+	}
 	$(function() {
-		
 		$("#tabs").tabs();
+
+		$.ajax({
+			type : "get",
+			url : "getBestReviewBytag.do",
+			data : {
+				"location" : "${location}",
+				"tag" : "맛집"
+			},
+
+			success : function(data) {
+				//$('#tab-1').html(data);
+				$('#tab-1').html(data);
+				$('#tab-2').html("");
+				$('#tab-3').html("");
+			}//callback
+		});//ajax
+
 		$('nav a').click(function() {
 			var str = $(this).html();
+			var loca = {
+				"location" : "${location}",
+				"tag" : str
+			};
+
 			$.ajax({
-				type:"get",
-				url:"getBestReviewBytag.do",
-				data :"location=${requestScope.location}&&tag="+str,
-				
-				success:function(data){
-					if(str=="맛집"){
-						$('#tab-1').html(data);	
-						$('#tab-2').html("")
-						$('#tab-3').html("")
-					}
-					else if(str=='관광'){
-						$('#tab-2').html(data);	
-						$('#tab-1').html("")
-						$('#tab-3').html("")
-					}
-					else if(str=='숙소'){
-						$('#tab-3').html(data);	
-						$('#tab-1').html("")
-						$('#tab-2').html("")
+				type : "get",
+				url : "getBestReviewBytag.do",
+				data : loca,
+
+				success : function(data) {
+					if (str == '관광') {
+						$('#tab-2').html(data);
+						$('#tab-1').html("");
+						$('#tab-3').html("");
+						count = 1;
+					} else if (str == '숙소') {
+						$('#tab-3').html(data);
+						$('#tab-1').html("");
+						$('#tab-2').html("");
+						count = 1;
+					} else {
+						//$('#tab-1').html(data);
+						$('#tab-1').html(data);
+						$('#tab-2').html("");
+						$('#tab-3').html("");
+						count = 1;
 					}
 				}//callback
 			});//ajax
-		});//on
+		});//click
 	});//tab
 </script>
 
@@ -137,7 +193,6 @@ tr td {
 <script type="text/javascript">
 	$(function() {
 		//================================ menu ================================
-
 		$('#myNavbar>ul li').click(function() {
 			var scrollPosition = $($(this).attr('data-target')).offset().top;
 			$('body, html').animate({
@@ -184,7 +239,7 @@ tr td {
 					<span class="icon-bar"></span> <span class="icon-bar"
 						style="margin-top: 2px"></span> <span class="icon-bar"></span>
 				</button>
-				<img src="img/main_logo.png" width="150">
+				<a href="index.jsp"><img src="img/main_logo.png" width="150"></a>
 			</div>
 			<!-- navbar-header -->
 
@@ -203,24 +258,31 @@ tr td {
 				</form>
 
 				<ul class="nav navbar-nav navbar-right">
-					<li class="dropdown"><a class="dropdown-toggle"
-						data-toggle="dropdown" href="#"> <span
-							class="glyphicon glyphicon-user text-success"> <span
-								class="caret" style="margin-left: 10px"></span>
-						</span>
-					</a>
-						<ul class="dropdown-menu">
-							<li><a href="#"><span
-									class="glyphicon glyphicon-log-out"></span>&nbsp;&nbsp;로그아웃</a></li>
-							<li><a href="myreviews.do?id=yun"><span
-									class="glyphicon glyphicon-edit"></span>&nbsp;&nbsp;내가 쓴 글</a></li>
-							<li><a href="scrap.do?id=yun"><span
-									class="glyphicon glyphicon-bookmark"></span>&nbsp;&nbsp;스크랩</a></li>
-							<li><a href="#"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;글
-									작성</a></li>
-							<li><a href="#"><span class="glyphicon glyphicon-cog"></span>&nbsp;&nbsp;정보
-									수정</a></li>
-						</ul></li>
+					<li class="dropdown">
+		                  	<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+		                     	<span class="glyphicon glyphicon-user text-success">
+		                     		<span class="caret" style="margin-left: 10px"></span>
+		                     	</span>
+		                  	</a>
+		                  	<c:choose>
+		                  	 	<c:when test="${vo != null}">
+			                  	 	<ul class="dropdown-menu">
+			                     	<li><a href="logout.do"><span class="glyphicon glyphicon-log-out"></span>&nbsp;&nbsp;로그아웃</a></li>
+			                     	<li><a href="myreviews.do?id=${sessionScope.vo.id}"><span class="glyphicon glyphicon-edit"></span>&nbsp;&nbsp;내가 쓴 글</a></li>
+			                     	<li><a href="scrap.do?id=${sessionScope.vo.id}"><span class="glyphicon glyphicon-bookmark"></span>&nbsp;&nbsp;스크랩</a></li>
+			                     	<li><a href="write.jsp"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;글쓰기</a></li>
+			                     	<li><a href="registerupdate.do?id=${sessionScope.vo.id}"><span class="glyphicon glyphicon-cog"></span>&nbsp;&nbsp;정보 수정</a></li>
+			                  		</ul>
+		                  		</c:when>
+		      
+		                  		<c:otherwise>
+		                  			<ul class="dropdown-menu">
+			                     	<li><a href="login.jsp"><span class="glyphicon glyphicon-log-in"></span>&nbsp;&nbsp;로그인</a></li>
+			                     	<li><a href="register.jsp"><i class="fas fa-user-plus"></i>&nbsp;&nbsp;회원가입</a></li>
+			                  		</ul>
+		                  		</c:otherwise>
+		                  	</c:choose>
+	               		</li>
 				</ul>
 			</div>
 			<!-- myNavbar -->
@@ -231,28 +293,23 @@ tr td {
 	<div id="line"></div>
 	<div style="height: 70px;"></div>
 	<section>
-		<nav id="tabs">
+		<nav id="tabs" style="overflow-y: scroll; height: 800px; width: 25%">
 			<h1 align="center">BEST REVIEWS</h1>
 			<ul>
 				<li><a href="javascript:void(0)">맛집</a></li>
 				<li><a href="javascript:void(0)">관광</a></li>
 				<li><a href="javascript:void(0)">숙소</a></li>
 			</ul>
-			<div id="tab-1">
-				
-			</div>
-			<div id="tab-2">
-				
-			</div>
-			<div id="tab-3">
-				
-			</div>
+			<div id="tab-1"></div>
+			<div id="tab-2"></div>
+			<div id="tab-3"></div>
+
 		</nav>
 
 		<article>
 			<p>
 			<h1 align="center" style="margin-bottom: 30px">${requestScope.location}</h1>
-			<div class="container">
+			<div class="container" id="carousel_con">
 				<div id="myCarousel" class="carousel slide" data-ride="carousel">
 					<!-- Indicators -->
 					<ol class="carousel-indicators">
@@ -263,16 +320,17 @@ tr td {
 
 					<!-- Wrapper for slides -->
 					<div class="carousel-inner">
+
 						<div class="item active">
-							<img src="img/la.jpg" alt="Los Angeles" style="width: 100%;">
+							<img src="img/la.jpg" alt="Los Angeles">
 						</div>
 
 						<div class="item">
-							<img src="img/chicago.jpg" alt="Chicago" style="width: 100%;">
+							<img src="img/chicago.jpg" alt="Chicago">
 						</div>
 
 						<div class="item">
-							<img src="img/ny.jpg" alt="New york" style="width: 100%;">
+							<img src="img/ny.jpg" alt="New york">
 						</div>
 					</div>
 
@@ -289,19 +347,19 @@ tr td {
 				</div>
 			</div>
 			<br> <br>
-			<table align="center">
-				<c:forEach var="clist" items="${clist}" step="1">
-					<tr>
-						<td>dd</td>
-						<td>${clist}</td>
-					</tr>
+			<table>
+				<c:forEach var="vo" items="${clist}" step="1" varStatus="status">
+					<font size="5px;"> <a href="#"
+						style="color: gray; margin-bottom: 5px">${vo}</a>&nbsp; 
+						<c:if
+							test="${status.count%4 eq 0}">
+							<br />
+							<br />
+						</c:if></font>
+
 				</c:forEach>
 			</table>
 		</article>
 	</section>
-
-	<footer>
-		<p>여기 푸터</p>
-	</footer>
 </body>
 </html>

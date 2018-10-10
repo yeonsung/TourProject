@@ -1,38 +1,19 @@
 /* @import url('normalize.css'); */
 
 @font-face {
-  font-family: 'Nanum Gothic';
   font-style: normal;
   font-weight: 700;
-  src: url(../fonts/NanumGothic-Bold.eot);
-  src: url(../fonts/NanumGothic-Bold.eot?#iefix) format('embedded-opentype'),
-       url(../fonts/NanumGothic-Bold.woff2) format('woff2'),
-       url(../fonts/NanumGothic-Bold.woff) format('woff'),
-       url(../fonts/NanumGothic-Bold.ttf) format('truetype');
+  
 }
 @font-face {
-  font-family: 'Nanum Gothic';
   font-style: normal;
   font-weight: 400;
-  src: url(../fonts/NanumGothic-Regular.eot);
-  src: url(../fonts/NanumGothic-Regular.eot?#iefix) format('embedded-opentype'),
-       url(../fonts/NanumGothic-Regular.woff2) format('woff2'),
-       url(../fonts/NanumGothic-Regular.woff) format('woff'),
-       url(../fonts/NanumGothic-Regular.ttf) format('truetype');
+  
 }
 @font-face {
-  font-family: 'Nanum Gothic';
   font-style: normal;
   font-weight: 800;
-  src: url(../fonts/NanumGothic-ExtraBold.eot);
-  src: url(../fonts/NanumGothic-ExtraBold.eot?#iefix) format('embedded-opentype'),
-       url(../fonts/NanumGothic-ExtraBold.woff2) format('woff2'),
-       url(../fonts/NanumGothic-ExtraBold.woff) format('woff'),
-       url(../fonts/NanumGothic-ExtraBold.ttf) format('truetype');
-}
 
-* {
-	font-family: 'Nanum Gothic';
 }
 
 html,
@@ -94,10 +75,11 @@ h1 {
 }
 
 #map {
-	border: 1px solid #ddd;
+	margin-left:50px;
+	/* border: 1px solid #ddd; */
 }
 
-.background {				/*Áöµµ ¹è°æ»ö */
+.background {				/*ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ */
   fill: #f7fcfd;
   pointer-events: all;
 }
@@ -116,7 +98,7 @@ button.ui-button-icon-only {
 	padding: 0;
 }
 
-#states path {			/*Áöµµ »ö±ò 	 */
+#states path {			/*ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ 	 */
   fill: #ccece6;
   stroke: #fff;
   stroke-width: 1.5px;
@@ -137,5 +119,4 @@ button.ui-button-icon-only {
 #states text {
 	cursor: pointer;
 	font-size: 12px;
-	font-family: 'Nanum Gothic';
 }
