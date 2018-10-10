@@ -3,9 +3,9 @@ import java.util.ArrayList;
 
 public class AttractionVO {
 	String spotName;
-	String address; // ÃÑ ÁÖ¼Ò
-	String location; //½Ã µµ
-	String city; // ½Ã ±º ±¸
+	String address; // ÃƒÃ‘ ÃÃ–Â¼Ã’
+	String location; //Â½Ãƒ ÂµÂµ
+	String city; // Â½Ãƒ Â±Âº Â±Â¸
 	String info;
 	String mainImage;
 	ArrayList<String> images;
@@ -21,8 +21,7 @@ public class AttractionVO {
 		this.city = city;
 		this.info = info;
 	}
-	
-	
+
 	public String getMainImage() {
 		return mainImage;
 	}

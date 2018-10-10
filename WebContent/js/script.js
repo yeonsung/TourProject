@@ -107,8 +107,7 @@ $('path').click(function(){
 
 
 // 踰꾪듉
-$('#radio').buttonset();
-$('#zoomin').button({
+/*$('#zoomin').button({
   text: false,
   icons: {
     primary: "ui-icon-plus"
@@ -125,7 +124,7 @@ $('#zoomin').button({
   states.selectAll("path").attr("d", path);
   
   labels.attr("transform", labelsTransform);
-});
+});*/
 /*$('#zoomout').button({
   text: false,
   icons: {
@@ -147,10 +146,10 @@ $('#zoomin').button({
 });*/
       
 // 吏�紐낇몴��
-$('#radio').find('input').on('click', function() {
+/*$('#radio').find('input').on('click', function() {
   if (this.value == 'on') {
     labels.style('display', 'block');
   } else if (this.value == 'off') {
     labels.style('display', 'none');
   }
-});
+});*/
