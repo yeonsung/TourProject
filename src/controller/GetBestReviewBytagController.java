@@ -26,11 +26,8 @@ public class GetBestReviewBytagController implements Controller {
 		ListVO relist = null;
 
 		try {
-			System.out.println("1");
 			relist = ReviewService.getInstance().getBestReviewByTag(location, tag, pageNo);
-			System.out.println("2");
 			request.setAttribute("relist", relist);
-			System.out.println(relist);
 			request.setAttribute("listSize", relist.getList().size() + "");
 			if (relist.getList().size() - size < 3) {
 				// 더 가져올 게 없는 거지.

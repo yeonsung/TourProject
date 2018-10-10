@@ -166,24 +166,6 @@ public class TourDao {
 		}
 	}// addLike �����
 
-	/*
-	 * public ArrayList<ReviewVO> getBestReviewByLocation(String location) throws
-	 * SQLException { Connection conn = null; PreparedStatement ps = null; ResultSet
-	 * rs = null; ArrayList<ReviewVO> list = new ArrayList<ReviewVO>();
-	 * 
-	 * ReviewVO vo = null; String sql =
-	 * "select review_num, title, likes from review where location=?"; try { conn =
-	 * getConnect(); ps = conn.prepareStatement(sql); ps.setString(1, location); rs
-	 * = ps.executeQuery();
-	 * 
-	 * while (rs.next()) { vo = new ReviewVO();
-	 * vo.setReviewNum(rs.getInt("review_num")); vo.setTitle(rs.getString("title"));
-	 * vo.setLike(rs.getInt("likes")); list.add(vo); } } finally { closeAll(rs, ps,
-	 * conn); }
-	 * 
-	 * return list; }
-	 */
-
 	public ArrayList<ReviewVO> getBestReviewByTag(String location, String tag, int pageNO) throws SQLException { // v1
 																													// review
 																													// list
@@ -195,7 +177,7 @@ public class TourDao {
 		ReviewVO vo = null;
 		try {
 			conn = getConnect();
-			ps = conn.prepareStatement(ReviewStringQuery.TEST);//
+			ps = conn.prepareStatement(ReviewStringQuery.GET_BESTREVIEW_BY_TAG_LOCA);//
 
 			ps.setString(1, tag);
 			ps.setString(2, location);
@@ -214,6 +196,46 @@ public class TourDao {
 				list.get(i).setTags(tags);
 				ArrayList<String> img = getImages(list.get(i).getReviewNum(), conn);
 				list.get(i).setImages(img);
+				if (img.size() != 0)
+					list.get(i).setMainImage(img.get(0));
+			} // for
+		} finally {
+			closeAll(rs, ps, conn);
+		}
+		return list;
+	}// getBestReview
+
+	public ArrayList<ReviewVO> getBestReviewByTagCity(String city, String tag, int pageNO) throws SQLException { // v1
+		// review
+		// list
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		ArrayList<ReviewVO> list = new ArrayList<ReviewVO>();
+
+		ReviewVO vo = null;
+		try {
+			conn = getConnect();
+			ps = conn.prepareStatement(ReviewStringQuery.GET_BESTREVIEW_BY_TAG_CITY);//
+
+			ps.setString(1, tag);
+			ps.setString(2, city);
+			ps.setInt(3, pageNO);
+
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				vo = new ReviewVO();
+				vo.setReviewNum(rs.getInt("review_num"));
+				vo.setTitle(rs.getString("title"));
+				list.add(vo);
+			}
+			for (int i = 0; i < list.size(); i++) {
+				ArrayList<String> tags = getTags(list.get(i).getReviewNum(), conn);
+				list.get(i).setTags(tags);
+				ArrayList<String> img = getImages(list.get(i).getReviewNum(), conn);
+				list.get(i).setImages(img);
+				if (img.size() != 0)
+					list.get(i).setMainImage(img.get(0));
 			} // for
 		} finally {
 			closeAll(rs, ps, conn);

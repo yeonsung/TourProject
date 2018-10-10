@@ -41,13 +41,13 @@
 			var str = $(this).html();
 			$.ajax({
 
-				type:"get",
-				url:"getRecentReviews.do",
-				data :"tag="+str,
-				
-				success:function(data){
-					if(str=="맛집"){
-						$('#tab-1').html(data);	
+				type : "get",
+				url : "getRecentReviews.do",
+				data : "tag=" + str,
+
+				success : function(data) {
+					if (str == "맛집") {
+						$('#tab-1').html(data);
 						$('#tab-2').html("");
 						$('#tab-3').html("");
 					} else if (str == '관광') {
@@ -65,29 +65,36 @@
 	});
 </script>
 <style>
+a {
+	text-decoration: none
+}
 
-	a {text-decoration: none}
-	.contents{
-		padding-top: 80px;
-	}
-   	#header {
-      	border-bottom: 7px solid transparent;
-      	-moz-border-imag: -moz-linear-gradient(left, DarkGreen, #64AB4C); /* #CEF6EC #A4A4A4 #BDBDBD #AEB404*/
-		-webkit-border-image: -webkit-linear-gradient(left, DarkGreen, #64AB4C);
-      	border-image: linear-gradient(to right, DarkGreen, #64AB4C);
-      	border-image-slice: 1;
-      	margin-top: 8px;
-      	padding-bottom: 8px;
-      	font: 67.5% "Lucida Sans Unicode", "Bitstream Vera Sans", "Trebuchet Unicode MS", "Lucida Grande", Verdana, Helvetica, sans-serif;
-      	font-size: 14px;
-   	}
-   
-   	.caret {
-      	margin-left: 10px
-   	}
-   	section,#tabs{
-   		height:600px;
-   	}
+.contents {
+	padding-top: 80px;
+}
+
+#header {
+	border-bottom: 7px solid transparent;
+	-moz-border-imag: -moz-linear-gradient(left, DarkGreen, #64AB4C);
+	/* #CEF6EC #A4A4A4 #BDBDBD #AEB404*/
+	-webkit-border-image: -webkit-linear-gradient(left, DarkGreen, #64AB4C);
+	border-image: linear-gradient(to right, DarkGreen, #64AB4C);
+	border-image-slice: 1;
+	margin-top: 8px;
+	padding-bottom: 8px;
+	font: 67.5% "Lucida Sans Unicode", "Bitstream Vera Sans",
+		"Trebuchet Unicode MS", "Lucida Grande", Verdana, Helvetica,
+		sans-serif;
+	font-size: 14px;
+}
+
+.caret {
+	margin-left: 10px
+}
+
+section, #tabs {
+	height: 600px;
+}
 </style>
 
 <script type="text/javascript">
@@ -129,58 +136,64 @@
 </script>
 </head>
 <body>
+	<nav class="navbar navbar-defalt navbar-fixed-top"
+		style="background-color: #fff">
+		<div id="header">
+			<div class="container">
+				<div class="navbar-header" style="margin-top: 15px">
+					<button type="button" class="navbar-toggle" id="menuSpan"
+						data-toggle="collapse" data-target="#myNavbar">
+						<span class="icon-bar"></span> <span class="icon-bar"
+							style="margin-top: 2px"></span> <span class="icon-bar"></span>
+					</button>
+					<a href="index.jsp"><img src="img/main_logo.png" width="150"></a>
+				</div>
+				<!-- navbar-header -->
 
+				<div class="collapse navbar-collapse navbar-right" id="myNavbar"
+					style="margin-top: 15px">
+					<form class="navbar-form navbar-left" action="/action_page.php">
+						<div class="input-group">
+							<input type="text" class="form-control" placeholder="Search"
+								name="search" id="myInput">
+							<div class="input-group-btn">
+								<button class="btn btn-default" type="submit">
+									<i class="glyphicon glyphicon-search"></i>
+								</button>
+							</div>
+						</div>
+					</form>
 
-   	<nav class="navbar navbar-defalt navbar-fixed-top" style="background-color: #fff">
-      	<div id="header"> 
-      		<div class="container">
-         		<div class="navbar-header" style="margin-top: 15px">
-            		<button type="button" class="navbar-toggle" id="menuSpan" data-toggle="collapse" data-target="#myNavbar">
-	                    <span class="icon-bar"></span>
-	               		<span class="icon-bar" style="margin-top: 2px"></span>
-	               		<span class="icon-bar"></span>
-            		</button>
-            		<a href="index.jsp"><img src="img/main_logo.png" width="150"></a>
-         		</div> <!-- navbar-header -->
-         		
-	         	<div class="collapse navbar-collapse navbar-right" id="myNavbar" style="margin-top: 15px">
-	            	<form class="navbar-form navbar-left" action="/action_page.php">
-	               		<div class="input-group">
-	                  		<input type="text" class="form-control" placeholder="Search" name="search" id="myInput">
-	                  		<div class="input-group-btn">
-	                     		<button class="btn btn-default" type="submit">
-	                        		<i class="glyphicon glyphicon-search"></i>
-	                     		</button>
-	                  		</div>
-	               		</div>
-	            	</form>
-	            	
-	            	<ul class="nav navbar-nav navbar-right">
-	               		<li class="dropdown">
-		                  	<a class="dropdown-toggle" data-toggle="dropdown" href="#">
-		                     	<span class="glyphicon glyphicon-user text-success">
-		                     		<span class="caret" style="margin-left: 10px"></span>
-		                     	</span>
-		                  	</a>
-		                  	<c:choose>
-		                  	 	<c:when test="${vo != null}">
-			                  	 	<ul class="dropdown-menu">
-			                     	<li><a href="logout.do"><span class="glyphicon glyphicon-log-out"></span>&nbsp;&nbsp;로그아웃</a></li>
-			                     	<li><a href="myreviews.do?id=${sessionScope.vo.id}"><span class="glyphicon glyphicon-edit"></span>&nbsp;&nbsp;내가 쓴 글</a></li>
-			                     	<li><a href="scrap.do?id=${sessionScope.vo.id}"><span class="glyphicon glyphicon-bookmark"></span>&nbsp;&nbsp;스크랩</a></li>
-			                     	<li><a href="write.jsp"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;글쓰기</a></li>
-			                     	<li><a href="registerupdate.do?id=${sessionScope.vo.id}"><span class="glyphicon glyphicon-cog"></span>&nbsp;&nbsp;정보 수정</a></li>
-			                  		</ul>
-		                  		</c:when>
-		      
-		                  		<c:otherwise>
-		                  			<ul class="dropdown-menu">
-			                     	<li><a href="login.jsp"><span class="glyphicon glyphicon-log-in"></span>&nbsp;&nbsp;로그인</a></li>
-			                     	<li><a href="register.jsp"><i class="fas fa-user-plus"></i>&nbsp;&nbsp;회원가입</a></li>
-			                  		</ul>
-		                  		</c:otherwise>
-		                  	</c:choose>
-	               		</li>
+					<ul class="nav navbar-nav navbar-right">
+						<li class="dropdown"><a class="dropdown-toggle"
+							data-toggle="dropdown" href="#"> <span
+								class="glyphicon glyphicon-user text-success"> <span
+									class="caret" style="margin-left: 10px"></span>
+							</span>
+						</a> <c:choose>
+								<c:when test="${vo != null}">
+									<ul class="dropdown-menu">
+										<li><a href="logout.do"><span
+												class="glyphicon glyphicon-log-out"></span>&nbsp;&nbsp;로그아웃</a></li>
+										<li><a href="myreviews.do?id=${sessionScope.vo.id}"><span
+												class="glyphicon glyphicon-edit"></span>&nbsp;&nbsp;내가 쓴 글</a></li>
+										<li><a href="scrap.do?id=${sessionScope.vo.id}"><span
+												class="glyphicon glyphicon-bookmark"></span>&nbsp;&nbsp;스크랩</a></li>
+										<li><a href="write.jsp"><span
+												class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;글쓰기</a></li>
+										<li><a href="registerupdate.do?id=${sessionScope.vo.id}"><span
+												class="glyphicon glyphicon-cog"></span>&nbsp;&nbsp;정보 수정</a></li>
+									</ul>
+								</c:when>
+								<c:otherwise>
+									<ul class="dropdown-menu">
+										<li><a href="login.jsp"><span
+												class="glyphicon glyphicon-log-in"></span>&nbsp;&nbsp;로그인</a></li>
+										<li><a href="register.jsp"><i
+												class="fas fa-user-plus"></i>&nbsp;&nbsp;회원가입</a></li>
+									</ul>
+								</c:otherwise>
+							</c:choose></li>
 					</ul>
 				</div>
 				<!-- myNavbar -->
@@ -194,8 +207,7 @@
 		<div class="col-lg-7">
 			<div id="container" style="display: inline-block; margin-top: 161px;"></div>
 		</div>
-		<div class="col-lg-4" style="margin-top:161px;">
-
+		<div class="col-lg-4" style="margin-top: 161px;">
 			<section>
 				<nav id="tabs">
 					<h1 align="center">RECENT REVIEWS</h1>
@@ -208,13 +220,10 @@
 					<div id="tab-2"></div>
 					<div id="tab-3"></div>
 				</nav>
-
 			</section>
 		</div>
 	</div>
-	<div class="footer" style="display: none;">
-		
-	</div>
+	<div class="footer" style="display: none;"></div>
 	<form action="locationpage.do">
 		<input type="hidden" name="location" value="">
 	</form>

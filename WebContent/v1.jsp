@@ -22,10 +22,10 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 <style>
-#carousel_con {
+ #carousel_con {
 	width: 600px;
-	height: 400px;
-}
+	height: 350px;
+} 
 
 .contents {
 	padding-top: 80px;
@@ -74,7 +74,7 @@ nav {
 	float: left;
 	left: 20px;
 	width: 23%;
-	height: 120%; /* only for demonstration, should be removed */
+	height: 100%; /* only for demonstration, should be removed */
 	padding: 20px;
 }
 
@@ -115,7 +115,7 @@ tr td {
 	left: 100%;
 	right: 0;
 	background-color: gray;
-	opacity: 0.6;
+	opacity: 0.4;
 	overflow: hidden;
 	width: 0;
 	height: 100%;
@@ -353,19 +353,13 @@ tr td {
 			<h1 align="center" style="margin-bottom: 30px">${requestScope.location}</h1>
 			<div class="container" id="carousel_con">
 				<div id="myCarousel" class="carousel slide" data-ride="carousel">
-					<!-- Indicators -->
-					<ol class="carousel-indicators">
-						<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-						<li data-target="#myCarousel" data-slide-to="1"></li>
-						<li data-target="#myCarousel" data-slide-to="2"></li>
-					</ol>
 
 					<!-- Wrapper for slides -->
 					<div class="carousel-inner" id="thatdiv">
 						<c:forEach var="festivalVO" items="${flist}">
 							<c:if test="${festivalVO.img ne null}">
 								<div class="item">
-									<img src="${festivalVO.img}" class="image">
+									<img src="${festivalVO.img}" style="width:600px; height:350px;s"class="image">
 									<div class="overlay">
 										<div class="text">${festivalVO.location}<br>${festivalVO.city}<br>${festivalVO.festivalName}<br>${festivalVO.startDate}부터<br>${festivalVO.endDate}까지</div>
 									</div>
