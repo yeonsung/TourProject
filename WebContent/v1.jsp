@@ -7,43 +7,41 @@
 <head>
 <meta charset="utf-8">
 <title>Insert title here</title>
-<link rel="stylesheet"
-	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<link rel="stylesheet" href="/resources/demos/style.css">
-
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	<link rel="stylesheet" href="css/nav.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+ 	<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+ 	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
+	<script src="http://d3js.org/d3.v3.min.js"></script>
+	<script type="text/javascript" src="js/nav.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <style>
-.contents {
-	padding-top: 80px;
+::-webkit-scrollbar {
+	width: 10px;
 }
+::-webkit-scrollbar-track {
+	background: #EAEAEA;
+	border-radius: 5px;
+}
+::-webkit-scrollbar-thumb {
+	background: #D3D3D3;
+	border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:hover {
+	background: #ADADAD;
+}
+.hideme {
+	opacity: 0;
+}
+</style>
+
+<style>
 
 section {
 	height: 600px;
-}
-
-header {
-      	border-bottom: 7px solid transparent;
-      	-moz-border-imag: -moz-linear-gradient(left, #BDDADA, #C8EAED); /* #CEF6EC #A4A4A4 #BDBDBD #AEB404*/
-		-webkit-border-image: -webkit-linear-gradient(left, #BDDADA, #C8EAED);
-      	border-image: linear-gradient(to right, #BDDADA, #C8EAED);
-      	border-image-slice: 1;
-      	margin-top: 8px;
-      	padding-bottom: 8px;
-      	font: 67.5% "Lucida Sans Unicode", "Bitstream Vera Sans", "Trebuchet Unicode MS", "Lucida Grande", Verdana, Helvetica, sans-serif;
-      	font-size: 14px;
-   	}
-
-.caret {
-	margin-left: 10px
 }
 
 .carousel-inner>.item>img {
@@ -59,6 +57,7 @@ header {
 
 body {
 	font-family: Arial, Helvetica, sans-serif;
+	background-color: rgba(249, 248, 244, 0.5);
 }
 
 /* Create two columns/boxes that floats next to each other */
@@ -101,6 +100,7 @@ tr td {
 	font-size: 30px;
 }
 </style>
+
 <script>
 /* 	var page = 1;
 	$("#tabs").scroll(
@@ -143,7 +143,7 @@ tr td {
 	});
 	
 	$(function() {
-
+		
 		$("#tabs").tabs();
 
 		if ($("#tabs").height() < $(window).height()) {
@@ -201,57 +201,21 @@ tr td {
 </script>
 
 
-<script type="text/javascript">
-	$(function() {
-		//================================ menu ================================
+<script type="text/javascript" src="js/nav.js"></script>
 
-		$('#myNavbar>ul li').click(function() {
-			var scrollPosition = $($(this).attr('data-target')).offset().top;
-			$('body, html').animate({
-				scrollTop : scrollPosition
-			}, 500); //animate
-		}); //click
-
-		$('#menuSpan .icon-bar').css('background', 'green');
-
-		$('#myNavbar li a').css({
-			'color' : 'black',
-			'font-weight' : 'bold'
-		}); //css
-
-		$('#myNavbar li a').hover(function() {
-			//상단 메뉴바 마우스 올려놨을 때
-			$(this).css({
-				'color' : 'green',
-				'background' : 'rgba(242, 242, 242, 0.5)'
-			}); //css
-
-		}, function() {
-			$(this).css({
-				'color' : 'black',
-				'background' : 'white'
-			}); //css
-		}); //hover
-
-		$('.dropdown-menu').css({
-			'margin-top' : '9px',
-			'min-width' : '12px',
-			'border-radius' : '2px'
-		}); //css
-	}); //ready
-</script>
- <script type="text/javascript" src="js/nav.js"></script>
 </head>
 <body>
-	<header>
-		<div class="container">
+	<header style="background-color:#FFFAE5;border-top: 7px solid transparent ;
+	border-bottom: 7px solid transparent ;
+	border-color: #f4ecc8; padding-bottom: 8px;">
+		<div class="container" >
 			<div class="navbar-header" style="margin-top: 15px">
 				<button type="button" class="navbar-toggle" id="menuSpan"
 					data-toggle="collapse" data-target="#myNavbar">
 					<span class="icon-bar"></span> <span class="icon-bar"
 						style="margin-top: 2px"></span> <span class="icon-bar"></span>
 				</button>
-				<a href="index.jsp"><img src="img/main_logo.png" width="150"></a>
+				<a href="index.jsp"><img src="img/main_logo2.png" width="150" height="47"></a>
 			</div>
 			<!-- navbar-header -->
 
@@ -271,8 +235,8 @@ tr td {
 
 				<ul class="nav navbar-nav navbar-right">
 					<li class="dropdown">
-		                  	<a class="dropdown-toggle" data-toggle="dropdown" href="#">
-		                     	<span class="glyphicon glyphicon-user">
+		                  	<a class="dropdown-toggle" data-toggle="dropdown" href="#" id="userMenu">
+		                     	<span class="glyphicon glyphicon-user white">
 		                     		<span class="caret" style="margin-left: 10px"></span>
 		                     	</span>
 		                  	</a>

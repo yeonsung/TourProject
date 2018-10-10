@@ -11,6 +11,7 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<link rel="stylesheet" href="css/style.css">
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	<link rel="stylesheet" href="css/nav.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
  	<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
  	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
@@ -60,79 +61,13 @@
 </script>
 <style>
 	a {text-decoration: none}
-	.contents{
-		padding-top: 80px;
-	}
-   	#header {
-      	/* border-bottom: 7px solid transparent;
-      	-moz-border-imag: -moz-linear-gradient(left, #BDDADA, #cedfed); 
-		-webkit-border-image: -webkit-linear-gradient(left, #BDDADA, #cedfed);
-      	border-image: linear-gradient(to right, #BDDADA, #cedfed);
-      	border-image-slice: 1;  *//* #BDDADA, #C8EAED */
-      	padding-bottom: 8px;
-      	font: 67.5% "Lucida Sans Unicode", "Bitstream Vera Sans", "Trebuchet Unicode MS", "Lucida Grande", Verdana, Helvetica, sans-serif;
-      	font-size: 14px;
-      	background-color: /* #0F6A8B; #F5EED2*/#FFFAE5;
-      	border-top: 7px solid transparent ;
-      	border-bottom: 7px solid transparent ;
-      	border-color: #f4ecc8
-   	}
-   
-   	.caret {
-      	margin-left: 10px
-   	}
+	
    	section,#tabs{
    		height:600px;
    	}
-   	.white{
-   		color: black;/* white */
-   	}
 </style>
 
-<script type="text/javascript">
-	$(function() {
-		//================================ menu ================================
-
-		$('#myNavbar>ul li').click(function() {
-			var scrollPosition = $($(this).attr('data-target')).offset().top;
-			$('body, html').animate({
-				scrollTop : scrollPosition
-			}, 500); //animate
-		}); //click
-
-		$('#menuSpan .icon-bar').css('background', 'white');
-
-		$('#myNavbar li a').css({
-			'color' : 'black',
-			'font-weight' : 'bold'
-		}); //css
-
-		$('#myNavbar li a').hover(function() {
-			//���� 硫��대� 留��곗�� �щ�ㅻ�⑥�� ��
-			$(this).css({
-				'color' : 'black'/* 'rgb(245, 238, 210)' */,/* rgb(15, 106, 139) */
-				'background' : 'rgba(244, 236, 200, 0.5)'/* 'rgba(242, 242, 242, 0.5)' */
-			}); //css
-
-		}, function() {
-			$(this).css({
-				'color' : 'black',
-				'background' : 'white'
-			}); //css
-			$('#userMenu').css({
-				'color' : 'black',
-				'background' : '#FFFAE5'/* 'rgb(245, 238, 210)' *//* 'rgb(15, 106, 139)' */
-			}); //css
-		}); //hover
-
-		$('.dropdown-menu').css({
-			'margin-top' : '9px',
-			'min-width' : '12px',
-			'border-radius' : '2px'
-		}); //css
-	}); //ready
-</script>
-
+<script type="text/javascript" src="js/nav.js"></script>
 </head>
 <body style="background-color: rgba(249, 248, 244, 0.5)/* #EEF4F2 */">
 

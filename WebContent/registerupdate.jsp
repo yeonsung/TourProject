@@ -11,6 +11,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <!-- Website Font style -->
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
+<link rel="stylesheet" href="css/nav.css">
 <script type="text/javascript">
 $(function() {
 	$('form').submit(function(event) {
@@ -50,25 +51,6 @@ $(function() {
     .btn-sm {
         padding: 7px 10px;
     }
-    
-    .contents{
-		padding-top: 80px;
-	}
-   	#header {
-      	border-bottom: 7px solid transparent;
-      	-moz-border-imag: -moz-linear-gradient(left, #BDDADA, #C8EAED); /* #CEF6EC #A4A4A4 #BDBDBD #AEB404*/
-		-webkit-border-image: -webkit-linear-gradient(left, #BDDADA, #C8EAED);
-      	border-image: linear-gradient(to right, #BDDADA, #C8EAED);
-      	border-image-slice: 1;
-      	margin-top: 8px;
-      	padding-bottom: 8px;
-      	font: 67.5% "Lucida Sans Unicode", "Bitstream Vera Sans", "Trebuchet Unicode MS", "Lucida Grande", Verdana, Helvetica, sans-serif;
-      	font-size: 14px;
-   	}
-   
-   	.caret {
-      	margin-left: 10px
-   	}
  </style>
  <script type="text/javascript" src="js/nav.js"></script>
 </head>
@@ -82,7 +64,7 @@ $(function() {
 	               		<span class="icon-bar" style="margin-top: 2px"></span>
 	               		<span class="icon-bar"></span>
             		</button>
-            		<a href="index.jsp"><img src="img/main_logo.png" width="150"></a>
+            		<a href="index.jsp"><img src="img/main_logo2.png" width="150"></a>
          		</div> <!-- navbar-header -->
          		
 	         	<div class="collapse navbar-collapse navbar-right" id="myNavbar" style="margin-top: 15px">
@@ -99,8 +81,8 @@ $(function() {
 	            	
 	            	<ul class="nav navbar-nav navbar-right">
 	               		<li class="dropdown">
-		                  	<a class="dropdown-toggle" data-toggle="dropdown" href="#">
-		                     	<span class="glyphicon glyphicon-user">
+		                  	<a class="dropdown-toggle" data-toggle="dropdown" href="#" id="userMenu">
+		                     	<span class="glyphicon glyphicon-user white">
 		                     		<span class="caret" style="margin-left: 10px"></span>
 		                     	</span>
 		                  	</a>
