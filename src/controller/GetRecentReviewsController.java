@@ -16,7 +16,7 @@ public class GetRecentReviewsController implements Controller {
 	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String tag;
 		if(request.getParameter("tag").equals(null))
-			 tag = "∏¿¡˝";
+			 tag = "¬∏√Ä√Å√Ω";
 		tag = request.getParameter("tag");
 		String pageNo = request.getParameter("PageNo");
 		ListVO rlist = ReviewService.getInstance().getRecentReviews(tag, pageNo);

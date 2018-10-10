@@ -13,11 +13,11 @@ var projection = d3.geo.mercator()
 var path = d3.geo.path()
     .projection(projection);
 
-var zoom = d3.behavior.zoom()
+/*var zoom = d3.behavior.zoom()
     .translate(projection.translate())
     .scale(projection.scale())
     .scaleExtent([height, 800 * height])
-    .on("zoom", zoom);
+    .on("zoom", zoom);*/
 
 var svg = d3.select("#container").append("svg")
     .attr("width", width)
