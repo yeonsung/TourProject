@@ -26,7 +26,6 @@ public class GoLocationPageController implements Controller {
 		ListVO relist = ReviewService.getInstance().getBestReviewByTag(location, "맛집",pageNo);
 		
 //		ListVO relist = ReviewService.getInstance().getBestReviewByTag(location, "留쏆쭛", pageNo);
-		// �쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾�쁾
 		request.setAttribute("clist", clist);
 		request.setAttribute("flist", flist);
 		request.setAttribute("location", location);

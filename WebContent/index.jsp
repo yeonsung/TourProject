@@ -92,6 +92,9 @@
    	#states path:hover {
 		fill:red;
 	}
+	#tabs a{
+		cursor:pointer;
+	}
 </style>
 
 <script type="text/javascript">
@@ -203,7 +206,7 @@
 
 			<section>
 				<nav id="tabs">
-					<h1 align="center">RECENT REVIEWS</h1>
+					<h1 align="center" style="cursor:default">RECENT REVIEWS</h1>
 					<ul>
 						<li><a href="javascript:void(0)">맛집</a></li>
 						<li><a href="javascript:void(0)">관광</a></li>
