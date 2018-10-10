@@ -31,19 +31,16 @@ section {
 }
 
 header {
-	border-bottom: 7px solid transparent;
-	-moz-border-imag: -moz-linear-gradient(left, DarkGreen, #64AB4C);
-	/* #CEF6EC #A4A4A4 #BDBDBD #AEB404*/
-	-webkit-border-image: -webkit-linear-gradient(left, DarkGreen, #64AB4C);
-	border-image: linear-gradient(to right, DarkGreen, #64AB4C);
-	border-image-slice: 1;
-	margin-top: 8px;
-	padding-bottom: 8px;
-	font: 67.5% "Lucida Sans Unicode", "Bitstream Vera Sans",
-		"Trebuchet Unicode MS", "Lucida Grande", Verdana, Helvetica,
-		sans-serif;
-	font-size: 14px;
-}
+      	border-bottom: 7px solid transparent;
+      	-moz-border-imag: -moz-linear-gradient(left, #BDDADA, #C8EAED); /* #CEF6EC #A4A4A4 #BDBDBD #AEB404*/
+		-webkit-border-image: -webkit-linear-gradient(left, #BDDADA, #C8EAED);
+      	border-image: linear-gradient(to right, #BDDADA, #C8EAED);
+      	border-image-slice: 1;
+      	margin-top: 8px;
+      	padding-bottom: 8px;
+      	font: 67.5% "Lucida Sans Unicode", "Bitstream Vera Sans", "Trebuchet Unicode MS", "Lucida Grande", Verdana, Helvetica, sans-serif;
+      	font-size: 14px;
+   	}
 
 .caret {
 	margin-left: 10px
@@ -243,7 +240,7 @@ tr td {
 		}); //css
 	}); //ready
 </script>
-
+ <script type="text/javascript" src="js/nav.js"></script>
 </head>
 <body>
 	<header>
@@ -260,7 +257,7 @@ tr td {
 
 			<div class="collapse navbar-collapse navbar-right" id="myNavbar"
 				style="margin-top: 15px">
-				<form class="navbar-form navbar-left" action="/action_page.php">
+				<form class="navbar-form navbar-left" action="getdata.do">
 					<div class="input-group">
 						<input type="text" class="form-control" placeholder="Search"
 							name="search" id="myInput">
@@ -275,7 +272,7 @@ tr td {
 				<ul class="nav navbar-nav navbar-right">
 					<li class="dropdown">
 		                  	<a class="dropdown-toggle" data-toggle="dropdown" href="#">
-		                     	<span class="glyphicon glyphicon-user text-success">
+		                     	<span class="glyphicon glyphicon-user">
 		                     		<span class="caret" style="margin-left: 10px"></span>
 		                     	</span>
 		                  	</a>

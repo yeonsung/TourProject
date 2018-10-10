@@ -64,15 +64,18 @@
 		padding-top: 80px;
 	}
    	#header {
-      	border-bottom: 7px solid transparent;
-      	-moz-border-imag: -moz-linear-gradient(left, DarkGreen, #64AB4C); /* #CEF6EC #A4A4A4 #BDBDBD #AEB404*/
-		-webkit-border-image: -webkit-linear-gradient(left, DarkGreen, #64AB4C);
-      	border-image: linear-gradient(to right, DarkGreen, #64AB4C);
-      	border-image-slice: 1;
-      	margin-top: 8px;
+      	/* border-bottom: 7px solid transparent;
+      	-moz-border-imag: -moz-linear-gradient(left, #BDDADA, #cedfed); 
+		-webkit-border-image: -webkit-linear-gradient(left, #BDDADA, #cedfed);
+      	border-image: linear-gradient(to right, #BDDADA, #cedfed);
+      	border-image-slice: 1;  *//* #BDDADA, #C8EAED */
       	padding-bottom: 8px;
       	font: 67.5% "Lucida Sans Unicode", "Bitstream Vera Sans", "Trebuchet Unicode MS", "Lucida Grande", Verdana, Helvetica, sans-serif;
       	font-size: 14px;
+      	background-color: /* #0F6A8B; #F5EED2*/#FFFAE5;
+      	border-top: 7px solid transparent ;
+      	border-bottom: 7px solid transparent ;
+      	border-color: #f4ecc8
    	}
    
    	.caret {
@@ -80,6 +83,9 @@
    	}
    	section,#tabs{
    		height:600px;
+   	}
+   	.white{
+   		color: black;/* white */
    	}
 </style>
 
@@ -94,7 +100,7 @@
 			}, 500); //animate
 		}); //click
 
-		$('#menuSpan .icon-bar').css('background', 'green');
+		$('#menuSpan .icon-bar').css('background', 'white');
 
 		$('#myNavbar li a').css({
 			'color' : 'black',
@@ -104,14 +110,18 @@
 		$('#myNavbar li a').hover(function() {
 			//���� 硫��대� 留��곗�� �щ�ㅻ�⑥�� ��
 			$(this).css({
-				'color' : 'green',
-				'background' : 'rgba(242, 242, 242, 0.5)'
+				'color' : 'black'/* 'rgb(245, 238, 210)' */,/* rgb(15, 106, 139) */
+				'background' : 'rgba(244, 236, 200, 0.5)'/* 'rgba(242, 242, 242, 0.5)' */
 			}); //css
 
 		}, function() {
 			$(this).css({
 				'color' : 'black',
 				'background' : 'white'
+			}); //css
+			$('#userMenu').css({
+				'color' : 'black',
+				'background' : '#FFFAE5'/* 'rgb(245, 238, 210)' *//* 'rgb(15, 106, 139)' */
 			}); //css
 		}); //hover
 
@@ -124,7 +134,7 @@
 </script>
 
 </head>
-<body>
+<body style="background-color: rgba(249, 248, 244, 0.5)/* #EEF4F2 */">
 
    	<nav class="navbar navbar-defalt navbar-fixed-top" style="background-color: #fff">
       	<div id="header"> 
@@ -135,11 +145,11 @@
 	               		<span class="icon-bar" style="margin-top: 2px"></span>
 	               		<span class="icon-bar"></span>
             		</button>
-            		<a href="index.jsp"><img src="img/main_logo.png" width="150"></a>
+            		<a href="index.jsp"><img src="img/main_logo2.png" width="150" height="47" style="background-color: #FFFAE5/* #0F6A8B  #F5EED2*/"></a>
          		</div> <!-- navbar-header -->
          		
 	         	<div class="collapse navbar-collapse navbar-right" id="myNavbar" style="margin-top: 15px">
-	            	<form class="navbar-form navbar-left" action="/action_page.php">
+	            	<form class="navbar-form navbar-left" action="getdata.do">
 	               		<div class="input-group">
 	                  		<input type="text" class="form-control" placeholder="Search" name="search" id="myInput">
 	                  		<div class="input-group-btn">
@@ -152,8 +162,8 @@
 	            	
 	            	<ul class="nav navbar-nav navbar-right">
 	               		<li class="dropdown">
-		                  	<a class="dropdown-toggle" data-toggle="dropdown" href="#">
-		                     	<span class="glyphicon glyphicon-user text-success">
+		                  	<a class="dropdown-toggle" data-toggle="dropdown" href="#" id="userMenu">
+		                     	<span class="glyphicon glyphicon-user white">
 		                     		<span class="caret" style="margin-left: 10px"></span>
 		                     	</span>
 		                  	</a>
@@ -186,7 +196,7 @@
 		<div id="line"></div>
 	</nav>
 	<div class="row">
-		<div class="col-lg-7">
+		<div class="col-lg-6">
 			<div id="container" style="display: inline-block; margin-top: 161px;"></div>
 		</div>
 		<div class="col-lg-4" style="margin-top:161px;">
@@ -215,6 +225,10 @@
 	</form>
 	<script src="js/script.js"></script>
    <div style="height: 100px"></div>
+   
+   <div style="background-color: #DDDDDD; margin-top: 20px; padding-top: 50px; padding-bottom: 50px">
+		<h2 align="center" style="color: gray">footer</h2>
+   </div>
 </body>
 
 </html>

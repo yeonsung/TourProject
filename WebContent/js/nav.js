@@ -8,7 +8,7 @@ $(function() {
     		}, 500); //animate
 		}); //click
 
-      	$('#menuSpan .icon-bar').css('background', 'green');
+      	$('#menuSpan .icon-bar').css('background', 'rgb(130, 163, 163)');
       
       	$('#myNavbar li a').css({
          	'color' : 'black',
@@ -18,7 +18,7 @@ $(function() {
       	$('#myNavbar li a').hover(function() { 
          	//상단 메뉴바 마우스 올려놨을 때
            	$(this).css({
-              	'color' : 'green',
+              	'color' : 'rgb(130, 163, 163)',
               	'background' : 'rgba(242, 242, 242, 0.5)'
            	}); //css
          

@@ -13,11 +13,11 @@ var projection = d3.geo.mercator()
 var path = d3.geo.path()
     .projection(projection);
 
-/*var zoom = d3.behavior.zoom()
+var zoom = d3.behavior.zoom()
     .translate(projection.translate())
     .scale(projection.scale())
     .scaleExtent([height, 800 * height])
-    .on("zoom", zoom);*/
+    .on("zoom", zoom);
 
 var svg = d3.select("#container").append("svg")
     .attr("width", width)
@@ -107,7 +107,7 @@ $('path').click(function(){
 
 
 // 踰꾪듉
-/*$('#zoomin').button({
+$('#zoomin').button({
   text: false,
   icons: {
     primary: "ui-icon-plus"
@@ -124,8 +124,8 @@ $('path').click(function(){
   states.selectAll("path").attr("d", path);
   
   labels.attr("transform", labelsTransform);
-});*/
-/*$('#zoomout').button({
+});
+$('#zoomout').button({
   text: false,
   icons: {
     primary: "ui-icon-minus"
@@ -143,7 +143,7 @@ $('path').click(function(){
   states.selectAll("path").attr("d", path);
   
   labels.attr("transform", labelsTransform);
-});*/
+});
       
 // 吏�紐낇몴��
 /*$('#radio').find('input').on('click', function() {

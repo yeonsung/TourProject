@@ -17,9 +17,9 @@
    
    #header {
       	border-bottom: 7px solid transparent;
-      	-moz-border-imag: -moz-linear-gradient(left, DarkGreen, #64AB4C);
-		-webkit-border-image: -webkit-linear-gradient(left, DarkGreen, #64AB4C);
-      	border-image: linear-gradient(to right, DarkGreen, #64AB4C);
+      	-moz-border-imag: -moz-linear-gradient(left, #BDDADA, #C8EAED); /* #CEF6EC #A4A4A4 #BDBDBD #AEB404*/
+		-webkit-border-image: -webkit-linear-gradient(left, #BDDADA, #C8EAED);
+      	border-image: linear-gradient(to right, #BDDADA, #C8EAED);
       	border-image-slice: 1;
       	margin-top: 8px;
       	padding-bottom: 8px;
@@ -62,7 +62,7 @@
 	            	<ul class="nav navbar-nav navbar-right">
 	               		<li class="dropdown">
 		                  	<a class="dropdown-toggle" data-toggle="dropdown" href="#">
-		                     	<span class="glyphicon glyphicon-user text-success">
+		                     	<span class="glyphicon glyphicon-user">
 		                     		<span class="caret" style="margin-left: 10px"></span>
 		                     	</span>
 		                  	</a>

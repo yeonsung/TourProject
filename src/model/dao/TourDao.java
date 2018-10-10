@@ -258,7 +258,7 @@ public class TourDao {
 			while (rs.next()) {
 				list.add(new FestivalVO(rs.getString("festival_Name"), rs.getString("festival_Location"),
 						rs.getString("location"), rs.getString("city"), rs.getString("start_Date"),
-						rs.getString("END_DATE"), rs.getString("agency"),rs.getString("img")));
+						rs.getString("END_DATE"), rs.getString("agency")));
 			}
 		} finally {
 			closeAll(rs, ps, conn);

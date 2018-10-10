@@ -94,12 +94,13 @@ h1 {
 }
 
 #map {
-	margin-left:50px;
+	margin-left:150px;
+	border-radius:50px;
 	/* border: 1px solid #ddd; */
 }
 
 .background {				/*지도 배경색 */
-  fill: #f7fcfd;
+  fill: #cae5f9 /* #EEF4F2 */;
   pointer-events: all;
 }
 
@@ -118,13 +119,13 @@ button.ui-button-icon-only {
 }
 
 #states path {			/*지도 색깔 	 */
-  fill: #ccece6;
+  fill: #f0ebe0/* rgba(87, 133, 156, 0.5)  #F5EED2  #FFFAE5*/; /* #7e9cb2, #cedfed, #f7fcfd, #80A4BE rgba(128, 164, 190, 0.5), #57859C rgba(87, 133, 156, 0.5) */
   stroke: #fff;
   stroke-width: 1.5px;
 }
 
 #states path:hover {
-  stroke: white;
+  fill: #FFFAE5/* #CCDACD */;
 }
 
 #states .active {

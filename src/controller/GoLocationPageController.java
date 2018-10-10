@@ -16,9 +16,9 @@ public class GoLocationPageController implements Controller {
 	@Override
 	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String pageNo = request.getParameter("pageNo");
-		String pathConstant = request.getParameter("location")
+		String location = request.getParameter("location")
 				.substring(request.getParameter("location").indexOf("-") + 1);
-		String location = getLocation(pathConstant);
+//		String location = getLocation(pathConstant);
 
 		ArrayList<FestivalVO> flist = TourDao.getInstance().getFestivalInfo(location);
 		ArrayList<String> clist = TourDao.getInstance().getCities(location);
@@ -32,7 +32,7 @@ public class GoLocationPageController implements Controller {
 		return new ModelAndView("v1.jsp");
 	}
 
-	public String getLocation(String pathConstant) {
+	/*public String getLocation(String pathConstant) {
 		switch(pathConstant) {
 		case "0": return "제주도";
 		case "1": return "경상남도";
@@ -52,5 +52,5 @@ public class GoLocationPageController implements Controller {
 		case "15": return "서울";
 		}
 		return null;
-	}
+	}*/
 }
