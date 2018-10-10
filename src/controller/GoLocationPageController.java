@@ -15,41 +15,23 @@ public class GoLocationPageController implements Controller {
 
 	@Override
 	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
 		String pageNo = request.getParameter("pageNo");
 		String location = request.getParameter("location")
 				.substring(request.getParameter("location").indexOf("-") + 1);
-//		String location = getLocation(pathConstant);
 
 		ArrayList<FestivalVO> flist = TourDao.getInstance().getFestivalInfo(location);
 		ArrayList<String> clist = TourDao.getInstance().getCities(location);
-		ListVO relist = ReviewService.getInstance().getBestReviewByTag(location, "∏¿¡˝",pageNo);
+		ListVO relist = ReviewService.getInstance().getBestReviewByTag(location, "ÎßõÏßë",pageNo);
 		
+//		ListVO relist = ReviewService.getInstance().getBestReviewByTag(location, "ÔßçÏèÜÏ≠õ", pageNo);
 		request.setAttribute("clist", clist);
 		request.setAttribute("flist", flist);
 		request.setAttribute("location", location);
-		request.setAttribute("relist", relist);
+//		request.setAttribute("relist", relist);
 		System.out.println(flist.size());
 		return new ModelAndView("v1.jsp");
 	}
-
-	/*public String getLocation(String pathConstant) {
-		switch(pathConstant) {
-		case "0": return "¡¶¡÷µµ";
-		case "1": return "∞ÊªÛ≥≤µµ";
-		case "2": return "∞ÊªÛ∫œµµ";
-		case "3": return "¿¸∂Û≥≤µµ";
-		case "4": return "¿¸∂Û∫œµµ";
-		case "5": return "√Ê√ª≥≤µµ";
-		case "6": return "√Ê√ª∫œµµ";
-		case "7": return "∞≠ø¯µµ";
-		case "8": return "∞Ê±‚µµ";
-		case "9": return "øÔªÍ";
-		case "10": return "¥Î¿¸";
-		case "11": return "±§¡÷";
-		case "12": return "¿Œ√µ";
-		case "13": return "¥Î±∏";
-		case "14": return "∫ŒªÍ";
-		case "15": return "º≠øÔ";
 		}
 		return null;
 	}*/

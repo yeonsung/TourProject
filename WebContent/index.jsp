@@ -19,23 +19,25 @@
 	<script type="text/javascript" src="js/nav.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script>
+
 	$(function() {
 		$("#tabs").tabs();
 		$.ajax({
-			type:"get",
-			url:"getRecentReviews.do",
-			data :"tag=맛집",
-			
-			success:function(data){
-				$('#tab-1').html(data);	
+			type : "get",
+			url : "getRecentReviews.do",
+			data : "tag=맛집",
+
+			success : function(data) {
+				$('#tab-1').html(data);
 				$('#tab-2').html("");
 				$('#tab-3').html("");
 			}
 		});
-		
+
 		$('#tabs a').click(function() {
 			var str = $(this).html();
 			$.ajax({
+
 				type:"get",
 				url:"getRecentReviews.do",
 				data :"tag="+str,
@@ -60,16 +62,24 @@
 	});
 </script>
 <style>
+
 	a {text-decoration: none}
 	
    	section,#tabs{
    		height:600px;
    	}
+   	#states path:hover {
+		fill:red;
+	}
+	#tabs a{
+		cursor:pointer;
+	}
 </style>
 
 <script type="text/javascript" src="js/nav.js"></script>
 </head>
 <body style="background-color: rgba(249, 248, 244, 0.5)/* #EEF4F2 */">
+
 
    	<nav class="navbar navbar-defalt navbar-fixed-top" style="background-color: #fff">
       	<div id="header"> 
@@ -138,7 +148,7 @@
 
 			<section>
 				<nav id="tabs">
-					<h1 align="center">RECENT REVIEWS</h1>
+					<h1 align="center" style="cursor:default">RECENT REVIEWS</h1>
 					<ul>
 						<li><a href="javascript:void(0)">맛집</a></li>
 						<li><a href="javascript:void(0)">관광</a></li>

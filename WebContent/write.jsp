@@ -79,23 +79,23 @@ function categoryChange(e) {
 	  var location_r = ["광역시/도를 먼저 선택해주세요."];
 	  var target = document.getElementById("location2");
 	 
-	  if(e.value == "1") var d = location_a;
-	  else if(e.value == "2") var d = location_b;
-	  else if(e.value == "3") var d = location_c;
-	  else if(e.value == "4") var d = location_d;
-	  else if(e.value == "5") var d = location_e;
-	  else if(e.value == "6") var d = location_f;
-	  else if(e.value == "7") var d = location_g;
-	  else if(e.value == "8") var d = location_h;
-	  else if(e.value == "9") var d = location_i;
+	  if(e.value == "서울") var d = location_a;
+	  else if(e.value == "인천") var d = location_b;
+	  else if(e.value == "대전") var d = location_c;
+	  else if(e.value == "대구") var d = location_d;
+	  else if(e.value == "광주") var d = location_e;
+	  else if(e.value == "울산") var d = location_f;
+	  else if(e.value == "부산") var d = location_g;
+	  else if(e.value == "경기도") var d = location_h;
+	  else if(e.value == "강원도") var d = location_i;
 	  else if(e.value == "10") var d = location_j;
-	  else if(e.value == "11") var d = location_k;
-	  else if(e.value == "12") var d = location_l;
-	  else if(e.value == "13") var d = location_m;
-	  else if(e.value == "14") var d = location_n;
-	  else if(e.value == "15") var d = location_o;
-	  else if(e.value == "16") var d = location_p;
-	  else if(e.value == "17") var d = location_q;
+	  else if(e.value == "충청북도") var d = location_k;
+	  else if(e.value == "충청남도") var d = location_l;
+	  else if(e.value == "전라북도") var d = location_m;
+	  else if(e.value == "전라남도") var d = location_n;
+	  else if(e.value == "경상북도") var d = location_o;
+	  else if(e.value == "경상남도") var d = location_p;
+	  else if(e.value == "제주도") var d = location_q;
 	  else if(e.value == "0") var d = location_r;
 	  target.options.length = 0;
 	 
@@ -250,23 +250,23 @@ function pasteHTML(filepath){
 		<td>	
 			<select id="selectBox" name="loaction" style="width:180px;" onchange="categoryChange(this)" required="required">
 				<option value="0">광역시/도</option>
-            	<option value="1">서울특별시</option>
-            	<option value="2">인천광역시</option>
-            	<option value="3">대전광역시</option>
-            	<option value="4">대구광역시</option>
-            	<option value="5">광주광역시</option>
-            	<option value="6">울산광역시</option>
-            	<option value="7">부산광역시</option>
-            	<option value="8">경기도</option>
-            	<option value="9">강원도</option>
+            	<option value="서울">서울특별시</option>
+            	<option value="인천">인천광역시</option>
+            	<option value="대전">대전광역시</option>
+            	<option value="대구">대구광역시</option>
+            	<option value="광주">광주광역시</option>
+            	<option value="울산">울산광역시</option>
+            	<option value="부산">부산광역시</option>
+            	<option value="경기도">경기도</option>
+            	<option value="강원도">강원도</option>
             	<option value="10">세종특별자치시</option>
-            	<option value="11">충청북도</option>
-            	<option value="12">충청남도</option>
-            	<option value="13">전라북도</option>
-            	<option value="14">전라남도</option>
-            	<option value="15">경상북도</option>
-            	<option value="16">경상남도</option>
-            	<option value="17">제주특별자치도</option>
+            	<option value="충청북도">충청북도</option>
+            	<option value="충청남도">충청남도</option>
+            	<option value="전라북도">전라북도</option>
+            	<option value="전라남도">전라남도</option>
+            	<option value="경상북도">경상북도</option>
+            	<option value="경상남도">경상남도</option>
+            	<option value="제주도">제주특별자치도</option>
            	</select>
         </td>
         <td align="center"> 	
