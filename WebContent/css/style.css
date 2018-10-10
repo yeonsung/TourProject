@@ -77,10 +77,11 @@ h1 {
 #map {
 	margin-left:50px;
 	/* border: 1px solid #ddd; */
+	
 }
 
 .background {				/*���� ���� */
-  fill: #f7fcfd;
+  fill: #80ffff;
   pointer-events: all;
 }
 

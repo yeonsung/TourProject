@@ -1,5 +1,6 @@
 package model.dao;
 
+import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -8,6 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import config.OracleInfo;
+import controller.CheckReviewController;
 import model.vo.AttractionVO;
 import model.vo.CommentVO;
 import model.vo.FestivalVO;
@@ -108,7 +110,7 @@ public class TourDao {
 		return num;
 	}
 	
-	public ArrayList<ReviewVO> getRecentReviews(String tag, int pn) throws SQLException{		//index review list
+	public ArrayList<ReviewVO> getRecentReviews(String tag) throws SQLException{		//index review list
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -117,7 +119,7 @@ public class TourDao {
 			conn = getConnect();
 			ps = conn.prepareStatement(ReviewStringQuery.GET_RECENT_REVIEWS_BY_TAG);
 			ps.setString(1, tag);
-			ps.setInt(2, pn);
+	//		ps.setInt(2, pn);
 			rs = ps.executeQuery();
 			while(rs.next()) {
 				rlist.add(new ReviewVO(rs.getInt("review_num"),
@@ -239,6 +241,8 @@ public class TourDao {
 				list.get(i).setTags(tags);
 				ArrayList<String> img = getImages(list.get(i).getReviewNum(), conn);
 				list.get(i).setImages(img);
+				if(img.size()!=0)
+					list.get(i).setMainImage(img.get(0));
 			} // for
 		} finally {
 			closeAll(rs, ps, conn);
@@ -261,7 +265,7 @@ public class TourDao {
 			while (rs.next()) {
 				list.add(new FestivalVO(rs.getString("festival_Name"), rs.getString("festival_Location"),
 						rs.getString("location"), rs.getString("city"), rs.getString("start_Date"),
-						rs.getString("END_DATE"), rs.getString("agency")));
+						rs.getString("END_DATE"), rs.getString("agency"),rs.getString("img")));
 			}
 		} finally {
 			closeAll(rs, ps, conn);
@@ -575,6 +579,8 @@ public class TourDao {
 			closeAll(ps, conn);
 		}
 	}
+	
+	
 	
 	public ArrayList<AttractionVO> getData(String tag) throws SQLException{
 		ArrayList<AttractionVO> list = new ArrayList<AttractionVO>();
@@ -939,8 +945,16 @@ public class TourDao {
 		}
 		return vo;
 	}
-
+	public void deleteImage(String img) throws SQLException{
+		System.out.println("img url : "+img);
+		File file = new File("C:\\yjk\\webPro2\\eclipse\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps"+img);
+		System.out.println(file.delete()); 
+	}
 	public static void main(String[] args) throws SQLException { // 단위테스트
+		
+		ReviewVO vo = TourDao.getInstance().checkReview(36);
+		System.out.println(vo.getImages());
+		TourDao.getInstance().deleteImage(vo.getImages().get(0));
 		/*
 		 * ArrayList<ReviewVO> vo = new ArrayList<ReviewVO>(); vo =
 		 * TourDao.getInstance().getScrapList("yun"); for(ReviewVO r : vo) {

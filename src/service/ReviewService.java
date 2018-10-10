@@ -43,15 +43,15 @@ public class ReviewService {
 		return new ListVO(list, pb); 
 	}
 	
-	public ListVO getRecentReviews(String tag, String pageNo) throws SQLException{
+	public ArrayList<ReviewVO> getRecentReviews(String tag) throws SQLException{
 	      int pn = 0;
-	      if(pageNo==null) pn=1;
-	      else pn = Integer.parseInt(pageNo);
+	//      if(pageNo==null) pn=1;
+	//      else pn = Integer.parseInt(pageNo);
 	      
-	      ArrayList<ReviewVO> list = dao.getRecentReviews(tag, pn);
-	      int total = dao.getTotalReview();
-	      PagingBean pb = new PagingBean(total, pn);
-	      return new ListVO(list,pb);
+	      ArrayList<ReviewVO> list = dao.getRecentReviews(tag);
+//	      int total = dao.getTotalReview();
+//	      PagingBean pb = new PagingBean(total, pn);
+	      return list;
 	   }
 
 	

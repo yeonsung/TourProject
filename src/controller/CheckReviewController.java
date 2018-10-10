@@ -15,7 +15,7 @@ public class CheckReviewController implements Controller{
 		ReviewVO rvo=TourDao.getInstance().checkReview(reviewNum);
 		
 		request.setAttribute("rvo", rvo);
-		
+		request.setAttribute("imgNum", rvo.getImages().size()+"");
 		
 		return new ModelAndView("checkReview.jsp");
 	}

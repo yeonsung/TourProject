@@ -114,7 +114,9 @@
 			'font-weight' : 'bold'
 		}); //css
 
-		
+		$('#states text').hover(function(){
+			alert($(this).attr('id'));
+		});
 		$('#myNavbar li a').hover(function() {
 			$(this).css({
 				'color' : 'green',
