@@ -24,7 +24,6 @@ public class GoLocationPageController implements Controller {
 		ArrayList<String> clist = TourDao.getInstance().getCities(location);
 		ListVO relist = ReviewService.getInstance().getBestReviewByTag(location, "맛집",pageNo);
 		
-//		ListVO relist = ReviewService.getInstance().getBestReviewByTag(location, "留쏆쭛", pageNo);
 		request.setAttribute("clist", clist);
 		request.setAttribute("flist", flist);
 		request.setAttribute("location", location);
@@ -32,4 +31,4 @@ public class GoLocationPageController implements Controller {
 		System.out.println(flist.size());
 		return new ModelAndView("v1.jsp");
 	}
-}
+

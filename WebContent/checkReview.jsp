@@ -7,11 +7,11 @@
 <head>
 <meta charset="utf-8">
 <title>CSS Website Layout</title>
+
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -116,6 +116,16 @@ body {
 	}
 }
 
+section {
+	height: auto;
+}
+
+section:after {
+	content: "";
+	display: table;
+	clear: both;
+}
+
 .main {
 	width: 100%;
 	float: left;
@@ -131,12 +141,6 @@ body {
 	margin-right: 15%;
 	box-sizing: border-box;
 }
-
-.img {
-	width: 350px;
-	height: 300px;
-}
-/* likes,scrap button */
 
 /* Style the footer */
 .footer {
@@ -166,10 +170,20 @@ body {
 	margin-left: 10px
 }
 </style>
-
+<script type="text/javascript">
+	$(function() {
+		$('button[value=modify]').click(function(){
+		 	alert("수정 누르셨다.");
+		});//click
+		$('button[value=delete]').click(function(){
+		 	alert("삭제 누르셨다.");
+		});//click
+	});//ready
+</script>
 
 </head>
 <body>
+
 	<div id="header">
 		<div class="container">
 			<div class="navbar-header" style="margin-top: 15px">
@@ -243,9 +257,6 @@ body {
 		<div class="row">
 			<div class="main">
 				${rvo.content} <br>
-				<!--   곱창전골은 전골류의 한국 요리로, 소나 돼지의 내장과 여러가지 채소를 육수와 함께 끓여낸 음식이다. <br>
-    곱창이란 소나 돼지의 작은 창자를 의미한다. 곱창전골은 곱창이 주재료이지만, 다른 부위의 내장도 많이 사용되어 내장<br>
-     특유의 쫄깃한 식감으로 곱창전골의 맛을 더욱 풍부하게 한다. -->
 				<div class="carousel">
 					<figure>
 						<c:forEach items="${rvo.images}" var="vo">
@@ -263,6 +274,16 @@ body {
 					<li class="checkbox star"></li>
 				</ul>
 			</div>
+			<div>
+				<c:set var="rid" value="${rvo.id}" />
+				<c:set var="ide" value="${vo.id}" />
+				<c:choose>
+					<c:when test="${rid==ide}">
+						<button style="float: right;" type="button" value="modify">수정</button>&nbsp;
+						<button style="float: right;" type="button" value="delete">삭제</button>
+					</c:when>
+				</c:choose>
+			</div>
 		</div>
 
 		<hr>
@@ -276,17 +297,15 @@ body {
 
 		</div>
 
-
 		<div class="footer">
 			<p>관련글(카테고리)</p>
 
 		</div>
 	</div>
 
-
-
-	<script
-		src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+	<!-- <script
+		src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script> -->
 	<script src="js/rc.js"></script>
+	<script src="js/nav.js"></script>
 </body>
 </html>

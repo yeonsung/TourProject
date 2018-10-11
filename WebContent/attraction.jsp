@@ -1,3 +1,5 @@
+
+
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -135,14 +137,14 @@ text-align:center;
  <div class="grid">
  <div class="grid-sizer">
   <c:forEach items="${avo}" var ="avo">
-<%--  <c:forEach items="${avo.images}" var ="vo">
- --%>	<div class="grid-item">
+ <c:forEach items="${avo.images}" var ="vo">
+	<div class="grid-item">
 		<a href=#>
 
 		<img src="${avo.mainImage}"/>
 		</a>
 	</div>
-<%-- </c:forEach> --%>
+</c:forEach>
 </c:forEach>
 </div>
  </div> 
