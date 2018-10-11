@@ -20,17 +20,17 @@ public class GetAttractionController implements Controller {
 	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String city = request.getParameter("city");
 		String pageNo = request.getParameter("pageNo");
-
 		String location = request.getParameter("location");
-		String tag = request.getParameter("tag");
-		ListVO blist = ReviewService.getInstance().getBestReviewByTag(location, tag, pageNo);
-		ListVO cblist = ReviewService.getInstance().getBestReviewByTagCity(city, tag, pageNo);
+		
 		ArrayList<AttractionVO> avo = TourDao.getInstance().getAttraction(city);
-		request.setAttribute("blist", blist);
-		request.setAttribute("cblist", cblist);
+		/*
+		request.setAttribute("pageNo", pageNo);
+		*/
 		request.setAttribute("avo", avo);
+		request.setAttribute("city", city);
+		request.setAttribute("location", location);
 
-		return new ModelAndView("attraction.jsp");
+		return new ModelAndView("attraction2.jsp");
 	}
 
 }

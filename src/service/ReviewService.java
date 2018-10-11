@@ -43,12 +43,12 @@ public class ReviewService {
 		return new ListVO(list, pb); 
 	}
 	
-	public ListVO getBestReviewByTagCity(String city, String tag, String pageNo) throws SQLException{
+	public ListVO getBestReviewCityByTag(String location, String city, String tag, String pageNo) throws SQLException{
 		int pn = 0;
 		if(pageNo==null) pn=1;
 		else pn = Integer.parseInt(pageNo);
 		
-		ArrayList<ReviewVO> list = dao.getBestReviewByTagCity(city, tag, pn);
+		ArrayList<ReviewVO> list = dao.getBestReviewByTagCity(location, city, tag, pn);
 		int total = dao.totalReviewNumber();
 		PagingBean pb = new PagingBean(total, pn);
 

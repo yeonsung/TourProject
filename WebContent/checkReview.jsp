@@ -8,14 +8,20 @@
 <meta charset="utf-8">
 <title>CSS Website Layout</title>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
-<link rel='stylesheet' href='http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css'>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+<link rel='stylesheet'
+	href='http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css'>
 <link rel="stylesheet" href="css/checkReviewStyle.css">
-<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>
+<link rel='stylesheet'
+	href='https://fonts.googleapis.com/css?family=Roboto'>
 <link rel="stylesheet" href="css/rc.css">
 
 
@@ -57,7 +63,7 @@ body {
 	width: 50%;
 }
 
-	/* Clear floats after the columns */ 
+/* Clear floats after the columns */
 .row:before {
 	content: "";
 	display: table;
@@ -78,14 +84,17 @@ body {
 		width: 100%;
 	}
 }
+
 section {
 	height: auto;
 }
+
 section:after {
 	content: "";
 	display: table;
 	clear: both;
 }
+
 .main {
 	width: 100%;
 	float: left;
@@ -109,6 +118,14 @@ section:after {
 }
 </style>
 <script type="text/javascript">
+	$(function() {
+		$('button[value=modify]').click(function(){
+		 	alert("수정 누르셨다.");
+		});//click
+		$('button[value=delete]').click(function(){
+		 	alert("삭제 누르셨다.");
+		});//click
+	});//ready
 	$(function() {
 		//================================ menu ================================
 		$('#myNavbar>ul li').click(function() {
@@ -218,52 +235,64 @@ section:after {
 	</nav>
 
 
-		<div class="maincontent" style="margin-top:150px">
-			<div class="topnav2">
-				<h1>${rvo.title}</h1>
-				<h5 align="right" class="title">글번호 :: ${rvo.reviewNum}&nbsp;&nbsp;</h3>
-			</div>
-			<hr>
-			작성자::${rvo.id} 작성일시::${rvo.date} 좋아요::${rvo.like}
-			<hr>
-			<div class="row">
-				<div class="main">
-					${rvo.content} <br>
-					<div class="carousel">
-						<figure>
-							<c:forEach items="${rvo.images}" var="vo">
-								<img src="${vo}" class="img">
-							</c:forEach>
-						</figure>
-						<nav>
-							<button class="nav prev">Prev</button>
-							<button class="nav next">Next</button>
-						</nav>
-					</div>
-					<ul class="choice-list">
-						<li class="checkbox check"></li>
-						<li class="checkbox heart is-checked"></li>
-						<li class="checkbox star"></li>
-					</ul>
+	<div class="maincontent" style="margin-top: 150px">
+		<div class="topnav2">
+			<h1>${rvo.title}</h1>
+			<h5 align="right" class="title">
+				글번호 :: ${rvo.reviewNum}&nbsp;&nbsp;
+				</h3>
+		</div>
+		<hr>
+		작성자::${rvo.id} 작성일시::${rvo.date} 좋아요::${rvo.like}
+		<hr>
+		<div class="row">
+			<div class="main">
+				${rvo.content} <br>
+				<div class="carousel">
+					<figure>
+						<c:forEach items="${rvo.images}" var="vo">
+							<img src="${vo}" class="img">
+						</c:forEach>
+					</figure>
+					<nav>
+						<button class="nav prev">Prev</button>
+						<button class="nav next">Next</button>
+					</nav>
 				</div>
+				<ul class="choice-list">
+					<li class="checkbox check"></li>
+					<li class="checkbox heart is-checked"></li>
+					<li class="checkbox star"></li>
+				</ul>
 			</div>
-
-			<hr>
-			<div class="row">
-				<h3>댓글</h3>
-				<hr>
-				<c:forEach items="${rvo.comments}" var="cvo">
-작성자:: ${cvo.id}    |  ${cvo.comment}<hr>
-					<br>
-				</c:forEach>
-
-			</div>
-
-			<div class="footer">
-				<p>관련글(카테고리)</p>
-
+			<div>
+				<c:set var="rid" value="${rvo.id}" />
+				<c:set var="ide" value="${vo.id}" />
+				<c:choose>
+					<c:when test="${rid==ide}">
+						<button style="float: right;" type="button" value="modify">수정</button>&nbsp;
+						<button style="float: right;" type="button" value="delete">삭제</button>
+					</c:when>
+				</c:choose>
 			</div>
 		</div>
+
+		<hr>
+		<div class="row">
+			<h3>댓글</h3>
+			<hr>
+			<c:forEach items="${rvo.comments}" var="cvo">
+작성자:: ${cvo.id}    |  ${cvo.comment}<hr>
+				<br>
+			</c:forEach>
+
+		</div>
+
+		<div class="footer">
+			<p>관련글(카테고리)</p>
+
+		</div>
+	</div>
 
 	<!-- <script
 		src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script> -->

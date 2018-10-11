@@ -48,8 +48,9 @@ public class HandlerMapping {
 			return new GetRecentReviewsController();
 		case "checkReview.do":
 			return new CheckReviewController();
+		case "getBestReviewCityBytag.do":
+			return new GetBestReviewCityBytagController();
 		}
-		
 		return null;
 	}
 }

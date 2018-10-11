@@ -16,12 +16,9 @@
 
 <body>
 	<table align="center">
-		<c:forEach var="vo" items="${relist.list}">
+		<c:forEach var="vo" items="${cblist.list}">
 			<tr>
-				<td><img src=${vo.mainImage}><br></td>
-			</tr>
-			<tr>
-				<td style="font-size: 20px;"><a href="getAttraction.do?city=${vo.city}">${vo.city}</a></td>
+				<td><img src="${vo.mainImage}"><br></td>
 			</tr>
 			<tr>
 				<td style="font-size: 20px;"><b><a href="checkReview.do?num=${vo.reviewNum}">${vo.title}</a></b></a></td>

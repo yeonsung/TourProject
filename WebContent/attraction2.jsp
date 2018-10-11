@@ -22,11 +22,6 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 <style>
- #carousel_con {
-	width: 600px;
-	height: 350px;
-} 
-
 .contents {
 	padding-top: 80px;
 }
@@ -52,13 +47,6 @@ header {
 
 .caret {
 	margin-left: 10px
-}
-
-.carousel-inner>.item>img {
-	top: 0;
-	left: 0%;
-	min-width: 360px;
-	min-height: 200px;
 }
 
 * {
@@ -144,6 +132,78 @@ tr td {
 	width: 100%;
 	height: auto;
 }
+
+{
+box-sizing
+
+
+:
+
+ 
+
+border-box
+
+
+;
+}
+/* force scrollbar */
+html {
+	overflow-y: scroll;
+}
+
+s
+body {
+	font-family: sans-serif;
+}
+/* ---- grid ---- */
+.grid {
+	background: #fff;
+}
+/* clear fix */
+.grid:after {
+	content: '';
+	display: block;
+	clear: both;
+}
+/* ---- .grid-item ---- */
+.grid-sizer, .grid-item {
+	width: 20%;
+	margin: 2%;
+}
+
+.grid-item {
+	float: left;
+}
+
+.grid-item img {
+	display: block;
+	max-width: 100%;
+}
+
+.grid-item :hover {
+	opacity: 0.3;
+}
+/*=================================================  */
+.main {
+	text-align: center;
+}
+
+#img :hover {
+	opacity: 0.3;
+}
+
+#img {
+	width: 250px;
+	height: 182px;
+}
+
+.hashtag:before {
+	content: "#";
+}
+
+#content {
+	text-align: center;
+}
 </style>
 <script>
 	var count = 1;
@@ -153,10 +213,10 @@ tr td {
 		count += 1;
 		$.ajax({
 			type : "get",
-			url : "getBestReviewBytag.do",
+			url : "getBestReviewCityBytag.do",
 			data : {
-				"location" : "${location}",
-				"tag" : $('#distinguish').html(),
+/* 				"cblist" : "${cblist}",
+ */				"tag" : "맛집",
 				"pageNo" : count,
 				"size" : $('#listSize').html()
 			//더보기 누르기 전의 갯수.
@@ -171,14 +231,19 @@ tr td {
 		});//ajax 
 	}
 	$(function() {
+		var city = "${city}";
+		var location = "${location}";
+		var pageNo = "${pageNo}";
 		$("#tabs").tabs();
 
 		$.ajax({
 			type : "get",
-			url : "getBestReviewBytag.do",
+			url : "getBestReviewCityBytag.do",
 			data : {
-				"location" : "${location}",
-				"tag" : "맛집"
+				"tag" : "맛집",
+				"city" : city,
+				"location" : location,
+				"pageNo" : count
 			},
 
 			success : function(data) {
@@ -189,18 +254,16 @@ tr td {
 			}//callback
 		});//ajax
 
-		$('#thatdiv div:eq(0)').addClass('active');
-
 		$('nav a').click(function() {
 			var str = $(this).html();
 			var loca = {
-				"location" : "${location}",
+	//			"cblist" : "${cblist}",
 				"tag" : str
 			};
 
 			$.ajax({
 				type : "get",
-				url : "getBestReviewBytag.do",
+				url : "getBestReviewCityBytag.do",
 				data : loca,
 
 				success : function(data) {
@@ -349,49 +412,75 @@ tr td {
 		</nav>
 
 		<article>
-			<p>
-			<h1 align="center" style="margin-bottom: 30px">${requestScope.location}</h1>
-			<div class="container" id="carousel_con">
-				<div id="myCarousel" class="carousel slide" data-ride="carousel">
+			<%-- 	<c:set var="cblist" value="${cblist.list}"/>  --%>
+			<div style="margin-left: 20%">
 
-					<!-- Wrapper for slides -->
-					<div class="carousel-inner" id="thatdiv">
-						<c:forEach var="festivalVO" items="${flist}">
-							<c:if test="${festivalVO.img ne null}">
-								<div class="item">
-									<img src="${festivalVO.img}" style="width:600px; height:350px;s"class="image">
-									<div class="overlay">
-										<div class="text">${festivalVO.location}<br>${festivalVO.city}<br>${festivalVO.festivalName}<br>${festivalVO.startDate}부터<br>${festivalVO.endDate}까지</div>
-									</div>
-								</div>
-							</c:if>
-						</c:forEach>
+				<div class="w3-container w3-dark-grey">
+					<h1 class="main">${avo[0].city}</h1>
+				</div>
+				<div class="grid">
+					<div class="grid-sizer"></div>
+
+					<div class="grid-item">
+						<a href=#> <img
+							src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/orange-tree.jpg" />
+						</a>
 					</div>
 
-					<!-- Left and right controls -->
-					<a class="left carousel-control" href="#myCarousel"
-						data-slide="prev"> <span
-						class="glyphicon glyphicon-chevron-left"></span> <span
-						class="sr-only">Previous</span>
-					</a> <a class="right carousel-control" href="#myCarousel"
-						data-slide="next"> <span
-						class="glyphicon glyphicon-chevron-right"></span> <span
-						class="sr-only">Next</span>
-					</a>
-				</div>
-			</div>
-			<br> <br>
-			<table>
-				<c:forEach var="vo" items="${clist}" step="1" varStatus="status">
-					<font size="5px;"> <a href="getAttraction.do?city=${vo}"
-						style="color: gray; margin-bottom: 5px">${vo}</a>&nbsp; <c:if
-							test="${status.count%4 eq 0}">
-							<br />
-							<br />
-						</c:if></font>
+					<div class="grid-item">
+						<a href=#> <img
+							src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/submerged.jpg" />
+						</a>
+					</div>
+					<div class="grid-item">
+						<a href=#> <img
+							src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/look-out.jpg" />
+						</a>
+					</div>
+					<div class="grid-item">
+						<a href=#> <img
+							src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/one-world-trade.jpg" />
+						</a>
+					</div>
+					<div class="grid-item">
+						<a href=#> <img
+							src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/drizzle.jpg" />
+						</a>
+					</div>
+					<div class="grid-item">
+						<a href=#> <img
+							src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/cat-nose.jpg" />
+						</a>
+					</div>
+					<div class="grid-item">
+						<a href=#> <img
+							src="https://static1.squarespace.com/static/554b5e7ce4b0149371f10a93/59775c56f9a61e6bb7e5db1f/59775cacd1758e6e542b9ff5/1502706803981/performance.jpg?format=500w" />
+						</a>
+					</div>
+					<div class="grid-item">
+						<a href=#> <img
+							src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/contrail.jpg" />
+						</a>
+					</div>
+					<div class="grid-item">
+						<a href=#> <img
+							src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/golden-hour.jpg" />
+						</a>
+					</div>
+					<div class="grid-item">
+						<a href=#> <img
+							src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/flight-formation.jpg" />
+						</a>
+					</div>
 
-				</c:forEach>
-			</table>
+					<div class="grid-item">
+						<a href=#> <img
+							src="https://static1.squarespace.com/static/554b5e7ce4b0149371f10a93/59775c56f9a61e6bb7e5db1f/59775cfdd482e9a886609de9/1502706746778/clienia+premium.jpg?format=500w" />
+						</a>
+					</div>
+				</div>
+
+			</div>
 		</article>
 	</section>
 </body>

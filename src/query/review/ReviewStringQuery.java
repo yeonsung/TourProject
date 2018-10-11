@@ -61,7 +61,7 @@ public interface ReviewStringQuery {
 			+ "WHERE page<=?";
 	
 	String GET_BESTREVIEW_BY_TAG_CITY = "SELECT * FROM " + "(SELECT review_num,title,ceil(rownum/3) page FROM ("
-			+ "SELECT review_num,title FROM (SELECT * FROM review WHERE review_num IN ((SELECT review_num from tag WHERE word=?)) AND city=?) ORDER BY likes desc))"
+			+ "SELECT review_num,title FROM (SELECT * FROM review WHERE review_num IN ((SELECT review_num from tag WHERE word=?)) AND city =? AND location=?) ORDER BY likes desc))"
 			+ "WHERE page<=?";
 	
 	String TOTAL_REVIEW_COUNT = "select count(-1) from review";

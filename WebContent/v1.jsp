@@ -22,10 +22,10 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 <style>
- #carousel_con {
+#carousel_con {
 	width: 600px;
 	height: 350px;
-} 
+}
 
 .contents {
 	padding-top: 80px;
@@ -66,6 +66,7 @@ header {
 }
 
 body {
+background-color:DFE8E4;
 	font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -167,9 +168,9 @@ tr td {
 				$('#tab-2').html("");
 				$('#tab-3').html("");
 			}//callback
-
 		});//ajax 
 	}
+	
 	$(function() {
 		$("#tabs").tabs();
 
@@ -350,7 +351,7 @@ tr td {
 
 		<article>
 			<p>
-			<h1 align="center" style="margin-bottom: 30px">${requestScope.location}</h1>
+			<h1 align="center" style="margin-bottom: 30px; color:rgb(116,191,237); font-weight: bold;">${requestScope.location}</h1>
 			<div class="container" id="carousel_con">
 				<div id="myCarousel" class="carousel slide" data-ride="carousel">
 
@@ -359,7 +360,8 @@ tr td {
 						<c:forEach var="festivalVO" items="${flist}">
 							<c:if test="${festivalVO.img ne null}">
 								<div class="item">
-									<img src="${festivalVO.img}" style="width:600px; height:350px;s"class="image">
+									<img src="${festivalVO.img}"
+										style="width: 600px; height: 350px;" class="image">
 									<div class="overlay">
 										<div class="text">${festivalVO.location}<br>${festivalVO.city}<br>${festivalVO.festivalName}<br>${festivalVO.startDate}부터<br>${festivalVO.endDate}까지</div>
 									</div>
@@ -381,18 +383,30 @@ tr td {
 				</div>
 			</div>
 			<br> <br>
-			<table>
-				<c:forEach var="vo" items="${clist}" step="1" varStatus="status">
-					<font size="5px;"> <a href="getAttraction.do?city=${vo}"
-						style="color: gray; margin-bottom: 5px">${vo}</a>&nbsp; <c:if
-							test="${status.count%4 eq 0}">
-							<br />
-							<br />
-						</c:if></font>
 
-				</c:forEach>
-			</table>
+			<!-- City List -->
+			<!-- City List -->
+			<!-- City List -->
+			<!-- City List -->
+			<!-- City List -->
+			<!-- City List -->
+			<!-- City List -->
+
+			<c:forEach items="${clist}" var="rList">
+
+				<div align="center" class="col-sm-2">
+					<hr>
+					<br><a style="font-size: 25px; color: rgb(116,191,237); text-decoration:none; font-weight: bold;"
+						href="getAttraction.do?city=${rList}&&location=${requestScope.location}">${rList}</a><br>
+					<br>
+				</div>
+			</c:forEach>
+			<hr>
+			<br> <br>
+
+
 		</article>
 	</section>
+	<footer></footer>
 </body>
 </html>

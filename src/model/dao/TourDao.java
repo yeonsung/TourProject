@@ -205,7 +205,7 @@ public class TourDao {
 		return list;
 	}// getBestReview
 
-	public ArrayList<ReviewVO> getBestReviewByTagCity(String city, String tag, int pageNO) throws SQLException { // v1
+	public ArrayList<ReviewVO> getBestReviewByTagCity(String location, String city, String tag, int pageNO) throws SQLException { // v1
 		// review
 		// list
 		Connection conn = null;
@@ -220,7 +220,8 @@ public class TourDao {
 
 			ps.setString(1, tag);
 			ps.setString(2, city);
-			ps.setInt(3, pageNO);
+			ps.setString(3, location);
+			ps.setInt(4, pageNO);
 
 			rs = ps.executeQuery();
 			while (rs.next()) {
