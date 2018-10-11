@@ -37,6 +37,8 @@ public class WriteController implements Controller {
 				tags.add(categorys[i]);
 			}	
 		}
+		tags.add(location);
+		tags.add(city);
 		rvo.setTags(tags);
 		TourDao.getInstance().writeTag(rvo.getReviewNum(), tags);
 		

@@ -38,6 +38,8 @@ public class HandlerMapping {
 			return new RegisterUpdateController();
 		case "logout.do":
 			return new LogoutController();
+		case "findidpass.do":
+			return new FindIdPassController();
 		case "getdata.do":
 			return new GetDataController();
 		case "relatedreview.do":
@@ -46,7 +48,7 @@ public class HandlerMapping {
 			return new GetAttractionController();
 		case "getRecentReviews.do":
 			return new GetRecentReviewsController();
-		case "checkReview.do":
+		case "checkReview.do":	//command
 			return new CheckReviewController();
 		case "getBestReviewCityBytag.do":
 			return new GetBestReviewCityBytagController();

@@ -1,4 +1,4 @@
-CREATE TABLE scrap(id VARCHAR2(30),
+CREATE TABLE scrap(id VARCHAR2(50),
 		   review_num NUMBER,
 		   CONSTRAINT FK_MEMBERS2 FOREIGN KEY (ID) REFERENCES member(id) on delete cascade,
 		   CONSTRAINT FK_REVIEWS2 FOREIGN KEY (review_num) REFERENCES review(review_num) on delete cascade);

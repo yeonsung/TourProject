@@ -40,7 +40,7 @@ body {
   position: absolute;
   left: 0;
   top: 0;
-  -webkit-transform-origin: 50% 50% -482.8427124746px;
+  -webkit-transform-origin: 50% 50% -482.8427124746px; 
           transform-origin: 50% 50% -482.8427124746px;
 }
 .carousel figure img:nth-child(2) {
