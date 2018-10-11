@@ -9,7 +9,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import config.OracleInfo;
-import controller.CheckReviewController;
 import model.vo.AttractionVO;
 import model.vo.CommentVO;
 import model.vo.FestivalVO;
@@ -162,10 +161,7 @@ public class TourDao {
 	}*/
 
 	public void addLike(int reviewNum) {
-		/*
-		 * �씠 硫붿꽌�뱶媛� �샇異쒕릺硫� 湲�踰덊샇 post_num�씤 由щ럭�쓽 like �닔媛� 1 利앷��븳�떎.
-		 */
-		// post_num �씤 �븷 李얘린
+		
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -182,7 +178,138 @@ public class TourDao {
 		} catch (Exception e) {
 		}
 	}// addLike �����
+	
+	public void downLike(int reviewNum) {
+	
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
 
+		// + review_num
+		try {
+			conn = getConnect();
+			ps = conn.prepareStatement(ReviewStringQuery.LIKE_REMOVE);
+			ps.setInt(1, reviewNum);
+			rs = ps.executeQuery();
+			if (rs.next()) {
+				System.out.println("reviewNum�쓽 like媛� 1 利앷�! :: " + rs.getInt("likes"));
+			}
+		} catch (Exception e) {	
+		}
+	}//
+
+	
+	
+	public void insertLike(String id,int reviewNum) throws SQLException {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		
+		try {
+			conn= getConnect();
+			ps =conn.prepareStatement(ReviewStringQuery.INSERT_CHECK);
+			ps.setString(1, id);
+			ps.setInt(2, reviewNum);
+			ps.executeUpdate();
+			
+			int row = ps.executeUpdate();
+			System.out.println(row + " row insertCheck ok..");
+		}finally {
+			closeAll(ps, conn);
+		}
+		
+		
+	}
+	
+	public void deleteLike(String id,int reviewNum) throws SQLException {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		
+		try {
+			conn= getConnect();
+			ps =conn.prepareStatement(ReviewStringQuery.DELETE_CHECK);
+			ps.setString(1, id);
+			ps.setInt(2, reviewNum);
+			ps.executeUpdate();
+			
+			int row = ps.executeUpdate();
+			System.out.println(row + " row deleteCheck ok..");
+		}finally {
+			closeAll(ps, conn);
+		}
+		
+	}
+	
+	public boolean checkLike(String id,int reviewNum) throws SQLException{
+		boolean flag = false;
+		Connection conn=null;
+		PreparedStatement ps = null;
+		ResultSet rs= null;
+		try {
+		conn=getConnect();
+		ps=conn.prepareStatement(ReviewStringQuery.CHECK_SELECT);
+		ps.setString(1, id);
+		ps.setInt(2, reviewNum);
+		rs= ps.executeQuery();
+		if(rs.next())
+			flag=true;
+		}finally {
+			closeAll(rs, ps, conn);
+		}
+		System.out.println(flag+"확인");
+		return flag;
+	}
+
+	public void addScrap(String id, int review_num) throws Exception {					//scrap
+		Connection conn = null;
+		PreparedStatement ps = null;
+
+		try {
+			conn = getConnect();
+			ps = conn.prepareStatement(ReviewStringQuery.INSERT_SCRAP);
+			ps.setString(1, id);
+			ps.setInt(2, review_num);
+			ps.executeUpdate();
+
+		} finally {
+			closeAll(ps, conn);
+		}
+	} // scrap 泥좎쭊�벐
+	
+	public void delScrap(String id, int review_num) throws Exception {					//scrap
+		Connection conn = null;
+		PreparedStatement ps = null;
+
+		try {
+			conn = getConnect();
+			ps = conn.prepareStatement(ReviewStringQuery.DELETE_SCRAP);
+			ps.setString(1, id);
+			ps.setInt(2, review_num);
+			ps.executeUpdate();
+
+		} finally {
+			closeAll(ps, conn);
+		}
+	} // scrap 泥좎쭊�벐
+	
+	public boolean checkScrap(String id,int reviewNum) throws SQLException{
+		boolean flag = false;
+		Connection conn=null;
+		PreparedStatement ps = null;
+		ResultSet rs= null;
+		try {
+		conn=getConnect();
+		ps=conn.prepareStatement(ReviewStringQuery.CHECK_SCRAP);
+		ps.setString(1, id);
+		ps.setInt(2, reviewNum);
+		rs= ps.executeQuery();
+		if(rs.next())
+			flag=true;
+		}finally {
+			closeAll(rs, ps, conn);
+		}
+		System.out.println(flag+"확인");
+		return flag;
+	}
 /*	public ArrayList<ReviewVO> getBestReviewByLocation(String location) throws SQLException {
 		Connection conn = null;
 		PreparedStatement ps = null;

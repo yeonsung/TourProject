@@ -50,6 +50,11 @@ public class HandlerMapping {
 			return new GetRecentReviewsController();
 		case "checkReview.do":	//command
 			return new CheckReviewController();
+		case "like.do":
+			return new likeCheckedController();
+		case "scrapCheck.do":
+			return new scrapCheckedController();
+			
 		}
 		
 		return null;
