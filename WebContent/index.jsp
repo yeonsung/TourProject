@@ -18,8 +18,8 @@
 	<script src="http://d3js.org/d3.v3.min.js"></script>
 	<script type="text/javascript" src="js/nav.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	
 	<script>
-
 	$(function() {
 		$("#tabs").tabs();
 		$.ajax({

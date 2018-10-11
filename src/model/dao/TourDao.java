@@ -945,11 +945,6 @@ public class TourDao {
 		}
 		return vo;
 	}
-	public void deleteImage(String img) throws SQLException{
-		System.out.println("img url : "+img);
-		File file = new File("C:\\yjk\\webPro2\\eclipse\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps"+img);
-		System.out.println(file.delete()); 
-	}
 	
 	public MemberVO findIdPass(String userName, int ssn, String tel) throws SQLException{
 		MemberVO vo = null;
@@ -973,12 +968,34 @@ public class TourDao {
 		return vo;
 	}
 	
+	public void deleteImage(int reviewNum, String img) throws SQLException {
+		System.out.println("img url : " + img);
+		File file = new File(
+				"C:\\yjk\\webPro2\\eclipse\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps"
+						+ img);
+		System.out.println(file.delete());
+
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			conn = getConnect();
+			pstmt = conn.prepareStatement(ReviewStringQuery.DELETE_REVIEW_IMG);
+			pstmt.setInt(1, reviewNum);
+			pstmt.setString(2, img);
+			pstmt.executeUpdate();
+			
+		} finally {
+			closeAll(pstmt, conn);
+		}	
+	}
+	
 
 	public static void main(String[] args) throws SQLException { // 단위테스트
 		
-		ReviewVO vo = TourDao.getInstance().checkReview(36);
+		/*ReviewVO vo = TourDao.getInstance().checkReview(36);
 		System.out.println(vo.getImages());
-		TourDao.getInstance().deleteImage(vo.getImages().get(0));
+		TourDao.getInstance().deleteImage(vo.getImages().get(0));*/
 		/*
 		 * ArrayList<ReviewVO> vo = new ArrayList<ReviewVO>(); vo =
 		 * TourDao.getInstance().getScrapList("yun"); for(ReviewVO r : vo) {

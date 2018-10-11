@@ -34,6 +34,13 @@ public class UpdateReviewController implements Controller{
 		rvo.setTags(tags);
 		TourDao.getInstance().writeTag(reviewNum, tags);
 		
+		ArrayList<String> imagepaths = new ArrayList<String>();
+		for(int i=0 ; i<count;i++) {
+			imagepaths.add(request.getParameter("img"+(i+1)));
+		}
+		rvo.setImages(imagepaths);
+		TourDao.getInstance().writeReviewImage(reviewNum, imagepaths);
+		
 		return new ModelAndView("checkReview.do?num="+reviewNum);
 	}
 

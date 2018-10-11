@@ -54,6 +54,10 @@ public class HandlerMapping {
 			return new UpdateReviewController();
 		case "getreview.do":
 			return new GetReviewController();
+		case "memberreview.do":
+			return new MemberReviewController();
+		case "deleteiamge.do":
+			return new DeleteIamgeController();
 		}
 		
 		return null;

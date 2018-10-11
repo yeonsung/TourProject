@@ -7,13 +7,15 @@
 <head>
 <meta charset="utf-8">
 <title>CSS Website Layout</title>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.0.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	
+	
+	
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
@@ -23,22 +25,11 @@
 <link rel='stylesheet'
 	href='https://fonts.googleapis.com/css?family=Roboto'>
 <link rel="stylesheet" href="css/rc.css">
-
+<link rel="stylesheet" href="css/nav.css">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script type="text/javascript">
-var
-numImages = ${imgNum},
-theta =  1 * Math.PI / numImages//currImage = 0
-;
-$(function(){
-	alert(numImages);
-	alert(theta);
-	 var str = $('.carousel figure img:nth-child(8)').css('transform');
-	 alert(str);
-});
 
-</script>
+
 <style>
 * {
 	box-sizing: border-box;
@@ -147,102 +138,77 @@ body {
 	padding: 10px;
 	text-align: center;
 }
-
-.contents {
-	padding-top: 80px;
-}
-
-#header {
-	border-bottom: 7px solid transparent;
-	-moz-border-imag: -moz-linear-gradient(left, DarkGreen, #64AB4C);
-	-webkit-border-image: -webkit-linear-gradient(left, DarkGreen, #64AB4C);
-	border-image: linear-gradient(to right, DarkGreen, #64AB4C);
-	border-image-slice: 1;
-	margin-top: 8px;
-	padding-bottom: 8px;
-	font: 67.5% "Lucida Sans Unicode", "Bitstream Vera Sans",
-		"Trebuchet Unicode MS", "Lucida Grande", Verdana, Helvetica,
-		sans-serif;
-	font-size: 14px;
-}
-
-.caret {
-	margin-left: 10px
-}
 </style>
 
-
+<script type="text/javascript" src="js/nav.js"></script>
 </head>
 <body>
-	<div id="header">
-		<div class="container">
-			<div class="navbar-header" style="margin-top: 15px">
-				<button type="button" class="navbar-toggle" id="menuSpan"
-					data-toggle="collapse" data-target="#myNavbar">
-					<span class="icon-bar"></span> <span class="icon-bar"
-						style="margin-top: 2px"></span> <span class="icon-bar"></span>
-				</button>
-				<a href="index.jsp"><img src="img/main_logo.png" width="150"></a>
-			</div>
-			<!-- navbar-header -->
-
-			<div class="collapse navbar-collapse navbar-right" id="myNavbar"
-				style="margin-top: 15px">
-				<form class="navbar-form navbar-left" action="/action_page.php">
-					<div class="input-group">
-						<input type="text" class="form-control" placeholder="Search"
-							name="search" id="myInput">
-						<div class="input-group-btn">
-							<button class="btn btn-default" type="submit">
-								<i class="glyphicon glyphicon-search"></i>
-							</button>
-						</div>
-					</div>
-				</form>
-
-				<ul class="nav navbar-nav navbar-right">
-					<li class="dropdown"><a class="dropdown-toggle"
-						data-toggle="dropdown" href="#"> <span
-							class="glyphicon glyphicon-user text-success"> <span
-								class="caret" style="margin-left: 10px"></span>
-						</span>
-					</a> <c:choose>
-							<c:when test="${rvo != null}">
-								<ul class="dropdown-menu">
-									<li><a href="logout.do"><span
-											class="glyphicon glyphicon-log-out"></span>&nbsp;&nbsp;로그아웃</a></li>
-									<li><a href="myreviews.do?id=${sessionScope.vo.id}"><span
-											class="glyphicon glyphicon-edit"></span>&nbsp;&nbsp;내가 쓴 글</a></li>
-									<li><a href="scrap.do?id=${sessionScope.vo.id}"><span
-											class="glyphicon glyphicon-bookmark"></span>&nbsp;&nbsp;스크랩</a></li>
-									<li><a href="write.jsp"><span
-											class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;글쓰기</a></li>
-									<li><a href="registerupdate.do?id=${sessionScope.vo.id}"><span
-											class="glyphicon glyphicon-cog"></span>&nbsp;&nbsp;정보 수정</a></li>
-								</ul>
-							</c:when>
-
-							<c:otherwise>
-								<ul class="dropdown-menu">
-									<li><a href="login.jsp"><span
-											class="glyphicon glyphicon-log-in"></span>&nbsp;&nbsp;로그인</a></li>
-									<li><a href="register.jsp"><i class="fas fa-user-plus"></i>&nbsp;&nbsp;회원가입</a></li>
-								</ul>
-							</c:otherwise>
-						</c:choose></li>
-				</ul>
-			</div>
-			<!-- myNavbar -->
-		</div>
-		<!-- container -->
-	</div>
+	<nav class="navbar navbar-defalt navbar-fixed-top" style="background-color: #fff">
+      	<div id="header">
+      		<div class="container">
+         		<div class="navbar-header" style="margin-top: 15px">
+            		<button type="button" class="navbar-toggle" id="menuSpan" data-toggle="collapse" data-target="#myNavbar">
+	                    <span class="icon-bar"></span>
+	               		<span class="icon-bar" style="margin-top: 2px"></span>
+	               		<span class="icon-bar"></span>
+            		</button>
+            		<a href="index.jsp"><img src="img/main_logo2.png" width="150"></a>
+         		</div> <!-- navbar-header -->
+         		
+	         	<div class="collapse navbar-collapse navbar-right" id="myNavbar" style="margin-top: 15px">
+	            	<form class="navbar-form navbar-left" action="getdata.do">
+	               		<div class="input-group">
+	                  		<input type="text" class="form-control" placeholder="Search" name="search" id="myInput">
+	                  		<div class="input-group-btn">
+	                     		<button class="btn btn-default" type="submit">
+	                        		<i class="glyphicon glyphicon-search"></i>
+	                     		</button>
+	                  		</div>
+	               		</div>
+	            	</form>
+	            	
+	            	<ul class="nav navbar-nav navbar-right">
+	               		<li class="dropdown">
+		                  	<a class="dropdown-toggle" data-toggle="dropdown" href="#" id="userMenu">
+		                     	<span class="glyphicon glyphicon-user white">
+		                     		<span class="caret" style="margin-left: 10px"></span>
+		                     	</span>
+		                  	</a>
+		                  	<c:choose>
+		                  	 	<c:when test="${vo != null}">
+			                  	 	<ul class="dropdown-menu">
+			                     	<li><a href="logout.do"><span class="glyphicon glyphicon-log-out"></span>&nbsp;&nbsp;로그아웃</a></li>
+			                     	<li><a href="myreviews.do?id=${sessionScope.vo.id}"><span class="glyphicon glyphicon-edit"></span>&nbsp;&nbsp;내가 쓴 글</a></li>
+			                     	<li><a href="scrap.do?id=${sessionScope.vo.id}"><span class="glyphicon glyphicon-bookmark"></span>&nbsp;&nbsp;스크랩</a></li>
+			                     	<li><a href="write.jsp"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;글쓰기</a></li>
+			                     	<li><a href="registerupdate.do?id=${sessionScope.vo.id}"><span class="glyphicon glyphicon-cog"></span>&nbsp;&nbsp;정보 수정</a></li>
+			                  		</ul>
+		                  		</c:when>
+		      
+		                  		<c:otherwise>
+		                  			<ul class="dropdown-menu">
+			                     	<li><a href="login.jsp"><span class="glyphicon glyphicon-log-in"></span>&nbsp;&nbsp;로그인</a></li>
+			                     	<li><a href="register.jsp"><i class="fas fa-user-plus"></i>&nbsp;&nbsp;회원가입</a></li>
+			                  		</ul>
+		                  		</c:otherwise>
+		                  	</c:choose>
+	               		</li>
+					</ul>
+				</div> <!-- myNavbar -->
+      		</div> <!-- container -->
+		</div> <!-- header -->
+    	<div id="line"></div>
+	</nav>
+	
+	<div style="height: 150px"></div>
+	
 	<div class="maincontent">
 		<div class="topnav2">
 			<h1>${rvo.title}</h1>
 			<h3 class="title">글번호 :: ${rvo.reviewNum}</h3>
 		</div>
 		<hr>
-		작성자::${rvo.id} 작성일시::${rvo.date} 좋아요::${rvo.like}
+		작성자::<a href="memberreview.do?id=${rvo.id}">${rvo.id}</a> &nbsp;&nbsp; 작성일시::${rvo.date} &nbsp;&nbsp; 좋아요::${rvo.like}
 		<hr>
 		<div class="row">
 			<div class="main">

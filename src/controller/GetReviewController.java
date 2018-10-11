@@ -22,8 +22,8 @@ public class GetReviewController implements Controller{
 		ArrayList<String> tlist = TourDao.getInstance().getTags(reviewNum);
 		request.setAttribute("tlist", tlist);
 		
-		//ArrayList<String> ilist = TourDao.getInstance().getImages(reviewNum);
-		//request.setAttribute("ilist", ilist);
+		ArrayList<String> ilist = TourDao.getInstance().getImages(reviewNum);
+		request.setAttribute("ilist", ilist); /* ilist를 write.jsp의 캐러셀에 추가해주세여~! */
 		
 		return new ModelAndView("write.jsp");
 	}
