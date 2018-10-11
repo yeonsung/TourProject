@@ -54,9 +54,9 @@ public class HandlerMapping {
 			return new likeCheckedController();
 		case "scrapCheck.do":
 			return new scrapCheckedController();
-			
+		case "getBestReviewCityBytag.do":
+			return new GetBestReviewCityBytagController();
 		}
-		
 		return null;
 	}
 }

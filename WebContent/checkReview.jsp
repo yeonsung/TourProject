@@ -115,6 +115,16 @@ text-align : center;
 }
 
 
+section {
+	height: auto;
+}
+
+section:after {
+	content: "";
+	display: table;
+	clear: both;
+}
+
 .main {
     width: 100%;
     float: left;
@@ -138,7 +148,7 @@ text-align:right;
 .img{
 width:350px;
 
-height:300px;
+height:300px; /*이상하면 지워 		 */
 
 
 }
@@ -153,7 +163,16 @@ height:300px;
 }
 
 </style>
-
+<script type="text/javascript">
+	$(function() {
+		$('button[value=modify]').click(function(){
+		 	alert("수정 누르셨다.");
+		});//click
+		$('button[value=delete]').click(function(){
+		 	alert("삭제 누르셨다.");
+		});//click
+	});//ready
+</script>
 
 </head>
 <body>
@@ -358,16 +377,10 @@ $(window).load(function() {
 <div class="footer">
   <p>관련글(카테고리)</p>
  </div>
-</div>
 
  <!-- jQuery -->
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
   <script>window.jQuery || document.write('<script src="js/libs/jquery-1.7.min.js">\x3C/script>')</script>
-
-
- <!-- FlexSlider -->
-  <script defer src="js/jquery.flexslider.js"></script>
-
   <script type="text/javascript">
     $(function(){
       SyntaxHighlighter.all();
@@ -402,6 +415,9 @@ $(window).load(function() {
   <script defer src="js/demo.js"></script>
   <script defer src="js/jquery.flexslider.js"></script>
 
-
+	<!-- <script
+		src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script> -->
+	<script src="js/rc.js"></script>
+	<script src="js/nav.js"></script>
 </body>
 </html>

@@ -14,23 +14,23 @@ import query.review.ReviewStringQuery;
 import service.ListVO;
 import service.ReviewService;
 
-public class GetAttractionController implements Controller{
+public class GetAttractionController implements Controller {
 
 	@Override
 	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		String city=request.getParameter("city");
+		String city = request.getParameter("city");
 		String pageNo = request.getParameter("pageNo");
-
-		String location= request.getParameter("location");
-		String tag=request.getParameter("tag");
-		ListVO blist = ReviewService.getInstance().getBestReviewByTag(location,tag,pageNo);
-		ArrayList<AttractionVO> avo= TourDao.getInstance().getAttraction(city);
-		System.out.println(avo+"\n ÇÏ ÂÍ ...");
-		request.setAttribute("blist", blist);
-		request.setAttribute("avo", avo);
+		String location = request.getParameter("location");
 		
+		ArrayList<AttractionVO> avo = TourDao.getInstance().getAttraction(city);
+		/*
+		request.setAttribute("pageNo", pageNo);
+		*/
+		request.setAttribute("avo", avo);
+		request.setAttribute("city", city);
+		request.setAttribute("location", location);
 
-		return new ModelAndView("attraction.jsp");
+		return new ModelAndView("attraction2.jsp");
 	}
 
 }

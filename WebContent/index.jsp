@@ -40,7 +40,6 @@
 				$('.haha').html(data);
 				effect();
 				effect2();
-
 			}
 		});
 		

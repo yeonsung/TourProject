@@ -148,7 +148,7 @@ $('#zoomout').button({
   states.selectAll("path").attr("d", path);
   
   labels.attr("transform", labelsTransform);
-});*/
+});
       
 // 吏�紐낇몴��
 /*$('#radio').find('input').on('click', function() {
