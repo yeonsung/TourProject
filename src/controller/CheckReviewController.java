@@ -15,7 +15,6 @@ public class CheckReviewController implements Controller{
 		
 		request.setAttribute("rvo", rvo);
 		
-		
 		return new ModelAndView("checkReview.jsp");
 	}
 

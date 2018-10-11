@@ -29,6 +29,7 @@ public interface ReviewStringQuery {
 
 	String DELETE_REVIEW = "delete from review where review_num=?";
 	String DELETE_SCRAP = "delete from scrap where review_num=?";
+	String DELETE_TAG = "delete from tag where review_num=?";
 	String UPDATE_REVIEW = "update review set location=?, city=?, title=?, content=? where review_num=?";
 	String TOTAL_SCRAP_COUNT = "select count(-1) from scrap where id=?";
 	String TOTAL_MY_REVIEW_COUNT = "select count(-1) from review where id=?";
@@ -77,6 +78,7 @@ public interface ReviewStringQuery {
 	String CHECK_TAG_BY_CITY = "select distinct city from location where city=?";
 	String TAG_EXIST = "select * from tag where word=?";
 	String GET_TOTAL_REVIEW = "SELECT COUNT(-1) FROM review";
+	
 }
 
 /*
@@ -137,6 +139,25 @@ public interface ReviewStringQuery {
  *    1) 검색..x.....
  */
 
+
+/*
+ * updateReview
+ * 
+ * 수정버튼 누름 -> controller(내용 받아오기- id, location, city, title, categorys, content, image)
+ * -> write.jsp ->  표시 -> 작성누르면 -> updatedate controller (기존 것들 삭제, 업데이트)
+ * 
+ * controller
+ * CHECK_REVIEW(checkReview) + GET_REVIEW_TAGS(getTags) + GET_REVIEW_IMAGES(getImages)
+ * 
+ * 
+ * 
+ * updatedate controller (기존 것들 삭제, 업데이트)
+ * 
+ * update review set location=?, city=?, title=?, content=? where review_num=?;
+ * delete from tag where review_num=?;
+ * INSERT_TAG
+ * 
+*/
 
 
 

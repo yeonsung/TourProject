@@ -232,9 +232,9 @@ public class TourDao {
 				list.add(vo);
 			}
 			for (int i = 0; i < list.size(); i++) {
-				ArrayList<String> tags = getTags(list.get(i).getReviewNum(), conn);
+				ArrayList<String> tags = getTags(list.get(i).getReviewNum());
 				list.get(i).setTags(tags);
-				ArrayList<String> img = getImages(list.get(i).getReviewNum(), conn);
+				ArrayList<String> img = getImages(list.get(i).getReviewNum());
 				list.get(i).setImages(img);
 			} // for
 		} finally {
@@ -331,7 +331,7 @@ public class TourDao {
 						rs.getString("location"), rs.getString("city"), rs.getString("content"),
 						rs.getString("date_writing"), rs.getInt("likes"));
 			}
-			rvo.setImages(getImages(rvo.getReviewNum(), conn));			//image list
+			rvo.setImages(getImages(rvo.getReviewNum()));			//image list
 			rvo.setComments(getComments(rvo.getReviewNum(), conn));		//comment list
 			//肄붾찘�듃. �씠誘몄�. �벑�벑 媛��졇���빞�븿..
 		} finally {
@@ -562,11 +562,15 @@ public class TourDao {
 			ps.setString(1, rvo.getLocation());
 			ps.setString(2, rvo.getCity());
 			ps.setString(3, rvo.getTitle());
-			ps.setInt(4, rvo.getReviewNum());
-			ps.executeUpdate();
-							///// DELETE FROM x,x,x WHERE review_num=x test
+			ps.setString(4, rvo.getContent());
+			ps.setInt(5, rvo.getReviewNum());
+			
 			int row = ps.executeUpdate();
 			System.out.println(row + " row update posting ok..");
+			
+			ps = conn.prepareStatement(ReviewStringQuery.DELETE_TAG);
+			ps.setInt(1, rvo.getReviewNum());
+			ps.executeUpdate();
 
 		} finally {
 			closeAll(ps, conn);
@@ -747,8 +751,8 @@ public class TourDao {
 		return list;
 	}
 	
-	public ArrayList<String> getImages(int reviewNum,Connection conn) throws SQLException{			//get review images
-
+	public ArrayList<String> getImages(int reviewNum) throws SQLException{			//get review images
+		Connection conn = getConnect();
 		ArrayList<String> ilist = new ArrayList<String>();
 		PreparedStatement ps = conn.prepareStatement(ReviewStringQuery.GET_REVIEW_IMAGES);
 		ps.setInt(1, reviewNum);
@@ -756,15 +760,12 @@ public class TourDao {
 		while (rs.next()) {
 			ilist.add(rs.getString("review_image"));
 		}
-		if (rs != null)
-			rs.close();
-		if (ps != null)
-			ps.close();
+		closeAll(rs, ps, conn);
 		return ilist;
 	}
 	
-	public ArrayList<String> getTags(int reviewNum,Connection conn) throws SQLException{			//get review images
-
+	public ArrayList<String> getTags(int reviewNum) throws SQLException{			//get review images
+		Connection conn = getConnect();
 		ArrayList<String> ilist = new ArrayList<String>();
 		PreparedStatement ps = conn.prepareStatement(ReviewStringQuery.GET_REVIEW_TAGS);
 		ps.setInt(1, reviewNum);
@@ -772,10 +773,8 @@ public class TourDao {
 		while (rs.next()) {
 			ilist.add(rs.getString("word"));
 		}
-		if (rs != null)
-			rs.close();
-		if (ps != null)
-			ps.close();
+		closeAll(rs, ps, conn);
+
 		return ilist;
 	}
 
