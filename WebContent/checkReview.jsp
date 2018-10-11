@@ -32,10 +32,6 @@ numImages = ${imgNum},
 theta =  1 * Math.PI / numImages//currImage = 0
 ;
 $(function(){
-	alert(numImages);
-	alert(theta);
-	 var str = $('.carousel figure img:nth-child(8)').css('transform');
-	 alert(str);
 });
 
 </script>

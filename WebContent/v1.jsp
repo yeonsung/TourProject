@@ -33,9 +33,6 @@
 ::-webkit-scrollbar-thumb:hover {
 	background: #ADADAD;
 }
-.hideme {
-	opacity: 0;
-}
 </style>
 
 <style>

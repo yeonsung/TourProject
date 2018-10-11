@@ -40,8 +40,6 @@ public class HandlerMapping {
 			return new LogoutController();
 		case "findidpass.do":
 			return new FindIdPassController();
-    case "getAttraction.do":	//command
-			return new GetAttractionController();
 		case "getdata.do":
 			return new GetDataController();
 		case "relatedreview.do":

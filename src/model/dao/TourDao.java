@@ -110,16 +110,15 @@ public class TourDao {
 		return num;
 	}
 	
-	public ArrayList<ReviewVO> getRecentReviews(String tag) throws SQLException{		//index review list
+	public ArrayList<ReviewVO> getRecentReviews(int pn) throws SQLException{		//index review list
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		ArrayList<ReviewVO> rlist = new ArrayList<ReviewVO>();
 		try {
 			conn = getConnect();
-			ps = conn.prepareStatement(ReviewStringQuery.GET_RECENT_REVIEWS_BY_TAG);
-			ps.setString(1, tag);
-	//		ps.setInt(2, pn);
+			ps = conn.prepareStatement(ReviewStringQuery.GET_RECENT_REVIEWS);
+			ps.setInt(1, pn);
 			rs = ps.executeQuery();
 			while(rs.next()) {
 				rlist.add(new ReviewVO(rs.getInt("review_num"),
@@ -977,9 +976,9 @@ public class TourDao {
 
 	public static void main(String[] args) throws SQLException { // 단위테스트
 		
-		ReviewVO vo = TourDao.getInstance().checkReview(36);
+		/*ReviewVO vo = TourDao.getInstance().checkReview(36);
 		System.out.println(vo.getImages());
-		TourDao.getInstance().deleteImage(vo.getImages().get(0));
+		TourDao.getInstance().deleteImage(vo.getImages().get(0));*/
 		/*
 		 * ArrayList<ReviewVO> vo = new ArrayList<ReviewVO>(); vo =
 		 * TourDao.getInstance().getScrapList("yun"); for(ReviewVO r : vo) {

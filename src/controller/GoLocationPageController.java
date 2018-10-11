@@ -32,7 +32,4 @@ public class GoLocationPageController implements Controller {
 		System.out.println(flist.size());
 		return new ModelAndView("v1.jsp");
 	}
-		}
-		return null;
-	}*/
 }
