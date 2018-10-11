@@ -12,7 +12,7 @@
 </head>
 <body>
 	<table align="center">
-		<c:forEach var="vo" items="${rlist.list}" step="1">
+		<c:forEach var="vo" items="${rlist}" step="1">
 			<tr>
 				<td style="font-size: 20px;padding:10px">${vo.location} ${vo.city}</td>
 			

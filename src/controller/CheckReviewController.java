@@ -10,10 +10,12 @@ public class CheckReviewController implements Controller{
 
 	@Override
 	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
 		int reviewNum = Integer.parseInt(request.getParameter("num"));
 		ReviewVO rvo=TourDao.getInstance().checkReview(reviewNum);
 		
 		request.setAttribute("rvo", rvo);
+		request.setAttribute("imgNum", rvo.getImages().size()+"");
 		
 		return new ModelAndView("checkReview.jsp");
 	}

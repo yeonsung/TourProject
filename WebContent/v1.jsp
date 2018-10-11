@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
-	pageEncoding="utf-8"%>
+   pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
@@ -45,14 +45,14 @@ section {
 }
 
 .carousel-inner>.item>img {
-	top: 0;
-	left: 0;
-	min-width: 100%;
-	min-height: 400px;
+   top: 0;
+   left: 0%;
+   min-width: 360px;
+   min-height: 200px;
 }
 
 * {
-	box-sizing: border-box;
+   box-sizing: border-box;
 }
 
 body {
@@ -62,42 +62,78 @@ body {
 
 /* Create two columns/boxes that floats next to each other */
 nav {
-	float: left;
-	left: 20px;
-	width: 23%;
-	height: 120%; /* only for demonstration, should be removed */
-	padding: 20px;
+   float: left;
+   left: 20px;
+   width: 23%;
+   height: 120%; /* only for demonstration, should be removed */
+   padding: 20px;
 }
 
 /* Style the list inside the menu */
 nav ul {
-	list-style-type: none;
-	padding: 0;
+   list-style-type: none;
+   padding: 0;
 }
 
 article {
-	float: left;
-	padding: 20px;
-	width: 70%;
-	height: 300px; /* only for demonstration, should be removed */
+   float: left;
+   padding: 20px;
+   width: 70%;
+   height: 300px; /* only for demonstration, should be removed */
 }
 
 /* Clear floats after the columns */
 section:after {
-	content: "";
-	display: table;
-	clear: both;
+   content: "";
+   display: table;
+   clear: both;
 }
 
 /* Style the footer */
 footer {
-	padding: 10px;
-	text-align: center;
-	color: black;
+   padding: 10px;
+   text-align: center;
+   color: black;
 }
 
 tr td {
-	font-size: 30px;
+   font-size: 30px;
+}
+
+.overlay {
+   position: absolute;
+   bottom: 0;
+   left: 100%;
+   right: 0;
+   background-color: gray;
+   opacity: 0.6;
+   overflow: hidden;
+   width: 0;
+   height: 100%;
+   transition: .5s ease;
+}
+
+.container:hover .overlay {
+   width: 100%;
+   left: 0;
+}
+
+.text {
+   color: white;
+   font-size: 20px;
+   position: absolute;
+   top: 50%;
+   left: 50%;
+   -webkit-transform: translate(-50%, -50%);
+   -ms-transform: translate(-50%, -50%);
+   transform: translate(-50%, -50%);
+   white-space: nowrap;
+}
+
+.image {
+   display: block;
+   width: 100%;
+   height: auto;
 }
 </style>
 
