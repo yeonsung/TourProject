@@ -10,9 +10,14 @@ public interface ReviewStringQuery {
 	String INSERT_REVIEW = "INSERT INTO review(review_num, location, city, title, content, date_writing, id)"
 			+ "VALUES(review_seq.nextVal, ?, ?, ?, ?, sysdate, ?)";
 	String CURRENT_NO = "SELECT review_seq.currVal FROM dual";
+	String GET_IMAGE_LIST = "select img from tourspot where city=?";
+	String SEARCH_BY_TAG = "SELECT review_num,location,city,title,content,date_writing,likes,id "
+			+ "FROM review WHERE review_num = all(select review_num from tag where word=?)";
 	/*String BEST_REVIEW_LOCATION_TAG = "select review_num, title, likes,city from (select * from review order by likes desc) where rownum<4"
 			+ " AND review_num IN ((SELECT review_num FROM tag WHERE word=?)) AND location=?"; // v1에서 왼쪽 리뷰 리스트
 */
+ 	String INSERT_REVIEWIMAGE = "INSERT INTO review_image(review_num, review_image) VALUES(?, ?)";
+  String INSERT_TAG = "INSERT INTO tag(review_num, word) VALUES(?, ?)";
 	String CHECK_REVIEW = "select * from review where review_num = ?"; // 글 정보 return
 	
 	String BEST_REVIEW_LOCATION_TAG = "select review_num, title, likes,city from (select * from review order by likes desc) where rownum<4"
@@ -30,6 +35,9 @@ public interface ReviewStringQuery {
 	//		+ "WHERE rownum<10 review_num IN (SELECT review_num FROM tag WHERE word=?)";			// index review list
 
 	String DELETE_REVIEW = "delete from review where review_num=?";
+	String DELETE_ALL_SCRAP = "delete from scrap where review_num=?";
+	String DELETE_TAG = "delete from tag where review_num=?";
+	String DELETE_REVIEW_IMG = "delete from review_image where review_num=? and review_image=?";
 	// 스크랩
 		String INSERT_SCRAP = "insert into scrap(id,review_num) values(?,?)";
 		String DELETE_SCRAP = "delete from scrap where id=? AND review_num=?";
@@ -89,8 +97,6 @@ public interface ReviewStringQuery {
 			+ "(SELECT review_num, title, location, city,id, ceil(rownum/10) page"
 			+ " FROM (SELECT * FROM review ORDER BY review_num desc)" + 
 			") WHERE page<=?";
-	String INSERT_REVIEWIMAGE = "INSERT INTO review_image(review_num, review_image) VALUES(?, ?)";
-	String INSERT_TAG = "INSERT INTO tag(review_num, word) VALUES(?, ?)";
 	String GET_REVIEW_BY_SEARCH = "select * from review where review_num in" + " (select review_num from"
       + " (select review_num, ceil(rownum/" + CommonConstants.CONTENT_NUMBER_PER_PAGE + ") page from"
 			+ " (select review_num from tag where word="
@@ -162,3 +168,31 @@ public interface ReviewStringQuery {
  * 6. 검색결과가 tag에 없는 경우(tag 내용이 tourspot,city,location가 아닐 때)
  *    1) 검색..x.....
  */
+
+
+/*
+ * updateReview
+ * 
+ * 수정버튼 누름 -> controller(내용 받아오기- id, location, city, title, categorys, content, image)
+ * -> write.jsp ->  표시 -> 작성누르면 -> updatedate controller (기존 것들 삭제, 업데이트)
+ * 
+ * controller
+ * CHECK_REVIEW(checkReview) + GET_REVIEW_TAGS(getTags) + GET_REVIEW_IMAGES(getImages)
+ * 
+ * 
+ * 
+ * updatedate controller (기존 것들 삭제, 업데이트)
+ * 
+ * update review set location=?, city=?, title=?, content=? where review_num=?;
+ * delete from tag where review_num=?;
+ * INSERT_TAG
+ * 
+*/
+
+
+/*
+ * delete from review_image where review_num=? and review_image=?;
+ * 
+ */
+
+

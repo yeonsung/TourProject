@@ -8,28 +8,22 @@ import javax.servlet.http.HttpServletResponse;
 import model.dao.TourDao;
 import model.vo.ReviewVO;
 
-public class WriteController implements Controller {
+public class UpdateReviewController implements Controller{
 
 	@Override
 	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		request.setCharacterEncoding("utf-8");
+		int reviewNum = Integer.parseInt(request.getParameter("reviewNum"));
 		String id = request.getParameter("id");
 		String location = request.getParameter("loaction");
 		String city = request.getParameter("city");
 		String title = request.getParameter("title");
 		String[] categorys = request.getParameterValues("category");
 		String content = request.getParameter("smarteditor");
+		String date = request.getParameter("date");
 		int count = Integer.parseInt(request.getParameter("count"));
 		
-		ReviewVO rvo = new ReviewVO(title, id, location, city, content);
-		TourDao.getInstance().writeReview(rvo);
-		
-		ArrayList<String> imagepaths = new ArrayList<String>();
-		for(int i=0 ; i<count;i++) {
-			imagepaths.add(request.getParameter("img"+(i+1)));
-		}
-		rvo.setImages(imagepaths);
-		TourDao.getInstance().writeReviewImage(rvo.getReviewNum(), imagepaths);
+		ReviewVO rvo = new ReviewVO(reviewNum,title, id, location, city, content, date);
+		TourDao.getInstance().updateReview(rvo);
 
 		ArrayList<String> tags = TourDao.getInstance().getTagsByContent(content);
 		if(categorys!=null) {
@@ -37,16 +31,17 @@ public class WriteController implements Controller {
 				tags.add(categorys[i]);
 			}	
 		}
-		tags.add(location);
-		tags.add(city);
 		rvo.setTags(tags);
-		TourDao.getInstance().writeTag(rvo.getReviewNum(), tags);
+		TourDao.getInstance().writeTag(reviewNum, tags);
 		
+		ArrayList<String> imagepaths = new ArrayList<String>();
+		for(int i=0 ; i<count;i++) {
+			imagepaths.add(request.getParameter("img"+(i+1)));
+		}
+		rvo.setImages(imagepaths);
+		TourDao.getInstance().writeReviewImage(reviewNum, imagepaths);
 		
-		request.setAttribute("rvo", rvo);
-		ModelAndView mv = new ModelAndView();
-		mv.setPath("checkReview.do?num="+rvo.getReviewNum());
-		return mv;
+		return new ModelAndView("checkReview.do?num="+reviewNum);
 	}
 
 }
