@@ -7,7 +7,6 @@ public interface ReviewStringQuery {
 
 	String GETCITIES = "SELECT city FROM location WHERE location=?"; // 寃쎄린�룄 -> �뼇�룊,怨좎뼇�벑�벑
 	String SEARCH_REVIEW_LIKE = "select likes from review where review_num=?"; // 醫뗭븘�슂�닔 由ы꽩?
-	String LIKE_ADD = "update review set likes=likes+1 where review_num=?"; // 醫뗭븘�슂+1
 	String INSERT_REVIEW = "INSERT INTO review(review_num, location, city, title, content, date_writing, id)"
 			+ "VALUES(review_seq.nextVal, ?, ?, ?, ?, sysdate, ?)";
 	String CURRENT_NO = "SELECT review_seq.currVal FROM dual";
@@ -31,9 +30,25 @@ public interface ReviewStringQuery {
 	//		+ "WHERE rownum<10 review_num IN (SELECT review_num FROM tag WHERE word=?)";			// index review list
 
 	String DELETE_REVIEW = "delete from review where review_num=?";
-	String DELETE_SCRAP = "delete from scrap where review_num=?";
+	String DELETE_ALL_SCRAP = "delete from scrap where review_num=?";
 	String DELETE_TAG = "delete from tag where review_num=?";
 	String DELETE_REVIEW_IMG = "delete from review_image where review_num=? and review_image=?";
+	// 스크랩
+		String INSERT_SCRAP = "insert into scrap(id,review_num) values(?,?)";
+		String DELETE_SCRAP = "delete from scrap where id=? AND review_num=?";
+		String SCRAP_SELECT = "select * from scrap where id=? AND review_num=?";
+		String CHECK_SCRAP = "select * from scrap where id=? AND review_num=?";
+		String GET_SCRAP_LIST = "select * from review where review_num in" + " (select review_num from"
+				+ " (select review_num, ceil(rownum/" + CommonConstants.CONTENT_NUMBER_PER_PAGE + ") page from"
+				+ " (select review_num from scrap where id=? order by review_num desc)) where page=?)"; // �뒪�겕�옪 由ъ뒪�듃 由ы꽩
+		
+	//좋아요
+		String LIKE_ADD = "update review set likes=likes+1 where review_num=?"; 
+		String LIKE_REMOVE = "update review set likes=likes-1 where review_num=?";
+		String INSERT_CHECK = "insert into likes(id,review_num) values(?,?)";
+		String DELETE_CHECK = "delete from likes where id=? AND review_num=?";
+		String CHECK_SELECT = "select * from likes where id=? AND review_num=?";	
+		
 	String UPDATE_REVIEW = "update review set location=?, city=?, title=?, content=? where review_num=?";
 	String TOTAL_SCRAP_COUNT = "select count(-1) from scrap where id=?";
 	String TOTAL_MY_REVIEW_COUNT = "select count(-1) from review where id=?";
@@ -43,9 +58,7 @@ public interface ReviewStringQuery {
 	String GET_REVIEW_TAGS = "select word from tag where review_num=?"; // 由щ럭 tag�뱾 return
 	String GET_REVIEW_IMAGES = "SELECT review_image FROM review_image WHERE review_num = ?"; // 由щ럭 img�뱾 return
 	String GET_REVIEW_COMMENTS = "SELECT id,content FROM comments WHERE review_num = ?"; // 由щ럭 comment�뱾 return
-	String GET_SCRAP_LIST = "select * from review where review_num in" + " (select review_num from"
-			+ " (select review_num, ceil(rownum/" + CommonConstants.CONTENT_NUMBER_PER_PAGE + ") page from"
-			+ " (select review_num from scrap where id=? order by review_num desc)) where page=?)"; // �뒪�겕�옪 由ъ뒪�듃 由ы꽩
+	
 	String GET_MY_REVIEW = "select review_num, title, date_writing, id from"
 			+ " (select review_num, title, date_writing, id, ceil(rownum/" + CommonConstants.CONTENT_NUMBER_PER_PAGE
 			+ ") page from"
@@ -58,8 +71,12 @@ public interface ReviewStringQuery {
 	 * "(select review_num from review order by likes desc)) where page=?)";
 	 */
 
-	String TEST = "SELECT * FROM " + "(SELECT review_num,city,title,ceil(rownum/3) page FROM ("
+	String GET_BESTREVIEW_BY_TAG_LOCA = "SELECT * FROM " + "(SELECT review_num,city,title,ceil(rownum/3) page FROM ("
 			+ "SELECT review_num,title,city FROM (SELECT * FROM review WHERE review_num IN ((SELECT review_num from tag WHERE word=?)) AND location=?) ORDER BY likes desc))"
+			+ "WHERE page<=?";
+	
+	String GET_BESTREVIEW_BY_TAG_CITY = "SELECT * FROM " + "(SELECT review_num,title,ceil(rownum/3) page FROM ("
+			+ "SELECT review_num,title FROM (SELECT * FROM review WHERE review_num IN ((SELECT review_num from tag WHERE word=?)) AND city =? AND location=?) ORDER BY likes desc))"
 			+ "WHERE page<=?";
 	
 	String TOTAL_REVIEW_COUNT = "select count(-1) from review";
@@ -71,10 +88,10 @@ public interface ReviewStringQuery {
 
 	String CHECK_SPOT = "select * from tourspot where spot_name=?";
 
-	String GET_RECENT_REVIEWS_BY_TAG = "SELECT * FROM" 				//index.jsp
+	String GET_RECENT_REVIEWS = "SELECT * FROM" 				//index.jsp
 			+ "(SELECT review_num, title, location, city,id, ceil(rownum/10) page"
 			+ " FROM (SELECT * FROM review ORDER BY review_num desc)" + 
-			" WHERE review_num IN((SELECT review_num FROM tag WHERE word = ?))) WHERE rownum<=10";
+			") WHERE page<=?";
 	String INSERT_REVIEWIMAGE = "INSERT INTO review_image(review_num, review_image) VALUES(?, ?)";
 	String INSERT_TAG = "INSERT INTO tag(review_num, word) VALUES(?, ?)";
 	String GET_REVIEW_BY_SEARCH = "select * from review where review_num in" + " (select review_num from"

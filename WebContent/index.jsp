@@ -21,58 +21,81 @@
 	
 	<script>
 	$(function() {
-		$("#tabs").tabs();
+		
+		$('.haha').hover(function(){
+			$('.haha').css('overflow-y','auto');
+		},function(){
+			$('.haha').css('overflow-y','hidden');
+		});
+
+/* 		setTimeout(function () {
+			effect();
+		}, 1000); */
 		$.ajax({
 			type : "get",
 			url : "getRecentReviews.do",
-			data : "tag=맛집",
+			data : "pageNo=1",
 
 			success : function(data) {
-				$('#tab-1').html(data);
-				$('#tab-2').html("");
-				$('#tab-3').html("");
+				$('.haha').html(data);
+				effect();
+				effect2();
 			}
 		});
-
-		$('#tabs a').click(function() {
-			var str = $(this).html();
-			$.ajax({
-
-				type:"get",
-				url:"getRecentReviews.do",
-				data :"tag="+str,
-				
-				success:function(data){
-					if(str=="맛집"){
-						$('#tab-1').html(data);	
-						$('#tab-2').html("");
-						$('#tab-3').html("");
-					} else if (str == '관광') {
-						$('#tab-2').html(data);
-						$('#tab-1').html("");
-						$('#tab-3').html("");
-					} else if (str == '숙소') {
-						$('#tab-3').html(data);
-						$('#tab-1').html("");
-						$('#tab-2').html("");
-					}
-				}//callback
-			});//ajax
-		});
+		
 	});
+	function effect(){
+		TweenMax.staggerTo($('#states path,text'), 1, {opacity:"1", width:"100", ease:Bounce.easeIn}, 0.1);
+	}
+	function effect2(){
+		TweenLite.to($('#label-경기도'), 1, {y:131});	
+	} 
+	
 </script>
 <style>
-
-	a {text-decoration: none}
+@font-face{
+	font-family: 'BMDOHYEON_ttf';
+	src:url(font/BMDOHYEON_ttf.ttf) format('truetype');
+}
+	body{
+		font-family: BMDOHYEON_ttf;
+	}
+	::-webkit-scrollbar {
+	width: 10px;
+	}
+	::-webkit-scrollbar-track {
+		background: #EAEAEA;
+		border-radius: 5px;
+	}
+	::-webkit-scrollbar-thumb {
+		background: #D3D3D3;
+		border-radius: 5px;
+	}
+	::-webkit-scrollbar-thumb:hover {
+		background: #ADADAD;
+	}
+	
+	#states path,text{
+		opacity:0;
+	}
+	a,a:hover{text-decoration: none}
 	
    	section,#tabs{
    		height:600px;
    	}
-   	#states path:hover {
-		fill:red;
-	}
 	#tabs a{
 		cursor:pointer;
+	}
+	.haha{
+		margin-top:161px; 
+		max-height:700px;
+		display:inline-block;
+		overflow-y : hidden;
+		overflow-x : hidden;
+		font-family: BMDOHYEON_ttf;
+		border: 1px gray double;
+		border-radius:50px;
+		
 	}
 </style>
 
@@ -141,12 +164,12 @@
 		<div id="line"></div>
 	</nav>
 	<div class="row">
-		<div class="col-lg-6">
+		<div class="col-lg-6 col-md-12 col-sm-12">
 			<div id="container" style="display: inline-block; margin-top: 161px;"></div>
 		</div>
-		<div class="col-lg-4" style="margin-top:161px;">
-
-			<section>
+<!-- 		<div class="col-lg-4" style="margin-top:161px;">
+ -->
+			<!-- <section>
 				<nav id="tabs">
 					<h1 align="center" style="cursor:default">RECENT REVIEWS</h1>
 					<ul>
@@ -159,16 +182,21 @@
 					<div id="tab-3"></div>
 				</nav>
 
-			</section>
-		</div>
-	</div>
+			</section> -->
+			<div class="col-lg-5 haha col-md-12 col-sm-12">
+				
+			</div>
+<!-- 		</div>
+ -->	</div>
 	<div class="footer" style="display: none;">
 		
 	</div>
 	<form action="locationpage.do">
 		<input type="hidden" name="location" value="">
 	</form>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.2/TweenMax.min.js"></script>
 	<script src="js/script.js"></script>
+
    <div style="height: 100px"></div>
    
    <div style="background-color: #DDDDDD; margin-top: 20px; padding-top: 50px; padding-bottom: 50px">

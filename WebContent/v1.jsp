@@ -19,8 +19,9 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <style>
-::-webkit-scrollbar {
-	width: 10px;
+#carousel_con {
+	width: 600px;
+	height: 350px;
 }
 ::-webkit-scrollbar-track {
 	background: #EAEAEA;
@@ -32,9 +33,6 @@
 }
 ::-webkit-scrollbar-thumb:hover {
 	background: #ADADAD;
-}
-.hideme {
-	opacity: 0;
 }
 </style>
 
@@ -56,6 +54,7 @@ section {
 }
 
 body {
+background-color:DFE8E4;
 	font-family: Arial, Helvetica, sans-serif;
 	background-color: rgba(249, 248, 244, 0.5);
 }
@@ -135,6 +134,42 @@ tr td {
    width: 100%;
    height: auto;
 }
+
+.overlay {
+	position: absolute;
+	bottom: 0;
+	left: 100%;
+	right: 0;
+	background-color: gray;
+	opacity: 0.4;
+	overflow: hidden;
+	width: 0;
+	height: 100%;
+	transition: .5s ease;
+}
+
+.container:hover .overlay {
+	width: 100%;
+	left: 0;
+}
+
+.text {
+	color: white;
+	font-size: 20px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	-webkit-transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+	white-space: nowrap;
+}
+
+.image {
+	display: block;
+	width: 100%;
+	height: auto;
+}
 </style>
 
 <script>
@@ -150,33 +185,26 @@ tr td {
 	
 	var page = 1;
 
-	$('#tabs').scroll(function() {
-		
-		var current_mode = document.getElementById('current_mode').innerText;
-		var dh = document.getElementById('tabs').scrollHeight;
-		var dch = document.getElementById('tabs').clientHeight;
-		var dct = document.getElementById('tabs').scrollTop;
+	function showmore() {
+		count += 1;
+		$.ajax({
+			type : "get",
+			url : "getBestReviewBytag.do",
+			data : {
+				"location" : "${location}",
+				"tag" : $('#distinguish').html(),
+				"pageNo" : count,
+				"size" : $('#listSize').html()
+			//더보기 누르기 전의 갯수.
+			},
 
-		//스크롤 끝까지 닿으면 새로운 데이터 50개를 불러온다
-
-		if (dh == (dch+dct)) {
-			start += list;
-			if(current_mode == '0'){
-				 $("#tab-1").append('test :: ' + page + '</h1></div>');
-			}else{
-				 $("#tab-1").append('test :: ' + page + '</h1></div>');
-			}
-			
-		}
-		//스크롤 끝까지 닿으면 새로운 데이터 50개를 불러온다 끝
-		
-		//alert($('#tabs').height());
-	    /*  if ($('#tabs').scrollTop() == 100) {
-	      console.log(++page);
-	      $("#tab-1").append('<div class="big-box"><h1>Page ' + page + '</h1></div>');
-	      
-	    }  */
-	});
+			success : function(data) {
+				$('#tab-1').html(data);
+				$('#tab-2').html("");
+				$('#tab-3').html("");
+			}//callback
+		});//ajax 
+	}
 	
 	$(function() {
 		
@@ -202,6 +230,8 @@ tr td {
 				$('#tab-3').html("");
 			}//callback
 		});//ajax
+
+		$('#thatdiv div:eq(0)').addClass('active');
 
 		$('nav a').click(function() {
 			var str = $(this).html();
@@ -270,31 +300,35 @@ tr td {
 				</form>
 
 				<ul class="nav navbar-nav navbar-right">
-					<li class="dropdown">
-		                  	<a class="dropdown-toggle" data-toggle="dropdown" href="#" id="userMenu">
-		                     	<span class="glyphicon glyphicon-user white">
-		                     		<span class="caret" style="margin-left: 10px"></span>
-		                     	</span>
-		                  	</a>
-		                  	<c:choose>
-		                  	 	<c:when test="${vo != null}">
-			                  	 	<ul class="dropdown-menu">
-			                     	<li><a href="logout.do"><span class="glyphicon glyphicon-log-out"></span>&nbsp;&nbsp;로그아웃</a></li>
-			                     	<li><a href="myreviews.do?id=${sessionScope.vo.id}"><span class="glyphicon glyphicon-edit"></span>&nbsp;&nbsp;내가 쓴 글</a></li>
-			                     	<li><a href="scrap.do?id=${sessionScope.vo.id}"><span class="glyphicon glyphicon-bookmark"></span>&nbsp;&nbsp;스크랩</a></li>
-			                     	<li><a href="write.jsp"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;글쓰기</a></li>
-			                     	<li><a href="registerupdate.do?id=${sessionScope.vo.id}"><span class="glyphicon glyphicon-cog"></span>&nbsp;&nbsp;정보 수정</a></li>
-			                  		</ul>
-		                  		</c:when>
-		      
-		                  		<c:otherwise>
-		                  			<ul class="dropdown-menu">
-			                     	<li><a href="login.jsp"><span class="glyphicon glyphicon-log-in"></span>&nbsp;&nbsp;로그인</a></li>
-			                     	<li><a href="register.jsp"><i class="fas fa-user-plus"></i>&nbsp;&nbsp;회원가입</a></li>
-			                  		</ul>
-		                  		</c:otherwise>
-		                  	</c:choose>
-	               		</li>
+					<li class="dropdown"><a class="dropdown-toggle"
+						data-toggle="dropdown" href="#"> <span
+							class="glyphicon glyphicon-user text-success"> <span
+								class="caret" style="margin-left: 10px"></span>
+						</span>
+					</a> <c:choose>
+							<c:when test="${vo != null}">
+								<ul class="dropdown-menu">
+									<li><a href="logout.do"><span
+											class="glyphicon glyphicon-log-out"></span>&nbsp;&nbsp;로그아웃</a></li>
+									<li><a href="myreviews.do?id=${sessionScope.vo.id}"><span
+											class="glyphicon glyphicon-edit"></span>&nbsp;&nbsp;내가 쓴 글</a></li>
+									<li><a href="scrap.do?id=${sessionScope.vo.id}"><span
+											class="glyphicon glyphicon-bookmark"></span>&nbsp;&nbsp;스크랩</a></li>
+									<li><a href="write.jsp"><span
+											class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;글쓰기</a></li>
+									<li><a href="registerupdate.do?id=${sessionScope.vo.id}"><span
+											class="glyphicon glyphicon-cog"></span>&nbsp;&nbsp;정보 수정</a></li>
+								</ul>
+							</c:when>
+
+							<c:otherwise>
+								<ul class="dropdown-menu">
+									<li><a href="login.jsp"><span
+											class="glyphicon glyphicon-log-in"></span>&nbsp;&nbsp;로그인</a></li>
+									<li><a href="register.jsp"><i class="fas fa-user-plus"></i>&nbsp;&nbsp;회원가입</a></li>
+								</ul>
+							</c:otherwise>
+						</c:choose></li>
 				</ul>
 			</div>
 			<!-- myNavbar -->
@@ -319,30 +353,23 @@ tr td {
 
 		<article>
 			<p>
-			<h1 align="center" style="margin-bottom: 30px">${requestScope.location}</h1>
-			<div class="container">
+			<h1 align="center" style="margin-bottom: 30px; color:rgb(116,191,237); font-weight: bold;">${requestScope.location}</h1>
+			<div class="container" id="carousel_con">
 				<div id="myCarousel" class="carousel slide" data-ride="carousel">
-					<!-- Indicators -->
-					<ol class="carousel-indicators">
-						<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-						<li data-target="#myCarousel" data-slide-to="1"></li>
-						<li data-target="#myCarousel" data-slide-to="2"></li>
-					</ol>
 
 					<!-- Wrapper for slides -->
-					<div class="carousel-inner">
-						
-						<div class="item active">
-							<img src="img/la.jpg" alt="Los Angeles" style="width: 100%;">
-						</div>
-
-						<div class="item">
-							<img src="img/chicago.jpg" alt="Chicago" style="width: 100%;">
-						</div>
-
-						<div class="item">
-							<img src="img/ny.jpg" alt="New york" style="width: 100%;">
-						</div>
+					<div class="carousel-inner" id="thatdiv">
+						<c:forEach var="festivalVO" items="${flist}">
+							<c:if test="${festivalVO.img ne null}">
+								<div class="item">
+									<img src="${festivalVO.img}"
+										style="width: 600px; height: 350px;" class="image">
+									<div class="overlay">
+										<div class="text">${festivalVO.location}<br>${festivalVO.city}<br>${festivalVO.festivalName}<br>${festivalVO.startDate}부터<br>${festivalVO.endDate}까지</div>
+									</div>
+								</div>
+							</c:if>
+						</c:forEach>
 					</div>
 
 					<!-- Left and right controls -->
@@ -358,19 +385,30 @@ tr td {
 				</div>
 			</div>
 			<br> <br>
-			<table align="center">
-				<c:forEach var="clist" items="${clist}" step="1">
-					<tr>
-						<td>dd</td>
-						<td><a href="getAttraction.do?city=${clist}&location=${requestScope.location}">${clist}</a></td>
-					</tr>
-				</c:forEach>
-			</table>
+
+			<!-- City List -->
+			<!-- City List -->
+			<!-- City List -->
+			<!-- City List -->
+			<!-- City List -->
+			<!-- City List -->
+			<!-- City List -->
+
+			<c:forEach items="${clist}" var="rList">
+
+				<div align="center" class="col-sm-2">
+					<hr>
+					<br><a style="font-size: 25px; color: rgb(116,191,237); text-decoration:none; font-weight: bold;"
+						href="getAttraction.do?city=${rList}&&location=${requestScope.location}">${rList}</a><br>
+					<br>
+				</div>
+			</c:forEach>
+			<hr>
+			<br> <br>
+
+
 		</article>
 	</section>
-
-	<footer>
-		<p>여기 푸터</p>
-	</footer>
+	<footer></footer>
 </body>
 </html>
