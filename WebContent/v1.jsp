@@ -46,7 +46,12 @@
 
 <style>
 section {
-   height: 600px;
+   height: auto;
+}
+
+#backgroundC {
+   background: -webkit-linear-gradient(to bottom, #FFB88C, #DE6262);
+   background: linear-gradient(to bottom, #FFB88C, #DE6262);
 }
 
 .carousel-inner>.item>img {
@@ -73,6 +78,7 @@ nav {
    width: 23%;
    height: 120%; /* only for demonstration, should be removed */
    padding: 20px;
+   background-image: linear-gradient(gray, white);
 }
 
 /* Style the list inside the menu */
@@ -206,6 +212,7 @@ tr td {
    $(function() {
 
       $("#tabs").tabs();
+
 /* 
       if ($("#tabs").height() < $(window).height()) {
       }
@@ -283,6 +290,7 @@ tr td {
          <div class="collapse navbar-collapse navbar-right" id="myNavbar"
             style="margin-top: 15px">
             <form class="navbar-form navbar-left" action="getdata.do">
+
 	               		<div class="input-group">
 	                  		<input type="text" class="form-control" placeholder="Search" name="search" id="myInput">
 	                  		<div class="input-group-btn">
@@ -292,7 +300,6 @@ tr td {
 	                  		</div>
 	               		</div>
 	            	</form>
-
             <ul class="nav navbar-nav navbar-right">
                <li class="dropdown"><a class="dropdown-toggle"
                   data-toggle="dropdown" href="#"> <span
@@ -331,72 +338,73 @@ tr td {
    </header>
    <!-- header -->
    <div id="line"></div>
-   <div style="height: 70px;"></div>
-   <section>
-      <nav id="tabs" style="overflow-y: scroll; overflow-x: hidden;">
-         <h1 align="center">BEST REVIEWS</h1>
-         <ul>
-            <li><a href="javascript:void(0)">맛집</a></li>
-            <li><a href="javascript:void(0)">관광</a></li>
-            <li><a href="javascript:void(0)">숙소</a></li>
-         </ul>
-         <div id="tab-1"></div>
-         <div id="tab-2"></div>
-         <div id="tab-3"></div>
-      </nav>
+   <div id="backgroundC">
+      <div style="height: 70px;"></div>
 
-      <article>
-         <p>
-         <h1 align="center"
-            style="margin-bottom: 30px; color: rgb(116, 191, 237); font-weight: bold;">${requestScope.location}</h1>
-         <div class="container" id="carousel_con">
-            <div id="myCarousel" class="carousel slide" data-ride="carousel">
+      <section style="height: auto;">
+         <nav id="tabs" style="overflow-y: scroll; height: 800px; overflow-x: hidden;">
+            <h1 align="center">BEST REVIEWS</h1>
+            <ul>
+               <li><a href="javascript:void(0)">맛집</a></li>
+               <li><a href="javascript:void(0)">관광</a></li>
+               <li><a href="javascript:void(0)">숙소</a></li>
+            </ul>
+            <div id="tab-1"></div>
+            <div id="tab-2"></div>
+            <div id="tab-3"></div>
+         </nav>
 
-               <!-- Wrapper for slides -->
-               <div class="carousel-inner" id="thatdiv">
-                  <c:forEach var="festivalVO" items="${flist}">
-                     <c:if test="${festivalVO.img ne null}">
-                        <div class="item">
-                           <img src="${festivalVO.img}"
-                              style="width: 600px; height: 350px;" class="image">
-                           <div class="overlay">
-                              <div class="text">${festivalVO.location}<br>${festivalVO.city}<br>${festivalVO.festivalName}<br>${festivalVO.startDate}부터<br>${festivalVO.endDate}까지</div>
+         <article style="height: auto">
+            <p>
+            <p align="center"
+               style="margin-bottom: 30px; color: #FFFFFF; font-weight: bold; font-size:45px;">${requestScope.location}</p>
+            <div class="container" id="carousel_con">
+               <div id="myCarousel" class="carousel slide" data-ride="carousel">
+
+                  <!-- Wrapper for slides -->
+                  <div class="carousel-inner" id="thatdiv">
+                     <c:forEach var="festivalVO" items="${flist}">
+                        <c:if test="${festivalVO.img ne null}">
+                           <div class="item">
+                              <img src="${festivalVO.img}"
+                                 style="width: 600px; height: 350px;" class="image">
+                              <div class="overlay">
+                                 <div class="text">${festivalVO.location}<br>${festivalVO.city}<br>${festivalVO.festivalName}<br>${festivalVO.startDate}부터<br>${festivalVO.endDate}까지</div>
+                              </div>
                            </div>
-                        </div>
-                     </c:if>
-                  </c:forEach>
+                        </c:if>
+                     </c:forEach>
+                  </div>
+
+                  <!-- Left and right controls -->
+                  <a class="left carousel-control" href="#myCarousel"
+                     data-slide="prev"> <span
+                     class="glyphicon glyphicon-chevron-left"></span> <span
+                     class="sr-only">Previous</span>
+                  </a> <a class="right carousel-control" href="#myCarousel"
+                     data-slide="next"> <span
+                     class="glyphicon glyphicon-chevron-right"></span> <span
+                     class="sr-only">Next</span>
+                  </a>
                </div>
-
-               <!-- Left and right controls -->
-               <a class="left carousel-control" href="#myCarousel"
-                  data-slide="prev"> <span
-                  class="glyphicon glyphicon-chevron-left"></span> <span
-                  class="sr-only">Previous</span>
-               </a> <a class="right carousel-control" href="#myCarousel"
-                  data-slide="next"> <span
-                  class="glyphicon glyphicon-chevron-right"></span> <span
-                  class="sr-only">Next</span>
-               </a>
             </div>
-         </div>
-         <br> <br>
+            <br> <br>
 
-         <c:forEach items="${clist}" var="rList">
+            <c:forEach items="${clist}" var="rList">
 
-            <div align="center" class="col-sm-2">
-               <hr>
-               <br> <a
-                  style="font-size: 25px; color: rgb(116, 191, 237); text-decoration: none; font-weight: bold;"
-                  href="getAttraction.do?city=${rList}&&location=${requestScope.location}">${rList}</a><br>
-               <br>
-            </div>
-         </c:forEach>
-         <hr>
-         <br> <br>
-
-
-      </article>
-   </section>
-   <footer></footer>
+               <div align="center" class="col-sm-2">
+                  <hr>
+                  <br> <a
+                     style="font-size: 25px; color: #FFFFFF/* rgb(116, 191, 237) */; text-decoration: none; font-weight: bold;"
+                     href="getAttraction.do?city=${rList}&&location=${requestScope.location}">${rList}</a><br>
+                  <br>
+               </div>
+            </c:forEach>
+            <hr>
+            <br> <br>
+         </article>
+      </section>
+   
+   <footer></footer></div>
 </body>
 </html>

@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -60,7 +61,7 @@
 					$('#passcheckform').removeClass('has-error').addClass('has-success').addClass('has-feedback')
 					.addClass('glyphicon-ok');
 				   }
-				  }); 
+				  });
 				 });
 			$('input[type=button]').click(function () {
 				if($('#id').val() == "")

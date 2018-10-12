@@ -102,7 +102,7 @@
 
 <script type="text/javascript" src="js/nav.js"></script>
 </head>
-<body style="background-color: rgba(249, 248, 244, 0.5)/* #EEF4F2 */">
+<body><!-- style="background-color: rgba(249, 248, 244, 0.5)/* #EEF4F2 */" -->
 
 
    	<nav class="navbar navbar-defalt navbar-fixed-top" style="background-color: #fff">

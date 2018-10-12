@@ -184,8 +184,7 @@ public class TourDao {
 			if (rs.next()) {
 				System.out.println("reviewNum�쓽 like媛� 1 利앷�! :: " + rs.getInt("likes"));
 			}
-		} catch (Exception e) {
-		}finally {
+		} finally {
 			closeAll(rs, ps, conn);
 		}
 	}// addLike �����
@@ -205,8 +204,7 @@ public class TourDao {
 			if (rs.next()) {
 				System.out.println("reviewNum�쓽 like媛� 1 利앷�! :: " + rs.getInt("likes"));
 			}
-		} catch (Exception e) {	
-		}finally {
+		} finally {
 			closeAll(rs, ps, conn);
 		}
 	}//
@@ -1025,7 +1023,6 @@ public class TourDao {
 			closeAll(ps, conn);
 		}
 	}
-
 
 	public Connection getConnect() throws SQLException {
 		return ds.getConnection();
