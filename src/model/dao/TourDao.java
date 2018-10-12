@@ -349,9 +349,9 @@ public class TourDao {
 				list.add(vo);
 			}
 			for (int i = 0; i < list.size(); i++) {
-				ArrayList<String> tags = getTags(list.get(i).getReviewNum(), conn);
+				ArrayList<String> tags = getTags(list.get(i).getReviewNum());
 				list.get(i).setTags(tags);
-				ArrayList<String> img = getImages(list.get(i).getReviewNum(), conn);
+				ArrayList<String> img = getImages(list.get(i).getReviewNum());
 				list.get(i).setImages(img);
 				if (img.size() != 0)
 					list.get(i).setMainImage(img.get(0));
@@ -487,8 +487,8 @@ public class TourDao {
 						rs.getString("location"), rs.getString("city"), rs.getString("content"),
 						rs.getString("date_writing"), rs.getInt("likes"));
 			}
-			rvo.setImages(getImages(rvo.getReviewNum(), conn)); // image list
-			rvo.setComments(getComments(rvo.getReviewNum(), conn)); // comment list
+			rvo.setImages(getImages(rvo.getReviewNum()));			//image list
+			rvo.setComments(getComments(rvo.getReviewNum(), conn));		//comment list
 		} finally {
 			closeAll(rs, ps, conn);
 		}
@@ -710,11 +710,15 @@ public class TourDao {
 			ps.setString(1, rvo.getLocation());
 			ps.setString(2, rvo.getCity());
 			ps.setString(3, rvo.getTitle());
-			ps.setInt(4, rvo.getReviewNum());
-			ps.executeUpdate();
-			///// DELETE FROM x,x,x WHERE review_num=x test
+			ps.setString(4, rvo.getContent());
+			ps.setInt(5, rvo.getReviewNum());
+			
 			int row = ps.executeUpdate();
 			System.out.println(row + " row update posting ok..");
+			
+			ps = conn.prepareStatement(ReviewStringQuery.DELETE_TAG);
+			ps.setInt(1, rvo.getReviewNum());
+			ps.executeUpdate();
 
 		} finally {
 			closeAll(ps, conn);
@@ -885,9 +889,9 @@ public class TourDao {
 
 		return list;
 	}
-
-	public ArrayList<String> getImages(int reviewNum, Connection conn) throws SQLException { // get review images
-
+	
+	public ArrayList<String> getImages(int reviewNum) throws SQLException{			//get review images
+		Connection conn = getConnect();
 		ArrayList<String> ilist = new ArrayList<String>();
 		PreparedStatement ps = conn.prepareStatement(ReviewStringQuery.GET_REVIEW_IMAGES);
 		ps.setInt(1, reviewNum);
@@ -895,14 +899,12 @@ public class TourDao {
 		while (rs.next()) {
 			ilist.add(rs.getString("review_image"));
 		}
-		if (rs != null)
-			rs.close();
-		if (ps != null)
-			ps.close();
+		closeAll(rs, ps, conn);
 		return ilist;
 	}
-
-	public ArrayList<String> getTags(int reviewNum, Connection conn) throws SQLException { // get review images
+	
+	public ArrayList<String> getTags(int reviewNum) throws SQLException{			//get review images
+		Connection conn = getConnect();
 
 		ArrayList<String> ilist = new ArrayList<String>();
 		PreparedStatement ps = conn.prepareStatement(ReviewStringQuery.GET_REVIEW_TAGS);
@@ -911,10 +913,8 @@ public class TourDao {
 		while (rs.next()) {
 			ilist.add(rs.getString("word"));
 		}
-		if (rs != null)
-			rs.close();
-		if (ps != null)
-			ps.close();
+		closeAll(rs, ps, conn);
+
 		return ilist;
 	}
 
@@ -1077,11 +1077,6 @@ public class TourDao {
 		}
 		return vo;
 	}
-	public void deleteImage(String img) throws SQLException{
-		System.out.println("img url : "+img);
-		File file = new File("C:\\yjk\\webPro2\\eclipse\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps"+img);
-		System.out.println(file.delete()); 
-	}
 	
 	public MemberVO findIdPass(String userName, int ssn, String tel) throws SQLException{
 		MemberVO vo = null;
@@ -1103,6 +1098,28 @@ public class TourDao {
 			closeAll(pstmt,conn);
 		}
 		return vo;
+	}
+	
+	public void deleteImage(int reviewNum, String img) throws SQLException {
+		System.out.println("img url : " + img);
+		File file = new File(
+				"C:\\yjk\\webPro2\\eclipse\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps"
+						+ img);
+		System.out.println(file.delete());
+
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			conn = getConnect();
+			pstmt = conn.prepareStatement(ReviewStringQuery.DELETE_REVIEW_IMG);
+			pstmt.setInt(1, reviewNum);
+			pstmt.setString(2, img);
+			pstmt.executeUpdate();
+			
+		} finally {
+			closeAll(pstmt, conn);
+		}	
 	}
 	
 

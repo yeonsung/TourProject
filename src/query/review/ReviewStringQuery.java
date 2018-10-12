@@ -30,6 +30,9 @@ public interface ReviewStringQuery {
 	//		+ "WHERE rownum<10 review_num IN (SELECT review_num FROM tag WHERE word=?)";			// index review list
 
 	String DELETE_REVIEW = "delete from review where review_num=?";
+	String DELETE_ALL_SCRAP = "delete from scrap where review_num=?";
+	String DELETE_TAG = "delete from tag where review_num=?";
+	String DELETE_REVIEW_IMG = "delete from review_image where review_num=? and review_image=?";
 	// 스크랩
 		String INSERT_SCRAP = "insert into scrap(id,review_num) values(?,?)";
 		String DELETE_SCRAP = "delete from scrap where id=? AND review_num=?";
@@ -162,3 +165,31 @@ public interface ReviewStringQuery {
  * 6. 검색결과가 tag에 없는 경우(tag 내용이 tourspot,city,location가 아닐 때)
  *    1) 검색..x.....
  */
+
+
+/*
+ * updateReview
+ * 
+ * 수정버튼 누름 -> controller(내용 받아오기- id, location, city, title, categorys, content, image)
+ * -> write.jsp ->  표시 -> 작성누르면 -> updatedate controller (기존 것들 삭제, 업데이트)
+ * 
+ * controller
+ * CHECK_REVIEW(checkReview) + GET_REVIEW_TAGS(getTags) + GET_REVIEW_IMAGES(getImages)
+ * 
+ * 
+ * 
+ * updatedate controller (기존 것들 삭제, 업데이트)
+ * 
+ * update review set location=?, city=?, title=?, content=? where review_num=?;
+ * delete from tag where review_num=?;
+ * INSERT_TAG
+ * 
+*/
+
+
+/*
+ * delete from review_image where review_num=? and review_image=?;
+ * 
+ */
+
+

@@ -50,6 +50,14 @@ public class HandlerMapping {
 			return new GetRecentReviewsController();
 		case "checkReview.do":	//command
 			return new CheckReviewController();
+		case "updatereview.do":
+			return new UpdateReviewController();
+		case "getreview.do":
+			return new GetReviewController();
+		case "memberreview.do":
+			return new MemberReviewController();
+		case "deleteiamge.do":
+			return new DeleteIamgeController();
 		case "like.do":
 			return new likeCheckedController();
 		case "scrapCheck.do":

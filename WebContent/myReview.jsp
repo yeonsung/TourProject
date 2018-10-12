@@ -82,7 +82,7 @@
 				<a href="checkReview.do?num=${rList.reviewNum}"><img src="${rList.mainImage}" width="350" height="200"></a><br><br>
 				<a href="checkReview.do?num=${rList.reviewNum}">${rList.title}</a>&nbsp;&nbsp;
 
-				<input type="button" value="수정">&nbsp;
+				<a href="getreview.do?reviewNum=${rList.reviewNum}&&id=${rList.id}"><input type="button" value="수정"></a>&nbsp;
 				<a href="delete.do?reviewNum=${rList.reviewNum}&&id=${rList.id}"><input type="button" value="삭제"></a>
 				<hr><br><br>
 			</div>
