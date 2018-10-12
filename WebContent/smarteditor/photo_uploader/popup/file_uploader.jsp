@@ -86,9 +86,3 @@ if(request.getContentLength() > 10*1024*1024 ){
 	this.window.close();
 </script>
 
-
-
-
-
-
-

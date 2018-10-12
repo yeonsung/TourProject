@@ -16,8 +16,8 @@
 			$('form').submit(function(event) {
 				var password = $('#password').val();
 				var passcheck = $('#passcheck').val();
+				var ssn = $('#ssn').val();
 				var tel = $('#tel').val();
-				var id = $('#id').val();
 				
 				if($('input[name=flag]').val() == "false"){
 					alert("아이디 중복확인을 눌러주세요.");
@@ -31,7 +31,27 @@
 					alert("비밀번호는 대소문자를 혼합해서 사용하세요.");
 					return false;
 				}
+				if(!(ssn.length>=0 && ssn.length<=6)){
+					alert("주민등록번호 예)900101");
+					return false;
+				}
+				if(!(tel.length>=0 && tel.length<=11)){
+					alert("전화번호 예)01012345678");
+					return false;
+				}
 			});
+			$("#tel").keyup(function(){
+				$(this).val($(this).val().replace(/[^0-9]/g,""));
+				});
+			
+			$("#ssn").keyup(function(){
+				$(this).val($(this).val().replace(/[^0-9]/g,""));
+				});
+			
+			$("#username").keyup(function(){
+				$(this).val($(this).val().replace(/[^가-힣a-zA-Z]/g,""));
+				});
+			
 			 $(function(){
 				  $('#passcheck').keyup(function(){
 				   if($('#password').val()!=$('#passcheck').val()){
@@ -124,7 +144,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="ssn" class="cols-sm-2 control-label">주민등록번호</label>
+                        <label for="ssn" class="cols-sm-2 control-label">주민등록번호(앞자리 6자리)</label>
                         <div class="cols-sm-10">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fas fa-id-card"></i></span>

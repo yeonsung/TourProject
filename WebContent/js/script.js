@@ -16,8 +16,8 @@ var path = d3.geo.path()
 var zoom = d3.behavior.zoom()
     .translate(projection.translate())
     .scale(projection.scale())
-    .scaleExtent([height, 800 * height])
-    .on("zoom", zoom);
+    .scaleExtent([height, 800 * height]);
+ //   .on("zoom", zoom);
 
 var svg = d3.select("#container").append("svg")
     .attr("width", width)
@@ -39,6 +39,7 @@ d3.json("data/korea.json", function(json) {
     .enter().append("path")
       .attr("d", path)
       .attr("id", function(d) { return 'path-'+d.id; })
+      .attr("class", function(d) { return 'path-'+d.id; })
       .attr("value",function(d){return 'path-'+d.id; })
       .on("click", click);
       
@@ -49,10 +50,14 @@ d3.json("data/korea.json", function(json) {
       .attr("id", function(d) { return 'label-'+d.id; })
       .attr('text-anchor', 'middle')
       .attr("dy", ".35em")
-      .on("click", click)
-      .text(function(d) { return d.properties.Name; });
-}); 
+      .text(function(d) { return d.properties.Name; })
+      .on("click", click);
+  	
+});
 
+function effect(){
+	TweenMax.staggerTo($('#states path,text'), 1, {scale:1, opacity:1}, 0.25);
+}
 function click(d) {
   /*var x, y, k;
 
@@ -82,7 +87,7 @@ function click(d) {
 
 function zoom() {
   projection.translate(d3.event.translate).scale(d3.event.scale);
-  states.selectAll("path").attr("d", path);
+  states.selectAll("path").attr("d", path).css("opacity","0");
   
   labels.attr("transform", labelsTransform);
 }
@@ -101,18 +106,18 @@ function labelsTransform(d) {
   }
 }
 $('path').click(function(){
-	alert(this.val());
+//	alert(this.val());
 	$('form').submit();
 });
 
 
 // 踰꾪듉
-/*$('#zoomin').button({
+$('#zoomin').button({
   text: false,
   icons: {
     primary: "ui-icon-plus"
   }
-}).click(function() {
+});/*.click(function() {
   var arr = projection.translate(),
       scale = projection.scale();
       
@@ -125,12 +130,12 @@ $('path').click(function(){
   
   labels.attr("transform", labelsTransform);
 });*/
-/*$('#zoomout').button({
+$('#zoomout').button({
   text: false,
   icons: {
     primary: "ui-icon-minus"
   }
-}).click(function() {
+});/*.click(function() {
   var arr = projection.translate(),
       arr2 = projection.translate(),
       scale = projection.scale();
@@ -143,7 +148,7 @@ $('path').click(function(){
   states.selectAll("path").attr("d", path);
   
   labels.attr("transform", labelsTransform);
-});*/
+});
       
 // 吏�紐낇몴��
 /*$('#radio').find('input').on('click', function() {

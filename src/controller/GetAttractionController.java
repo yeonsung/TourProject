@@ -1,3 +1,4 @@
+
 package controller;
 
 import java.util.ArrayList;
@@ -7,24 +8,29 @@ import javax.servlet.http.HttpServletResponse;
 
 import model.dao.TourDao;
 import model.vo.AttractionVO;
+
 import model.vo.ReviewVO;
 import query.review.ReviewStringQuery;
+import service.ListVO;
+import service.ReviewService;
 
-public class GetAttractionController implements Controller{
+public class GetAttractionController implements Controller {
 
 	@Override
 	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		String city=request.getParameter("city");
-		String location= request.getParameter("location");
-		String tag=request.getParameter("tag");
-		ArrayList<ReviewVO> blist = new ArrayList<ReviewVO>();
-		blist = TourDao.getInstance().getBestReviewByTag(location,tag);
-		ArrayList<AttractionVO> avo= TourDao.getInstance().getAttraction(city);
+		String city = request.getParameter("city");
+		String pageNo = request.getParameter("pageNo");
+		String location = request.getParameter("location");
 		
-		request.setAttribute("blist", blist);
+		ArrayList<AttractionVO> avo = TourDao.getInstance().getAttraction(city);
+		/*
+		request.setAttribute("pageNo", pageNo);
+		*/
 		request.setAttribute("avo", avo);
-		
-		return new ModelAndView("bootstraptemplete.jsp");
+		request.setAttribute("city", city);
+		request.setAttribute("location", location);
+
+		return new ModelAndView("attraction2.jsp");
 	}
 
 }

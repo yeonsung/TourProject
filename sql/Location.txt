@@ -1,2 +1,2 @@
-CREATE TABLE location(location VARCHAR2(10),
-		      city VARCHAR2(10));
+CREATE TABLE location(location VARCHAR2(30),
+		      city VARCHAR2(30));

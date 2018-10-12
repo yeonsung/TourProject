@@ -32,9 +32,13 @@ public class WriteController implements Controller {
 		TourDao.getInstance().writeReviewImage(rvo.getReviewNum(), imagepaths);
 
 		ArrayList<String> tags = TourDao.getInstance().getTagsByContent(content);
-		for(int i=0; i<categorys.length;i++) {
-			tags.add(categorys[i]);
+		if(categorys!=null) {
+			for(int i=0; i<categorys.length;i++) {
+				tags.add(categorys[i]);
+			}	
 		}
+		tags.add(location);
+		tags.add(city);
 		rvo.setTags(tags);
 		TourDao.getInstance().writeTag(rvo.getReviewNum(), tags);
 		

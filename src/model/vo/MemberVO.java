@@ -17,6 +17,8 @@ public class MemberVO {
 	public MemberVO(String id) {
 		this.id = id;
 	}
+	
+	
 	public MemberVO(String userName, int ssn, String id, String password, String tel, String mail) {
 		this.userName = userName;
 		this.ssn = ssn;
@@ -30,6 +32,11 @@ public class MemberVO {
 		this.password = password;
 		this.tel = tel;
 		this.mail = mail;
+	}
+	
+	public MemberVO(String id, String userName) {
+		this.id=id;
+		this.userName = userName;
 	}
 
 	public ArrayList<Integer> getScraps() {
@@ -83,6 +90,4 @@ public class MemberVO {
 		return "UserVO [userName=" + userName + ", ssn=" + ssn + ", id=" + id + ", password=" + password + ", tel="
 				+ tel + ", mail=" + mail + "]";
 	}
-	
-	
 }

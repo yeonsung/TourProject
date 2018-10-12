@@ -1,6 +1,11 @@
 eclipse.preferences.version=1
+encoding//WebContent/data/korea.json=UTF-8
 encoding//WebContent/index.jsp=UTF-8
 encoding//WebContent/myReview.jsp=UTF-8
+encoding//WebContent/noResult.jsp=UTF-8
+encoding//src/controller/GoLocationPageController.java=UTF-8
+encoding//src/controller/LoginController.java=UTF-8
 encoding//src/model/dao/TourDao.java=UTF-8
 encoding//src/model/vo/ReviewVO.java=UTF-8
+encoding//src/query/review/ReviewStringQuery.java=UTF-8
 encoding//src/service/ReviewService.java=UTF-8

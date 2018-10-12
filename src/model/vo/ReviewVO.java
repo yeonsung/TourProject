@@ -25,6 +25,17 @@ public class ReviewVO {
 		this.city = city;
 		this.content = content;
 	}
+	
+	public ReviewVO(int reviewNum,String title, String id,String location, String city, String content, String date) {
+		this.reviewNum = reviewNum;
+		this.title = title;
+		this.location = location;
+		this.city = city;
+		this.content = content;
+		this.id = id;
+		this.content = content;
+		this.date = date;
+	}
 
 
 	// 占쏙옙占쏙옙占쏙옙占쏙옙占� 占쌩곤옙..
@@ -53,7 +64,12 @@ public class ReviewVO {
 		this.id = id;
 		this.date = date;
 	}
-	
+	public ReviewVO(int reviewNum, String title, String date) {
+		super();
+		this.reviewNum = reviewNum;
+		this.title = title;
+		this.date = date;
+	}
 	// 占쌩곤옙....
 	public ReviewVO(int reviewNum, String title, String id, String location, String city, String content, String date,
 			int like) {
@@ -160,7 +176,6 @@ public class ReviewVO {
 		this.comments = comments;
 		this.images = images;
 	}
-	
 	@Override
 	public String toString() {
 		return "ReviewVO [reviewNum=" + reviewNum + ", title=" + title + ", id=" + id + ", location=" + location
