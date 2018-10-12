@@ -38,23 +38,6 @@ public class TourDao {
 
 	}
 	
-	public void writeReviewImage(int reviewNum,ArrayList<String> imgList) throws SQLException {
-		Connection conn = null;
-		PreparedStatement ps = null;
-		try {
-			conn = getConnect();
-			ps = conn.prepareStatement(ReviewStringQuery.INSERT_REVIEWIMAGE);
-			for(String img : imgList) {
-				ps.setInt(1, reviewNum);
-				ps.setString(2, img);
-				int row = ps.executeUpdate();
-				System.out.println(row+" row insert review_image posting ok....");
-			}
-		}finally {
-			closeAll(ps, conn);
-		}
-	}
-
 	public int writeReview(ReviewVO rvo) throws SQLException {
 		Connection conn = null;
 		PreparedStatement ps = null;
@@ -87,22 +70,6 @@ public class TourDao {
 		return num;
 	}
 
-	public void writeTag(int reviewNum, ArrayList<String> tagList) throws SQLException {
-		Connection conn = null;
-		PreparedStatement ps = null;
-		try {
-			conn = getConnect();
-			ps = conn.prepareStatement(ReviewStringQuery.INSERT_TAG);
-			for(String tag : tagList) {
-				ps.setInt(1, reviewNum);
-				ps.setString(2, tag);
-				int row = ps.executeUpdate();
-				System.out.println(row+" row insert tag posting ok....");
-			}
-		}finally {
-			closeAll(ps, conn);
-		}
-	}
 	
 	public ArrayList<String> getTagsByContent(String content){
 	      ArrayList<String> tlist = new ArrayList<String>();
@@ -192,7 +159,7 @@ public class TourDao {
 	 * ps, conn); } return rlist; }
 	 */
 
-	public void addLike(int reviewNum) {
+	public void addLike(int reviewNum) throws SQLException{
 		
 		Connection conn = null;
 		PreparedStatement ps = null;
@@ -207,11 +174,12 @@ public class TourDao {
 			if (rs.next()) {
 				System.out.println("reviewNum�쓽 like媛� 1 利앷�! :: " + rs.getInt("likes"));
 			}
-		} catch (Exception e) {
+		} finally {
+			closeAll(rs, ps, conn);
 		}
 	}// addLike �����
 	
-	public void downLike(int reviewNum) {
+	public void downLike(int reviewNum) throws SQLException{
 	
 		Connection conn = null;
 		PreparedStatement ps = null;
@@ -226,7 +194,8 @@ public class TourDao {
 			if (rs.next()) {
 				System.out.println("reviewNum�쓽 like媛� 1 利앷�! :: " + rs.getInt("likes"));
 			}
-		} catch (Exception e) {	
+		} finally {
+			closeAll(rs, ps, conn);
 		}
 	}//
 
@@ -436,9 +405,9 @@ public class TourDao {
 				list.add(vo);
 			}
 			for (int i = 0; i < list.size(); i++) {
-				ArrayList<String> tags = getTags(list.get(i).getReviewNum(), conn);
+				ArrayList<String> tags = getTags(list.get(i).getReviewNum());
 				list.get(i).setTags(tags);
-				ArrayList<String> img = getImages(list.get(i).getReviewNum(), conn);
+				ArrayList<String> img = getImages(list.get(i).getReviewNum());
 				list.get(i).setImages(img);
 				if(img.size()!=0)
 					list.get(i).setMainImage(img.get(0));
@@ -1014,20 +983,6 @@ public class TourDao {
 		} finally {
 			closeAll(ps, conn);
 		}
-	}
-
-	public ArrayList<String> getTagsByContent(String content) {
-		ArrayList<String> tlist = new ArrayList<String>();
-		String content1 = content.replace("<p>", " ");
-		String content2 = content1.replace("</p>", "");
-		String content3 = content2.replace("&nbsp;", " ");
-		String[] arr = content3.split(" ");
-		for (int i = 0; i < arr.length; i++) {
-			if (arr[i].startsWith("#")) {
-				tlist.add(arr[i].substring(1));
-			}
-		}
-		return tlist;
 	}
 
 	public Connection getConnect() throws SQLException {

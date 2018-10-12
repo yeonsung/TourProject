@@ -30,7 +30,7 @@ public class GetAttractionController implements Controller {
 		request.setAttribute("city", city);
 		request.setAttribute("location", location);
 
-		return new ModelAndView("attraction2.jsp");
+		return new ModelAndView("attraction.jsp");
 	}
 
 }

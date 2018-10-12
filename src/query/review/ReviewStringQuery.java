@@ -16,8 +16,6 @@ public interface ReviewStringQuery {
 	/*String BEST_REVIEW_LOCATION_TAG = "select review_num, title, likes,city from (select * from review order by likes desc) where rownum<4"
 			+ " AND review_num IN ((SELECT review_num FROM tag WHERE word=?)) AND location=?"; // v1에서 왼쪽 리뷰 리스트
 */
- 	String INSERT_REVIEWIMAGE = "INSERT INTO review_image(review_num, review_image) VALUES(?, ?)";
-  String INSERT_TAG = "INSERT INTO tag(review_num, word) VALUES(?, ?)";
 	String CHECK_REVIEW = "select * from review where review_num = ?"; // 글 정보 return
 	
 	String BEST_REVIEW_LOCATION_TAG = "select review_num, title, likes,city from (select * from review order by likes desc) where rownum<4"

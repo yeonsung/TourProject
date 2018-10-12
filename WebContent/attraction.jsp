@@ -428,7 +428,7 @@ body {
                <div class="grid-sizer"></div>
                <c:forEach var="avo" items="${avo}">
                   <div class="grid-item">
-                     <a href="#"> <img src="${avo.mainImages}">
+                     <a href="#"> <img src="${avo.mainImage}">
                      </a>
                   </div>
                </c:forEach>
