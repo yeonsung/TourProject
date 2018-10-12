@@ -54,7 +54,10 @@ public interface ReviewStringQuery {
 
 	String GET_REVIEW_TAGS = "select word from tag where review_num=?"; // 由щ럭 tag�뱾 return
 	String GET_REVIEW_IMAGES = "SELECT review_image FROM review_image WHERE review_num = ?"; // 由щ럭 img�뱾 return
+	/*Comment 댓글ㅇㅇ*/
 	String GET_REVIEW_COMMENTS = "SELECT id,content FROM comments WHERE review_num = ?"; // 由щ럭 comment�뱾 return
+	String ADD_COMMENT = "insert into comments(review_num,id,content) values(?,?,?)";
+	String DEL_COMMENT = "delete from comments where review_num=? and id=? and content=?";
 	
 	String GET_MY_REVIEW = "select review_num, title, date_writing, id from"
 			+ " (select review_num, title, date_writing, id, ceil(rownum/" + CommonConstants.CONTENT_NUMBER_PER_PAGE
@@ -101,6 +104,7 @@ public interface ReviewStringQuery {
 	String CHECK_TAG_BY_CITY = "select distinct city from location where city=?";
 	String TAG_EXIST = "select * from tag where word=?";
 	String GET_TOTAL_REVIEW = "SELECT COUNT(-1) FROM review";
+
 }
 
 /*

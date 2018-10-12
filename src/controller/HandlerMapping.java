@@ -56,7 +56,12 @@ public class HandlerMapping {
 			return new scrapCheckedController();
 		case "getBestReviewCityBytag.do":
 			return new GetBestReviewCityBytagController();
-		}
+		case "addComment.do":
+			return new AddCommentController();
+		case "deleteComment.do":
+			return new DeleteCommentController();
+	}
+		
 		return null;
 	}
 }
