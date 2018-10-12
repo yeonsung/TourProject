@@ -20,7 +20,7 @@ public interface ReviewStringQuery {
 	String SCRAP = "insert into scrap values(?,?)";									// 스크랩
 	String GET_ATTRACTION = "select spot_name,address,location,city,info from tourspot where city=?"; // city별 관광지 정보 return
 	String GET_ATTRACTION_IMG= "select spot_image from spot_image where spot_name=?";					  // 관광지 이미지 리턴
-	String GET_FESTIVAL_INFO = "select festival_Name,festival_Location,location,city,start_Date,end_Date,agency from festival where location=?" + 
+	String GET_FESTIVAL_INFO = "select festival_Name,festival_Location,location,city,start_Date,end_Date,agency,img from festival where location=?" + 
 			" AND ((start_Date BETWEEN SYSDATE AND SYSDATE+7) OR (SYSDATE BETWEEN start_Date AND end_Date))";// location별 축제정보 return 안되면 start,end Date에 ''추가
 //	String SEARCH_BY_TAG = "SELECT review_num,location,city,title,content,date_writing,likes,id "
 //			+ "FROM review WHERE review_num = all(select review_num from tag where word=?)";	// �떎�떆

@@ -5,10 +5,6 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
       
-<%-- <%
-     String ctx = request.getContextPath();    //콘텍스트명 얻어오기.
-%>    --%>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,32 +13,19 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <title>Insert title here</title>
 
 <script type="text/javascript" src="<%=request.getContextPath()%>/smarteditor/js/HuskyEZCreator.js" charset="utf-8"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/smarteditor/photo_uploader/plugin/hp_SE2M_AttachQuickPhoto.js" charset="utf-8"></script>
 <%-- <script type="text/javascript" src="<%=ctx %>/smarteditor/js/HuskyEZCreator.js" charset="utf-8"></script> --%>
-<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.0.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 </head>
 
 <body>   
 <script type="text/javascript">
-/* jQuery('#selectBox').change(function() {
-   var state = jQuery('#selectBox option:selected').val();
-   if(state == '1') {
-      jQuery('#layer').show();
-   } else {
-      jQuery('#layer').hide();
-   }
-});    */
-/* $('frm').submit(function(){
-    var msg = document.getElementById('smarteditor').value; 
-   alert(msg);
-   $('frm').submit();}
-);  */
 
 function categoryChange(e) {
      var location_a = ["강남구", "강동구", "강북구", "강서구", "관악구", "광진구", "구로구", "금천구", "노원구", "도봉구", "동대문구", "동작구", "마포구", "서대문구", "서초구", "서동구", "성북구", "송파구", "양천구", "영등포구", "용산구", "은평구", "종로구", "중구", "중랑구"];
@@ -91,13 +74,6 @@ function categoryChange(e) {
        opt.innerHTML = d[x];
        target.appendChild(opt);
      } 
-     
-    /* function settleFormCheck(){
-       var f   rm = document.settleForm;
-        
-        frm.action = “write.do”;
-        return true;
-   } */
 }
    
 var oEditors = [];
@@ -125,17 +101,6 @@ $(function(){
           fCreator: "createSEditor2"
       });
      
-     /*  $("#savebutton").click(function(){
-          //id가 smarteditor인 textarea에 에디터에서 대입
-          editor_object.getById["smarteditor"].exec("UPDATE_CONTENTS_FIELD", []);
-           
-          // 이부분에 에디터 validation 검증
-           
-          //폼 submit
-          $("#frm").submit();
-      }); */
-   
-      //저장버튼 클릭시 form 전송
 
       $("#savebutton").click(function(){
           oEditors.getById["smarteditor"].exec("UPDATE_CONTENTS_FIELD", []);
@@ -159,28 +124,6 @@ var count = 0;
 function pasteHTML(filepath){
    var id = '${sessionScope.vo.id}';
    count++;
-//   $('#imageupload').empty();
-   
-   <%-- var ss = '<div id="myCarousel" class="carousel slide" data-ride="carousel"><ol class="carousel-indicators">';
-   var ss2 = '';
-   var ss3 = '</ol><div class="carousel-inner">';
-   var ss4 = '';
-   var ss5 = '</div><a class="left carousel-control" href="#myCarousel" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span>'
-         +'<span class="sr-only">Previous</span></a><a class="right carousel-control" href="#myCarousel" data-slide="next">'
-         +'<span class="glyphicon glyphicon-chevron-right"></span><span class="sr-only">Next</span></a></div>';
-         
-         
-    if(count==1){
-       ss2 = '<li data-target="#myCarousel" data-slide-to="0" class="active"></li>';
-       ss4 = '<div class="item active"><img src="<%=request.getContextPath()%>/upload/'+id+'/'+filepath+'" width="265px" id="img'+count+'"></div>';
-       
-    }else{
-       ss2 = ss2+'<li data-target="#myCarousel" data-slide-to="(count-1)"></li>';
-       ss4 = ss4+'<div class="item"><img src="<%=request.getContextPath()%>/upload/'+id+'/'+filepath+'" width="265px" id="img'+count+'"></div>'
-    }
-    
-    
-   var result = ss+ss2+ss3+ss4+ss5; --%>
     var sHTML = '<img src="<%=request.getContextPath()%>/upload/'+id+'/'+filepath+'" width="265px" id="img'+count+'">'; 
    var imgDiv = "<div class='item'>"+sHTML+"</div>";
    $('#xxxx').append(imgDiv);   
@@ -190,11 +133,6 @@ function pasteHTML(filepath){
    $('#yyyy').append(ss);
    $('#yyyy li:eq(0)').addClass('active');
 }
-//    $('#imageupload').append(sHTML);
-   
-   
- 
-   /* oEditors.getById["smarteditors"].exec("PASTE_HTML", [sHTML]); */
 
 
 </script>   
