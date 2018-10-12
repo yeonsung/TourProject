@@ -22,7 +22,7 @@ public class GetAttractionController implements Controller {
 		String pageNo = request.getParameter("pageNo");
 		String location = request.getParameter("location");
 		
-		ArrayList<AttractionVO> avo = TourDao.getInstance().getAttraction(city);
+		ArrayList<AttractionVO> avo = TourDao.getInstance().getAttraction(city,location);
 		/*
 		request.setAttribute("pageNo", pageNo);
 		*/

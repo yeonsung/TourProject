@@ -5,7 +5,7 @@ import model.vo.ReviewVO;
 
 public interface ReviewStringQuery {
 
-	String GETCITIES = "SELECT city FROM location WHERE location=?"; // 寃쎄린�룄 -> �뼇�룊,怨좎뼇�벑�벑
+	String GETCITIES = "SELECT city FROM location WHERE location like ?"; // 寃쎄린�룄 -> �뼇�룊,怨좎뼇�벑�벑
 	String SEARCH_REVIEW_LIKE = "select likes from review where review_num=?"; // 醫뗭븘�슂�닔 由ы꽩?
 	String INSERT_REVIEW = "INSERT INTO review(review_num, location, city, title, content, date_writing, id)"
 			+ "VALUES(review_seq.nextVal, ?, ?, ?, ?, sysdate, ?)";
@@ -23,9 +23,9 @@ public interface ReviewStringQuery {
 	String BEST_REVIEW_LOCATION_TAG = "select review_num, title, likes,city from (select * from review order by likes desc) where rownum<4"
 			+ " AND review_num IN ((SELECT review_num FROM tag WHERE word=?)) AND location=?"; // v1에서 왼쪽 리뷰 리스트
 	String SCRAP = "insert into scrap values(?,?)";									// 스크랩
-	String GET_ATTRACTION = "select spot_name,address,location,city,info from tourspot where city=?"; // city별 관광지 정보 return
+	String GET_ATTRACTION = "select spot_name,address,location,city,info from tourspot where city=? and location like ?"; // city별 관광지 정보 return
 	String GET_ATTRACTION_IMG= "select spot_image from spot_image where spot_name=?";					  // 관광지 이미지 리턴
-	String GET_FESTIVAL_INFO = "select festival_Name,festival_Location,location,city,start_Date,end_Date,agency,img from festival where location=?" + 
+	String GET_FESTIVAL_INFO = "select festival_Name,festival_Location,location,city,start_Date,end_Date,agency,img from festival where location like ?" + 
 			" AND ((start_Date BETWEEN SYSDATE AND SYSDATE+7) OR (SYSDATE BETWEEN start_Date AND end_Date))";// location별 축제정보 return 안되면 start,end Date에 ''추가
 //	String SEARCH_BY_TAG = "SELECT review_num,location,city,title,content,date_writing,likes,id "
 //			+ "FROM review WHERE review_num = all(select review_num from tag where word=?)";	// �떎�떆
@@ -68,7 +68,7 @@ public interface ReviewStringQuery {
 			+ " (select review_num, title, date_writing, id, ceil(rownum/" + CommonConstants.CONTENT_NUMBER_PER_PAGE
 			+ ") page from"
 			+ " (select review_num, title, date_writing, id from review where id=? order by review_num desc)) where page=?"; // 由щ럭
-	
+	String RELATED_REVIEW_IN_CHECKREVIEW = "SELECT * FROM review WHERE review_num IN ((SELECT review_num FROM tag WHERE word IN (";
 	/*
 	 * String TEST = "select * from review where review_num in\n" +
 	 * "(select review_num from\n" + "(select review_num, ceil(rownum/" +
@@ -91,7 +91,7 @@ public interface ReviewStringQuery {
 
 	String GET_DATA = "select * from tourspot where spot_name =" + "(select distinct word from tag where word=?)";
 
-	String CHECK_SPOT = "select * from tourspot where spot_name=?";
+	String CHECK_SPOT = "select * from tourspot where spot_name like ?";
 
 	String GET_RECENT_REVIEWS = "SELECT * FROM" 				//index.jsp
 			+ "(SELECT review_num, title, location, city,id, ceil(rownum/10) page"
@@ -103,8 +103,8 @@ public interface ReviewStringQuery {
 			+ "(select city from tourspot where spot_name=?) order by review_num desc)) where page=?)";
 
 	String REVIEW_IMG = "SELECT review_image FROM review_image WHERE review_num=?";
-	String CHECK_TAG_BY_LOCATION = "select distinct location from location where location=?";
-	String CHECK_TAG_BY_CITY = "select distinct city from location where city=?";
+	String CHECK_TAG_BY_LOCATION = "select distinct location from location where location like ?";
+	String CHECK_TAG_BY_CITY = "select distinct city, location from location where city like ?";
 	String TAG_EXIST = "select * from tag where word=?";
 	String GET_TOTAL_REVIEW = "SELECT COUNT(-1) FROM review";
 }

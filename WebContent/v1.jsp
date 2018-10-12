@@ -283,16 +283,15 @@ tr td {
          <div class="collapse navbar-collapse navbar-right" id="myNavbar"
             style="margin-top: 15px">
             <form class="navbar-form navbar-left" action="getdata.do">
-               <div class="input-group">
-                  <input type="text" class="form-control" placeholder="Search"
-                     name="search" id="myInput">
-                  <div class="input-group-btn">
-                     <button class="btn btn-default" type="submit">
-                        <i class="glyphicon glyphicon-search"></i>
-                     </button>
-                  </div>
-               </div>
-            </form>
+	               		<div class="input-group">
+	                  		<input type="text" class="form-control" placeholder="Search" name="search" id="myInput">
+	                  		<div class="input-group-btn">
+	                     		<button class="btn btn-default" type="submit">
+	                        		<i class="glyphicon glyphicon-search"></i>
+	                     		</button>
+	                  		</div>
+	               		</div>
+	            	</form>
 
             <ul class="nav navbar-nav navbar-right">
                <li class="dropdown"><a class="dropdown-toggle"
