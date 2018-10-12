@@ -33,6 +33,7 @@ public class HandlerMapping {
 		case "write.do":	//command
 			return new WriteController();
 		case "idcheck.do":
+			System.out.println("¸¸µé¾îÁü");
 			return new IdcheckController();
 		case "registerupdate.do":
 			return new RegisterUpdateController();
