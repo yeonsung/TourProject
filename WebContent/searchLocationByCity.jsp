@@ -312,7 +312,7 @@ body {
 									<c:otherwise>
 										<ul class="dropdown-menu">
 											<li><a href="login.jsp"><span
-													class="glyphicon glyphicon-log-in"></span>&nbsp;&nbsp;濡�洹몄��</a></li>
+													class="glyphicon glyphicon-log-in"></span>&nbsp;&nbsp;로그인</a></li>
 											<li><a href="register.jsp"><i
 													class="fas fa-user-plus"></i>&nbsp;&nbsp;����媛���</a></li>
 										</ul>

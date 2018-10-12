@@ -19,7 +19,10 @@ public class WriteController implements Controller {
 		String title = request.getParameter("title");
 		String[] categorys = request.getParameterValues("category");
 		String content = request.getParameter("smarteditor");
-		int count = Integer.parseInt(request.getParameter("count"));
+		System.out.println(request.getParameter("count"));
+		int count=0;
+		if(request.getParameter("count")!=null)
+			count = Integer.parseInt(request.getParameter("count"));
 		
 		ReviewVO rvo = new ReviewVO(title, id, location, city, content);
 		TourDao.getInstance().writeReview(rvo);

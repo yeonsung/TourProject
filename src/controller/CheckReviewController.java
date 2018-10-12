@@ -1,5 +1,7 @@
 package controller;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -21,7 +23,6 @@ public class CheckReviewController implements Controller{
 		
 		if(session.getAttribute("vo")!=null) {
 			vo = (MemberVO)session.getAttribute("vo");
-			System.out.println(vo+"!!!!!!!!!!!");
 			flag=TourDao.getInstance().checkLike(vo.getId(), reviewNum);
 			flag2=TourDao.getInstance().checkScrap(vo.getId(), reviewNum);
 		}
@@ -30,6 +31,11 @@ public class CheckReviewController implements Controller{
 		request.setAttribute("likeFlag", flag);
 		request.setAttribute("scrapFlag", flag2);
 		ReviewVO rvo=TourDao.getInstance().checkReview(reviewNum);
+		ArrayList<ReviewVO> rlist = TourDao.getInstance().getRelateReview(rvo.getTags());
+		System.out.println("rlist 입니다 "+rlist);
+		
+		request.setAttribute("rlist", rlist);
+		
 		request.setAttribute("rvo", rvo);
 		System.out.println(vo);
 		request.setAttribute("vo", vo);	

@@ -8,7 +8,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import javax.sql.DataSource;
+
 import config.OracleInfo;
+import model.DataSourceManager;
 import model.vo.AttractionVO;
 import model.vo.CommentVO;
 import model.vo.FestivalVO;
@@ -19,9 +22,16 @@ import query.review.ReviewStringQuery;
 import query.user.UserStringQuery;
 
 public class TourDao {
+	private DataSource ds;
 	private static TourDao reviewDao = new TourDao();
 
 	private TourDao() {
+		try {
+			ds=DataSourceManager.getInstance().getDataSource();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public static TourDao getInstance() {
@@ -159,7 +169,7 @@ public class TourDao {
 	 * ps, conn); } return rlist; }
 	 */
 
-	public void addLike(int reviewNum) throws SQLException{
+	public void addLike(int reviewNum) throws SQLException {
 		
 		Connection conn = null;
 		PreparedStatement ps = null;
@@ -179,7 +189,7 @@ public class TourDao {
 		}
 	}// addLike �����
 	
-	public void downLike(int reviewNum) throws SQLException{
+	public void downLike(int reviewNum) throws SQLException {
 	
 		Connection conn = null;
 		PreparedStatement ps = null;
@@ -428,7 +438,7 @@ public class TourDao {
 		try {
 			conn = getConnect();
 			ps = conn.prepareStatement(ReviewStringQuery.GET_FESTIVAL_INFO);
-			ps.setString(1, location);
+			ps.setString(1, location+"%");
 			rs = ps.executeQuery();
 			while (rs.next()) {
 				list.add(new FestivalVO(rs.getString("festival_Name"), rs.getString("festival_Location"),
@@ -441,7 +451,7 @@ public class TourDao {
 		return list;
 	}// getFestivalInfo 泥좎쭊�벐
 
-	public ArrayList<AttractionVO> getAttraction(String city) throws SQLException { // v2 tourspot list
+	public ArrayList<AttractionVO> getAttraction(String city,String location) throws SQLException { // v2 tourspot list
 		ArrayList<AttractionVO> list = new ArrayList<>();
 		Connection conn = null;
 		PreparedStatement ps = null;
@@ -451,6 +461,7 @@ public class TourDao {
 			conn = getConnect();
 			ps = conn.prepareStatement(ReviewStringQuery.GET_ATTRACTION);
 			ps.setString(1, city);
+			ps.setString(2, location+"%");
 			rs = ps.executeQuery();
 			while (rs.next()) {
 				list.add(new AttractionVO(rs.getString("spot_name"), rs.getString("address"), rs.getString("location"),
@@ -505,6 +516,7 @@ public class TourDao {
 						rs.getString("date_writing"), rs.getInt("likes"));
 			}
 			rvo.setImages(getImages(rvo.getReviewNum()));			//image list
+			rvo.setTags(getTags(rvo.getReviewNum()));
 			rvo.setComments(getComments(rvo.getReviewNum(), conn));		//comment list
 		} finally {
 			closeAll(rs, ps, conn);
@@ -807,7 +819,7 @@ public class TourDao {
 		try {
 			conn = getConnect();
 			ps = conn.prepareStatement(ReviewStringQuery.CHECK_TAG_BY_LOCATION);
-			ps.setString(1, tag);
+			ps.setString(1, tag+"%");
 			rs = ps.executeQuery();
 
 			if (rs.next())
@@ -815,7 +827,7 @@ public class TourDao {
 
 			else {
 				ps = conn.prepareStatement(ReviewStringQuery.CHECK_TAG_BY_CITY);
-				ps.setString(1, tag);
+				ps.setString(1, tag+"%");
 				rs = ps.executeQuery();
 
 				if (rs.next())
@@ -859,19 +871,46 @@ public class TourDao {
 		try {
 			conn = getConnect();
 			ps = conn.prepareStatement(ReviewStringQuery.CHECK_SPOT);
-			ps.setString(1, tag);
+			ps.setString(1, "%"+tag+"%");
 			rs = ps.executeQuery();
 
-			while (rs.next())
+			while (rs.next()) {
 				list.add(new AttractionVO(rs.getString("spot_name"), rs.getString("address"), rs.getString("location"),
-						rs.getString("city"), rs.getString("info"), rs.getString("img")));
+						rs.getString("city"), rs.getString("info")));
+			}
+			for (AttractionVO vo : list) {
+				ps = conn.prepareStatement("SELECT spot_image FROM spot_image WHERE spot_name=?");
+				ps.setString(1, vo.getSpotName());
+				rs = ps.executeQuery();
+				if (rs.next())
+					vo.setMainImage(rs.getString("spot_image"));
+			}
 
 		} finally {
 			closeAll(rs, ps, conn);
 		}
 		return list;
 	}
-
+	
+	public ArrayList<String> checkLocationByCity(String city) throws SQLException{
+		ArrayList<String> list = new ArrayList<String>();
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			conn = getConnect();
+			ps = conn.prepareStatement(ReviewStringQuery.CHECK_TAG_BY_CITY);
+			ps.setString(1, city);
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				list.add(rs.getString("location"));
+			}
+		}finally {
+			closeAll(rs, ps, conn);
+		}
+		return list;
+	}
+	
 	public ArrayList<ReviewVO> getReviewBySearch(String tag, int pageNo) throws SQLException {
 		ArrayList<ReviewVO> list = new ArrayList<ReviewVO>();
 		Connection conn = null;
@@ -986,9 +1025,7 @@ public class TourDao {
 	}
 
 	public Connection getConnect() throws SQLException {
-		Connection conn = DriverManager.getConnection(OracleInfo.URL, OracleInfo.USER, OracleInfo.PASS);
-
-		return conn;
+		return ds.getConnection();
 	}// getConnect
 
 	private void closeAll(PreparedStatement ps, Connection conn) throws SQLException {
@@ -1123,6 +1160,41 @@ public class TourDao {
 		} finally {
 			closeAll(pstmt, conn);
 		}	
+	}
+	public ArrayList<ReviewVO> getRelateReview(ArrayList<String> list) throws SQLException{
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		ArrayList<ReviewVO> rlist = new ArrayList<ReviewVO>();
+		try {
+			conn = getConnect();
+			ps = conn.prepareStatement(getRelateQuery(list));
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				rlist.add(new ReviewVO(rs.getInt("review_num"), rs.getString("location"), rs.getString("city"),rs.getString("title"), rs.getString("id")));
+			}
+			for (int i = 0; i < list.size(); i++) {
+				ArrayList<String> tags = getTags(rlist.get(i).getReviewNum());
+				rlist.get(i).setTags(tags);
+				ArrayList<String> img = getImages(rlist.get(i).getReviewNum());
+				rlist.get(i).setImages(img);
+				if (img.size() != 0)
+					rlist.get(i).setMainImage(img.get(0));
+			} // for
+			
+		} finally {
+			closeAll(rs, ps, conn);
+		}
+		return rlist;
+	}
+	public String getRelateQuery(ArrayList<String> list) {
+		String sum="";
+		for(String str : list) {
+			if(!str.equals(""))
+				sum += "'"+str+"',";
+		}
+		sum = sum.substring(0, sum.length()-1);
+		return ReviewStringQuery.RELATED_REVIEW_IN_CHECKREVIEW+sum+")))";
 	}
 	
 
