@@ -80,8 +80,8 @@
 			<div align="center" class="col-sm-4">
 				<hr>
 				${rList.date}<br>
-				<a href="#"><img src="${rList.mainImage}" width="350" height="200"></a><br><br>
-				<a href="#">${rList.title}</a>&nbsp;&nbsp;
+				<a href="checkReview.do?num=${rList.reviewNum}"><img src="${rList.mainImage}" width="350" height="200"></a><br><br>
+				<a href="checkReview.do?num=${rList.reviewNum}">${rList.title}</a>&nbsp;&nbsp;
 				<a href="deleteScrap.do?reviewNum=${rList.reviewNum}&&id=${rList.id}"><input type="button" value="삭제"></a>
 				<hr><br><br>
 			</div>

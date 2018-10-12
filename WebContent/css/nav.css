@@ -10,10 +10,16 @@
 	padding-bottom: 8px;
 	font: 67.5% "Lucida Sans Unicode", "Bitstream Vera Sans", "Trebuchet Unicode MS", "Lucida Grande", Verdana, Helvetica, sans-serif;
 	font-size: 14px;
-	background-color: /* #0F6A8B; #F5EED2*/#FFFAE5;
+	background-color: #FFFAE5 ; /* #0F6A8B #F5EED2*/
 	border-top: 7px solid transparent ;
 	border-bottom: 7px solid transparent ;
 	border-color: #f4ecc8
+}
+
+body {
+	background: #DE6262;
+    background: -webkit-linear-gradient(to bottom, #FFB88C, #DE6262);
+    background: linear-gradient(to bottom, #FFB88C, #DE6262);
 }
    
 .caret {

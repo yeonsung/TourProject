@@ -350,53 +350,53 @@ body {
          </div>
          <!-- navbar-header -->
 
-         <div class="collapse navbar-collapse navbar-right" id="myNavbar"
-            style="margin-top: 15px">
-            <form class="navbar-form navbar-left" action="/action_page.php">
-               <div class="input-group">
-                  <input type="text" class="form-control" placeholder="Search"
-                     name="search" id="myInput">
-                  <div class="input-group-btn">
-                     <button class="btn btn-default" type="submit">
-                        <i class="glyphicon glyphicon-search"></i>
-                     </button>
-                  </div>
-               </div>
-            </form>
+			<div class="collapse navbar-collapse navbar-right" id="myNavbar"
+				style="margin-top: 15px">
+				<form class="navbar-form navbar-left" action="getdata.do">
+					<div class="input-group">
+						<input type="text" class="form-control" placeholder="Search"
+							name="search" id="myInput">
+						<div class="input-group-btn">
+							<button class="btn btn-default" type="submit">
+								<i class="glyphicon glyphicon-search"></i>
+							</button>
+						</div>
+					</div>
+				</form>
 
-            <ul class="nav navbar-nav navbar-right">
-               <li class="dropdown"><a class="dropdown-toggle"
-                  data-toggle="dropdown" href="#"> <span
-                     class="glyphicon glyphicon-user text-success"> <span
-                        class="caret" style="margin-left: 10px"></span>
-                  </span>
-               </a> <c:choose>
-                     <c:when test="${vo != null}">
-                        <ul class="dropdown-menu">
-                           <li><a href="logout.do"><span
-                                 class="glyphicon glyphicon-log-out"></span>&nbsp;&nbsp;로그아웃</a></li>
-                           <li><a href="myreviews.do?id=${sessionScope.vo.id}"><span
-                                 class="glyphicon glyphicon-edit"></span>&nbsp;&nbsp;내가 쓴 글</a></li>
-                           <li><a href="scrap.do?id=${sessionScope.vo.id}"><span
-                                 class="glyphicon glyphicon-bookmark"></span>&nbsp;&nbsp;스크랩</a></li>
-                           <li><a href="write.jsp"><span
-                                 class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;글쓰기</a></li>
-                           <li><a href="registerupdate.do?id=${sessionScope.vo.id}"><span
-                                 class="glyphicon glyphicon-cog"></span>&nbsp;&nbsp;정보 수정</a></li>
-                        </ul>
-                     </c:when>
+				<ul class="nav navbar-nav navbar-right">
+					<li class="dropdown"><a class="dropdown-toggle"
+						data-toggle="dropdown" href="#"> <span
+							class="glyphicon glyphicon-user text-success"> <span
+								class="caret" style="margin-left: 10px"></span>
+						</span>
+					</a> <c:choose>
+							<c:when test="${vo != null}">
+								<ul class="dropdown-menu">
+									<li><a href="logout.do"><span
+											class="glyphicon glyphicon-log-out"></span>&nbsp;&nbsp;로그아웃</a></li>
+									<li><a href="myreviews.do?id=${sessionScope.vo.id}"><span
+											class="glyphicon glyphicon-edit"></span>&nbsp;&nbsp;내가 쓴 글</a></li>
+									<li><a href="scrap.do?id=${sessionScope.vo.id}"><span
+											class="glyphicon glyphicon-bookmark"></span>&nbsp;&nbsp;스크랩</a></li>
+									<li><a href="write.jsp"><span
+											class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;글쓰기</a></li>
+									<li><a href="registerupdate.do?id=${sessionScope.vo.id}"><span
+											class="glyphicon glyphicon-cog"></span>&nbsp;&nbsp;정보 수정</a></li>
+								</ul>
+							</c:when>
 
-                     <c:otherwise>
-                        <ul class="dropdown-menu">
-                           <li><a href="login.jsp"><span
-                                 class="glyphicon glyphicon-log-in"></span>&nbsp;&nbsp;로그인</a></li>
-                           <li><a href="register.jsp"><i class="fas fa-user-plus"></i>&nbsp;&nbsp;회원가입</a></li>
-                        </ul>
-                     </c:otherwise>
-                  </c:choose></li>
-            </ul>
-         </div>
-         <!-- myNavbar -->
+							<c:otherwise>
+								<ul class="dropdown-menu">
+									<li><a href="login.jsp"><span
+											class="glyphicon glyphicon-log-in"></span>&nbsp;&nbsp;로그인</a></li>
+									<li><a href="register.jsp"><i class="fas fa-user-plus"></i>&nbsp;&nbsp;회원가입</a></li>
+								</ul>
+							</c:otherwise>
+						</c:choose></li>
+				</ul>
+			</div>
+			<!-- myNavbar -->
       </div>
       <!-- container -->
    </header>
@@ -418,7 +418,6 @@ body {
       </nav>
 
       <article>
-         <%--    <c:set var="cblist" value="${cblist.list}"/>  --%>
          <div style="margin-left: 20%">
 
             <div class="w3-container w3-dark-grey">
@@ -428,63 +427,10 @@ body {
                <div class="grid-sizer"></div>
                <c:forEach var="avo" items="${avo}">
                   <div class="grid-item">
-                     <a href="#"> <img src="${avo.mainImages}">
+                     <a href="getdata.do?search=${avo.spotName}"> <img src="${avo.mainImage}">
                      </a>
                   </div>
                </c:forEach>
-
-<!-- 
-               <div class="grid-item">
-                  <a href=#> <img
-                     src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/submerged.jpg" />
-                  </a>
-               </div>
-               <div class="grid-item">
-                  <a href=#> <img
-                     src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/look-out.jpg" />
-                  </a>
-               </div>
-               <div class="grid-item">
-                  <a href=#> <img
-                     src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/one-world-trade.jpg" />
-                  </a>
-               </div>
-               <div class="grid-item">
-                  <a href=#> <img
-                     src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/drizzle.jpg" />
-                  </a>
-               </div>
-               <div class="grid-item">
-                  <a href=#> <img
-                     src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/cat-nose.jpg" />
-                  </a>
-               </div>
-               <div class="grid-item">
-                  <a href=#> <img
-                     src="https://static1.squarespace.com/static/554b5e7ce4b0149371f10a93/59775c56f9a61e6bb7e5db1f/59775cacd1758e6e542b9ff5/1502706803981/performance.jpg?format=500w" />
-                  </a>
-               </div>
-               <div class="grid-item">
-                  <a href=#> <img
-                     src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/contrail.jpg" />
-                  </a>
-               </div>
-               <div class="grid-item">
-                  <a href=#> <img
-                     src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/golden-hour.jpg" />
-                  </a>
-               </div>
-               <div class="grid-item">
-                  <a href=#> <img
-                     src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/flight-formation.jpg" />
-                  </a>
-               </div>
-
-               <div class="grid-item">
-                  <a href=#> <img
-                     src="https://static1.squarespace.com/static/554b5e7ce4b0149371f10a93/59775c56f9a61e6bb7e5db1f/59775cfdd482e9a886609de9/1502706746778/clienia+premium.jpg?format=500w" />
-                  </a>
-               </div> -->
             </div>
 
          </div>

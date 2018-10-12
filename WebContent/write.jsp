@@ -25,7 +25,6 @@
 <script type="text/javascript" src="<%=request.getContextPath()%>/smarteditor/js/HuskyEZCreator.js" charset="utf-8"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/smarteditor/photo_uploader/plugin/hp_SE2M_AttachQuickPhoto.js" charset="utf-8"></script>
 <%-- <script type="text/javascript" src="<%=ctx %>/smarteditor/js/HuskyEZCreator.js" charset="utf-8"></script> --%>
-<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.0.min.js"></script>
 </head>
 
 <body>   
@@ -74,7 +73,6 @@ function categoryChange(e) {
      else if(e.value == "부산") var d = location_g;
      else if(e.value == "경기도") var d = location_h;
      else if(e.value == "강원도") var d = location_i;
-     else if(e.value == "10") var d = location_j;
      else if(e.value == "충청북도") var d = location_k;
      else if(e.value == "충청남도") var d = location_l;
      else if(e.value == "전라북도") var d = location_m;
@@ -218,7 +216,6 @@ function pasteHTML(filepath){
                <option value="부산">부산광역시</option>
                <option value="경기도">경기도</option>
                <option value="강원도">강원도</option>
-               <option value="10">세종특별자치시</option>
                <option value="충청북도">충청북도</option>
                <option value="충청남도">충청남도</option>
                <option value="전라북도">전라북도</option>

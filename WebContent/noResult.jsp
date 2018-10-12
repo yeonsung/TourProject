@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
@@ -7,29 +7,11 @@
 <meta charset="utf-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="css/nav.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <style>
-	.contents{
-		padding-top: 80px;
-	}
-   	#header {
-      	border-bottom: 7px solid transparent;
-      	-moz-border-imag: -moz-linear-gradient(left, DarkGreen, #64AB4C);
-		-webkit-border-image: -webkit-linear-gradient(left, DarkGreen, #64AB4C);
-      	border-image: linear-gradient(to right, DarkGreen, #64AB4C);
-      	border-image-slice: 1;
-      	margin-top: 8px;
-      	padding-bottom: 8px;
-      	font: 67.5% "Lucida Sans Unicode", "Bitstream Vera Sans", "Trebuchet Unicode MS", "Lucida Grande", Verdana, Helvetica, sans-serif;
-      	font-size: 14px;
-   	}
-   
-   	.caret {
-      	margin-left: 10px
-   	}
-   	
    	#mainImage {
    		margin-right: 30px;
    		padding : 10px;
@@ -46,45 +28,7 @@
    	}
 </style>
 
-<script type="text/javascript">
-   	$(function() {
-   		//================================ menu ================================
-   		
-   		 $('#myNavbar>ul li').click(function() {
-    		var scrollPosition = $($(this).attr('data-target')).offset().top;
-    		$('body, html').animate({
-    			scrollTop: scrollPosition
-    		}, 500); //animate
-		}); //click
-      	$('#menuSpan .icon-bar').css('background', 'green');
-      
-      	$('#myNavbar li a').css({
-         	'color' : 'black',
-         	'font-weight' : 'bold'
-      	}); //css
-      
-      	$('#myNavbar li a').hover(function() { 
-         	//��� �޴��� ���콺 �÷��� ��
-           	$(this).css({
-              	'color' : 'green',
-              	'background' : 'rgba(242, 242, 242, 0.5)'
-           	}); //css
-         
-      	}, function() {
-         	$(this).css({
-              	'color' : 'black',
-              	'background' : 'white'
-           	}); //css
-      	}); //hover
-      
-      	$('.dropdown-menu').css({
-         	'margin-top' : '9px',
-         	'min-width' : '12px',
-         	'border-radius': '2px'
-      	}); //css
-   	}); //ready
-</script>
-
+<script type="text/javascript" src="js/nav.js"></script>
 </head>
 <body>
    	<nav class="navbar navbar-defalt navbar-fixed-top" style="background-color: #fff">
@@ -96,7 +40,7 @@
 	               		<span class="icon-bar" style="margin-top: 2px"></span>
 	               		<span class="icon-bar"></span>
             		</button>
-            		<img src="img/main_logo.png" width="150">
+            		<a href="index.jsp"><img src="img/main_logo2.png" width="150" height="47" style="background-color: #FFFAE5"></a>
          		</div> <!-- navbar-header -->
          		
 	         	<div class="collapse navbar-collapse navbar-right" id="myNavbar" style="margin-top: 15px">
@@ -113,8 +57,8 @@
 	            	
 	            	<ul class="nav navbar-nav navbar-right">
 	               		<li class="dropdown">
-		                  	<a class="dropdown-toggle" data-toggle="dropdown" href="#">
-		                     	<span class="glyphicon glyphicon-user text-success">
+		                  	<a class="dropdown-toggle" data-toggle="dropdown" href="#" id="userMenu">
+		                     	<span class="glyphicon glyphicon-user white">
 		                     		<span class="caret" style="margin-left: 10px"></span>
 		                     	</span>
 		                  	</a>
@@ -140,4 +84,5 @@
 		<a href="index.jsp">HOME</a>
     </div>
 </body>
+
 </html>

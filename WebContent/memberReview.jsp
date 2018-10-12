@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -72,7 +72,7 @@
 	</nav>
 
    	<div style="height: 150px"></div>
-	<h1 align="center">My Review</h1><br><br>
+	<h1 align="center">${param.id}'s Review</h1><br><br>
 	
 	<c:forEach items="${lvo.list}" var="rList">
 		
@@ -80,10 +80,7 @@
 				<hr>
 				${rList.date}<br>
 				<a href="checkReview.do?num=${rList.reviewNum}"><img src="${rList.mainImage}" width="350" height="200"></a><br><br>
-				<a href="checkReview.do?num=${rList.reviewNum}">${rList.title}</a>&nbsp;&nbsp;
-
-				<a href="getreview.do?reviewNum=${rList.reviewNum}&&id=${rList.id}"><input type="button" value="수정"></a>&nbsp;
-				<a href="delete.do?reviewNum=${rList.reviewNum}&&id=${rList.id}"><input type="button" value="삭제"></a>
+				<a href="checkReview.do?num=${rList.reviewNum}">${rList.title}</a>
 				<hr><br><br>
 			</div>
 		
@@ -95,7 +92,7 @@
 		<c:set var="pb" value="${lvo.pb}"></c:set>
 		<c:if test="${pb.previousPageGroup}">
 			<ul class="pagination pagination-sm">
-	    		<li><a href="myreviews.do?id=${sessionScope.vo.id}&&pageNo=${pb.startPageOfPageGroup-1}">&#60;</a></li>
+	    		<li><a href="memberreview.do?id=${sessionScope.vo.id}&&pageNo=${pb.startPageOfPageGroup-1}">&#60;</a></li>
 	  		</ul>
 		</c:if>
 		
@@ -103,7 +100,7 @@
 			<c:choose>
 				<c:when test="${pb.nowPage!=i}">
 					<ul class="pagination">
-		    			<li><a href="myreviews.do?id=${sessionScope.vo.id}&&pageNo=${i}">${i}</a></li>
+		    			<li><a href="memberreview.do?id=${sessionScope.vo.id}&&pageNo=${i}">${i}</a></li>
 		    		</ul>
 				</c:when>
 				<c:otherwise>
@@ -117,7 +114,7 @@
 		
 		<c:if test="${pb.nextPageGroup}">
 			<ul class="pagination pagination-sm">
-	    		<li><a href="myreviews.do?id=${sessionScope.vo.id}&&pageNo=${pb.endPageOfPageGroup+1}">&#62;</a></li>
+	    		<li><a href="memberreview.do?id=${sessionScope.vo.id}&&pageNo=${pb.endPageOfPageGroup+1}">&#62;</a></li>
 	  		</ul>
 		</c:if>	
 	</div>

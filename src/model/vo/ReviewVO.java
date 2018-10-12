@@ -25,6 +25,17 @@ public class ReviewVO {
 		this.city = city;
 		this.content = content;
 	}
+	
+	public ReviewVO(int reviewNum,String title, String id,String location, String city, String content, String date) {
+		this.reviewNum = reviewNum;
+		this.title = title;
+		this.location = location;
+		this.city = city;
+		this.content = content;
+		this.id = id;
+		this.content = content;
+		this.date = date;
+	}
 
 
 	// 占쏙옙占쏙옙占쏙옙占쏙옙占� 占쌩곤옙..
@@ -149,9 +160,6 @@ public class ReviewVO {
 	public void setImages(ArrayList<String> images) {
 		this.images = images;
 	}
-
-
-
 
 	public ReviewVO(int reviewNum, String title, String id, String location, String city, String content, String date,
 			int like, ArrayList<String> tags, ArrayList<CommentVO> comments, ArrayList<String> images) {
