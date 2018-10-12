@@ -321,6 +321,60 @@ public class TourDao {
 		System.out.println(flag+"확인");
 		return flag;
 	}
+	
+	public void addComment(int reviewNum, String id, String content) throws SQLException{
+		Connection conn= null;
+		PreparedStatement ps =null;
+		try {
+			conn=getConnect();
+			ps=conn.prepareStatement(ReviewStringQuery.ADD_COMMENT);
+			ps.setInt(1, reviewNum);
+			ps.setString(2, id);
+			ps.setString(3, content);
+			int row=ps.executeUpdate();
+			System.out.println(row + " row addComment ok..");
+		}finally {
+			closeAll(ps, conn);
+		}
+		
+		
+		
+	}
+	public void delComment(int reviewNum, String id, String content) throws SQLException{
+		Connection conn= null;
+		PreparedStatement ps =null;
+		try {
+			conn=getConnect();
+			ps=conn.prepareStatement(ReviewStringQuery.DEL_COMMENT);
+			ps.setInt(1, reviewNum);
+			ps.setString(2, id);
+			ps.setString(3, content);
+			int row=ps.executeUpdate();
+			System.out.println(row + " row delComment ok..");
+		}finally {
+			closeAll(ps, conn);
+		}
+		
+		
+		
+	}
+	
+	public ArrayList<CommentVO> getComments(int review_num, Connection conn) throws SQLException { // get review
+		// comments
+		ArrayList<CommentVO> clist = new ArrayList<CommentVO>();
+		PreparedStatement ps = conn.prepareStatement(ReviewStringQuery.GET_REVIEW_COMMENTS);
+		ps.setInt(1, review_num);
+		ResultSet rs = ps.executeQuery();
+		while (rs.next()) {
+		clist.add(new CommentVO(rs.getString("id"), rs.getString("content")));
+		}
+		if (rs != null)
+		rs.close();
+		if (ps != null)
+		ps.close();
+		return clist;
+	}
+	
 /*	public ArrayList<ReviewVO> getBestReviewByLocation(String location) throws SQLException {
 		Connection conn = null;
 		PreparedStatement ps = null;
@@ -974,21 +1028,7 @@ public class TourDao {
 		return ilist;
 	}
 
-	public ArrayList<CommentVO> getComments(int review_num, Connection conn) throws SQLException { // get review
-																									// comments
-		ArrayList<CommentVO> clist = new ArrayList<CommentVO>();
-		PreparedStatement ps = conn.prepareStatement(ReviewStringQuery.GET_REVIEW_COMMENTS);
-		ps.setInt(1, review_num);
-		ResultSet rs = ps.executeQuery();
-		while (rs.next()) {
-			clist.add(new CommentVO(rs.getString("id"), rs.getString("content")));
-		}
-		if (rs != null)
-			rs.close();
-		if (ps != null)
-			ps.close();
-		return clist;
-	}
+
 
 	public void writeReviewImage(int reviewNum, ArrayList<String> imgList) throws SQLException {
 		Connection conn = null;

@@ -1,7 +1,28 @@
-body {
-  background-color: #333;
+/* Header */
+.contents {
+   padding-top: 80px;
 }
 
+#header {
+   border-bottom: 7px solid transparent;
+   -moz-border-imag: -moz-linear-gradient(left, DarkGreen, #64AB4C);
+    #CEF6EC #A4A4A4 #BDBDBD #AEB404
+  -webkit-border-image: -webkit-linear-gradient(left, DarkGreen, #64AB4C);
+   border-image: linear-gradient(to right, #f4ecc8,#F5EED2);
+   border-image-slice: 1;
+   margin-top: 8px;
+   padding-bottom: 8px;
+   font: 67.5% "Lucida Sans Unicode", "Bitstream Vera Sans",
+      "Trebuchet Unicode MS", "Lucida Grande", Verdana, Helvetica,
+      sans-serif;
+   font-size: 14px;
+}
+
+.caret {
+   margin-left: 10px
+}
+
+/* checkbox */
 .choice-list {
   margin: 50px auto;
   width: 440px;
@@ -20,7 +41,7 @@ body {
   border-radius: 100px;
   display: block;
   background-color: rgba(0, 0, 0, 0.25);
-  margin: 20px;
+  margin: 15px;
   -moz-transition: all 0.15s cubic-bezier(0.5, 0, 0, 1.5);
   -o-transition: all 0.15s cubic-bezier(0.5, 0, 0, 1.5);
   -webkit-transition: all 0.15s cubic-bezier(0.5, 0, 0, 1.5);
@@ -166,10 +187,10 @@ em {font-style: italic;}
 /* General
 ***********************/
 body {
-	background: #42a2ce;
+	
 	font-size: 14px;
 	font-family: Helvetica, 'Arial', sans-serif;
-	-webkit-font-smoothing: antialiased;
+	/* -webkit-font-smoothing: antialiased; */
 	text-rendering: optimizeLegibility;
 	height: auto;
 }
@@ -178,9 +199,10 @@ a {
 	text-decoration: none;
 }
 
+
 h3 {
 	margin: 0 0 8px;
-	color: #fff;
+	color: #555;
 	font: normal 24px Geogrotesque-semibold, Helvetica, Arial, sans-serif;
 	text-shadow: 0 1px 0 #2F4C63;
 }
