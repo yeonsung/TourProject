@@ -161,9 +161,6 @@ public class ReviewVO {
 		this.images = images;
 	}
 
-
-
-
 	public ReviewVO(int reviewNum, String title, String id, String location, String city, String content, String date,
 			int like, ArrayList<String> tags, ArrayList<CommentVO> comments, ArrayList<String> images) {
 		super();

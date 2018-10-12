@@ -4,13 +4,17 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<%-- <% String ctx = request.getContextPath();    //콘텍스트명 얻어오기. %>	 --%>
-
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 <title>Insert title here</title>
 <style>
 	::-webkit-scrollbar {
@@ -97,57 +101,33 @@
 		    target.appendChild(opt);
 		} 
 	}
-/* $('frm').submit(function(){
-	 var msg = document.getElementById('smarteditor').value; 
-	alert(msg);
-	$('frm').submit();}
-);  */
-	
-	var oEditors = [];
-	
-	$(function(){
-		var flag = "${flag}";
-		/* $('#myNavbar>ul li').click(function() {
-			var scrollPosition = $($(this).attr('data-target')).offset().top;
-			$('body, html').animate({
-				scrollTop : scrollPosition
-			}, 500); //animate
-		}); //click */
-		
-		nhn.husky.EZCreator.createInIFrame({
-			oAppRef: oEditors,
-			elPlaceHolder: "smarteditor", //textarea에서 지정한 id와 일치해야 합니다. 
-			sSkinURI: "smarteditor/SmartEditor2Skin.html",  
-			htParams : {
-				// 툴바 사용 여부 (true:사용/ false:사용하지 않음)
-				bUseToolbar : true,             
-				// 입력창 크기 조절바 사용 여부 (true:사용/ false:사용하지 않음)
-				bUseVerticalResizer : true,     
-				// 모드 탭(Editor | HTML | TEXT) 사용 여부 (true:사용/ false:사용하지 않음)
-				bUseModeChanger : true,         
-				fOnBeforeUnload : function(){ }
-			}, 
-			fOnAppLoad : function(){
-				if(flag!="true")
-				//기존 저장된 내용의 text 내용을 에디터상에 뿌려주고자 할때 사용
-				oEditors.getById["smarteditor"].exec("PASTE_HTML", ["여기에 내용을 써주세요."]);
-			},
-			fCreator: "createSEditor2"
-		});
-		
-		//저장버튼 클릭시 form 전송
-		$("#savebutton").click(function(){
-			oEditors.getById["smarteditor"].exec("UPDATE_CONTENTS_FIELD", []);
-			for(i=1; i<=count;i++){
-				var b = $('#img'+i+'').attr('src');
-				$('form').append("<input type='hidden' name='img"+i+"' value='"+b+"'>")
-			}
-			$('form').append("<input type='hidden' name='count' value='"+count+"'>")
-			$('form').submit();
-		});  
-		
-		//수정버튼 클릭시 form 전송
-		$("#updatebutton").click(function(){
+   
+var oEditors = [];
+$(function(){
+      nhn.husky.EZCreator.createInIFrame({
+          oAppRef: oEditors,
+          elPlaceHolder: "smarteditor", //textarea에서 지정한 id와 일치해야 합니다. 
+          //SmartEditor2Skin.html 파일이 존재하는 경로
+          sSkinURI: "smarteditor/SmartEditor2Skin.html",  
+          htParams : {
+              // 툴바 사용 여부 (true:사용/ false:사용하지 않음)
+              bUseToolbar : true,             
+              // 입력창 크기 조절바 사용 여부 (true:사용/ false:사용하지 않음)
+              bUseVerticalResizer : true,     
+              // 모드 탭(Editor | HTML | TEXT) 사용 여부 (true:사용/ false:사용하지 않음)
+              bUseModeChanger : true,         
+              fOnBeforeUnload : function(){
+                   
+              }
+          }, 
+          fOnAppLoad : function(){
+              //기존 저장된 내용의 text 내용을 에디터상에 뿌려주고자 할때 사용
+              oEditors.getById["smarteditor"].exec("PASTE_HTML", ["여기에 내용을 써주세요."]);
+          },
+          fCreator: "createSEditor2"
+      });
+     
+     $("#updatebutton").click(function(){
 			oEditors.getById["smarteditor"].exec("UPDATE_CONTENTS_FIELD", []);
 			for(i=1; i<=count;i++){
 				var b = $('#img'+i+'').attr('src');
@@ -157,18 +137,49 @@
 			$('form').submit();
 		});
 	});
-	
-	var count = 0;
-	
-	function pasteHTML(filepath){
-		var id = '${sessionScope.vo.id}';
-		count++;
-		var sHTML = '<img src="<%=request.getContextPath()%>/upload/'+id+'/'+filepath+'" width="265px" id="img'+count+'"><br>';
-		console.log(sHTML);
-      	$('#imageupload').append(sHTML);
-	}
-</script>
-	<nav class="navbar navbar-defalt navbar-fixed-top" style="background-color: #fff">
+   
+      //저장버튼 클릭시 form 전송
+
+      $("#savebutton").click(function(){
+          oEditors.getById["smarteditor"].exec("UPDATE_CONTENTS_FIELD", []);
+/*           var b = $("#imageupload").find('img').attr('src');*/
+         for(i=1; i<=count;i++){
+            var b = $('#img'+i+'').attr('src');
+            $('form').append("<input type='hidden' name='img"+i+"' value='"+b+"'>")
+             }
+        $('form').append("<input type='hidden' name='count' value='"+count+"'>")
+        
+      if(count>0)
+            $('form').submit();
+      else{
+          alert("사진을 최소 1장이상 올려주세요.");
+         return false;
+         }
+      });      
+})
+
+var count = 0;
+function pasteHTML(filepath){
+   var id = '${sessionScope.vo.id}';
+   count++;
+    var sHTML = '<img src="<%=request.getContextPath()%>/upload/'+id+'/'+filepath+'" width="265px" id="img'+count+'">'; 
+   var imgDiv = "<div class='item'>"+sHTML+"</div>";
+   $('#xxxx').append(imgDiv);   
+   $('#xxxx div:eq(0)').addClass('active');
+   
+   var ss = '<li data-target="#myCarousel" data-slide-to="'+(count-1)+'"></li>';
+   $('#yyyy').append(ss);
+   $('#yyyy li:eq(0)').addClass('active');
+}
+//    $('#imageupload').append(sHTML);
+   
+   
+ 
+   /* oEditors.getById["smarteditors"].exec("PASTE_HTML", [sHTML]); */
+
+
+</script>   
+<nav class="navbar navbar-defalt navbar-fixed-top" style="background-color: #fff">
       	<div id="header">
       		<div class="container">
          		<div class="navbar-header" style="margin-top: 15px">
@@ -224,7 +235,8 @@
 		</div> <!-- header -->
     	<div id="line"></div>
 	</nav>
-	<form action="" method="post" name="frm">
+<h1 align="center"> 글 작성 </h1>
+<form action="" method="post" name="frm">
 	<c:choose>
 		<c:when test="${flag}">
 			<h1 align="center" style="margin-top: 150px; margin-bottom: 50px">글 수정</h1>
@@ -240,58 +252,43 @@
 			</script>
 		</c:otherwise>
 	</c:choose>
-		<table border="1" align="center" width="80%" style="table-layout: fixed;">
-			<tr>
-				<th align="center">작성자</th>
-				<td><input type="text" name="id" value="${sessionScope.vo.id}" readonly="readonly" style="width: 99%;"></td>
-				<th>지역</th>
-				<td>
-					<select id="selectBox" name="loaction" style="width: 180px;" onchange="categoryChange(this)" required="required">
-						<option value="0">광역시/도</option><!-- selected="selected" -->
-						<option value="서울">서울특별시</option>
-						<option value="인천">인천광역시</option>
-						<option value="대전">대전광역시</option>
-						<option value="대구">대구광역시</option>
-						<option value="광주">광주광역시</option>
-						<option value="울산">울산광역시</option>
-						<option value="부산">부산광역시</option>
-						<option value="경기도">경기도</option>
-						<option value="강원도">강원도</option>
-						<option value="10">세종특별자치시</option>
-						<option value="충청북도">충청북도</option>
-						<option value="충청남도">충청남도</option>
-						<option value="전라북도">전라북도</option>
-						<option value="전라남도">전라남도</option>
-						<option value="경상북도">경상북도</option>
-						<option value="경상남도">경상남도</option>
-						<option value="제주도">제주특별자치도</option>
-					</select>
-				 
-					<%-- <c:choose>
-						<c:when test="${flag}">
-							<script type="text/javascript">
-								var x = "${rvo.location}";
-								var sel = document.getElementById("selectBox");
-								for(i=0; i<sel.options.length; i++) {
-								    if(sel.options[i].value==x) {
-								    	sel.value=x;
-								        break;
-								    }
-								}
-							</script>
-						</c:when>
-					</c:choose> --%>
-				</td>
-				<td align="center">
-					<select id="location2" name="city" required="required">
-							<option>광역시/도를 먼저 선택해주세요.</option>
-					</select>
-				</td>
-			</tr>
-			<tr>
-				<th>제목</th>
-				<td width="80px" colspan="4">
-					<c:choose>
+  <table border="1" align="center" width="80%" style="table-layout:fixed;">
+   <tr>
+      <th align="center">작성자</th>
+      <td><input type="text" name="id" value="${sessionScope.vo.id}" readonly="readonly" style="width:99%;"></td>
+      <th>지역</th>
+      <td>   
+         <select id="selectBox" name="loaction" style="width:180px;" onchange="categoryChange(this)" required="required">
+            <option value="0">광역시/도</option>
+               <option value="서울">서울특별시</option>
+               <option value="인천">인천광역시</option>
+               <option value="대전">대전광역시</option>
+               <option value="대구">대구광역시</option>
+               <option value="광주">광주광역시</option>
+               <option value="울산">울산광역시</option>
+               <option value="부산">부산광역시</option>
+               <option value="경기도">경기도</option>
+               <option value="강원도">강원도</option>
+               <option value="10">세종특별자치시</option>
+               <option value="충청북도">충청북도</option>
+               <option value="충청남도">충청남도</option>
+               <option value="전라북도">전라북도</option>
+               <option value="전라남도">전라남도</option>
+               <option value="경상북도">경상북도</option>
+               <option value="경상남도">경상남도</option>
+               <option value="제주도">제주특별자치도</option>
+              </select>
+        </td>
+        <td align="center">    
+              <select id="location2" name="city" required="required">
+                 <option>광역시/도를 먼저 선택해주세요.</option>   
+              </select>
+        </td>
+   </tr>
+   <tr>
+      <th>제목</th>
+      <td width="80px" colspan="4"><input type="text" name="title" required="required" style="width:99%;">
+      <c:choose>
 						<c:when test="${flag}">
 							<input type="text" name="title" required="required" style="width: 99%;" value="${rvo.title}">
 						</c:when>
@@ -299,32 +296,53 @@
 							<input type="text" name="title" required="required" style="width: 99%;">
 						</c:otherwise>
 					</c:choose>
-				</td>
-			</tr>
-			<tr>
-				<th>카테고리</th>
-				<td colspan="4"><input type="checkbox" name="category" value="맛집">먹거리&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					<input type="checkbox" name="category" value="자연">자연&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					<input type="checkbox" name="category" value="사진">사진
-				</td>
-			</tr>
-			<tr>
-				<td colspan="4"><textarea id="smarteditor" rows="30" cols="40" name="smarteditor" style="width: 99%;">
-					<c:choose>
+       </td>
+   </tr>
+   <tr>
+      <th>카테고리</th>
+      <td colspan="4">
+      <input type="checkbox" name="category" value="food">먹거리&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <input type="checkbox" name="category" value="nature">자연&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <input type="checkbox" name="category" value="picture">사진
+      </td>
+   </tr>
+   <tr>
+      <td colspan="4"><textarea id="smarteditor" rows="30" cols="40" name="smarteditor" style="width:99%;">
+          <c:choose>
 						<c:when test="${flag}">
 							${rvo.content}
 						</c:when>
 					</c:choose>
-				</textarea></td>
-				<td><div style="overflow-y: auto; overflow-x: hidden; width: 270px; height: 520px;" id="imageupload"></div></td>
-			</tr>
-		</table>
-
-		<table width="90%">
-			<tr>
-				<td align="right">
-					<input type="button" value="취소">
-					<c:choose>
+        </textarea></td>
+      <td>
+      <div class="container" style="overflow-y:auto; overflow-x:hidden; width:270px; height:520px;" id="imageupload">
+      
+            <div id="myCarousel" class="carousel slide" data-ride="carousel">
+               <ol class="carousel-indicators" id="yyyy">
+                  
+               </ol>
+               <div class="carousel-inner" id="xxxx">
+                  
+               </div>
+               <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+                  <span class="glyphicon glyphicon-chevron-left"></span>
+                  <span class="sr-only">Previous</span>
+                </a>
+                <a class="right carousel-control" href="#myCarousel" data-slide="next">
+                  <span class="glyphicon glyphicon-chevron-right"></span>
+                  <span class="sr-only">Next</span>
+                </a>
+            </div>
+      </div>
+      </td>
+   </tr>
+</table>
+   
+<table width="90%">
+   <tr>
+      <td align="right">
+         <input type="button" value="취소">
+        <c:choose>
 						<c:when test="${flag}">
 							<input type="submit" id="updatebutton" value="수정">
 						</c:when>
@@ -332,9 +350,9 @@
 							<input type="submit" id="savebutton" value="작성">
 						</c:otherwise>
 					</c:choose>
-				 </td>
-			</tr>
-		</table>
-	</form>
+      </td>
+   </tr>   
+</table>
+</form>
 </body>
 </html>

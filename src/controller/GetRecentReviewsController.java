@@ -14,14 +14,10 @@ public class GetRecentReviewsController implements Controller {
 
 	@Override
 	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		String tag;
-		if(request.getParameter("tag").equals(null))
-			 tag = "맛집";
-		tag = request.getParameter("tag");
-		String pageNo = request.getParameter("PageNo");
-		ArrayList<ReviewVO> rlist = ReviewService.getInstance().getRecentReviews(tag);
+		String pageNo = request.getParameter("pageNo");
+		ListVO rlist = ReviewService.getInstance().getRecentReviews(pageNo);
 		request.setAttribute("rlist", rlist);
-		System.out.println("rlist : "+rlist);
+		request.setAttribute("count", Integer.parseInt(pageNo)+1);
 		return new ModelAndView("tabResultIndex.jsp");
 	}
 
