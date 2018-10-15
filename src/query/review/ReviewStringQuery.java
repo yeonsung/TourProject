@@ -9,6 +9,10 @@ public interface ReviewStringQuery {
 	String SEARCH_REVIEW_LIKE = "select likes from review where review_num=?"; // 醫뗭븘�슂�닔 由ы꽩?
 	String INSERT_REVIEW = "INSERT INTO review(review_num, location, city, title, content, date_writing, id)"
 			+ "VALUES(review_seq.nextVal, ?, ?, ?, ?, sysdate, ?)";
+ 	String INSERT_REVIEWIMAGE = "INSERT INTO review_image(review_num, review_image) VALUES(?, ?)";
+    String INSERT_TAG = "INSERT INTO tag(review_num, word) VALUES(?, ?)";
+
+	
 	String CURRENT_NO = "SELECT review_seq.currVal FROM dual";
 	String GET_IMAGE_LIST = "select img from tourspot where city=?";
 	String SEARCH_BY_TAG = "SELECT review_num,location,city,title,content,date_writing,likes,id "
